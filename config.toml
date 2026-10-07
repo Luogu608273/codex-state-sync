@@ -12,6 +12,8 @@ sansFontSize = 14
 codeFontSize = 13
 ambient-suggestions-enabled = true
 appearanceTheme = "dark"
+selected-avatar-id = "pet_6ac477bf5cb881919fb12d47bd7774eb"
+avatar-overlay-pet-visible = true
 
 [marketplaces.openai-bundled]
 source_type = "local"
@@ -145,6 +147,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects.'c:\users\605\documents\codex\2026-09-29\referenced-chatgpt-conversation-this-is-an']
+trust_level = "trusted"
+
+[projects.'c:\users\605\documents\codex']
 trust_level = "trusted"
 
 [features]
