@@ -12,7 +12,6 @@ sansFontSize = 14
 codeFontSize = 13
 ambient-suggestions-enabled = true
 appearanceTheme = "dark"
-selected-avatar-id = "pet_6ac477bf5cb881919fb12d47bd7774eb"
 avatar-overlay-pet-visible = false
 
 [marketplaces.openai-bundled]
