@@ -1,28 +1,29 @@
-# FileSync: only configuration, instructions and conversations
+# FileSync: codex v2 begin
 /*
 !/.gitignore
 !/.gitattributes
-!/*.toml
-!/*.md
-!/*.yaml
-!/*.yml
-!/*.ini
-!/*config*.json
+!/AGENTS.md
+!/config.toml
 !/hooks.json
 !/history.jsonl
 !/session_index.jsonl
 !/sessions/
 !/archived_sessions/
+!/attachments/
 !/rules/
 !/skills/
 !/prompts/
 !/instructions/
 !/agents/
 !/profiles/
-!/config/
 !/hooks/
-!/memories/
+!/.filesync-memories/
+/skills/.system/
+**/.git/
+**/.system/
 auth.json
+cap_sid
 *.sqlite
-*.sqlite-shm
 *.sqlite-wal
+*.sqlite-shm
+# FileSync: codex v2 end
