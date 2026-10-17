@@ -80,7 +80,7 @@ BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
 BROWSER_USE_CODEX_APP_VERSION = "26.1013.40934"
 NODE_REPL_TRUSTED_SERVICES = '{"browser":"C:/Users/605/.codex/plugins/cache/openai-bundled/browser/26.1013.40934/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_NATIVE_PIPE = "1"
-SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-a07fbf9d-dee5-4c8a-aec7-5da710ee4999'
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-a84c4516-f379-4093-940f-87fcc5109bb3'
 CODEX_CLI_PATH = 'C:\Users\605\AppData\Local\OpenAI\Codex\bin\896a0166b774037a\codex.exe'
 NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "CODEX_WINDOWS_REGISTERED_CORE"
 
