@@ -154,3 +154,10 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$HOME\\Documents\\FileS
 ```powershell
 & "$HOME\Documents\FileSync\sync.cmd" -Target Codex -Action RestoreChats
 ```
+
+
+## 驱动与运行库备份排除
+
+文档/Codex 中 `*/data/repairs/*/previous-*-driver/` 和 `*/data/repairs/*/runtime-数字*/` 属于可重新安装的驱动、运行库备份，现按目录排除；本地文件保留，修复记录、脚本和普通项目文件继续同步。超过 100 MiB 安装包仍按原规则跳过。这些排除同时用于上传和下载前的状态检查，不受强制暂存普通文档的参数影响。
+
+只停止跟踪不会移除旧提交中的文件。清理历史后，其他电脑不要直接合并旧历史，否则可能重新带回大对象；先备份未上传文件，再重新克隆清理后的文档仓库，并复制自己的新文件。`.codex` 仓库不受这次文档历史清理影响。

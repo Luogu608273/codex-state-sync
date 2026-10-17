@@ -70,6 +70,7 @@ function Require-Repo {
 }
 
 function Save-EmptyDirs {
+    param([string[]]$Excluded = @())
     $queue = New-Object 'System.Collections.Generic.Queue[string]'
     $empty = New-Object 'System.Collections.Generic.List[string]'
     $queue.Enqueue($script:Root)
@@ -83,7 +84,10 @@ function Save-EmptyDirs {
                 continue
             }
             if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw "目录内有链接：$($item.FullName)。请自行确定如何同步。" }
-            if ($item.PSIsContainer) { $queue.Enqueue($item.FullName) }
+            if ($item.PSIsContainer) {
+                $relative = $item.FullName.Substring($script:Root.Length + 1).Replace('\', '/')
+                if (-not (Test-DocumentsExcludedPath -Path $relative -Excluded $Excluded)) { $queue.Enqueue($item.FullName) }
+            }
         }
     }
     $json = ConvertTo-Json -InputObject @($empty | Sort-Object) -Compress
@@ -101,19 +105,31 @@ function Restore-EmptyDirs {
     }
 }
 
-function Get-LargeInstallers {
+function Get-DocumentsExclusions {
     $extensions = @('.msix', '.misx', '.msixbundle', '.appx', '.appxbundle', '.exe', '.msi', '.msp')
     $queue = New-Object 'System.Collections.Generic.Queue[string]'
     $queue.Enqueue($script:Root)
     while ($queue.Count) {
         foreach ($item in @(Get-ChildItem -LiteralPath $queue.Dequeue() -Force)) {
             if ($item.Name -eq '.git' -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) { continue }
-            if ($item.PSIsContainer) { $queue.Enqueue($item.FullName) }
+            if ($item.PSIsContainer) {
+                $relative = $item.FullName.Substring($script:Root.Length + 1).Replace('\', '/')
+                if ($relative -match '(^|/)data/repairs/[^/]+/(previous-[^/]+-driver|runtime-[0-9][^/]*)$') { $relative; continue }
+                $queue.Enqueue($item.FullName)
+            }
             elseif ($item.Length -gt 100MB -and $item.Extension.ToLowerInvariant() -in $extensions) {
                 $item.FullName.Substring($script:Root.Length + 1).Replace('\', '/')
             }
         }
     }
+}
+
+function Test-DocumentsExcludedPath {
+    param([string]$Path, [string[]]$Excluded)
+    foreach ($entry in $Excluded) {
+        if ($Path -ieq $entry -or $Path.StartsWith($entry.TrimEnd('/') + '/', [StringComparison]::OrdinalIgnoreCase)) { return $true }
+    }
+    return $false
 }
 
 function Update-InstallerIgnore {
@@ -125,7 +141,7 @@ function Update-InstallerIgnore {
     $text = [regex]::Replace($old, $pattern, '')
     if ($Paths.Count) {
         if ($text.Length -and -not $text.EndsWith("`n")) { $text += "`n" }
-        $lines = @('# FileSync: large installers begin', '# Installers larger than 100 MiB; local files are retained')
+        $lines = @('# FileSync: large installers begin', '# Large installers and repair driver/runtime backups; local files are retained')
         foreach ($path in @($Paths | Sort-Object)) {
             $lines += '/' + [regex]::Replace($path, '([*?\[\]#! ])', '\$1')
         }
@@ -147,19 +163,19 @@ function Save-Changes {
         Export-MemorySnapshot
         Export-FileSyncTool
     } else {
-        $installers = @(Get-LargeInstallers)
+        $installers = @(Get-DocumentsExclusions)
         Update-InstallerIgnore -Paths $installers
         foreach ($path in $installers) {
-            Write-Host ("跳过大安装包（保留本地文件）：" + $path) -ForegroundColor Yellow
-            Invoke-Git @('rm', '--cached', '--ignore-unmatch', '--', $path)
+            Write-Host ("跳过安装包/驱动或运行库备份（保留本地文件）：" + $path) -ForegroundColor Yellow
+            Invoke-Git @('rm', '-r', '--cached', '--ignore-unmatch', '--', $path)
         }
-        Save-EmptyDirs
+        Save-EmptyDirs -Excluded $installers
     }
     $listArgs = @('ls-files', '--cached', '--others')
     if ($Target -eq 'Codex') { $listArgs += '--exclude-standard' }
     $paths = @(Invoke-Git $listArgs -Capture)
     foreach ($path in $paths) {
-        if ($Target -eq 'Documents' -and $path -in $installers) { continue }
+        if ($Target -eq 'Documents' -and (Test-DocumentsExcludedPath -Path $path -Excluded $installers)) { continue }
         $file = Join-Path $script:Root $path
         if ((Test-Path -LiteralPath $file -PathType Leaf) -and (Get-Item -LiteralPath $file -Force).Length -gt 100MB) { throw "文件超过 GitHub 普通 Git 的 100 MiB 限制：$path。请自行配置 Git LFS。" }
     }
@@ -351,7 +367,7 @@ try {
             $statusArgs = @('status', '--porcelain')
             if ($Target -eq 'Documents') {
                 $statusArgs += @('--ignored', '--', '.')
-                foreach ($path in @(Get-LargeInstallers)) { $statusArgs += ':(top,literal,exclude)' + $path }
+                foreach ($path in @(Get-DocumentsExclusions)) { $statusArgs += ':(top,literal,exclude)' + $path }
             }
             $dirty = @(Invoke-Git $statusArgs -Capture)
             if ($dirty.Count) { throw '目录内有未提交的修改，请先上传或自行处理，再下载。' }
