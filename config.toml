@@ -4,7 +4,7 @@ service_tier = "default"
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
 
-notify = [ "C:\\Users\\605\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\a9ba6825a525118c\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
+notify = [ "C:\\Users\\605\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\78fb63cda1a9e2b2\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
 [desktop]
 followUpQueueMode = "steer"
 conversationDetailMode = "STEPS_PROSE"
@@ -57,28 +57,31 @@ enabled = true
 [plugins."computer-use@openai-bundled"]
 enabled = true
 
+[plugins."code-review@openai-bundled"]
+enabled = true
+
 [mcp_servers.node_repl]
 args = []
-command = 'C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\a9ba6825a525118c\bin\node_repl.exe'
+command = 'C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node_repl.exe'
 env_vars = ["CODEX_WINDOWS_REGISTERED_CORE"]
 startup_timeout_sec = 120
 
 [mcp_servers.node_repl.env]
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = 'C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\a9ba6825a525118c\bin\node_modules'
-NODE_REPL_NODE_PATH = 'C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\a9ba6825a525118c\bin\node.exe'
-NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\605\.codex;C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\a9ba6825a525118c\bin\node_modules'
+NODE_REPL_NODE_MODULE_DIRS = 'C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node_modules'
+NODE_REPL_NODE_PATH = 'C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node.exe'
+NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\605\.codex;C:\Users\605\AppData\Local\OpenAI\Codex\runtimes\cua_node\78fb63cda1a9e2b2\bin\node_modules'
 CODEX_HOME = 'C:\Users\605\.codex'
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
 BROWSER_USE_TINYSKY_ENABLED = "1"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.1007.71326"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"C:/Users/605/.codex/plugins/cache/openai-bundled/browser/26.1007.71326/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.1013.40934"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"C:/Users/605/.codex/plugins/cache/openai-bundled/browser/26.1013.40934/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_NATIVE_PIPE = "1"
-SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-4ef39d39-d209-4e59-9859-ed39ffeac058'
-CODEX_CLI_PATH = 'C:\Users\605\AppData\Local\OpenAI\Codex\bin\9614f1d9b40d9c4f\codex.exe'
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-a07fbf9d-dee5-4c8a-aec7-5da710ee4999'
+CODEX_CLI_PATH = 'C:\Users\605\AppData\Local\OpenAI\Codex\bin\896a0166b774037a\codex.exe'
 NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "CODEX_WINDOWS_REGISTERED_CORE"
 
 [windows]
