@@ -235,7 +235,7 @@ try {
         Write-Host '5 = 启用定时同步，6 = 关闭定时同步'
         Write-Host '7 = 升级/准备 .codex 快照，8 = 恢复记忆快照'
         Write-Host '9 = 首次接入 .codex（先备份，以远程为准）'
-        Write-Host '10 = 恢复聊天索引和原始标题，0 = 退出'
+        Write-Host '10 = 恢复聊天正文、索引和原始标题，0 = 退出'
         $choice = Read-Host '选择（默认 1）'
         if ($choice -eq '0') { exit 2 }
         if ($choice -in @('5', '6')) {
@@ -317,7 +317,7 @@ try {
         $codexRunning = [bool](Get-Process -Name codex -ErrorAction SilentlyContinue)
     }
     if ($Target -eq 'Codex' -and $Action -in @('Pull', 'RestoreMemory', 'FirstConnect', 'RestoreChats') -and $codexRunning) {
-        throw '请先退出 Codex，再下载、首次接入或恢复记忆。'
+        throw '请先退出 Codex，再下载、首次接入、恢复记忆或修复正文索引。'
     }
     if ($Target -eq 'Codex' -and $Action -eq 'Sync' -and ($NonInteractive -or $codexRunning)) {
         $Action = 'Push'
@@ -373,7 +373,7 @@ try {
             if ($dirty.Count) { throw '目录内有未提交的修改，请先上传或自行处理，再下载。' }
             Invoke-Git @('pull', '--ff-only')
             if ($Target -eq 'Documents') { Restore-EmptyDirs }
-            if ($Target -eq 'Codex') { Write-Host '下载只更新备份文件；主菜单 8 恢复记忆，10 恢复聊天索引和标题。' -ForegroundColor Yellow }
+            if ($Target -eq 'Codex') { Write-Host '下载只更新备份文件；主菜单 8 恢复记忆，10 恢复聊天正文、索引和标题。' -ForegroundColor Yellow }
             Write-Host '下载完成。' -ForegroundColor Green
         }
         'Push' {

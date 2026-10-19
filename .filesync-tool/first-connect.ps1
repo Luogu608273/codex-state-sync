@@ -154,7 +154,7 @@ function Start-CodexFirstConnect {
         Restore-MemorySnapshot
         Write-Host '首次接入完成：已采用远程历史和受管文件，记忆已恢复；没有创建提交或上传。' -ForegroundColor Green
         Write-Host ("原文件备份：" + $backup)
-        Write-Host '本机认证、数据库、缓存和原 memories/.git 保留。使用前请检查 config.toml 的本机路径；回主菜单选 10 恢复聊天索引和标题。'
+        Write-Host '本机认证、数据库、缓存和原 memories/.git 保留。使用前请检查 config.toml 的本机路径；回主菜单选 10 恢复聊天正文、索引和标题。'
     } catch {
         $failure = $_.Exception.Message
         $script:Root = $live
