@@ -1,3 +1,42 @@
+# Task Group: BOF22 BMS evaluation fields and current high-rated-entry research
+
+scope: Explain BMS evaluation identity fields and produce a reproducible, time-stamped ranking from the BOF22 official event data.
+applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Reuse the collection and ranking method for the same or a current BMS event page; re-fetch all scores and thresholds for a new request.
+
+## Task 1: Explain BMS Tripcode/Delete Key
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bms_tripcode_delete_key_high_rated_top10.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-19T14:05:27+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success; current-data snapshot)
+
+### keywords
+
+- Tripcode, Delete Key, BMS evaluation, More_def, event=152
+
+## Task 2: Rank current high-rated BOF22 entries
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bms_tripcode_delete_key_high_rated_top10.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-19T14:05:27+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success; current-data snapshot)
+
+### keywords
+
+- BOF22, manbow, event=152, impressions, average, median, (Disq), high-rated-snapshot.json
+
+## User preferences
+
+- When the user asks “你筛选10篇目前评分较高的”, use current official data, state the ranking rule and minimum-review threshold, timestamp the query, and link each entry instead of offering subjective recommendations. [Task 2]
+
+## Reusable knowledge
+
+- Tripcode is a public reviewer identifier and may be blank; Delete Key is the operation password for editing/deleting that review, not an email or login password. A page may require contacting organizers for changes after 15 minutes. [Task 1]
+- For BOF22, fetch `https://manbow.nothing.sh/event/event.cgi?action=sp&event=152`; exclude `(Disq)`, require `impressions >= 10`, then sort raw `average` descending and break ties by `median`, `impressions`, and `id`. Entry pages use `action=More_def&num=<id>&event=152`. [Task 2]
+- The 2026-10-19 snapshot found 396 numeric records and 38 meeting the threshold. Scores continue to change, so preserve query time and do not treat this ordering as durable. [Task 2]
+
+## Failures and how to do differently
+
+- A raw average without a review-count floor lets one- or two-vote perfect scores dominate; always name and apply the floor before claiming a ranking. [Task 2]
+
 # Task Group: MAA OI Assistant solution authoring, verification, and Google Drive delivery
 
 scope: Produce Chinese OI solutions, scoped partial programs, local validation evidence, and verified delivery to CKK Drive folders.
@@ -69,23 +108,50 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant! and predecessor C
 
 - CF429E, ARC232, Two in Range, CF2276F, b[i-1], 0/1 DP, iterative DSU find, stack overflow, minimal edits
 
+## Task 3: Debug and record ABC091D / ARC092B Two Sequences
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-57-47-ZQJ5-debug_and_record_abc091d_two_sequences.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T16-20-33-01a1532a-aa27-7d73-a462-8e405b983b43_01a1533f-819c-73f3-8395-146ddbaf8b4c.jsonl, updated_at=2026-10-19T08:43:18+00:00, thread_id=01a1532a-aa27-7d73-a462-8e405b983b43, success; user-reported AC)
+
+### keywords
+
+- ABC091D, ARC092B, Two Sequences, XOR, bitwise, upper_bound, lower_bound, closed interval, O(n log n log V), prompted AC
+
+## Task 4: Fork stepwise tree teaching and practice dynamic diameter
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T09-02-00-Eksm-dynamic_tree_diameter_proof_and_cf379f.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T17-09-23-01a15365-74a6-7730-a584-61faae140e3e_01a1536c-35e1-7fc2-8b2c-976dc3605faf.jsonl, updated_at=2026-10-19T09:14:38+00:00, thread_id=01a15365-74a6-7730-a584-61faae140e3e, partial; proof incomplete)
+- rollout_summaries/2026-10-19T07-37-48-j14v-fork_interactive_tree_teaching_continue_array_problem.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-25-45-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a15833-b2d4-75f2-b036-2faf4d2b8705.jsonl, updated_at=2026-10-19T09:02:28+00:00, thread_id=01a15318-5f1b-7d21-8e05-6c60e54318c3, success; fork created)
+
+### keywords
+
+- fork_thread, interactive teaching, one-step hint, tree diameter, CF379F, New Year Tree, LCA, binary lifting, distinct-subarray-sum
+
 ## User preferences
 
 - When the user says “过了，总结记录吧”, record method, sticking points, proof, and redo status; a prompted/user-reported AC is not mastery or independent verification. [Task 1]
 - For a requested next problem, recommend exactly one verified problem with ID/link, rating, and formal statement only; do not reveal rationale, algorithm labels, key observations, solution, or hints. [Task 1][Task 2]
 - “中文回答，省略背景，每次只给一个推进提示，不直接给完整解法或代码”; when they provide half-written code, keep its approach, four heaps/state variables, and contest style rather than substitute an unrelated solution. [Task 1][Task 2]
 - If a linked Codeforces page cannot be accessed, say so immediately and ask for the statement/evaluation information rather than pretending it was read. [Task 2]
+- When the user says “我不会这个，你在当前位置 fork 教我这道题”, fork the teaching thread and keep the main thread progressing; the branch should give one advancing question and wait rather than supply a full solution/code. [Task 4]
+- “有原题吗，我想做一下” -> give the original problem link and necessary statement first; do not disclose the full proof or implementation until the user asks for help. [Task 4]
 
 ## Reusable knowledge
 
 - CF436E: candidates for one net star are unselected `a_j`, one-star upgrade `b_i-a_i`, and unselected `b_j` minus largest valid rollback saving. `q4` lazy deletion must validate both state and current rollback cost; use `m` iterations and `ll INF=1e18`. The completed four-heap program passed independent DP checking for 112420 cases; the discussed two-heap version was not implemented. [Task 1]
 - For CF2276F, a two-dimensional DP updated from `b[i-1]` can reuse one cycle across rows. Add cycles one at a time and update item-count/dimension in reverse; replace recursive DSU find with iterative path compression for a 200000-node chain. Repairs passed 2645 small tests and maximum-size boundaries. [Task 2]
 - Cross-midpoint explanations must define states and account for cost: the endpoint scans are linear in endpoints but each costs `O(k^2)`, producing `O(nk^2 log n)`. See the dedicated divide-and-conquer block. [Task 2]
+- ABC091D: for bit `k`, retain low `k+1` bits and count sums in `[2^k,2^(k+1)-1]` or `[3·2^k,4·2^k-2]`; for sorted `b`, a closed interval is `upper_bound(R)-lower_bound(L)`. The repaired logic matched brute force on 2000 random legal cases; user later reported AC, but the final executable and official verdict were not independently read. [Task 3]
+- Dynamic tree diameter: on adding `w`, compare `dist(u,v)`, `dist(u,w)`, and `dist(v,w)` to maintain diameter endpoints. CF379F uses binary-lifting LCA and this update for `O(q log q)`; the general farthest-endpoint proof was not fully completed in the teaching thread. [Task 4]
 
 ## Failures and how to do differently
 
 - Do not mark the unimplemented CF436E two-heap discussion as mastered; preserve “提示后完成、未独立重做”. [Task 1]
 - For game/DP bugs, create exact small counterexamples before changing logic; use an independent brute/minimax model where feasible, then test the compiled repair and maximum-depth case. [Task 2]
+- For binary-search counting, first choose interval convention: closed `[L,R]` uses `upper_bound(R)-lower_bound(L)`; do not mix hand-written endpoint offsets. Minimal counterexample: `n=1, a=[0], b=[2]` should yield `2`, while the old logic yielded `0`. [Task 3]
+- A timed-out wait after `fork_thread` can mean the child turn is still `inProgress`, not that the fork failed; inspect/poll the child’s first message before retrying. [Task 4]
 
 # Task Group: Codex configuration, local memory, folders, and sync boundaries
 
@@ -96,7 +162,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex and C:\Users\605\.codex; reuse_rule
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-oi_folder_migration_and_chat_organization.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\10\rollout-2026-10-10T10-07-05-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a12390-593f-7222-8791-29f75d8f3fdc.jsonl, updated_at=2026-10-17T06:09:45+00:00, thread_id=01a0f184-ab47-7b92-81fe-2d65c1d6977f, partial)
+- rollout_summaries/2026-09-30T08-53-18-5kYf-oi_folder_migration_and_chat_organization.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\10\rollout-2026-10-10T10-07-05-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a12390-593f-7222-8791-29f75d8f3fdc.jsonl, updated_at=2026-10-19T08:59:41+00:00, thread_id=01a0f184-ab47-7b92-81fe-2d65c1d6977f, partial)
 - rollout_summaries/2026-09-17T02-44-10-nub6-read_cloud_files_and_configure_local_memory.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-09-17\h, rollout_path=C:\Users\605\.codex\sessions\2026\09\17\rollout-2026-09-17T10-44-10-01a0ad40-0a71-7253-b435-433591a7cbc0.jsonl.zst, updated_at=2026-10-17T06:09:44+00:00, thread_id=01a0ad40-0a71-7253-b435-433591a7cbc0, partial)
 
 ### keywords
@@ -107,7 +173,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex and C:\Users\605\.codex; reuse_rule
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-16T04-33-46-Hlpx-scan_codex_folder_and_send_sync_plan.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-16\codex-codex, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\16\rollout-2026-10-16T12-33-46-01a142fc-cea0-7e92-b74b-bacc1beb2b1b.jsonl, updated_at=2026-10-17T06:09:45+00:00, thread_id=01a142fc-cea0-7e92-b74b-bacc1beb2b1b, success)
+- rollout_summaries/2026-10-16T04-33-46-Hlpx-codex_scan_sync_recommendations.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-16\codex-codex, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\16\rollout-2026-10-16T12-33-46-01a142fc-cea0-7e92-b74b-bacc1beb2b1b.jsonl, updated_at=2026-10-19T07:53:45+00:00, thread_id=01a142fc-cea0-7e92-b74b-bacc1beb2b1b, success)
 
 ### keywords
 
@@ -139,7 +205,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-18\d; reuse_rule=Reuse on W
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-18T13-40-00-Yy29-windows_scheduled_sleep_2026_10_18_2200.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-18\d, rollout_path=C:\Users\605\.codex\sessions\2026\10\18\rollout-2026-10-18T21-40-00-01a14f3d-9c2b-7962-be4f-914b977763dd.jsonl, updated_at=2026-10-18T13:41:21+00:00, thread_id=01a14f3d-9c2b-7962-be4f-914b977763dd, success; registration validated, actual trigger unverified)
+- rollout_summaries/2026-10-18T13-40-00-Yy29-windows_schedule_one_time_sleep_2200.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-18\d, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\18\rollout-2026-10-18T21-40-00-01a14f3d-9c2b-7962-be4f-914b977763dd.jsonl, updated_at=2026-10-19T07:53:38+00:00, thread_id=01a14f3d-9c2b-7962-be4f-914b977763dd, success; registration validated, actual trigger unverified)
 
 ### keywords
 
@@ -178,7 +244,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-15\w and C:\Users\605\Docum
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_hotkey_rewrite_and_endfield_uipi_diagnosis.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-10-17T09:40:06+00:00, thread_id=01a13a60-5be3-7973-8397-81dbf07ff71d, partial)
+- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_milthm_endfield_transparency_compatibility.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-10-19T11:42:27+00:00, thread_id=01a13a60-5be3-7973-8397-81dbf07ff71d, partial)
 
 ### keywords
 
@@ -187,12 +253,12 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-15\w and C:\Users\605\Docum
 ## User preferences
 
 - When asked to find a UI “开关”, identify a concrete setting or give a concrete evidence-backed no-user-setting conclusion, not merely a symptom description. [Task 1]
-- For a tool rewrite, provide an independently testable replacement with source and usage notes rather than modifying the original in place. [Task 2]
+- When the user says the input-language change is done but “Milthm.exe 不可用”, continue against the actual target window rather than repeat generic settings. For a rewrite request, provide an independently testable replacement with source and usage notes rather than modify the original in place. [Task 2]
 
 ## Reusable knowledge
 
 - “更多详情” required internal gate `4290238484`, `moreDetailsEnabled`, selected assistant message, and conversation data; `473637331` related to “添加到对话”. Neither normal nor debug settings exposed a safe user switch, and stale local Statsig cache cannot prove a live gate value. [Task 1]
-- For Milthm, Ctrl+Shift+0 must be treated separately from 1–9; clearing/setting `WS_EX_LAYERED` differs from alpha application. Direct alpha 255 restored opacity. Endfield’s `SetWindowLongPtrW` Error 5 was a higher-integrity UIPI barrier, suggesting an elevated retest. [Task 2]
+- For Milthm, Ctrl+Shift+0 must be treated separately from 1–9; clearing `WS_EX_LAYERED` differs from alpha application. The observed layered window (Alpha=76) read back as Alpha=255 after direct `SetLayeredWindowAttributes(..., 255, LWA_ALPHA)`. Endfield’s `SetWindowLongPtrW` Error 5 was a higher-integrity UIPI barrier, suggesting an elevated retest. [Task 2]
 
 ## Failures and how to do differently
 
@@ -208,7 +274,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant! and C:\Use
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-17T09-25-03-jNMj-windows_fault_handoff_paused_diagnostics.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-17\windows-performance-followup, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\17\rollout-2026-10-17T17-25-03-01a1492d-d69a-7b10-8113-9548fa69359f.jsonl, updated_at=2026-10-17T09:25:14+00:00, thread_id=01a1492d-d69a-7b10-8113-9548fa69359f, success)
+- rollout_summaries/2026-10-17T09-25-03-jNMj-windows_performance_followup_handoff_paused.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-17\windows-performance-followup, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\17\rollout-2026-10-17T17-25-03-01a1492d-d69a-7b10-8113-9548fa69359f.jsonl, updated_at=2026-10-19T07:53:40+00:00, thread_id=01a1492d-d69a-7b10-8113-9548fa69359f, success)
 
 ### keywords
 
@@ -227,28 +293,27 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant! and C:\Use
 
 - Kernel-Boot/WdiServiceHost/CbsTemp/storage observations are leads, not root cause. On authorized resumption, first reconcile current state against newest handoff artifacts and propose low-risk reviewable steps. [Task 1]
 
-# Task Group: Chat-with-GPT factual research, reverse engineering, and game-data export
+# Task Group: Chat-with-GPT factual research, game data, and reverse engineering
 
-scope: Answer source-sensitive game/product questions, inspect a random redirect/WASM path, or export local Milthm diagnostics while retaining uncertainty.
+scope: Answer source-sensitive game/product questions or inspect a random redirect/WASM path while retaining uncertainty.
 applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and C:\Users\605\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an; reuse_rule=Facts, sources, URLs, and local artifacts are time-specific; re-verify on a new request.
 
-## Task 1: MiHoYo random redirect/WASM and local Milthm export
+## Task 1: MiHoYo random redirect/WASM
 
 ### rollout_summary_files
 
 - rollout_summaries/2026-10-10T09-05-28-qGsV-reverse_engineer_mihoyo_random_redirect_wasm.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an, rollout_path=C:\Users\605\.codex\sessions\2026\10\10\rollout-2026-10-10T17-05-28-01a1250f-66a5-7341-be42-bed5847d6439.jsonl, updated_at=2026-10-17T06:09:45+00:00, thread_id=01a1250f-66a5-7341-be42-bed5847d6439, success)
-- rollout_summaries/2026-10-14T12-49-48-QJBa-milthm_export_error_logs_local_data.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T21-24-56-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a13a96-60a3-7051-a9d3-a2e013e9ac63.jsonl, updated_at=2026-10-17T06:09:45+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success)
 
 ### keywords
 
-- random redirect, WASM, api.mihoyo.com, Milthm, Player.log, Player-prev.log, saves.db, data.db, archive_integrity
+- random redirect, WASM, api.mihoyo.com, endpoint-specific, version-specific
 
 ## Task 2: Netease ranking, Aegir lore, Blue Archive characters, and rhythm-game collaboration songs
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-14T08-45-01-uJ0j-blue_archive_characters_and_rhythm_game_collab_songs.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T16-45-01-01a13996-1d46-7940-a985-70d85882a317.jsonl, updated_at=2026-10-17T09:40:14+00:00, thread_id=01a13996-1d46-7940-a985-70d85882a317, success)
-- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_ranking_and_arknights_aegir_lore.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-17T06:09:45+00:00, thread_id=01a12fd8-6c2e-79d0-ad7d-1a99f236e032, success)
+- rollout_summaries/2026-10-14T08-45-01-uJ0j-blue_archive_character_and_rhythm_game_collab_research.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T16-45-01-01a13996-1d46-7940-a985-70d85882a317.jsonl, updated_at=2026-10-19T08:59:19+00:00, thread_id=01a13996-1d46-7940-a985-70d85882a317, success)
+- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_song_ranking_and_arknights_lore_entropy.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-19T11:38:57+00:00, thread_id=01a12fd8-6c2e-79d0-ad7d-1a99f236e032, success)
 
 ### keywords
 
@@ -256,7 +321,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and C:\Users\605\Docu
 
 ## Reusable knowledge
 
-- For local Milthm evidence, advise closing the game then collect `Player.log`, `Player-prev.log`, `data/saves.db`, and `data/data.db` from `%USERPROFILE%\AppData\LocalLow\Morizero\Milthm`; report archive integrity separately from the contents’ diagnosis. [Task 1]
 - For game lore/rankings/collaboration lists, prefer official announcements, in-game/primary material, and clearly separate sourced fact from inference; do not carry time-sensitive answers forward as evergreen facts. [Task 2]
 
 ## Failures and how to do differently
@@ -272,7 +336,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-15T01-53-18-i0fA-divide_conquer_linear_preprocessing_subsequence_states.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\15\rollout-2026-10-15T14-21-28-01a13d43-893b-7dc1-8124-b32eb06745b6_01a13e39-0af9-75e3-b7db-95308a0e9dd2.jsonl, updated_at=2026-10-17T09:30:32+00:00, thread_id=01a13d43-893b-7dc1-8124-b32eb06745b6, success)
+- rollout_summaries/2026-10-15T01-53-18-i0fA-divide_conquer_dp_preparation_complexity.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\15\rollout-2026-10-15T14-21-28-01a13d43-893b-7dc1-8124-b32eb06745b6_01a13e39-0af9-75e3-b7db-95308a0e9dd2.jsonl, updated_at=2026-10-19T07:08:46+00:00, thread_id=01a13d43-893b-7dc1-8124-b32eb06745b6, success)
 
 ### keywords
 
@@ -301,7 +365,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant!; reuse_rul
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-10T02-15-16-kwoj-windows_stalls_maa_job_failure_amd_gpu_switch_handoff.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\17\rollout-2026-10-17T16-49-39-01a12397-d9bd-7500-bd9c-9381d3ab30c3_01a1490d-7016-7710-9427-d6a46ffeb872.jsonl, updated_at=2026-10-17T09:25:30+00:00, thread_id=01a12397-d9bd-7500-bd9c-9381d3ab30c3, partial; root cause unresolved)
+- rollout_summaries/2026-10-10T02-15-16-kwoj-windows_stall_maa_job_failure_amd_gpu_switch.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\17\rollout-2026-10-17T16-49-39-01a12397-d9bd-7500-bd9c-9381d3ab30c3_01a1490d-7016-7710-9427-d6a46ffeb872.jsonl, updated_at=2026-10-19T07:53:43+00:00, thread_id=01a12397-d9bd-7500-bd9c-9381d3ab30c3, partial; root cause unresolved)
 
 ### keywords
 
@@ -311,7 +375,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant!; reuse_rul
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-10T02-15-16-kwoj-windows_stalls_maa_job_failure_amd_gpu_switch_handoff.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\17\rollout-2026-10-17T16-49-39-01a12397-d9bd-7500-bd9c-9381d3ab30c3_01a1490d-7016-7710-9427-d6a46ffeb872.jsonl, updated_at=2026-10-17T09:25:30+00:00, thread_id=01a12397-d9bd-7500-bd9c-9381d3ab30c3, partial; Copilot paused, AMD switch verified)
+- rollout_summaries/2026-10-10T02-15-16-kwoj-windows_stall_maa_job_failure_amd_gpu_switch.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\17\rollout-2026-10-17T16-49-39-01a12397-d9bd-7500-bd9c-9381d3ab30c3_01a1490d-7016-7710-9427-d6a46ffeb872.jsonl, updated_at=2026-10-19T07:53:43+00:00, thread_id=01a12397-d9bd-7500-bd9c-9381d3ab30c3, partial; Copilot paused, AMD switch verified)
 
 ### keywords
 
@@ -345,7 +409,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-14\w; reuse_rule=Reuse Wind
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_hotkey_rewrite_and_endfield_uipi_diagnosis.md (cwd=C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-10-17T09:40:06+00:00, thread_id=01a13a60-5be3-7973-8397-81dbf07ff71d, partial)
+- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_milthm_endfield_transparency_compatibility.md (cwd=C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-10-19T11:42:27+00:00, thread_id=01a13a60-5be3-7973-8397-81dbf07ff71d, partial)
 
 ### keywords
 
@@ -355,7 +419,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-14\w; reuse_rule=Reuse Wind
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_hotkey_rewrite_and_endfield_uipi_diagnosis.md (cwd=C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-10-17T09:40:06+00:00, thread_id=01a13a60-5be3-7973-8397-81dbf07ff71d, partial; physical hotkeys/elevated retest unverified)
+- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_milthm_endfield_transparency_compatibility.md (cwd=C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-10-19T11:42:27+00:00, thread_id=01a13a60-5be3-7973-8397-81dbf07ff71d, partial; physical hotkeys/elevated retest unverified)
 
 ### keywords
 
@@ -363,7 +427,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-14\w; reuse_rule=Reuse Wind
 
 ## User preferences
 
-- When Ctrl+Shift+1–9 work but Ctrl+Shift+0 fails in Milthm, keep the 0-key path separate. [Task 1]
+- When Ctrl+Shift+1–9 work but Ctrl+Shift+0 fails in Milthm, keep the 0-key path separate and continue against Milthm after general keyboard settings have been tried. [Task 1]
 - When asked “你有没有尝试改写 virtrite 的可能”, provide an independently testable replacement with source and usage notes instead of altering the original. [Task 2]
 
 ## Reusable knowledge
@@ -385,7 +449,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-13T03-36-06-zV6Q-record_combo_open_game_tutorial.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T19-20-19-01a13354-ece6-7860-ab9e-a983e2dc2984_01a13a24-4c2e-7bd0-912f-28e201ff7862.jsonl, updated_at=2026-10-17T09:31:30+00:00, thread_id=01a13354-ece6-7860-ab9e-a983e2dc2984, success; user-reported AC)
+- rollout_summaries/2026-10-13T03-36-06-zV6Q-record_combo_review_and_start_game_tutoring.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T19-20-19-01a13354-ece6-7860-ab9e-a983e2dc2984_01a13a24-4c2e-7bd0-912f-28e201ff7862.jsonl, updated_at=2026-10-19T07:08:54+00:00, thread_id=01a13354-ece6-7860-ab9e-a983e2dc2984, success; user-reported AC)
 
 ### keywords
 
@@ -395,7 +459,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-13T03-36-06-zV6Q-record_combo_open_game_tutorial.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T19-20-19-01a13354-ece6-7860-ab9e-a983e2dc2984_01a13a24-4c2e-7bd0-912f-28e201ff7862.jsonl, updated_at=2026-10-17T09:31:30+00:00, thread_id=01a13354-ece6-7860-ab9e-a983e2dc2984, success; first reply unverified)
+- rollout_summaries/2026-10-13T03-36-06-zV6Q-record_combo_review_and_start_game_tutoring.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T19-20-19-01a13354-ece6-7860-ab9e-a983e2dc2984_01a13a24-4c2e-7bd0-912f-28e201ff7862.jsonl, updated_at=2026-10-19T07:08:54+00:00, thread_id=01a13354-ece6-7860-ab9e-a983e2dc2984, success; first reply unverified)
 
 ### keywords
 
