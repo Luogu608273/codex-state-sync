@@ -7,7 +7,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Reuse the
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-14T12-49-48-QJBa-bms_tripcode_delete_key_high_rated_top10.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-19T14:05:27+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success; current-data snapshot)
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_ranking_rules_and_high_rated_entries.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-20T11:23:12+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success; current-data snapshot)
 
 ### keywords
 
@@ -17,11 +17,21 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Reuse the
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-14T12-49-48-QJBa-bms_tripcode_delete_key_high_rated_top10.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-19T14:05:27+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success; current-data snapshot)
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_ranking_rules_and_high_rated_entries.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-20T11:23:12+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success; current-data snapshot)
 
 ### keywords
 
 - BOF22, manbow, event=152, impressions, average, median, (Disq), high-rated-snapshot.json
+
+## Task 3: Explain BOF22 final rankings and “个人战优胜”
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_ranking_rules_and_high_rated_entries.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-20T11:23:12+00:00, thread_id=01a13a76-3840-7ff1-9bb2-e275f75b1894, success)
+
+### keywords
+
+- BOF22 rule.html, individual total, new individual total, old individual total, Ratio Points, FINAL STRIKER, team median
 
 ## User preferences
 
@@ -32,10 +42,13 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Reuse the
 - Tripcode is a public reviewer identifier and may be blank; Delete Key is the operation password for editing/deleting that review, not an email or login password. A page may require contacting organizers for changes after 15 minutes. [Task 1]
 - For BOF22, fetch `https://manbow.nothing.sh/event/event.cgi?action=sp&event=152`; exclude `(Disq)`, require `impressions >= 10`, then sort raw `average` descending and break ties by `median`, `impressions`, and `id`. Entry pages use `action=More_def&num=<id>&event=152`. [Task 2]
 - The 2026-10-19 snapshot found 396 numeric records and 38 meeting the threshold. Scores continue to change, so preserve query time and do not treat this ordering as durable. [Task 2]
+- BOF22 scores are player impressions/votes (100–1000), not gameplay scores. “个人战优胜” normally means the single entry with the highest cumulative valid score; distinguish new individual total (with Ratio/FINAL STRIKER adjustments) from old individual total (raw sum), and neither from average or median. [Task 3]
+- Team totals include Ratio Points and FINAL STRIKER rules; team/individual median rankings do not. For three songs, non-FS totals use Ratio adjustment and FS total is ×1.6; for four songs FS is ×1.8 and the aggregate is ×0.75. [Task 3]
 
 ## Failures and how to do differently
 
 - A raw average without a review-count floor lets one- or two-vote perfect scores dominate; always name and apply the floor before claiming a ranking. [Task 2]
+- Do not label a current average-score shortlist as the official final or personal-total ranking. [Task 2][Task 3]
 
 # Task Group: MAA OI Assistant solution authoring, verification, and Google Drive delivery
 
@@ -122,12 +135,32 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant! and predecessor C
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-19T09-02-00-Eksm-dynamic_tree_diameter_proof_and_cf379f.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T17-09-23-01a15365-74a6-7730-a584-61faae140e3e_01a1536c-35e1-7fc2-8b2c-976dc3605faf.jsonl, updated_at=2026-10-19T09:14:38+00:00, thread_id=01a15365-74a6-7730-a584-61faae140e3e, partial; proof incomplete)
-- rollout_summaries/2026-10-19T07-37-48-j14v-fork_interactive_tree_teaching_continue_array_problem.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-25-45-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a15833-b2d4-75f2-b036-2faf4d2b8705.jsonl, updated_at=2026-10-19T09:02:28+00:00, thread_id=01a15318-5f1b-7d21-8e05-6c60e54318c3, success; fork created)
+- rollout_summaries/2026-10-19T09-02-00-Eksm-dynamic_tree_diameter_proof_and_cf379f.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T17-09-23-01a15365-74a6-7730-a584-61faae140e3e_01a1536c-35e1-7fc2-8b2c-976dc3605faf.jsonl, updated_at=2026-10-20T12:14:22+00:00, thread_id=01a15365-74a6-7730-a584-61faae140e3e, partial; proof incomplete)
 
 ### keywords
 
 - fork_thread, interactive teaching, one-step hint, tree diameter, CF379F, New Year Tree, LCA, binary lifting, distinct-subarray-sum
+
+## Task 6: Fork queue-GCD teaching; continue range-modulo prompt
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T07-50-36-FHoa-queue_gcd_two_stacks_and_cf1548b_practice.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-50-37-01a1584a-74ae-7f32-975c-19d77940e5ce.jsonl, updated_at=2026-10-20T08:06:30+00:00, thread_id=01a1584a-74ae-7f32-975c-19d77940e5ce, success; queue-GCD teaching and CF1548B verified)
+- rollout_summaries/2026-10-19T07-37-48-j14v-forked_oi_training_gcd_and_range_modulo.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-25-45-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a15833-b2d4-75f2-b036-2faf4d2b8705.jsonl, updated_at=2026-10-20T07:51:03+00:00, thread_id=01a15318-5f1b-7d21-8e05-6c60e54318c3, partial; fork created, range-modulo prompt unanswered)
+
+### keywords
+
+- queue gcd, two stacks, amortized O(1), CF1548B, Integers Have Friends, range modulo, segment tree maximum, fork_thread
+
+## Task 5: Debug and record QOJ9903 shortest-path divide-and-conquer Floyd
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T06-42-01-tQ5y-qoj9903_debug_and_review.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T14-45-26-01a152e5-4dc4-76f3-9772-6a526bdfbbe0_01a152e8-6d16-78c3-8f0c-778e3345e02c.jsonl, updated_at=2026-10-20T06:14:02+00:00, thread_id=01a152e5-4dc4-76f3-9772-6a526bdfbbe0, success; user-confirmed pass and records updated)
+
+### keywords
+
+- QOJ9903, 最短路径, 缺一分治, Floyd, add, mp[i][j], vec, tvec, WA, 2 -> 4 -> 3, stack overflow, AGENTS.md, 训练记录
 
 ## User preferences
 
@@ -136,7 +169,10 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant! and predecessor C
 - “中文回答，省略背景，每次只给一个推进提示，不直接给完整解法或代码”; when they provide half-written code, keep its approach, four heaps/state variables, and contest style rather than substitute an unrelated solution. [Task 1][Task 2]
 - If a linked Codeforces page cannot be accessed, say so immediately and ask for the statement/evaluation information rather than pretending it was read. [Task 2]
 - When the user says “我不会这个，你在当前位置 fork 教我这道题”, fork the teaching thread and keep the main thread progressing; the branch should give one advancing question and wait rather than supply a full solution/code. [Task 4]
+- “我可能也不会这道题，你依旧 fork 然后本对话继续” -> fork the independent teaching thread, then immediately return to the main problem; do not wait for the child to finish. [Task 6]
 - “有原题吗，我想做一下” -> give the original problem link and necessary statement first; do not disclose the full proof or implementation until the user asks for help. [Task 4]
+- For `[debug]` contest code, make the smallest changes without changing the approach, and point out every substantive error; validate with a counterexample and complexity/boundary check rather than rewriting the solution. [Task 5]
+- When the user says “默认栈空间与题目空间限制一致。在本题中可以通过”, assess stack use against the problem/judge limit rather than treating this machine's default 2 MiB stack as a submission failure. [Task 5]
 
 ## Reusable knowledge
 
@@ -145,6 +181,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant! and predecessor C
 - Cross-midpoint explanations must define states and account for cost: the endpoint scans are linear in endpoints but each costs `O(k^2)`, producing `O(nk^2 log n)`. See the dedicated divide-and-conquer block. [Task 2]
 - ABC091D: for bit `k`, retain low `k+1` bits and count sums in `[2^k,2^(k+1)-1]` or `[3·2^k,4·2^k-2]`; for sorted `b`, a closed interval is `upper_bound(R)-lower_bound(L)`. The repaired logic matched brute force on 2000 random legal cases; user later reported AC, but the final executable and official verdict were not independently read. [Task 3]
 - Dynamic tree diameter: on adding `w`, compare `dist(u,v)`, `dist(u,w)`, and `dist(v,w)` to maintain diameter endpoints. CF379F uses binary-lifting LCA and this update for `O(q log q)`; the general farthest-endpoint proof was not fully completed in the teaching thread. [Task 4]
+- Queue GCD: each of two stacks stores the gcd from its bottom to each node. Enqueue into A; dequeue from B; when B is empty, pour A into B. Query `gcd(gcd(A), gcd(B))`. Each item has at most four stack actions, hence amortized O(1) GCD operations. CF1548B (Integers Have Friends, 1800) was verified as a formal practice problem. [Task 6]
+- QOJ9903 Floyd state `mp[i][j]` limits only allowed intermediate points, not endpoints. Thus `add(k)` must iterate `i,j=1..n`; when 4 is added, it must update `mp[2][3]` through `2 -> 4 -> 3` even though 2 is not an allowed intermediate point. The divide-and-conquer branches must restore the same parent state; global `tvec` is not a per-recursion backup. Recorded complexity: `O(n^3 log n + q)` time and `O(n^2 log n + q)` space. [Task 5]
 
 ## Failures and how to do differently
 
@@ -152,6 +190,9 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant! and predecessor C
 - For game/DP bugs, create exact small counterexamples before changing logic; use an independent brute/minimax model where feasible, then test the compiled repair and maximum-depth case. [Task 2]
 - For binary-search counting, first choose interval convention: closed `[L,R]` uses `upper_bound(R)-lower_bound(L)`; do not mix hand-written endpoint offsets. Minimal counterexample: `n=1, a=[0], b=[2]` should yield `2`, while the old logic yielded `0`. [Task 3]
 - A timed-out wait after `fork_thread` can mean the child turn is still `inProgress`, not that the fork failed; inspect/poll the child’s first message before retrying. [Task 4]
+- The range-modulo segment-tree prompt was only posed, not solved; do not turn the usual “skip when range maximum < modulus” observation into claimed user mastery. [Task 6]
+- In Floyd optimizations, do not confuse the permitted-intermediate set with permitted starts/ends: restricting `add()` to `vec` endpoints causes WA and cannot be repaired later when `mp[2][2]=0`. Do not use a global `tvec` as recursive state backup; it is overwritten by inner calls. [Task 5]
+- A local recursive `ll tmp[N][N]` overflow on Windows's default stack is not by itself a contest failure when the problem's space limit governs the judge; state the environment distinction and follow the user's confirmed constraint. [Task 5]
 
 # Task Group: Codex configuration, local memory, folders, and sync boundaries
 
@@ -162,7 +203,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex and C:\Users\605\.codex; reuse_rule
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-oi_folder_migration_and_chat_organization.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\10\rollout-2026-10-10T10-07-05-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a12390-593f-7222-8791-29f75d8f3fdc.jsonl, updated_at=2026-10-19T08:59:41+00:00, thread_id=01a0f184-ab47-7b92-81fe-2d65c1d6977f, partial)
+- rollout_summaries/2026-09-30T08-53-18-5kYf-oi_workspace_migration_and_chat_organization_investigation.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-20T06:21:47+00:00, thread_id=01a0f184-ab47-7b92-81fe-2d65c1d6977f, partial)
 - rollout_summaries/2026-09-17T02-44-10-nub6-read_cloud_files_and_configure_local_memory.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-09-17\h, rollout_path=C:\Users\605\.codex\sessions\2026\09\17\rollout-2026-09-17T10-44-10-01a0ad40-0a71-7253-b435-433591a7cbc0.jsonl.zst, updated_at=2026-10-17T06:09:44+00:00, thread_id=01a0ad40-0a71-7253-b435-433591a7cbc0, partial)
 
 ### keywords
@@ -313,19 +354,21 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and C:\Users\605\Docu
 ### rollout_summary_files
 
 - rollout_summaries/2026-10-14T08-45-01-uJ0j-blue_archive_character_and_rhythm_game_collab_research.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T16-45-01-01a13996-1d46-7940-a985-70d85882a317.jsonl, updated_at=2026-10-19T08:59:19+00:00, thread_id=01a13996-1d46-7940-a985-70d85882a317, success)
-- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_song_ranking_and_arknights_lore_entropy.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-19T11:38:57+00:00, thread_id=01a12fd8-6c2e-79d0-ad7d-1a99f236e032, success)
+- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_hot_song_order_and_arknights_lore_entropy.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-20T07:30:04+00:00, thread_id=01a12fd8-6c2e-79d0-ad7d-1a99f236e032, partial; ranking formula unresolved)
 
 ### keywords
 
-- Netease ranking, Aegir, Blue Archive, rhythm game, collaboration songs, source verification
+- 网易云, artist_songs, order=hot, popularity=100, 克莱门莎, 伊莎玛拉, 巨兽, 初生, 非熵, 负熵, Blue Archive
 
 ## Reusable knowledge
 
-- For game lore/rankings/collaboration lists, prefer official announcements, in-game/primary material, and clearly separate sourced fact from inference; do not carry time-sensitive answers forward as evergreen facts. [Task 2]
+- For game lore/rankings/collaboration lists, prefer official announcements and in-game/primary material. For 网易云, separate public field values, API return order, and proxy metrics: `popularity/score=100` cannot strictly rank a tied set, and the public hot-order formula remains unknown. [Task 2]
+- For Arknights, distinguish formal posts, plot-time roles, and gameplay labels: Clemensa is an Aegir representative working with the Iberian Inquisition, not proven to have joined it; Ishar-mla was a Feranmut later made a Seaborn Firstborn, not an ordinary Seaborn becoming one. “非熵巨兽/负熵源石” remains secondary-source/player-theory territory without direct official wording found. [Task 2]
 
 ## Failures and how to do differently
 
 - Reverse-engineering conclusions are endpoint/version-specific; retain exact evidence paths and avoid turning a one-run redirect observation into a stable service contract. [Task 1]
+- Do not force a strict rank from tied display fields or recast player theories/secondary wiki text as official setting. [Task 2]
 
 # Task Group: MAA OI Assistant divide-and-conquer DP explanation
 
@@ -355,6 +398,38 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 ## Failures and how to do differently
 
 - “Linear preprocessing” is linear in endpoints with O(k^2) per endpoint, not O(length). [Task 1]
+
+# Task Group: MAA Arknights Assistant Copilot adaptation and static validation
+
+scope: Adapt a PRTS Plus/MAA Copilot job to the user's operator levels and a requested deployment while distinguishing static checks from a clear.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant!; reuse_rule=Reuse the extraction, coordinate, and validation workflow for new Copilot adaptations; re-fetch stage, operator, MAA-version, and account data each time.
+
+## Task 1: Adapt GO-EX-7 raid `prts://51044` with Makoto
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T07-17-54-WET2-go_ex7_raid_makoto_copilot_adaptation.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-10-20T07:25:52+00:00, thread_id=01a1582c-844c-7c13-b25b-67921b416404, partial; static validation only)
+
+### keywords
+
+- prts://51044, GO-EX-7, act37side_ex07#f#, Makoto, Yituliu, PRTS Plus, copilot-51044, y = height - 1 - row, Python 3.8, bytes | None
+
+## User preferences
+
+- “同时修改作业的干员适配等信息” -> when adapting a Copilot, update operator requirements, skills, modules, support status, deployment actions, and explanation together, not only one deployment step. [Task 1]
+- “按地图和练度判断” -> a route/range-based proposal is acceptable when the failure position is unknown, but label it as pending live validation rather than a clear guarantee. [Task 1]
+
+## Reusable knowledge
+
+- PRTS Plus job-detail `content` needs a second JSON decode; `prts://51044` maps to `https://prts.plus/?op=51044`. For GO-EX-7 raid the stage ID is `act37side_ex07#f#`, map is 11×8 with deployment cap 8. [Task 1]
+- Original-map row coordinates convert to MAA coordinates with `y = height - 1 - row`. In this static plan, Makoto at `(7,4)`, facing down, S3 “好了就用” covers Logos at `(9,4)` and the right route; retained as a static inference only. [Task 1]
+- MAA v6.18.0 `requirements` records skill level and module type but does not validate module level; manually confirm level 3 modules. The adapted JSON had valid non-conflicting cells, valid operators, one support gap (Wiš'adel), and no secret in export. [Task 1]
+
+## Failures and how to do differently
+
+- Static JSON/map/range validation is not a raid clear: import the job and observe leaks, deaths, and final settlement before calling it successful. [Task 1]
+- Core-load validation failed on Python 3.8 because the SDK uses 3.10+ `bytes | None`, producing `TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'`; use compatible 64-bit Python 3.10+ rather than editing around the environment. [Task 1]
+- Never retain the user-provided Yituliu key in memory or exports; keep `.secrets/` ignored. [Task 1]
 
 # Task Group: Windows performance, MAA Copilot failure, AMD GPU switch, and handoff
 
