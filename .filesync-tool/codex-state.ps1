@@ -6,6 +6,7 @@ $codexIgnoreV2 = @'
 !/.gitattributes
 !/AGENTS.md
 !/config.toml
+!/.filesync-preferences.json
 !/hooks.json
 !/history.jsonl
 !/session_index.jsonl
@@ -35,6 +36,7 @@ $codexIgnoreV2 = @'
 !/.filesync-tool/codex-state.ps1
 !/.filesync-tool/first-connect.ps1
 !/.filesync-tool/repair-chat-index.py
+!/.filesync-tool/codex-preferences.py
 !/.filesync-tool/schedule.ps1
 !/.filesync-tool/sync.cmd
 !/.filesync-tool/sync-all.cmd
@@ -226,7 +228,7 @@ function Save-PreviousMemoryFiles {
     }
 }
 
-$fileSyncToolFiles = @('sync.ps1', 'codex-state.ps1', 'first-connect.ps1', 'repair-chat-index.py', 'schedule.ps1', 'sync.cmd', 'sync-all.cmd', 'README.md')
+$fileSyncToolFiles = @('sync.ps1', 'codex-state.ps1', 'first-connect.ps1', 'repair-chat-index.py', 'codex-preferences.py', 'schedule.ps1', 'sync.cmd', 'sync-all.cmd', 'README.md')
 function Export-FileSyncTool {
     $destination = Join-Path $script:Root '.filesync-tool'
     if (Test-Path -LiteralPath $destination) { $null = Get-MemoryInventory $destination }
@@ -243,18 +245,31 @@ function Export-FileSyncTool {
     }
 }
 
+function Get-FileSyncPython {
+    $python = Get-Command python.exe -ErrorAction SilentlyContinue
+    if ($python -and $python.Source -notlike '*WindowsApps*') { return $python.Source }
+    $path = Get-ChildItem -Path (Join-Path $env:LOCALAPPDATA 'Programs\Python\Python*\python.exe') -ErrorAction SilentlyContinue |
+        Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
+    if (-not $path) { throw '聊天恢复和偏好快照需要 Python 3.8 或以上，请先安装 Python。' }
+    return $path
+}
+
+function Invoke-CodexPreferences {
+    param([ValidateSet('export', 'restore', 'infer-projects')][string]$Mode)
+    if ($Mode -ne 'export' -and $NonInteractive) { throw '偏好恢复请手动运行。' }
+    $pythonPath = Get-FileSyncPython
+    & $pythonPath (Join-Path $PSScriptRoot 'codex-preferences.py') --root $script:Root ('--' + $Mode)
+    if ($LASTEXITCODE -ne 0) { throw '偏好快照操作未完成，请查看上方提示。' }
+    if ($Mode -eq 'export') { Write-Host '模型、权限、项目归属和置顶快照已更新。' }
+    else { Write-Host '偏好/项目恢复完成，请重新打开 Codex；原文件备份在 .filesync-preferences-backups。' -ForegroundColor Green }
+}
+
 function Restore-ChatIndex {
     if ($NonInteractive) { throw '聊天索引恢复请手动运行。' }
-    $python = Get-Command python.exe -ErrorAction SilentlyContinue
-    $pythonPath = $null
-    if ($python -and $python.Source -notlike '*WindowsApps*') { $pythonPath = $python.Source }
-    if (-not $pythonPath) {
-        $pythonPath = Get-ChildItem -Path (Join-Path $env:LOCALAPPDATA 'Programs\Python\Python*\python.exe') -ErrorAction SilentlyContinue |
-            Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
-    }
-    if (-not $pythonPath) { throw '恢复聊天索引需要 Python 3.8 或以上；日常同步不需要 Python。' }
+    $pythonPath = Get-FileSyncPython
     & $pythonPath (Join-Path $PSScriptRoot 'repair-chat-index.py') --root $script:Root
     if ($LASTEXITCODE -ne 0) { throw '聊天索引恢复未完成，请查看上方提示和备份。' }
+    Write-Host '如已下载偏好快照，请继续选主菜单 11 恢复设置、项目和置顶。' -ForegroundColor Yellow
 }
 
 function Restore-MemorySnapshot {

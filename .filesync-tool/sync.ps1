@@ -1,6 +1,6 @@
 ﻿param(
     [ValidateSet('Documents', 'Codex', 'All')][string]$Target = 'Documents',
-    [ValidateSet('Menu', 'Init', 'Status', 'Pull', 'Push', 'Sync', 'Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats')][string]$Action = 'Menu',
+    [ValidateSet('Menu', 'Init', 'Status', 'Pull', 'Push', 'Sync', 'Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats', 'RestorePreferences', 'InferProjects', 'Login')][string]$Action = 'Menu',
     [string]$Root,
     [string]$RemoteUrl,
     [string]$Message,
@@ -48,19 +48,130 @@ auth.json
 . (Join-Path $PSScriptRoot 'codex-state.ps1')
 . (Join-Path $PSScriptRoot 'first-connect.ps1')
 
+function Invoke-GitProbe {
+    param([string[]]$GitArgs)
+    # Windows PowerShell 5 drops empty native arguments unless explicitly quoted.
+    $nativeArgs = @($GitArgs | ForEach-Object { if ($_ -ceq '' -and $PSVersionTable.PSVersion.Major -lt 7) { '""' } else { $_ } })
+    $old = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try { $output = @(& $script:Git -c core.quotePath=false -c core.longpaths=true -C $script:Root @nativeArgs 2>&1); $code = $LASTEXITCODE }
+    finally { $ErrorActionPreference = $old }
+    $lines = @($output | ForEach-Object { [string]$_ } | Where-Object { $_ -and $_ -ne 'System.Management.Automation.RemoteException' })
+    return [pscustomobject]@{ Code = $code; Output = $lines }
+}
+
 function Invoke-Git {
     param([string[]]$GitArgs, [switch]$Capture, [int[]]$Allowed = @(0))
     Write-Host ('> git ' + ($GitArgs -join ' ')) -ForegroundColor DarkGray
-    $old = $ErrorActionPreference
-    $ErrorActionPreference = 'Continue'
-    try { $output = @(& $script:Git -c core.quotePath=false -C $script:Root @GitArgs 2>&1); $code = $LASTEXITCODE }
-    finally { $ErrorActionPreference = $old }
+    $result = Invoke-GitProbe $GitArgs
+    $code = $result.Code
     if ($code -notin $Allowed) {
-        $output | ForEach-Object { Write-Host $_ }
+        $result.Output | ForEach-Object { Write-Host $_ }
         throw "Git 返回 $code，请按上面的输出排查。"
     }
-    if ($Capture) { return $output | ForEach-Object { [string]$_ } }
-    $output | ForEach-Object { Write-Host $_ }
+    if ($Capture) { return $result.Output }
+    $result.Output | ForEach-Object { Write-Host $_ }
+}
+
+function Ensure-GitIdentity {
+    $author = Invoke-GitProbe @('var', 'GIT_AUTHOR_IDENT')
+    $committer = Invoke-GitProbe @('var', 'GIT_COMMITTER_IDENT')
+    if ($author.Code -eq 0 -and $committer.Code -eq 0) { return }
+    if ($NonInteractive) { throw 'Git 提交者姓名/邮箱未配置或无效；请手动打开 FileSync 选 13 完成设置，再启用定时同步。' }
+    Write-Host 'Git 提交者信息尚未配置。这与 GitHub 登录分开；以下只补齐当前 Windows 用户缺少的 Git 姓名/邮箱。' -ForegroundColor Yellow
+    $name = [string]((Invoke-GitProbe @('config', '--get', 'user.name')).Output -join '')
+    $email = [string]((Invoke-GitProbe @('config', '--get', 'user.email')).Output -join '')
+    $setName = -not $name.Trim(); $setEmail = -not $email.Trim()
+    if ($setName) { $name = (Read-Host '提交者姓名（可用 GitHub 用户名；留空取消）').Trim() }
+    if ($setEmail) { $email = (Read-Host '提交邮箱（可填 GitHub 提供的 noreply 邮箱；留空取消）').Trim() }
+    if (-not $name -or $name -match '[<>\r\n]' -or $email -notmatch '^[^<>\s@]+@[^<>\s@]+$') { throw '姓名或邮箱为空/格式无效，未保存；请重新运行 13。' }
+    if ($setName) { Invoke-Git @('config', '--global', 'user.name', $name) }
+    if ($setEmail) { Invoke-Git @('config', '--global', 'user.email', $email) }
+    if ((Invoke-GitProbe @('var', 'GIT_AUTHOR_IDENT')).Code -ne 0 -or (Invoke-GitProbe @('var', 'GIT_COMMITTER_IDENT')).Code -ne 0) {
+        throw 'Git 身份仍无效，请检查仓库级 author/committer 配置或相关环境变量。'
+    }
+}
+
+function Get-GitHubRemote {
+    param([string]$Url)
+    $uri = $null
+    if (-not [Uri]::TryCreate($Url, [UriKind]::Absolute, [ref]$uri) -or $uri.Scheme -ne 'https' -or $uri.Host -ine 'github.com') { return $null }
+    if ($uri.UserInfo.Contains(':') -or $uri.Query -or $uri.Fragment) { throw '请将 GitHub 远程地址改为普通 HTTPS 仓库地址，不在 URL 中保存密码、令牌或查询参数。' }
+    return $uri
+}
+
+function Start-GitHubLogin {
+    param([Uri]$Remote)
+    if ($NonInteractive) { throw '后台模式不能打开登录窗口。请手动运行主菜单 13。' }
+    Write-Host '正在打开 GitHub 浏览器登录，请在浏览器完成授权；关闭或取消后本轮停止。' -ForegroundColor Cyan
+    $saved = @{}
+    foreach ($key in @('GCM_INTERACTIVE', 'GCM_GUI_PROMPT', 'GIT_TERMINAL_PROMPT')) { $saved[$key] = [Environment]::GetEnvironmentVariable($key, 'Process') }
+    try {
+        $env:GCM_INTERACTIVE = 'true'; $env:GCM_GUI_PROMPT = 'true'; $env:GIT_TERMINAL_PROMPT = '1'
+        $loginArgs = @('-C', $script:Root, 'credential-manager', 'github', 'login', '--url', 'https://github.com', '--browser', '--force')
+        if ($Remote.UserInfo) { $loginArgs += @('--username', [Uri]::UnescapeDataString($Remote.UserInfo)) }
+        & $script:Git @loginArgs
+        if ($LASTEXITCODE -ne 0) { throw 'GitHub 登录未完成或已取消，未继续同步。' }
+    } finally {
+        foreach ($key in $saved.Keys) { [Environment]::SetEnvironmentVariable($key, $saved[$key], 'Process') }
+    }
+    # Scope helper selection to this repository and GitHub only; tokens stay in GCM.
+    if (Test-Path -LiteralPath (Join-Path $script:Root '.git')) {
+        Invoke-Git @('config', '--local', '--replace-all', 'credential.https://github.com.helper', '')
+        Invoke-Git @('config', '--local', '--add', 'credential.https://github.com.helper', 'manager')
+    } else {
+        $script:GitHubUseGcmForClone = $true
+    }
+}
+
+function Test-RemoteAccess {
+    param([string]$Url)
+    $saved = @{}
+    foreach ($key in @('GCM_INTERACTIVE', 'GIT_TERMINAL_PROMPT')) { $saved[$key] = [Environment]::GetEnvironmentVariable($key, 'Process') }
+    try {
+        $env:GCM_INTERACTIVE = 'Never'; $env:GIT_TERMINAL_PROMPT = '0'
+        $probeArgs = @('-c', 'credential.interactive=false', '-c', 'http.lowSpeedLimit=1', '-c', 'http.lowSpeedTime=20')
+        if ($script:GitHubUseGcmForClone) { $probeArgs += @('-c', 'credential.helper=', '-c', 'credential.helper=manager') }
+        return (Invoke-GitProbe ($probeArgs + @('ls-remote', '--', $Url, 'HEAD')))
+    } finally {
+        foreach ($key in $saved.Keys) { [Environment]::SetEnvironmentVariable($key, $saved[$key], 'Process') }
+    }
+}
+
+function Ensure-GitHubAccess {
+    param([string]$Url, [switch]$Login)
+    $remote = Get-GitHubRemote $Url
+    if ($null -eq $remote) {
+        if ($Login) { throw '浏览器登录入口适用于 https://github.com 的远程地址；SSH 地址请使用已配置的 SSH 密钥，其他平台使用原有认证方式。' }
+        return
+    }
+    if ($Login -and $NonInteractive) { throw '后台模式不能打开登录窗口，请手动运行主菜单 13。' }
+    $gcm = Invoke-GitProbe @('credential-manager', '--version')
+    if ($gcm.Code -ne 0) {
+        if ($Login) { throw '未安装 Git Credential Manager。请在 Git for Windows 安装程序中启用它，再运行 13。' }
+        Write-Host '未找到 Git Credential Manager，将沿用现有 Git 认证；需要浏览器登录时请安装 GCM 后运行 13。' -ForegroundColor Yellow
+        return
+    }
+    $didLogin = $false
+    if (-not $NonInteractive) {
+        $accounts = Invoke-GitProbe @('credential-manager', 'github', 'list', '--url', 'https://github.com', '--no-ui')
+        if ($accounts.Code -ne 0) { throw '无法读取 GitHub 账号缓存；请检查 Git Credential Manager，未将此错误当作已退出登录。' }
+        if ($Login -or $accounts.Output.Count -eq 0) { Start-GitHubLogin $remote; $didLogin = $true }
+    }
+    $check = Test-RemoteAccess $Url
+    if ($check.Code -eq 0) { Write-Host 'GitHub 远程读取检查通过；上传时仍会检查写入权限。'; return }
+    $detail = $check.Output -join "`n"
+    $authFailure = $detail -match '(?i)authentication failed|invalid username|invalid credentials|could not read (username|password)|terminal prompts disabled|HTTP[^\r\n]*401|unable to get (credential|authentication)'
+    if ($authFailure -and -not $NonInteractive -and -not $didLogin) {
+        Start-GitHubLogin $remote
+        $check = Test-RemoteAccess $Url
+        if ($check.Code -eq 0) { Write-Host 'GitHub 登录及远程读取检查通过。'; return }
+        $detail = $check.Output -join "`n"
+    }
+    $check.Output | ForEach-Object { Write-Host $_ }
+    if ($NonInteractive) { throw '后台远程检查失败，未弹窗。请检查网络/仓库权限；需要重新登录时手动运行主菜单 13。' }
+    if ($detail -match '(?i)repository not found|403|permission denied') { throw '仓库地址或账号权限不匹配；登录成功不代表有此仓库权限，可用 13 更换账号后重试。' }
+    throw 'GitHub 远程检查未通过，请检查网络、代理或认证；需要重新登录可运行主菜单 13。'
 }
 
 function Require-Repo {
@@ -153,14 +264,16 @@ function Update-InstallerIgnore {
 
 function Save-Changes {
     Require-Repo
-    $null = Invoke-Git @('var', 'GIT_AUTHOR_IDENT') -Capture
-    Invoke-Git @('remote', 'get-url', 'origin')
+    Ensure-GitIdentity
+    $pushUrl = [string](Invoke-Git @('remote', 'get-url', '--push', 'origin') -Capture)
+    Ensure-GitHubAccess $pushUrl
     if ($Target -eq 'Codex') {
         $auth = @(Invoke-Git @('ls-files', '--', 'auth.json') -Capture)
         if ($auth.Count) { throw 'auth.json 已被跟踪，请先从仓库和历史中处理登录凭据，再同步。' }
         Update-CodexRules
         Check-CodexConfig
         Export-MemorySnapshot
+        Invoke-CodexPreferences export
         Export-FileSyncTool
     } else {
         $installers = @(Get-DocumentsExclusions)
@@ -219,7 +332,7 @@ try {
         $env:GIT_TERMINAL_PROMPT = '0'
         $env:GCM_INTERACTIVE = 'Never'
         if (-not $env:GIT_SSH_COMMAND) { $env:GIT_SSH_COMMAND = 'ssh -o BatchMode=yes' }
-        if ($Action -in @('Menu', 'Init', 'FirstConnect')) { throw '定时模式不接受菜单或初始化；请先手动完成配置和登录。' }
+        if ($Action -in @('Menu', 'Init', 'FirstConnect', 'Login')) { throw '定时模式不接受菜单、初始化或登录；请先手动完成配置和登录。' }
     }
     if ($Log) {
         $logDir = Join-Path $PSScriptRoot 'logs'
@@ -235,7 +348,10 @@ try {
         Write-Host '5 = 启用定时同步，6 = 关闭定时同步'
         Write-Host '7 = 升级/准备 .codex 快照，8 = 恢复记忆快照'
         Write-Host '9 = 首次接入 .codex（先备份，以远程为准）'
-        Write-Host '10 = 恢复聊天正文、索引和原始标题，0 = 退出'
+        Write-Host '10 = 恢复聊天正文、索引和原始标题'
+        Write-Host '11 = 恢复模型、权限、项目和置顶快照'
+        Write-Host '12 = 旧备份按工作目录重建项目归属（推断，不恢复置顶）'
+        Write-Host '13 = 设置 Git 姓名/邮箱并登录 GitHub，0 = 退出'
         $choice = Read-Host '选择（默认 1）'
         if ($choice -eq '0') { exit 2 }
         if ($choice -in @('5', '6')) {
@@ -244,19 +360,24 @@ try {
             & (Join-Path $PSHOME 'powershell.exe') -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'schedule.ps1') -Mode $mode
             exit $LASTEXITCODE
         }
-        if ($choice -in @('7', '8', '9', '10')) {
+        if ($choice -in @('7', '8', '9', '10', '11', '12')) {
             $Target = 'Codex'
             $Action = 'Prepare'
             if ($choice -eq '8') { $Action = 'RestoreMemory' }
             if ($choice -eq '9') { $Action = 'FirstConnect' }
             if ($choice -eq '10') { $Action = 'RestoreChats' }
+            if ($choice -eq '11') { $Action = 'RestorePreferences' }
+            if ($choice -eq '12') { $Action = 'InferProjects' }
+        } elseif ($choice -eq '13') {
+            $Target = 'Documents'
+            $Action = 'Login'
         } elseif ($choice -in @('3', '4')) {
             $Target = 'All'
             $Action = 'Sync'
             if ($choice -eq '4') { $Action = 'Pull' }
         } else {
             if ($choice -eq '2') { $Target = 'Codex' } elseif ($choice -notin @('', '1')) { throw '目录选项无效。' }
-            Write-Host '选择操作：1 = 初始化，2 = 查看状态，3 = 下载，4 = 上传，5 = 同步，6 = 准备快照（.codex），7 = 恢复记忆（.codex），0 = 退出'
+            Write-Host '选择操作：1 = 初始化，2 = 查看状态，3 = 下载，4 = 上传，5 = 同步，6 = 准备快照（.codex），7 = 恢复记忆（.codex），8 = Git 设置/登录 GitHub，0 = 退出'
             switch (Read-Host '操作') {
                 '0' { exit 2 }
                 '1' { $Action = 'Init' }
@@ -266,12 +387,13 @@ try {
                 '5' { $Action = 'Sync' }
                 '6' { $Action = 'Prepare' }
                 '7' { $Action = 'RestoreMemory' }
+                '8' { $Action = 'Login' }
                 default { throw '操作选项无效。' }
             }
         }
     }
     if ($Target -eq 'All') {
-        if ($Root -or $Action -in @('Init', 'Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats')) { throw '两个目录请分别初始化；自定义路径用 -DocumentsRoot 和 -CodexRoot。' }
+        if ($Root -or $Action -in @('Init', 'Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats', 'RestorePreferences', 'InferProjects', 'Login')) { throw '此操作请选择单个目录；自定义路径用 -DocumentsRoot 和 -CodexRoot。' }
         $failed = $false
         $summary = New-Object 'System.Collections.Generic.List[string]'
         foreach ($item in @('Documents', 'Codex')) {
@@ -309,21 +431,21 @@ try {
         ) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
     }
     if (-not $script:Git) { throw '没有找到 Git，请安装 Git 或把 git.exe 加入 PATH。' }
-    if ($Action -in @('Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats') -and $Target -ne 'Codex') { throw '此操作只用于 .codex。' }
+    if ($Action -in @('Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats', 'RestorePreferences', 'InferProjects') -and $Target -ne 'Codex') { throw '此操作只用于 .codex。' }
     $liveCodex = Join-Path $env:USERPROFILE '.codex'
     if ($env:CODEX_HOME) { $liveCodex = $env:CODEX_HOME }
     $codexRunning = $false
     if ($Target -eq 'Codex' -and $script:Root -ieq ([IO.Path]::GetFullPath($liveCodex).TrimEnd('\', '/'))) {
         $codexRunning = [bool](Get-Process -Name codex -ErrorAction SilentlyContinue)
     }
-    if ($Target -eq 'Codex' -and $Action -in @('Pull', 'RestoreMemory', 'FirstConnect', 'RestoreChats') -and $codexRunning) {
-        throw '请先退出 Codex，再下载、首次接入、恢复记忆或修复正文索引。'
+    if ($Target -eq 'Codex' -and $Action -in @('Pull', 'RestoreMemory', 'FirstConnect', 'RestoreChats', 'RestorePreferences', 'InferProjects') -and $codexRunning) {
+        throw '请先退出 Codex，再下载、首次接入、恢复记忆、偏好或修复正文索引。'
     }
     if ($Target -eq 'Codex' -and $Action -eq 'Sync' -and ($NonInteractive -or $codexRunning)) {
         $Action = 'Push'
         Write-Host '在线备份模式：导出记忆并上传本机文件；本轮不下载或覆盖正在使用的文件。' -ForegroundColor Yellow
     }
-    if ($Action -in @('Init', 'Pull', 'Push', 'Sync', 'Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats')) {
+    if ($Action -in @('Init', 'Pull', 'Push', 'Sync', 'Prepare', 'RestoreMemory', 'FirstConnect', 'RestoreChats', 'RestorePreferences', 'InferProjects', 'Login')) {
         $sha = [Security.Cryptography.SHA256]::Create()
         $lockId = ([BitConverter]::ToString($sha.ComputeHash($utf8.GetBytes($script:Root.ToLowerInvariant())))).Replace('-', '')
         $sha.Dispose()
@@ -340,7 +462,7 @@ try {
             Invoke-Git @('config', 'core.autocrlf', 'false')
             Invoke-Git @('config', 'pull.ff', 'only')
             $ignore = Join-Path $script:Root '.gitignore'
-            if ($Target -eq 'Codex') { Update-CodexRules; Export-MemorySnapshot; Export-FileSyncTool }
+            if ($Target -eq 'Codex') { Update-CodexRules; Export-MemorySnapshot; Invoke-CodexPreferences export; Export-FileSyncTool }
             $attrs = Join-Path $script:Root '.gitattributes'
             if (-not (Test-Path -LiteralPath $attrs)) { [IO.File]::WriteAllText($attrs, "* -text`n", $utf8) }
             $remotes = @(Invoke-Git @('remote') -Capture)
@@ -348,7 +470,14 @@ try {
                 if (-not $RemoteUrl) { $RemoteUrl = Read-Host '粘贴此目录对应的空私有仓库地址（直接回车暂不设置）' }
                 if ($RemoteUrl) { Invoke-Git @('remote', 'add', 'origin', $RemoteUrl.Trim()) }
             } else { Invoke-Git @('remote', '-v') }
-            Write-Host '初始化完成。首次上传选择“上传”。第二个目录使用另一个仓库。' -ForegroundColor Green
+            Write-Host '初始化完成。新仓库首次上传选“上传”；.codex 接入已有远程选“下载”或主菜单 9。两个目录使用不同仓库。' -ForegroundColor Green
+        }
+        'Login' {
+            Require-Repo
+            Ensure-GitIdentity
+            $loginUrl = [string](Invoke-Git @('remote', 'get-url', '--push', 'origin') -Capture)
+            Ensure-GitHubAccess -Url $loginUrl -Login
+            Write-Host 'Git 身份和 GitHub 登录检查完成；未提交或上传。' -ForegroundColor Green
         }
         'FirstConnect' { Start-CodexFirstConnect }
         'Prepare' {
@@ -356,24 +485,45 @@ try {
             Update-CodexRules
             Check-CodexConfig
             Export-MemorySnapshot
+            Invoke-CodexPreferences export
             Export-FileSyncTool
-            Write-Host '规则、记忆和工具快照已准备；尚未提交或上传。' -ForegroundColor Green
+            Write-Host '规则、记忆、偏好和工具快照已准备；尚未提交或上传。' -ForegroundColor Green
         }
         'RestoreMemory' { Require-Repo; Restore-MemorySnapshot }
         'RestoreChats' { Require-Repo; Restore-ChatIndex }
+        'RestorePreferences' { Require-Repo; Invoke-CodexPreferences restore }
+        'InferProjects' {
+            Require-Repo
+            Invoke-CodexPreferences infer-projects
+        }
         'Status' { Require-Repo; Invoke-Git @('status', '--short', '--branch'); Invoke-Git @('remote', '-v') }
         'Pull' {
             Require-Repo
+            $head = @(Invoke-Git @('rev-parse', '--verify', '--quiet', 'HEAD') -Capture -Allowed @(0,1,128))
+            if (-not $head.Count) {
+                if ($Target -eq 'Codex') {
+                    Write-Host '当前只有初始化，首次下载将先备份本机受管文件，再接入远程仓库。' -ForegroundColor Yellow
+                    Start-CodexFirstConnect
+                    break
+                }
+                throw '当前只有初始化、尚无提交。第二台电脑请先将已有文档仓库克隆到文档\Codex 根目录；不要为通过检查而创建本机初始提交。'
+            }
             $statusArgs = @('status', '--porcelain')
             if ($Target -eq 'Documents') {
                 $statusArgs += @('--ignored', '--', '.')
                 foreach ($path in @(Get-DocumentsExclusions)) { $statusArgs += ':(top,literal,exclude)' + $path }
             }
             $dirty = @(Invoke-Git $statusArgs -Capture)
-            if ($dirty.Count) { throw '目录内有未提交的修改，请先上传或自行处理，再下载。' }
+            if ($dirty.Count) {
+                $onlyLocalConfig = $Target -eq 'Codex' -and $dirty.Count -eq 1 -and $dirty[0] -ceq ' M config.toml'
+                if (-not $onlyLocalConfig) { throw '目录内有未提交的修改，请先上传或自行处理，再下载。' }
+                Write-Host '检测到本机 config.toml 修改，将保留配置并尝试快进；远程若也修改此文件，Git 会停止以避免覆盖。' -ForegroundColor Yellow
+            }
+            $fetchUrl = [string](Invoke-Git @('remote', 'get-url', 'origin') -Capture)
+            Ensure-GitHubAccess $fetchUrl
             Invoke-Git @('pull', '--ff-only')
             if ($Target -eq 'Documents') { Restore-EmptyDirs }
-            if ($Target -eq 'Codex') { Write-Host '下载只更新备份文件；主菜单 8 恢复记忆，10 恢复聊天正文、索引和标题。' -ForegroundColor Yellow }
+            if ($Target -eq 'Codex') { Write-Host '下载只更新备份文件；主菜单 8 恢复记忆，10 恢复聊天正文、索引和标题，11 恢复设置、项目和置顶。' -ForegroundColor Yellow }
             Write-Host '下载完成。' -ForegroundColor Green
         }
         'Push' {
@@ -393,7 +543,7 @@ try {
                 if ($Target -eq 'Documents') { Restore-EmptyDirs }
             }
             Invoke-Git @('push', '-u', 'origin', 'HEAD')
-            if ($Target -eq 'Codex') { Write-Host '若下载了另一台电脑的新记忆，请选主菜单 8 恢复后再继续使用。' -ForegroundColor Yellow }
+            if ($Target -eq 'Codex') { Write-Host '若下载了新快照，请选主菜单 8 恢复记忆、11 恢复设置/项目/置顶后再继续使用。' -ForegroundColor Yellow }
             Write-Host '同步完成。' -ForegroundColor Green
         }
     }

@@ -103,7 +103,7 @@ class AppServer:
         threading.Thread(target=drain, daemon=True).start()
 
     def initialize(self):
-        self.call('initialize', {'clientInfo': {'name': 'filesync_chat_restore', 'version': '5.0.0'},
+        self.call('initialize', {'clientInfo': {'name': 'filesync_chat_restore', 'version': '6.0.0'},
                                 'capabilities': {'experimentalApi': True}})
         self.process.stdin.write(b'{"method":"initialized","params":{}}\n')
         self.process.stdin.flush()
@@ -389,8 +389,11 @@ def prepare(root, executable, home, verify, hashes, raw_history):
         print('已按依赖顺序读取 %d/%d 个历史片段。' % (len(replayed), total), flush=True)
     history = database(home, 'thread_history_*.sqlite')
     target_history = database(verify, 'thread_history_*.sqlite')
-    if history is None or target_history is None:
-        raise RuntimeError('本机缺少正文数据库，请先启动一次 Codex 后重试。')
+    if history is None:
+        raise RuntimeError('当前引擎未能在隔离副本中生成正文数据库，未修改本机。')
+    if target_history is None:
+        target_history = verify / history.name
+        empty_history(history, target_history)
     all_ids = sorted({raw_history.file_id(name) for name in replayed})
     add_missing_metadata(state_database(verify), metadata, verify)
     replace_history(target_history, history, all_ids)
@@ -467,6 +470,35 @@ def replace_history(target, recovered, ids, guard=None):
         except BaseException:
             dst.rollback()
             raise
+
+
+def empty_history(source, target):
+    """Keep the engine's schema/migrations, with no projected data or cursors."""
+    if target.exists():
+        raise RuntimeError('正文数据库已存在，停止首次建库以避免覆盖。')
+    copy_database(source, target)
+    with contextlib.closing(sqlite3.connect(str(target), timeout=10)) as db:
+        with db:
+            for table in ('thread_items', 'thread_turns', 'thread_history_projection_state'):
+                db.execute('DELETE FROM ' + table)
+            if db.execute('PRAGMA quick_check').fetchone()[0] != 'ok':
+                raise RuntimeError('首次正文数据库结构校验失败。')
+
+
+def publish_history(root, recovered, ids, destination, guard):
+    """Publish a validated new database atomically, without replacing any file."""
+    if database(root, 'thread_history_*.sqlite') is not None:
+        raise RuntimeError('首次恢复期间正文数据库已由其他程序创建，未覆盖。')
+    staging = destination / ('new-' + recovered.name)
+    empty_history(recovered, staging)
+    replace_history(staging, recovered, ids, guard)
+    guard()
+    target = root / recovered.name
+    # The backup directory is on the same volume. link is atomic and exclusive;
+    # removing the staging name prevents future app writes affecting the backup.
+    os.link(str(staging), str(target))
+    staging.unlink()
+    return target
 
 
 def zstd_bytes(path, header_only=False):
@@ -658,9 +690,8 @@ def item_contents(path, tid):
             for r in db_rows(path, 'thread_items', tid)}
 
 
-def recover(root, executable, check_only=False):
-    root = Path(root).resolve()
-    if not check_only and os.name == 'nt':
+def require_offline(root):
+    if os.name == 'nt':
         live_root = Path(os.environ.get('CODEX_HOME') or str(Path.home() / '.codex')).resolve()
         if root == live_root:
             result = subprocess.run(['powershell.exe', '-NoProfile', '-Command',
@@ -668,11 +699,16 @@ def recover(root, executable, check_only=False):
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
             if result.returncode != 0 or result.stdout.decode('utf-8', 'replace').strip().lower() != 'false':
                 raise RuntimeError('修复正文索引前请退出 Codex；在线备份及 --check-only 检查仍可使用。')
+
+
+def recover(root, executable, check_only=False):
+    root = Path(root).resolve()
+    if not check_only:
+        require_offline(root)
     live_history = database(root, 'thread_history_*.sqlite')
-    if live_history is None:
-        raise RuntimeError('请先启动一次 Codex，让客户端创建正文数据库后再恢复。')
+    history_was_missing = live_history is None
     temp = Path(tempfile.mkdtemp(prefix='filesync-chat-rebuild-'))
-    report = {'format': 5, 'check_only': check_only}
+    report = {'format': 6, 'check_only': check_only, 'history_database_missing': history_was_missing}
     try:
         home = temp / 'native'; verify = temp / 'verify'
         hashes = snapshot(root, home, verify)
@@ -701,12 +737,14 @@ def recover(root, executable, check_only=False):
                 skipped.append({'id': tid, 'reason': 'raw_files_changed'}); continue
             if tid in current and relative_rollout(current[tid]['rollout_path'], root, hashes) != row['rollout_path']:
                 skipped.append({'id': tid, 'reason': 'selected_rollout_changed'}); continue
-            conflicting = False; different = False
+            conflicting = False; different = tid not in current
             for cache_id in cache_ids:
-                old = messages(live_history, cache_id); new = messages(recovered, cache_id)
+                old = messages(live_history, cache_id) if live_history else {}
+                new = messages(recovered, cache_id)
                 if any(key not in new or new[key] != value for key, value in old.items()):
                     conflicting = True
-                different = different or item_contents(live_history, cache_id) != item_contents(recovered, cache_id)
+                old_items = item_contents(live_history, cache_id) if live_history else {}
+                different = different or old_items != item_contents(recovered, cache_id)
             if conflicting:
                 skipped.append({'id': tid, 'reason': 'existing_message_conflict'}); continue
             if not different:
@@ -719,6 +757,9 @@ def recover(root, executable, check_only=False):
         backup(root, destination)
         (destination / 'session-file-hashes.json').write_text(json.dumps(hashes, indent=2), encoding='utf-8')
         def guard():
+            require_offline(root)
+            if live_history is None and database(root, 'thread_history_*.sqlite') is not None:
+                raise RuntimeError('恢复期间正文数据库已由其他程序创建，未覆盖。')
             if not unchanged(all_dependencies):
                 raise RuntimeError('恢复期间聊天原文发生变化，事务已回滚；请稍后重试。')
             live_rows = {r['id']: r for r in db_rows(state_database(root), 'threads')}
@@ -727,13 +768,18 @@ def recover(root, executable, check_only=False):
                 if tid in live_rows and relative_rollout(live_rows[tid]['rollout_path'], root, hashes) != source_rows[tid]['rollout_path']:
                     raise RuntimeError('恢复期间会话切换了历史片段，事务已回滚。')
             for cache_id in repair_ids:
-                old = messages(live_history, cache_id); new = messages(recovered, cache_id)
+                old = messages(live_history, cache_id) if live_history else {}
+                new = messages(recovered, cache_id)
                 if any(key not in new or new[key] != value for key, value in old.items()):
                     raise RuntimeError('恢复期间本机正文索引发生变化，事务已回滚。')
-        replace_history(live_history, recovered, sorted(repair_ids), guard)
+        if live_history is None:
+            live_history = publish_history(root, recovered, sorted(repair_ids), destination, guard)
+        else:
+            replace_history(live_history, recovered, sorted(repair_ids), guard)
         for cache_id in repair_ids:
             if item_contents(live_history, cache_id) != item_contents(recovered, cache_id):
                 raise RuntimeError('恢复后正文校验失败，请保留备份：' + str(destination))
+        guard()
         add_missing_metadata(state_database(root), [r for r in metadata if r['id'] in candidates], root)
         # Original titles are restored separately; the live raw logs are never written.
         cache_count = apply_names(root, read_names(root))

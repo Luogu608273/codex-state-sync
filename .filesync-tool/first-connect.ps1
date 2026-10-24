@@ -3,7 +3,7 @@ function Invoke-FirstGit {
     param([string]$Directory, [string[]]$GitArgs, [switch]$Capture, [int[]]$Allowed = @(0))
     $old = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
-    try { $output = @(& $script:Git -c core.quotePath=false -C $Directory @GitArgs 2>&1); $code = $LASTEXITCODE }
+    try { $output = @(& $script:Git -c core.quotePath=false -c core.longpaths=true -c core.autocrlf=false -C $Directory @GitArgs 2>&1); $code = $LASTEXITCODE }
     finally { $ErrorActionPreference = $old }
     if ($code -notin $Allowed) {
         $output | ForEach-Object { Write-Host $_ }
@@ -18,7 +18,7 @@ function Test-FirstManagedPath {
     foreach ($part in $Path.Split('/')) {
         if ($part -match '[. ]$|[<>|"*?\x00-\x1f]' -or $part -match '^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\.|$)') { return $false }
     }
-    if ($Path -in @('.gitignore', '.gitattributes', 'AGENTS.md', 'config.toml', 'hooks.json', 'history.jsonl', 'session_index.jsonl')) { return $true }
+    if ($Path -in @('.gitignore', '.gitattributes', 'AGENTS.md', 'config.toml', '.filesync-preferences.json', 'hooks.json', 'history.jsonl', 'session_index.jsonl')) { return $true }
     if ($Path -match '^\.chatgpt-projects/[^/]+/AGENTS[.]md$') { return $true }
     if ($Path -match '^\.filesync-tool/([^/]+)$') { return $Matches[1] -in $fileSyncToolFiles }
     return $Path -match '^(\.filesync-memories|\.filesync-memory-archive|sessions|archived_sessions|attachments|rules|skills|prompts|instructions|agents|profiles|hooks|generated_images|visualizations|pets)/'
@@ -27,7 +27,7 @@ function Test-FirstManagedPath {
 function Get-FirstManagedInventory {
     param([string]$Base)
     $map = @{}
-    foreach ($name in @('.gitignore', '.gitattributes', 'AGENTS.md', 'config.toml', 'hooks.json', 'history.jsonl', 'session_index.jsonl')) {
+    foreach ($name in @('.gitignore', '.gitattributes', 'AGENTS.md', 'config.toml', '.filesync-preferences.json', 'hooks.json', 'history.jsonl', 'session_index.jsonl')) {
         $path = Join-Path $Base $name
         if (Test-Path -LiteralPath $path) {
             $item = Get-Item -LiteralPath $path -Force
@@ -73,7 +73,7 @@ function Start-CodexFirstConnect {
             ((Get-Item -LiteralPath $outerGit -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw '首次接入不支持链接或工作树形式的外层 .git。' }
         if (Test-Path -LiteralPath (Join-Path $outerGit 'index.lock')) { throw '目标仓库有 Git 锁，请稍后重试。' }
         $head = @(Invoke-FirstGit $live @('rev-parse', '--verify', '--quiet', 'HEAD') -Capture -Allowed @(0,1,128))
-        if ($head.Count) { throw '目标已有外层 Git 提交历史，首次接入不会替换它。请使用普通同步，或先单独备份并处理原仓库。' }
+        if ($head.Count) { throw '目标已有外层 Git 提交历史，不能重复首次接入。日常请选择下载或同步；恢复聊天请选择主菜单 10。原仓库保留。' }
     }
     $url = $RemoteUrl
     if (-not $url -and (Test-Path -LiteralPath $outerGit)) {
@@ -82,7 +82,9 @@ function Start-CodexFirstConnect {
     }
     if (-not $url) { $url = Read-Host '粘贴已有的 .codex 同步仓库地址（此操作以远程为准，本机受管文件先备份）' }
     if (-not $url) { throw '未填写远程仓库地址，未导入任何文件。' }
-    $stage = Join-Path $PSScriptRoot ('first-connect-work-' + [Guid]::NewGuid().ToString('N'))
+    Ensure-GitHubAccess $url.Trim()
+    # Keep paths short for Windows PowerShell/.NET as well as Git.
+    $stage = Join-Path $env:USERPROFILE ('.fs-' + [Guid]::NewGuid().ToString('N').Substring(0,12))
     $backup = $null
     $changed = $false
     $newGit = $false
@@ -92,7 +94,9 @@ function Start-CodexFirstConnect {
     $memory = @{}
     try {
         Write-Host '正在克隆并验证远程版本，本机文件尚未改动。'
-        Invoke-FirstGit $PSScriptRoot @('clone', '--no-checkout', '--', $url.Trim(), $stage)
+        $cloneArgs = @('clone', '--no-checkout')
+        if ($script:GitHubUseGcmForClone) { $cloneArgs += @('--config', 'credential.https://github.com.helper=', '--config', 'credential.https://github.com.helper=manager') }
+        Invoke-FirstGit $PSScriptRoot ($cloneArgs + @('--', $url.Trim(), $stage))
         Invoke-FirstGit $stage @('rev-parse', '--verify', 'HEAD')
         $entries = @(Invoke-FirstGit $stage @('ls-tree', '-r', '--full-tree', 'HEAD') -Capture)
         $remotePaths = @()
@@ -107,7 +111,10 @@ function Start-CodexFirstConnect {
         }
         if ('.filesync-memories/manifest.json' -notin $remotePaths) { throw '远程尚无新版记忆快照，请先在原电脑用新版工具上传。' }
         Invoke-FirstGit $stage @('read-tree', 'HEAD')
-        Invoke-FirstGit $stage @('-c', 'core.autocrlf=false', 'checkout-index', '-a')
+        foreach ($path in $remotePaths) {
+            if ((Join-Path $stage $path).Length -ge 260) { throw '首次接入临时路径仍超过 Windows 路径限制，未替换本机文件。请使用更短的用户目录。' }
+        }
+        Invoke-FirstGit $stage @('checkout-index', '-a')
         $script:Root = $stage
         Update-CodexRules
         Check-CodexConfig
@@ -121,7 +128,13 @@ function Start-CodexFirstConnect {
             $destination = Join-Path $live $path
             if (Test-Path -LiteralPath $destination -PathType Container) { throw "远程文件目标被本机目录占用，未导入：$path" }
         }
-        $backup = Join-Path $PSScriptRoot ('first-connect-backups/' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [Guid]::NewGuid().ToString('N').Substring(0,8))
+        $backup = Join-Path $env:USERPROFILE ('.fs-backups/' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [Guid]::NewGuid().ToString('N').Substring(0,4))
+        foreach ($path in $original.Keys) {
+            if ((Join-Path (Join-Path $backup 'files') $path).Length -ge 260) { throw '首次接入备份路径超过 Windows 路径限制，未替换本机文件。' }
+        }
+        foreach ($path in $memory.Keys) {
+            if ((Join-Path (Join-Path $backup 'files/memories') $path).Length -ge 260) { throw '首次接入记忆备份路径超过 Windows 路径限制，未替换本机文件。' }
+        }
         [IO.Directory]::CreateDirectory($backup) | Out-Null
         [IO.File]::WriteAllText((Join-Path $backup 'source-path.txt'), $live, $utf8)
         $backupFiles = Join-Path $backup 'files'
@@ -154,7 +167,7 @@ function Start-CodexFirstConnect {
         Restore-MemorySnapshot
         Write-Host '首次接入完成：已采用远程历史和受管文件，记忆已恢复；没有创建提交或上传。' -ForegroundColor Green
         Write-Host ("原文件备份：" + $backup)
-        Write-Host '本机认证、数据库、缓存和原 memories/.git 保留。使用前请检查 config.toml 的本机路径；回主菜单选 10 恢复聊天正文、索引和标题。'
+        Write-Host '本机认证、数据库、缓存和原 memories/.git 保留。使用前请检查 config.toml 的本机路径；回主菜单选 10 恢复聊天正文、索引和标题；11 恢复偏好、项目和置顶。'
     } catch {
         $failure = $_.Exception.Message
         $script:Root = $live

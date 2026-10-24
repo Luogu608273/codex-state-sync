@@ -8,11 +8,11 @@
 - **目录 2：用户目录\.codex**。优先使用环境变量 `CODEX_HOME`，否则使用 `%USERPROFILE%\.codex`；使用另一个仓库。
 - 两个仓库相互独立。“文档”的其他目录不属于同步目标。文档\\Codex 会包含被 Git 忽略规则排除的普通文件（包括 exe），但会排除超过 100 MiB 的安装包。
 
-`.codex` 默认同步根目录 AGENTS.md、config.toml、hooks.json、history.jsonl、session_index.jsonl 和同步规则，以及 sessions、archived_sessions、attachments、rules、自定义 skills、prompts、instructions、agents、profiles、hooks。聊天同时收录 `.jsonl` 与 `.jsonl.zst`，按原始字节保存。自带 skills/.system、程序缓存、auth.json、cap_sid、SQLite 与应用运行状态排除。配置不再按扩展名笼统放行；其他明确由你维护的配置，可在 `.codex/.gitignore` 的 FileSync 区块后逐个添加，例如 `!/settings.yaml`，上传前检查内容。
+`.codex` 默认同步根目录 AGENTS.md、config.toml、hooks.json、history.jsonl、session_index.jsonl 和同步规则，以及 sessions、archived_sessions、attachments、rules、自定义 skills、prompts、instructions、agents、profiles、hooks。聊天同时收录 `.jsonl` 与 `.jsonl.zst`，按原始字节保存。自带 skills/.system、程序缓存、auth.json、cap_sid、SQLite 和未明确收录的应用状态排除。模型/权限/项目/置顶另存为下述小型偏好快照。配置不再按扩展名笼统放行；其他明确由你维护的配置，可在 `.codex/.gitignore` 的 FileSync 区块后逐个添加，例如 `!/settings.yaml`，上传前检查内容。
 
 `memories/` 使用 `.codex/.filesync-memories/` 中的文件快照同步，包含普通记忆文件、自定义技能和摘要；快照排除任何层级的 .git、.system、认证文件及 SQLite。原 memories/.git 保留。下载只更新快照，恢复到实际 memories 必须单独手动执行。
 
-Codex 配置可能包含你手动填写的密钥；使用私有仓库，并自行检查配置内容。日常同步按原始字节备份文件；换电脑后可用主菜单 10 重建本机聊天列表、正文索引和原始标题。数据库仍不跨电脑同步，也不自动改写项目路径。
+Codex 配置可能包含你手动填写的密钥；使用私有仓库，并自行检查配置内容。日常同步按原始字节备份文件；换电脑后可用主菜单 10 重建本机聊天列表、正文索引和原始标题。数据库仍不跨电脑同步；项目和置顶可用主菜单 11 从偏好快照恢复，用户目录内的项目路径会适配目标电脑。
 
 ## 第一台电脑：第一次设置
 
@@ -30,7 +30,7 @@ Codex 配置可能包含你手动填写的密钥；使用私有仓库，并自�
 - 从电脑 A 换到 B：A 上传完，B 再下载。不要同时修改同一条会话。
 - Git 删除文件的记录也会同步。文档\Codex 的空文件夹通过 `.filesync-empty-dirs.json` 保存并在下载后重建；它不会删除已存在的空文件夹。
 - `.codex` 不保存无内容的空文件夹。
-- 初始化不提交、上传文件。上传 = 暂存全部目标内容、必要时提交、正常推送；下载 = 检查工作区干净、`git pull --ff-only`。
+- 初始化不提交、上传文件。上传 = 暂存全部目标内容、必要时提交、正常推送；下载使用 `git pull --ff-only`；仅有未暂存的 config.toml 本机修改时可保留着下载，远程也修改该文件时 Git 会停止。其他本机修改仍需先处理。
 - 没有修改时，“上传”仍会重试之前尚未成功推送的提交。
 
 ## 第二台电脑：首次接入
@@ -41,7 +41,9 @@ Codex 配置可能包含你手动填写的密钥；使用私有仓库，并自�
 git clone https://github.com/你的用户名/codex-documents-sync.git "$HOME/Documents/Codex"
 ```
 
-对于已经由应用生成文件的 .codex，使用新入口：
+对于已经由应用生成文件的 .codex，使用新入口。若此前只进行了 init、尚无任何本机提交，手动“下载”会自动进入同一首次接入流程，并沿用已有 origin 地址；无需先提交或上传本机自动生成的文件。后台模式不执行首次接入。
+
+首次接入步骤：
 
 1. 先在原电脑用新版工具完成一次上传，确保远程已有 .filesync-memories/manifest.json 和记忆文件。
 2. 在新电脑关闭 Codex，双击 sync.cmd，选主菜单 **9 = 首次接入 .codex（先备份，以远程为准）**。
@@ -49,11 +51,11 @@ git clone https://github.com/你的用户名/codex-documents-sync.git "$HOME/Doc
 4. 导入远程受管文件和 Git 历史，并恢复远程记忆。本机仅有的受管聊天和记忆也会从实际目录移走，以远程为准；原内容留在备份。认证、安装程序、数据库和缓存保留，原 memories/.git 始终保留。
 5. 检查 config.toml 的本机绝对路径后再启动 Codex；缺少登录状态时重新登录。
 
-原文件在 FileSync/first-connect-backups/时间戳/files，source-path.txt 记录原目录；原来若有尚无提交的外层 .git，则另存 original-outer-git。备份可能包含旧配置和会话，不会自动上传，请在确认迁移完成后自行决定何时删除。导入中途失败时会尝试还原；若自动还原失败，错误会显示备份路径，可从中手动恢复。
+新版原文件在 `%USERPROFILE%\.fs-backups\时间戳-标记\files`，旧版备份仍保留在 FileSync/first-connect-backups/时间戳/files；source-path.txt 记录原目录。首次接入使用用户目录下的短临时路径，工具内 Git 操作启用长路径支持，以避免记忆归档在临时目录中超过 Windows 路径限制；原来若有尚无提交的外层 .git，则另存 original-outer-git。备份可能包含旧配置和会话，不会自动上传，请在确认迁移完成后自行决定何时删除。导入中途失败时会尝试还原；若自动还原失败，错误会显示备份路径，可从中手动恢复。
 
 此入口只用于尚无外层 Git 提交历史的新目录，不替换已有同步仓库的历史，也不会执行强推、创建提交或上传。已初始化但尚未提交的空仓库可以接入。远程仍含旧 memories gitlink、认证数据、链接或超出默认白名单的自定义文件时会拒绝导入，先在原电脑处理并上传；额外配置可另行迁移。远程配置含疑似明文凭据时也会停止。
 
-如果已完成接入，日常继续使用一键同步或普通下载。普通 pull 始终要求工作区干净，并使用 --ff-only，分叉时停止。文档空目录仍在首次下载后重建。
+如果已完成接入，日常继续使用一键同步或普通下载。已有本机提交时，除 .codex 仅有未暂存的 config.toml 修改外，普通 pull 仍要求工作区干净，并使用 --ff-only，分叉时停止。config.toml 常被 Codex 自动更新本机程序和插件路径：下载保留这份本机修改，远程同名文件有更新时由 Git 停止以避免覆盖；不会自动提交或上传配置。文档空目录仍在首次下载后重建。
 
 ## 命令行用法
 
@@ -123,7 +125,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$HOME\\Documents\\FileS
 & "$HOME\Documents\FileSync\sync.cmd" -Target Codex -Action RestoreMemory
 ```
 
-此方案备份文件；不跨电脑覆盖 SQLite、项目 ID 映射或应用完整状态。聊天侧栏、正文索引和原始标题可用主菜单 10 在目标电脑重建。
+此方案备份文件和选择性导出的偏好；不跨电脑覆盖 SQLite 或应用完整状态。聊天正文先用主菜单 10 重建，再用 11 恢复设置、项目和置顶。
 
 
 首次接入的命令行形式（先退出 Codex，已有外层提交历史时会拒绝）：
@@ -135,16 +137,16 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$HOME\\Documents\\FileS
 
 ## 2026-10-17 补充同步范围
 
-- `.chatgpt-projects/*/AGENTS.md`：只收录项目指令，不收录项目 ID 映射和本机元数据。
+- `.chatgpt-projects/*/AGENTS.md`：保留项目指令；项目定义和聊天归属由偏好快照单独收录，不复制整份本机元数据。
 - `generated_images/`、`visualizations/`、`pets/`：保留作品、自定义资源。空目录不增加上传流量；单文件超过 100 MiB 仍会停止并提示，不悄悄漏掉文件。
-- `.filesync-tool/`：自动保存本工具的 8 个发布文件，不含日志、测试目录和本机备份。换电脑后可从这里复制完整工具到文档/FileSync；下载不会自动执行或覆盖已安装脚本。
+- `.filesync-tool/`：自动保存本工具的 9 个发布文件，不含日志、测试目录和本机备份。换电脑后可从这里复制完整工具到文档/FileSync；下载不会自动执行或覆盖已安装脚本。
 - `.filesync-memory-archive/`：更新记忆快照前，将被替换或移除的旧文件另存为带哈希清单的历史备份。它参与 Git 同步，但不会自动恢复到 `memories/`，避免旧指令重新生效。未改变的内容不会重复生成备份。
 
 原有聊天、归档、附件、自定义技能仍同步；`.jsonl.zst` 压缩记录原本就在范围内。认证数据、程序和插件缓存、运行中的数据库继续排除。这里只备份插件自定义技能和独立保存的源码，不同步插件安装缓存。超过 100 MiB 安装包的跳过规则不变。
 
 ### 换电脑后恢复聊天正文、列表和标题
 
-完成下载或首次接入后，在主菜单选择 **10 = 恢复聊天正文、索引和原始标题**。这个操作需要 Python 3.8 或以上、新版 Git 和可运行的 Codex 引擎；请先启动一次 Codex，让它创建本机数据库。修复本机正文索引前请退出 Codex；`--check-only` 隔离检查允许在线进行。日常同步仍只需要 Git 和 PowerShell。
+完成下载或首次接入后，在主菜单选择 **10 = 恢复聊天正文、索引和原始标题**。这个操作需要 Python 3.8 或以上、新版 Git 和可运行的 Codex 引擎；应用应已安装并创建 state 数据库；正文数据库尚不存在、聊天索引为空时，工具会在隔离副本中首次建库并验证，再备份和回填本机索引，不需要先新建或发送对话。修复本机正文索引前请退出 Codex；`--check-only` 隔离检查允许在线进行。新版 .codex 偏好快照也需要 Python 3.8 或以上；文档目录同步只需要 Git 和 PowerShell。
 
 它会在隔离副本中，按依赖顺序逐个重放普通、压缩和归档记录的全部祖先片段，再重放最新片段；不能只读取最新片段，否则可能只剩最后几轮。验证以原始日志引用的精确字节范围为准，逐条核对用户与助手消息的 ID、正文及附件引用，而不是仅比较两次接口读取结果。当前片段没有消息时也会继续恢复其引用的祖先历史。验证通过后，先用 SQLite 一致性备份保存本机数据库，再只修复索引，并从 `session_index.jsonl` 恢复标题。不会发送新提示词或运行模型；本机原始聊天文件、会话 ID 和归档状态保留，不上传数据库。备份及 `report.json` 保存在 `.codex/.filesync-chat-backups/时间戳/`，这部分不上传。
 
@@ -163,3 +165,37 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$HOME\\Documents\\FileS
 文档/Codex 中 `*/data/repairs/*/previous-*-driver/` 和 `*/data/repairs/*/runtime-数字*/` 属于可重新安装的驱动、运行库备份，现按目录排除；本地文件保留，修复记录、脚本和普通项目文件继续同步。超过 100 MiB 安装包仍按原规则跳过。这些排除同时用于上传和下载前的状态检查，不受强制暂存普通文档的参数影响。
 
 只停止跟踪不会移除旧提交中的文件。清理历史后，其他电脑不要直接合并旧历史，否则可能重新带回大对象；先备份未上传文件，再重新克隆清理后的文档仓库，并复制自己的新文件。`.codex` 仓库不受这次文档历史清理影响。
+
+
+## 模型、权限、项目和置顶（v7）
+
+此前只有 `config.toml` 和聊天日志，未备份桌面应用的偏好与聊天组织信息。新版上传、准备快照或初始化 .codex 时，会自动生成 `.filesync-preferences.json`，日常上传仍允许 Codex 在线运行。这部分需要 Python 3.8 或以上；无变化时内容保持一致，不为时间戳制造新提交。
+
+快照收录：config.toml 根级的默认模型、推理强度、回复详细度、服务档位和权限偏好；应用中的完全访问显示开关、本机权限模式、最近模型选择和项目侧栏排序；本机项目名称/根目录/顺序；每个已导入聊天的项目、置顶、分组和顺序。不会复制认证、远程主机连接、MCP 命令、安装路径、提示词草稿、应用数据库或整份 `.codex-global-state.json`。快照包含聊天 ID、项目路径和名称，请继续使用私有仓库。
+
+换电脑时：原电脑用新版工具上传 → 新电脑退出 Codex 后下载 → 主菜单 **10** 恢复聊天正文 → **11 = 恢复模型、权限、项目和置顶快照**。已有本机聊天时也可直接执行 11。恢复先备份到 `.codex/.filesync-preferences-backups/时间戳/`，匹配已有项目根目录，重建目标电脑的 ID 关联；未知应用字段和本机程序/插件路径保留。用户目录内的项目路径用目标电脑用户目录展开；用户目录外的绝对路径保留，目录结构不同需手动调整项目根目录。不会启动模型或发送消息。
+
+恢复覆盖快照所含聊天的这几项组织信息，以及快照明确记录的设置；目标电脑独有的聊天和项目保留。快照中的聊天尚未导入、项目路径重复或 ID 冲突时停止，不猜测映射。已下载但尚未恢复的快照会阻止后续上传，避免新电脑自动生成的空置顶/项目覆盖原备份。恢复需关闭 Codex，在线导出不受影响。数据库结构将来变化时可能停止，应保留备份排查。
+
+**旧备份的限制：**旧版本未保存的置顶和偏好不能从对话文本精确还原。请在原电脑运行新版工具上传一次，再在新电脑下载并用 11 恢复。原电脑不可用时，主菜单 **12 = 旧备份按工作目录重建项目归属** 可将尚无归属的聊天分配给唯一匹配的现有项目；按最长目录前缀匹配，歧义跳过。这是推断，会保留已有归属，不猜测置顶。从原电脑下载了新版偏好快照时，请优先使用 11；尚未恢复的快照会阻止 12，以免推断覆盖原归属。可以先只检查结果：
+
+```powershell
+python "$HOME\Documents\FileSync\codex-preferences.py" --root "$HOME\.codex" --infer-projects --check-only
+python "$HOME\Documents\FileSync\codex-preferences.py" --root "$HOME\.codex" --restore --check-only
+& "$HOME\Documents\FileSync\sync.cmd" -Target Codex -Action RestorePreferences
+```
+
+仅有旧备份时，先运行 12 再上传。12 会同时更新本机归属、偏好快照及其基线，再运行 11 也不会用旧快照撤销刚重建的归属；失败时一起回滚。旧版在 12 后直接运行 11 会被旧快照撤销，已在 v7.1 修复。恢复不改变聊天正文、标题或归档状态，也不会关闭原 memories/.git。
+
+
+## Git 姓名/邮箱与 GitHub 登录（v7.2）
+
+`Author identity unknown`、`unable to auto-detect email address` 表示缺少 Git 提交者姓名/邮箱，与 GitHub 登录分开。新版手动上传/同步会先检测提交身份，提示填写缺少的姓名或邮箱，保存到当前 Windows 用户的 Git 全局配置；已有信息不覆盖。邮箱可使用 GitHub 邮箱设置中提供的 `noreply` 地址，请自行填写，不根据 Windows 用户名编造。
+
+主菜单 **13 = 设置 Git 姓名/邮箱并登录 GitHub**，默认使用文档/Codex 的远程地址。也可在单目录操作菜单选 **8**，或运行 `sync.cmd -Target Codex -Action Login`。完成缺少的身份设置后，会用 Git for Windows 自带的 Git Credential Manager（GCM）打开浏览器授权；即使已有账号，也可用此入口重新登录。账号凭据由 GCM 保存在 Windows 的凭据存储中，不写入 FileSync、同步快照或 Git 仓库。此入口本身不提交、下载或上传文件。
+
+对于 `https://github.com/...`：手动上传、下载和首次接入前，会检查 GCM 账号缓存及远程可读性。没有缓存账号时打开登录；明确的认证失效会重新登录并只重试一次。缓存存在不等于账号有效，因此还会执行只读取远程 HEAD 的检查，不下载仓库正文。读取成功也不保证有推送权限，写入权限由实际上传检查。网络/代理故障、错误仓库地址和权限不足不会触发反复登录。取消登录会停止本轮操作。
+
+登录时仅为所选仓库的 GitHub 地址设置 GCM 凭据助手；其他仓库/平台的助手配置保留。首次接入尚无仓库时，GCM 设置应用于新克隆的仓库。SSH 地址继续使用原来的 SSH 密钥，不自动转换协议；其他 Git 平台沿用原有认证。未安装 GCM 时普通同步沿用现有 Git 认证并提示，浏览器登录入口会说明需要在 Git for Windows 安装程序中启用 GCM。
+
+定时/`-NonInteractive` 模式不会询问姓名邮箱或弹出登录窗口；身份缺失或认证失败会记录明确提示并停止。请先手动运行 13 完成设置，再使用一键同步或定时备份。若文档仓库不在默认位置，可用 `-Target Documents -Root "实际路径" -Action Login`。

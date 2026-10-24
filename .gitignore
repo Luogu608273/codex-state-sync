@@ -4,6 +4,7 @@
 !/.gitattributes
 !/AGENTS.md
 !/config.toml
+!/.filesync-preferences.json
 !/hooks.json
 !/history.jsonl
 !/session_index.jsonl
@@ -33,6 +34,7 @@
 !/.filesync-tool/codex-state.ps1
 !/.filesync-tool/first-connect.ps1
 !/.filesync-tool/repair-chat-index.py
+!/.filesync-tool/codex-preferences.py
 !/.filesync-tool/schedule.ps1
 !/.filesync-tool/sync.cmd
 !/.filesync-tool/sync-all.cmd
