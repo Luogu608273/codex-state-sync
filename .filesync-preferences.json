@@ -7,13 +7,13 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
-        "model": "",
-        "reasoningEffort": null,
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
         "serviceTier": null
       },
       {
-        "model": "gpt-6.1-sol",
-        "reasoningEffort": "high",
+        "model": "",
+        "reasoningEffort": null,
         "serviceTier": null
       },
       {
@@ -789,6 +789,20 @@
     "01a176e1-1ad7-7743-a28a-22a947135246": {
       "is_pinned": false,
       "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a177c7-32d7-7622-9555-24b9b511f356": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1780d-15fe-7c62-a177-9e72c24ca5c3": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
