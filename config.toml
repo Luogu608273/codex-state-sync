@@ -18,6 +18,7 @@ composerEnterBehavior = "cmdAlways"
 notifications-turn-mode = "always"
 external-agent-import-sync-enabled = false
 enabled-reasoning-efforts = ["low", "medium", "high", "xhigh", "ultra", "persistent", "max"]
+sidebar-show-projects-in-recents = false
 
 [marketplaces.openai-bundled]
 source_type = "local"

@@ -1,6 +1,6 @@
 thread_id: 01a142fc-cea0-7e92-b74b-bacc1beb2b1b
 updated_at: 2026-10-22T09:20:51+00:00
-rollout_path: C:\Users\605\.codex\sessions\2026\10\16\rollout-2026-10-16T12-33-46-01a142fc-cea0-7e92-b74b-bacc1beb2b1b.jsonl
+rollout_path: C:\Users\605\.codex\archived_sessions\rollout-2026-10-16T12-33-46-01a142fc-cea0-7e92-b74b-bacc1beb2b1b.jsonl
 cwd: \\?\C:\Users\605\Documents\Codex\2026-10-16\codex-codex
 git_branch: main
 

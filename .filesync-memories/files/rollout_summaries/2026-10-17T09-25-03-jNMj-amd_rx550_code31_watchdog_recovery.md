@@ -1,6 +1,6 @@
 thread_id: 01a1492d-d69a-7b10-8113-9548fa69359f
 updated_at: 2026-10-22T09:20:51+00:00
-rollout_path: C:\Users\605\.codex\sessions\2026\10\17\rollout-2026-10-17T17-25-03-01a1492d-d69a-7b10-8113-9548fa69359f.jsonl
+rollout_path: C:\Users\605\.codex\archived_sessions\rollout-2026-10-17T17-25-03-01a1492d-d69a-7b10-8113-9548fa69359f.jsonl
 cwd: \\?\C:\Users\605\Documents\Codex\2026-10-17\windows-performance-followup
 git_branch: main
 
