@@ -7,7 +7,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_project_and_global_coding_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-23T07:45:11+00:00, verified writes)
+- rollout_summaries/2026-09-30T08-53-18-5kYf-update_project_and_global_agents_rules.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-27T12:42:16+00:00, verified writes)
 - rollout_summaries/2026-09-17T02-44-10-nub6-read_cloud_chat_history_and_merge_local_memory_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-09-17\h, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\09\17\rollout-2026-09-17T10-44-10-01a0ad40-0a71-7253-b435-433591a7cbc0.jsonl, updated_at=2026-10-24T08:58:50+00:00, Drive facts superseded by ad-hoc note)
 
 ### keywords
@@ -69,11 +69,23 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-26T04-31-05-SjDb-cf453e_initial_state_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-31-06-01a17679-f29a-7312-a074-936eb7159c09.jsonl, updated_at=2026-10-26T04:31:41+00:00, one initialization hint; full solution remains open)
+- rollout_summaries/2026-10-26T04-31-05-SjDb-cf453e.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-31-06-01a17679-f29a-7312-a074-936eb7159c09.jsonl, updated_at=2026-10-27T06:26:52+00:00, one initialization hint; full solution remains open)
 
 ### keywords
 
 - CF453E, Little Pony and Lord Tirek, initial state, s_i, r_i=0, ODT, timestamp segments, persistent segment tree, min(m_i,s_i+r_i t)
+
+## Task 8: Write, validate, and upload ZR2-6 four-problem materials
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-27T12-05-28-ks0o-write_zr2_6_four_oi_solutions_and_upload_drive.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T20-05-29-01a17d40-4eb7-7dc0-afc3-1933f4414938.jsonl, updated_at=2026-10-27T13:01:52+00:00, local validation and Drive read-back verified; no online submission)
+
+### keywords
+
+- ZR2-6, zhengruioi, contest-2225, utopia, road, moment, passerby, std.cpp, partial.cpp, solution.md, Google Drive, file IO, Dijkstra, tree DP, scanline
+
+- Related skill: skills/google-drive-verified-delivery/SKILL.md
 
 ## User preferences
 
@@ -85,6 +97,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - when the user says "有原题吗，我想做一下" -> prioritize a submit-ready problem/link and necessary property hint, not full code/solution. [Task 3]
 - when teaching a new OI problem, the user asked "先确认我目前已有的推导与卡点……一次只给一个推进提示，等我回复后再继续" -> ask for their derivation, state, code, or exact blockage first; do not infer ability from a historical score or alter training records unless asked. [Task 4]
 - in ongoing OI tutoring, the user asked "每次仅给一个推进提示" / "先只讲解，暂不修改共享训练记录" -> continue from the demonstrated sticking point; give one concrete observation or invariant, then wait. Do not repeat an already understood entry point or write shared records. [Task 6][Task 7]
+- when the user clarified "编写 std、题解和部分分程序" -> distinguish self-authored deliverables from downloading existing contest files; ask once only if the requested artifact type is genuinely ambiguous. [Task 8]
 
 ## Reusable knowledge
 
@@ -95,6 +108,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - P9013 functional mapping graph: count `in[v]` on target vertices so free-character availability is target-side; visit indegree-zero roots before residual cycles, otherwise a cycle with an external predecessor is overcharged one temporary operation. `abc -> baa` should be 3. Local checker: `PASS: 450 cases; BFS alphabet=5; seed=9013`. [Task 5]
 - CF455D: maintain block length for rank lookup and per-block `cnt`; right-shift `[l,r]` is delete rank `r`, insert at rank `l`. Split `2B+1` into `B` and `B+1`; include up to `q` insertions in block-count and split/move/frequency costs. [Task 6]
 - CF453E must distinguish never-cleared `min(m_i,s_i+r_i t)` from last-cleared-at-`t_0` `min(m_i,r_i(t-t_0))`; `r_i=0` precludes division. A same-timestamp persistent-segment-tree query does not replace outer ODT/set timestamp segments. [Task 7]
+- ZR2-6 delivery workflow: each problem used `std.cpp`, `partial.cpp`, and `solution.md`, with Chinese explanation, proof, complexity, and partial-coverage bounds; compile all variants, run samples plus randomized/brute-force/stress and file-IO checks, then Drive-read-back every uploaded file. `work/ZR2-6/test/validation.json` recorded `ALL PASS`, `FILE IO PASS 8`, and `STRESS PASS`; the 13 uploaded files matched local content. [Task 8]
+- Related skill: skills/google-drive-verified-delivery/SKILL.md. [Task 8]
 
 ## Failures and how to do differently
 
@@ -105,6 +120,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - P9013: arbitrary DFS numeric order can falsely charge a cycle that is reachable from an external predecessor; do root-first traversal, then residual cycles. Local randomized/BFS validation is not official AC. [Task 5]
 - CF455D: do not claim only-split block count is `O(n/B)`; account for `q` insertions and frequency-table allocation/clearing and split moves. [Task 6]
 - CF453E: do not reuse `Σ min(m_i,r_iΔ)` for never-cleared items; historical "complete solution" omitted `s_i>0` initial state and `r_i=0`. [Task 7]
+- Zhengrui contest pages/API may return an unknown error/401 before the user logs into the embedded browser; obtain login before reading statements or attachments. A timed-out browser download event can still leave the attachment in `C:\Users\605\Downloads`; inspect the directory. Report local validation and analyzed partial scores, never official AC/score without submission evidence. [Task 8]
 
 # Task Group: MAA OI Assistant algorithm derivations and complexity qualification
 
@@ -145,7 +161,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-26T04-30-38-TPtF-qoj7895_linear_complexity_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-38-01a17679-88d3-7c81-85f3-8ae5628e1733.jsonl, updated_at=2026-10-26T04:32:04+00:00, first merge-cost case proved; full implementation/proof not closed)
+- rollout_summaries/2026-10-26T04-30-38-TPtF-qoj7895_linear_dp_complexity_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-38-01a17679-88d3-7c81-85f3-8ae5628e1733.jsonl, updated_at=2026-10-27T06:26:54+00:00, first merge-cost case proved; full implementation/proof not closed)
 
 ### keywords
 

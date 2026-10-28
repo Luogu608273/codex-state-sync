@@ -69,75 +69,80 @@ References:
 - 最终合并后的规则包含：`### 询问题目解法或讲解知识点时（[hint]、[teach]）`，一次一个提示、逐步讲解、明确状态/转移/不变量/复杂度、严格遵守“是或否/只找原题/不要给思路”等限制。
 
 ## Thread `01a0f184-ab47-7b92-81fe-2d65c1d6977f`
-updated_at: 2026-10-23T07:45:11+00:00
+updated_at: 2026-10-27T12:42:16+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl
-rollout_summary_file: 2026-09-30T08-53-18-5kYf-persist_project_and_global_coding_preferences.md
+rollout_summary_file: 2026-09-30T08-53-18-5kYf-update_project_and_global_agents_rules.md
 
 ---
-description: 在信息学训练项目及全局规则中持久化用户的调试输出、码风参考、云端代码位置和 Git 备份偏好；写入均已验证成功。
-task: update AGENTS.md with coding-style, debug-output, Drive-location, and Git-backup preferences
-task_group: codex-agent-rules
- task_outcome: success
+description: 用户更新了信息学项目的调试、码风、云端代码位置和 Git 备份偏好；规则已分别写入项目及全局 AGENTS.md，并完成验证
+task: 更新项目与全局 AGENTS.md 规则
+task_group: MAA OI Assistant project configuration
+task_outcome: success
 cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
-keywords: AGENTS.md, [debug], 完整代码, 码风, 云端硬盘/CKK, Google Drive, Git, .gitignore, 备份, PowerShell
+keywords: AGENTS.md, debug, 完整代码, 码风, 云端硬盘/CKK, Google Drive, Git, gitignore, 备份
 ---
 
-### Task 1: 持久化调试与码风规则
+### Task 1: 调试时提供完整代码
 
-task: update project AGENTS.md with debug full-code and user-style guidance
-task_group: project-instructions
+task: 将 [debug] 调试输出偏好写入项目 AGENTS.md
+task_group: project instructions
 task_outcome: success
 
 Preference signals:
-- 用户说“[debug]时还要给出完整代码。写入。” -> 调试时应说明错误和修改点，并提供修改后的完整代码，同时保持最小幅度修改、不改变原思路。
-- 用户说“编写代码时学习我的码风” -> 编写或修改 C++ 时主动沿用用户实际代码的命名、排版、模板、数据结构和实现习惯；修改已有代码时以该文件风格为准。
+- 用户说“[debug]时还要给出完整代码。写入。” -> 调试时分析错误和最小修改后，还要给出修改后的完整代码。
 
 Reusable knowledge:
-- 项目规则已验证写入 `C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md:17` 和 `:25`。
-- 项目已有竞赛 C++ 码风与调试约束：中文回答、最小修改、严谨检查正确性/复杂度，不因现代 C++ 风格进行无关重写。
+- 项目 `AGENTS.md` 第 17 行已加入该规则，并保留“最小幅度修改、不更改思路”的约束。
 
 Failures and how to do differently:
-- 一次写入脚本因校验失败退出；未来必须重新读取目标状态并以实际文件内容验证，不能仅凭脚本执行过程声称成功。
+- 本次写入和读取校验成功。
 
 References:
 - `C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md:17`
-- `C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md:25`
+- 备份：`outputs/规则修改备份/2026-10-21-debug-full-code-0e7a4fac/AGENTS.md.bak`
 
-### Task 2: 记录云端 CKK 代码位置
+### Task 2: 学习用户码风并记录 CKK 云端位置
 
-task: add Google Drive CKK retrieval guidance to project instructions
-task_group: cloud-code-reference
+task: 将码风和 Google Drive 代码目录规则写入项目 AGENTS.md
+task_group: project instructions
  task_outcome: success
 
 Preference signals:
-- 用户说代码文件夹在“云端硬盘/CKK” -> 需要码风参考时优先通过已连接的 Google Drive 搜索、列目录和读取；不要把该位置当成本地文件系统路径，也不要声称读取了尚未实际读取的代码。
+- 用户要求“编写代码时学习我的码风” -> 应主动沿用用户实际提供或读取到的命名、排版、模板、数据结构和实现习惯。
+- 用户说代码文件夹在“云端硬盘/CKK” -> 需要参考时优先使用已连接的 Google Drive 工具读取；不能把该位置当作本地路径，也不能虚称已读取代码。
 
 Reusable knowledge:
-- 规则已验证写入 `AGENTS.md:66`。
-- 不应把旧的 `H:\我的云端硬盘` 路径或其 CKK 子目录当作当前 Drive 路线；使用连接的 Drive 工具。
+- 项目 `AGENTS.md` 第 25 行已加入码风学习规则，第 66 行已加入 `云端硬盘/CKK` 规则。
+- 旧本地同步路径 `H:\我的云端硬盘` 不应作为当前 Drive 路径展示。
+
+Failures and how to do differently:
+- 首次写入脚本因换行/内容校验失败；后续按实际换行格式定位 `## 训练环境与文件` 并重新读取校验后成功。
 
 References:
-- `AGENTS.md:66`
-- `云端硬盘/CKK`
+- `C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md:25`
+- `C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md:66`
+- 备份：`outputs/规则修改备份/2026-10-23-style-ckk-1ca22511/AGENTS.md.bak`
 
 ### Task 3: 写入全局 Git 备份偏好
 
-task: update global AGENTS.md with Git-aware backup default
-task_group: global-agent-rules
- task_outcome: success
+task: 更新全局 AGENTS.md 的文件备份规则
+task_group: global instructions
+task_outcome: success
 
 Preference signals:
-- 用户说“只要是在 gitignore 以外的文件应该都不用备份。这个写入全局” -> 在已接入 Git 的项目中，修改未被 `.gitignore` 忽略的文件时默认不额外创建备份；被忽略或仓库外文件按实际需要决定。
+- 用户说“我已经接入了 git，只要是在 gitignore 以外的文件应该都不用备份。这个写入全局” -> Git 已管理且未被 `.gitignore` 忽略的文件默认不额外备份。
 
 Reusable knowledge:
-- 全局文件 `C:\Users\605\.codex\AGENTS.md` 本次为普通文件，规则已写入并通过重新读取和 `rg` 验证，位于第 14 行。
-- 若未来全局文件是 reparse point 或无法证明保留原内容，不要强制覆盖，应采用安全合并或让用户手动合并。
+- 全局 `C:\Users\605\.codex\AGENTS.md` 第 14 行已写入：已接入 Git 的项目中，修改未被 `.gitignore` 忽略的文件时默认不额外创建备份；被忽略或位于 Git 仓库之外的文件按实际需要决定是否备份。
+- 修改前检查确认全局文件可直接编辑，不是重解析点；写入后通过重新读取和 `rg` 验证。
+
+Failures and how to do differently:
+- 后续在 Git 管理且未忽略的文件上，不应默认创建额外备份；这条全局偏好优先于本次早先项目修改中创建备份的做法。
 
 References:
 - `C:\Users\605\.codex\AGENTS.md:14`
-- `C:\Users\605\Documents\Codex\MAA OI Assistant!\outputs\规则修改备份\2026-10-21-debug-full-code-0e7a4fac\AGENTS.md.bak`
-- `C:\Users\605\Documents\Codex\MAA OI Assistant!\outputs\规则修改备份\2026-10-23-style-ckk-1ca22511\AGENTS.md.bak`
+- 规则原文：`在已接入 Git 的项目中，修改未被 `.gitignore` 忽略的文件时，默认不额外创建备份文件；被忽略或位于 Git 仓库之外的文件，按实际需要决定是否备份。`
 
 ## Thread `01a10b5b-5776-7ca1-a59a-f6674b8f9885`
 updated_at: 2026-10-22T09:20:51+00:00
@@ -1210,7 +1215,7 @@ References:
 ## Thread `01a15318-5f1b-7d21-8e05-6c60e54318c3`
 updated_at: 2026-10-22T09:20:51+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
-rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-25-45-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a15833-b2d4-75f2-b036-2faf4d2b8705.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T18-47-04-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a17cf8-87ea-7d10-b980-564e4c5b7342.jsonl
 rollout_summary_file: 2026-10-19T07-37-48-j14v-fork_oi_teaching_and_range_modulo_question.md
 
 ---
@@ -1644,50 +1649,45 @@ References:
 - 已使用的启动话术：`你目前已经推导到了哪一步，具体卡在哪里？可以直接发你的思路、状态定义或已有代码，我会从那里开始，每次只给一个推进提示。`
 
 ## Thread `01a17679-88d3-7c81-85f3-8ae5628e1733`
-updated_at: 2026-10-26T04:32:04+00:00
+updated_at: 2026-10-27T06:26:54+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-38-01a17679-88d3-7c81-85f3-8ae5628e1733.jsonl
-rollout_summary_file: 2026-10-26T04-30-38-TPtF-qoj7895_linear_complexity_hint.md
+rollout_summary_file: 2026-10-26T04-30-38-TPtF-qoj7895_linear_dp_complexity_hint.md
 
 ---
-description: 继续讲解 QOJ7895 的线性复杂度证明；用户要求一次只给一个中文推进提示，当前已严格证明“两侧规模均至少 k²”的合并总成本 O(n)，其余区间和容器操作尚未完成
- task: QOJ7895 复杂度摊还证明续讲
-task_group: oi-training/tree-dp
-task_outcome: success
+description: QOJ7895 线性树形 DP 复杂度续讲只完成了“大规模两侧合并”这一局部证明；后续必须继续处理其他规模区间和容器操作。
+task: prove_qoj7895_linear_dp_complexity
+task_group: C:\Users\605\Documents\Codex\MAA OI Assistant!
+task_outcome: partial
 cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
 keywords: QOJ7895, Graph Partitioning 2, tree DP, sparse states, lazy shift, merge cost, amortized analysis, k^2
 ---
 
-### Task 1: 证明状态合并的线性复杂度
+### Task 1: 复杂度证明局部推进
 
-task: 在已有 `f[u][i]`、小儿子吸收、唯一大儿子平移的基础上，逐步补齐 QOJ7895 的严格 O(n) 证明
-task_group: QOJ7895/tree-DP-complexity
-task_outcome: success
+task: prove_qoj7895_linear_dp_complexity
+task_group: QOJ7895 tree DP training
+task_outcome: partial
 
 Preference signals:
-- 用户要求“每次仅给一个推进提示……不要一次展开完整线性证明” -> 类似训练讲解应只推进当前一个子问题，解释后等待用户。
-- 用户强调不能由“分叉点 O(n/k)、状态少”直接推出 O(n)，必须明确状态乘积合并和实际容器操作 -> 后续应把每类合并代价、初始化、搬运、截断分别收费。
-- 用户要求核实原题、约束和主来源，不沿用旧助手未经证明的评价 -> 复杂度结论应优先对照 QOJ 原题及 Editorial #505。
+- 用户要求“每次仅给一个推进提示……不要一次展开完整线性证明” -> 后续继续用单步、可等待确认的教学节奏。
+- 用户要求严格区分状态支持集、实际扫描量、状态乘积合并和容器操作 -> 复杂度不能只报状态数或分叉点数量。
+- 用户已指出“任意儿子免费继承”是错误方向 -> 必须先吸收 `sz<k` 子树，再只对唯一大儿子做 lazy shift。
 
 Reusable knowledge:
-- QOJ 原题约束已核实：`n≤10^5`，所有测试 `sum n≤3×10^5`，答案模 `998244353`。
-- 稀疏 DP 两侧规模为 `x,y` 时，状态乘加代价可记为 `O(min(k,x/k) * min(k,y/k))`（两侧均至少 `k` 时可忽略状态数上界中的常数项）。
-- 当前已证明的第一类：若 `x,y≥k²`，单次合并至多 `O(k²)`；将合并过程视为合并树，大小至少 `k²` 的叶子互不相交且最多 `O(n/k²)`，对应分叉合并数同阶，因此此类合并总成本 `O(n)`。
-- 公开 Editorial #505 还给出另外两类：`x/k<k≤(x+y)/k` 时用跨越 `k²` 阈值的势能摊还；`(x+y)/k<k` 时代价为 `xy/k²`，按极大子树的平方和除以 `k²` 摊还到 `O(n)`。
-- `sz<k` 的儿子应吸收到偏移 `s_u`；唯一大儿子链使用 lazy shift，不能逐层扫描整个状态容器，否则可能产生长链上的超线性代价。
+- 已核实公开题解中的合并代价：两侧规模为 `x,y` 时，状态配对次数为 `O(min(k,x/k) * min(k,y/k))`。
+- 本轮已证明局部情形：当 `x,y >= k^2` 时，单次代价 `O(k^2)`；这类合并在合并树中至多 `O(n/k^2)` 次，故总乘加为 `O(n)`。
+- 尚未证明其余两类规模、状态截断/搬运及容器维护，不能据此宣称整体线性。
 
 Failures and how to do differently:
-- 历史讨论中“任意儿子免费继承”是错误的；用户用小儿子+大儿子结构反驳后，正确规则是小于 `k` 的儿子直接吸收，恰有一个大儿子时才整体平移复用。
-- “只有 O(n/k) 个分叉点 + 每点 O(min(k,sz/k)) 状态”不足以推出线性，因为单次状态乘积仍可能为 `k²`；必须按规模区间分析合并总和。
-- 本次提示只覆盖两侧均至少 `k²` 的乘加次数，未验证完整算法实现，也未覆盖容器初始化、搬运、截断等实际操作；后续不要宣称完整 O(n) 证明已经结束。
+- 不要把“只有 `O(n/k)` 个分叉点”和“每个点状态少”直接相乘得出线性；仍需对状态乘积进行分区间摊还。
+- 下一步应按公开题解继续分析跨越 `k^2` 的合并和结果小于 `k^2` 的合并，并单独说明实际容器操作。
 
 References:
-- cwd: `C:\Users\605\Documents\Codex\MAA OI Assistant!`
-- 复盘：`outputs/复盘/2026-10-26-历史补录-QOJ7895.md`
-- 历史推导：`outputs/历史对话/2026-10-26/ckk推荐树形DP题.md`
-- 原题：`https://qoj.ac/problem/7895`
-- 主 Editorial：`https://qoj.ac/problem/7895/discussion/505`
-- 当前提示中的核心公式：`T(x,y)=O(min(k,x/k) min(k,y/k))`；`x,y≥k²` 时合并总量 `O(n)`。
+- `outputs/复盘/2026-10-26-历史补录-QOJ7895.md`
+- `outputs/历史对话/2026-10-26/ckk推荐树形DP题.md`
+- https://qoj.ac/problem/7895/discussion/505
+- 核心公式：`T(x,y)=O(min(k,x/k)·min(k,y/k))`；已完成局部：`x,y>=k^2 => ΣT=O(n)`。
 
 ## Thread `01a17679-bb53-7353-a2d4-67e6f675d538`
 updated_at: 2026-10-26T04:31:46+00:00
@@ -1730,43 +1730,42 @@ References:
 - 关键提示：`2B+1 -> B + (B+1)`；不变量：每个刚建立或刚分裂的块大小不超过 `B+1`。
 
 ## Thread `01a17679-f29a-7312-a074-936eb7159c09`
-updated_at: 2026-10-26T04:31:41+00:00
+updated_at: 2026-10-27T06:26:52+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-31-06-01a17679-f29a-7312-a074-936eb7159c09.jsonl
-rollout_summary_file: 2026-10-26T04-31-05-SjDb-cf453e_initial_state_hint.md
+rollout_summary_file: 2026-10-26T04-31-05-SjDb-cf453e.md
 
 ---
-description: CF453E 续讲中核实初始状态处理，并按用户要求只给一个提示；关键是区分从未清零与已清零时间戳段
- task: CF453E continuation and initialization-state hint
-task_group: MAA OI Assistant training workflow
-task_outcome: success
+description: 继续 CF453E 训练推导，确认初始状态不能统一视为 t=0 清零；本轮按用户要求只给一个提示并等待
+ task: CF453E 状态初始化与时间戳分段推导
+task_group: C:\Users\605\Documents\Codex\MAA OI Assistant!
+task_outcome: uncertain
 cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
-keywords: CF453E, Little Pony and Lord Tirek, initial state, s_i, r_i=0, ODT, timestamp segments, persistent segment tree, oi-training
+keywords: CF453E, Little Pony and Lord Tirek, ODT, set, 主席树, 首次清零, s_i, r_i=0, oi-training
 ---
 
-### Task 1: CF453E 状态初始化提示
+### Task 1: 继续 CF453E 的推导
 
-task: 继续讲解 CF453E，处理首次清零前的状态，不直接给完整解法
- task_group: OI training / CF453E
-task_outcome: success
+task: 区分首次清零前状态与后续时间戳段状态
+task_group: OI training / CF453E
+task_outcome: uncertain
 
 Preference signals:
-- 用户要求“只给一个小提示，讲清楚后等待用户”“不一次性给完整初始化方案或代码” -> 后续训练讲解应一次只推进当前卡点，避免抢先给完整解法。
-- 用户要求先读复盘、核实原题约束并承接已有推导，不重头推荐 -> 续讲应优先利用历史上下文，只处理未闭合部分。
+- 用户要求“只给一个小提示，讲清楚后等待用户”，类似训练讲解应一次只推进一个观察，不连续泄露完整解法或代码。
+- 用户已讨论过单段查询和 ODT/set 外层，不希望重头推荐；应直接处理当前未闭合的初始化问题。
 
 Reusable knowledge:
-- 原题允许 `s_i > 0`，所以未首次清零的位置不能假设在 `t=0` 清零：时刻 `t` 的值为 `min(m_i, s_i + r_i*t)`。
-- 已在 `t_0` 清零的位置，时刻 `t` 的值为 `min(m_i, r_i*(t-t_0))`；此前的 `Σ min(m_i,r_i*Δ)` 只适用于这类同时间戳段。
-- 原题还允许 `r_i=0`，阈值或比较逻辑不能直接除以 `r_i`。
-- 已知的单段主席树 `O(log n)` 查询只解决某个相同时间戳段内的值域统计；外层仍需 ODT/set 维护连续时间戳段。
+- 原题允许 `s_i>0` 和 `r_i=0`。从未清零的位置在时刻 `t` 的值是 `min(m_i,s_i+r_i*t)`；曾在 `t_0` 清零的位置是 `min(m_i,r_i*(t-t_0))`。
+- 因此 `Σ min(m_i,r_i*Δ)` 不能用于所有位置，且实现不能无条件使用 `m_i/r_i`。
+- “单 log”只描述单个相同时间戳段的查询；整体仍需 ODT/set 维护这些连续段。
 
 Failures and how to do differently:
-- 历史推导把状态处理说成完整正解，但没有覆盖 `s_i>0` 的首次清零与 `r_i=0`。后续应先让用户明确如何表示“从未清零”和“已清零”两类位置，再继续给提示或验证，不要直接复用清零后公式。
+- 本轮没有用户后续确认，也没有实现或 AC；不要标记为已掌握或已通过。继续时保持一次一个具体提示，并优先让用户自行提出如何编码两种初始状态。
 
 References:
 - `outputs/复盘/2026-10-26-历史补录-CF453E.md`
-- `https://codeforces.com/problemset/problem/453/E`
-- 关键公式：`min(m_i,s_i+r_i*t)`；`min(m_i,r_i*(t-t_0))`
+- `.agents/skills/oi-training/SKILL.md`
+- https://codeforces.com/problemset/problem/453/E
 
 ## Thread `01a1780d-15fe-7c62-a177-9e72c24ca5c3`
 updated_at: 2026-10-26T11:57:54+00:00
@@ -1807,4 +1806,49 @@ References:
 - Exact validation: `PASS: 450 cases; BFS alphabet=5; seed=9013`
 - Counterexample: `abc -> baa` should be `3`, exposing arbitrary-order cycle overcount.
 - Problem URL: `https://www.luogu.com.cn/problem/P9013`
+
+## Thread `01a17d40-4eb7-7dc0-afc3-1933f4414938`
+updated_at: 2026-10-27T13:01:52+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T20-05-29-01a17d40-4eb7-7dc0-afc3-1933f4414938.jsonl
+rollout_summary_file: 2026-10-27T12-05-28-ks0o-write_zr2_6_four_oi_solutions_and_upload_drive.md
+
+---
+description: 为正睿 #2225 四题编写 std/partial/solution，完成本地验证并上传到 Google Drive ZR2-6；建立了可复用的题面读取、竞赛代码生成、独立验证和云端回读流程
+task: write-and-upload-zr2-6-four-oi-problem-solutions
+task_group: MAA OI Assistant OI training and Google Drive workflow
+task_outcome: success
+cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
+keywords: ZR2-6, zhengruioi, contest-2225, utopia, road, moment, passerby, std.cpp, partial.cpp, solution.md, Google Drive, file IO, Dijkstra, tree DP, scanline
+---
+
+### Task 1: 编写并上传四题资料
+
+task: 为正睿比赛 #2225 的四道题编写完整 std、partial 和 solution，并保存到 `云端硬盘/CKK/ZR2-6`。
+task_group: OI solution authoring and Drive upload
+task_outcome: success
+
+Preference signals:
+- 用户澄清原意为“编写 std、题解和部分分程序”，不是下载网站已有文件 -> 类似含糊请求应先确认产物类型，确认后按自行编写流程执行。
+- 项目规则要求中文、C++ 竞赛风格、沿用实际读取到的 CKK 代码风格，并在题解中写证明、复杂度和 partial 覆盖范围 -> 后续类似任务应默认采用这一格式。
+
+Reusable knowledge:
+- 目标 Drive 文件夹：`https://drive.google.com/drive/folders/1q-wjScko-1V92PLFVz5RLyFk0wXouCna`，ID `1q-wjScko-1V92PLFVz5RLyFk0wXouCna`。
+- 四个子目录分别为 `utopia`、`road`、`moment`、`passerby`，每个均包含 `std.cpp`、`partial.cpp`、`solution.md`；根目录有 `README.md`。
+- 本地目录：`work/ZR2-6`。默认文件名为 `utopia.in/out`、`road.in/out`、`moment.in/out`、`passerby.in/out`；`-DLOCAL` 切换标准 IO。
+- 正睿附件下载事件可能超时但文件仍写入 `C:\Users\605\Downloads`；本次实际文件为 `download_3721.zip`、`download_3722.zip`、`download_3723.zip`、`download_3724.zip`。
+- 验证完成：8 份程序编译通过；公开样例、随机/暴力、最大规模、文件 IO 均通过。验证脚本输出 `ALL PASS`、`FILE IO PASS 8`、`STRESS PASS`。
+- 云端回读确认 13 个文件内容与本地完全一致，四个子目录均各有三份目标文件。
+
+Failures and how to do differently:
+- 未登录时比赛页显示“未知错误”，直接调用 `/api/v0/contests/2225*` 得到 401；必须让用户在内置浏览器登录正睿后再读取题面和附件。
+- 浏览器 `waitForEvent('download')` 20 秒超时，但下载文件已存在；应配合检查 Downloads 目录。
+- 最终只应报告本地验证证据，不声称获得官方 AC/官方得分；本次 README 明确写明“未向网站提交”。
+
+References:
+- 比赛 URL：`https://www.zhengruioi.com/contest/2225`
+- 工作目录：`C:\Users\605\Documents\Codex\MAA OI Assistant!\work\ZR2-6`
+- 验证：`python work/ZR2-6/test/verify.py`；`python work/ZR2-6/test/stress.py`；`python work/ZR2-6/test/file_io.py`
+- 编译器：`C:/TDM-GCC-64/bin/g++.exe`
+- 部分分分析：utopia 50、road 75、moment 47、passerby 57；均为范围分析而非在线评测得分。
 
