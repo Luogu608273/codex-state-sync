@@ -39,7 +39,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-24T06-11-17-jf3i-oi_training_stepwise_crystal_problem.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\24\rollout-2026-10-24T14-11-17-01a16c88-f53f-7852-a719-6d6d3279b600.jsonl, updated_at=2026-10-24T06:17:11+00:00, tutoring start only)
+- rollout_summaries/2026-10-24T06-11-17-jf3i-oi_training_crystal_stepwise_tutoring.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\24\rollout-2026-10-24T14-11-17-01a16c88-f53f-7852-a719-6d6d3279b600.jsonl, updated_at=2026-10-27T08:28:20+00:00, entry point only; user has not supplied a derivation)
 
 ### keywords
 
@@ -55,15 +55,35 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - P9013, Find and Replace S, mapping, DFS, indegree-zero, in[target], free character, abc -> baa, p9013_debug.cpp, PASS: 450 cases
 
-## Task 6: Continue CF455D block-list tutoring
+## Task 6: Record CF455D prompt-assisted AC
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-26T04-30-51-PGUE-cf455d_block_list_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-51-01a17679-bb53-7353-a2d4-67e6f675d538.jsonl, updated_at=2026-10-26T04:31:46+00:00, one hint only; unfinished)
+- rollout_summaries/2026-10-26T04-30-51-PGUE-cf455d_training_record_update.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-51-01a17679-bb53-7353-a2d4-67e6f675d538.jsonl, updated_at=2026-10-27T08:32:18+00:00, user-reported prompt-assisted AC; implementation not inspected)
 
 ### keywords
 
-- CF455D, Serega and Fun, block list, sqrt decomposition, cnt, 2B+1, B + (B+1), lastans, O((n+q)/B)
+- CF455D, Serega and Fun, 训练记录, 提示后 AC, block list, cnt, 2B+1, B + (B+1), git diff --check
+
+## Task 9: Debug G123913 connected-graph layered DP and record AC
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-24T06-11-00-boCA-debug_g123913_connected_dp_and_record_training.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-14-36-01a16c88-b30c-72f2-b5d9-061256796880_01a17c6c-f0ed-72a1-a40f-726c929cee79.jsonl, updated_at=2026-10-27T08:30:04+00:00, complete-code debug; exhaustive local validation and user-reported AC)
+
+### keywords
+
+- G123913, Minimizing Edges, 分层 DP, 奇偶最短路, 前后缀最小值, lower_bound, 多测清空, work/debug-connected-20261027/check.py
+
+## Task 10: Prove CF438D modulo-update amortization and record AC
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-27T08-38-04-NZ6j-cf438d_single_point_assignment_amortized_proof.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-44-15-01a17c82-6c98-79d1-aa99-aa6f1dc64103_01a17c88-14a3-7dd1-8ad0-d082a2410a1a.jsonl, updated_at=2026-10-27T08:58:24+00:00, prompt-assisted AC; final code/judge record not read)
+
+### keywords
+
+- CF438D, The Child and Sequence, segment tree, range modulo, point assignment, amortized analysis, potential method, max pruning
 
 ## Task 7: Continue CF453E initialization-state tutoring
 
@@ -96,7 +116,9 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - for [hint], give one advancing hint and wait; honor "是/否", "只找原题", and "不要给思路" literally. [Task 2]
 - when the user says "有原题吗，我想做一下" -> prioritize a submit-ready problem/link and necessary property hint, not full code/solution. [Task 3]
 - when teaching a new OI problem, the user asked "先确认我目前已有的推导与卡点……一次只给一个推进提示，等我回复后再继续" -> ask for their derivation, state, code, or exact blockage first; do not infer ability from a historical score or alter training records unless asked. [Task 4]
-- in ongoing OI tutoring, the user asked "每次仅给一个推进提示" / "先只讲解，暂不修改共享训练记录" -> continue from the demonstrated sticking point; give one concrete observation or invariant, then wait. Do not repeat an already understood entry point or write shared records. [Task 6][Task 7]
+- in ongoing OI tutoring, the user asked "每次仅给一个推进提示" / "先只讲解，暂不修改共享训练记录" -> continue from the demonstrated sticking point; give one concrete observation or invariant, then wait. Do not repeat an already understood entry point or write shared records. [Task 4][Task 7]
+- when the user says "这题也不用讲了，已经过了，总结记录吧" -> stop explanation immediately; revise the existing CF455D record to user-reported "提示后" AC rather than adding a duplicate or asserting implementation details. [Task 6]
+- when the user has the framework and says "问题在于单点修改怎么证明" -> address that exact proof gap rather than restating the full algorithm. [Task 10]
 - when the user clarified "编写 std、题解和部分分程序" -> distinguish self-authored deliverables from downloading existing contest files; ask once only if the requested artifact type is genuinely ambiguous. [Task 8]
 
 ## Reusable knowledge
@@ -106,8 +128,10 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - CF379F: dynamic leaf additions update diameter endpoints by comparing distances to both old endpoints via LCA/binary lifting; prove the diameter-endpoint property before relying on it. [Task 3]
 - .agents/skills/oi-training/SKILL.md calls for checking constraints and the user's attempt first; expose one concrete flaw/counterexample if needed, otherwise ask one advancing question and wait. [Task 4]
 - P9013 functional mapping graph: count `in[v]` on target vertices so free-character availability is target-side; visit indegree-zero roots before residual cycles, otherwise a cycle with an external predecessor is overcharged one temporary operation. `abc -> baa` should be 3. Local checker: `PASS: 450 cases; BFS alphabet=5; seed=9013`. [Task 5]
-- CF455D: maintain block length for rank lookup and per-block `cnt`; right-shift `[l,r]` is delete rank `r`, insert at rank `l`. Split `2B+1` into `B` and `B+1`; include up to `q` insertions in block-count and split/move/frequency costs. [Task 6]
+- CF455D's record is `AC（2026-10-27 用户反馈）`, completion mode "提示后". The historical block-list idea remains contextual only: right-shift `[l,r]` is delete rank `r`, insert rank `l`; split `2B+1` into `B` and `B+1`, then another split needs about `B` insertions. [Task 6]
 - CF453E must distinguish never-cleared `min(m_i,s_i+r_i t)` from last-cleared-at-`t_0` `min(m_i,r_i(t-t_0))`; `r_i=0` precludes division. A same-timestamp persistent-segment-tree query does not replace outer ODT/set timestamp segments. [Task 7]
+- G123913: first give every index a single meaning (layer, class index, distance coordinate, or class size). Clear `ans`/`vec` per test, skip empty layers, guard `j=0`, `lower_bound==end()`, and empty suffixes; `suf[lst+1]` is required for a queried empty interval. Local checker covered samples, all 23,940 permitted 2–5-node self-loop graphs, large cases, and 50,000 tests. [Task 9]
+- CF438D: segment tree stores sum and maximum; skip a modulo node when `max<x`. Charge each position separately between point assignments: every assignment gives one position a fresh `O(log V)` budget, and each effective modulo halves its value, so total effective updates are `O((n+q)log V)` and total time `O((n+q)log n log V)`. [Task 10]
 - ZR2-6 delivery workflow: each problem used `std.cpp`, `partial.cpp`, and `solution.md`, with Chinese explanation, proof, complexity, and partial-coverage bounds; compile all variants, run samples plus randomized/brute-force/stress and file-IO checks, then Drive-read-back every uploaded file. `work/ZR2-6/test/validation.json` recorded `ALL PASS`, `FILE IO PASS 8`, and `STRESS PASS`; the 13 uploaded files matched local content. [Task 8]
 - Related skill: skills/google-drive-verified-delivery/SKILL.md. [Task 8]
 
@@ -118,8 +142,9 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - Random/brute-force checks do not establish official AC; P8820 must also remove or conditionalize freopen("transmit2.in",...). [Task 2]
 - Do not begin a full solution before the user supplies their present reasoning; G123914 facts in the initial prompt are not evidence of the user's own approach. [Task 4]
 - P9013: arbitrary DFS numeric order can falsely charge a cycle that is reachable from an external predecessor; do root-first traversal, then residual cycles. Local randomized/BFS validation is not official AC. [Task 5]
-- CF455D: do not claim only-split block count is `O(n/B)`; account for `q` insertions and frequency-table allocation/clearing and split moves. [Task 6]
+- CF455D: previous "not passed" status must be revised, not retained beside the newer AC feedback. Do not elevate the user report into inspected implementation, actual pass date, running time, or verified complexity. [Task 6]
 - CF453E: do not reuse `Σ min(m_i,r_iΔ)` for never-cleared items; historical "complete solution" omitted `s_i>0` initial state and `r_i=0`. [Task 7]
+- CF438D: "each position changes only O(log V) times" is false across the whole run because point assignment resets a value; partition at assignments or use the replenished-potential argument. User-reported prompt-assisted AC is not independent mastery. [Task 10]
 - Zhengrui contest pages/API may return an unknown error/401 before the user logs into the embedded browser; obtain login before reading statements or attachments. A timed-out browser download event can still leave the attachment in `C:\Users\605\Downloads`; inspect the directory. Report local validation and analyzed partial scores, never official AC/score without submission evidence. [Task 8]
 
 # Task Group: MAA OI Assistant algorithm derivations and complexity qualification
@@ -147,15 +172,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - divide-and-conquer, midpoint, subsequence DP, B[p,v], C[u,p], incremental update, O(nk^2 log n)
 
-## Task 3: Chain-DP predecessor-class query and initialization
+## Task 3: Persistent segment-tree mex and subset-sum deletion recurrences
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-24T06-11-00-boCA-chain_dp_predecessor_class_query.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-14-36-01a16c88-b30c-72f2-b5d9-061256796880_01a17c6c-f0ed-72a1-a40f-726c929cee79.jsonl, updated_at=2026-10-26T09:07:40+00:00, predecessor simplification confirmed; chain-head initialization incomplete)
+- rollout_summaries/2026-10-19T07-37-48-j14v-persistent_segtree_subset_sum_deletion_algorithms.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T18-47-04-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a17cf8-87ea-7d10-b980-564e4c5b7342.jsonl, updated_at=2026-10-27T12:40:10+00:00, conceptual recurrence/invariant validation only)
 
 ### keywords
 
-- chain DP, predecessor class, (s - 2, min(x, y) - 1), binary search, O(N log N), f_1(t), +∞
+- persistent-segment-tree, mex, last-occurrence, segment-tree-minimum, subset-sum, generating-function-inverse, `g[i]=f[i]-g[i-w]`, Booth-algorithm
 
 ## Task 4: QOJ7895 tree-DP linear-complexity proof
 
@@ -171,7 +196,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - when checking a derivation, the user corrected: "不是 u 全部都删掉，而是只删掉 < R 的部分吧" -> state the surviving candidate set, not a whole-side deletion. [Task 1]
 - when asked "这个怎么线性提前准备好", show state definitions, incremental scan updates, and per-level aggregation; distinguish linear positions from O(k^2) state updates. [Task 2]
-- when the user says "只需要找 `(s - 2, min(x, y) - 1)` 有没有点就可以了" -> use the class-existence reduction before redundant candidate checks. [Task 3]
+- when the user supplies "在值域主席树上维护最后一次出现的位置，然后做线段树上二分" -> validate the decisive invariant and complexity concisely instead of replacing the approach. [Task 3]
+- when the user derives `g(x)(1+x^w)=f(x)` -> retain the direct `O(W)` coefficient recurrence rather than defaulting to polynomial inversion. [Task 3]
 - when proving complexity, the user rejected "分叉点 O(n/k)、状态少" as sufficient -> charge state products and real container operations separately; check the original problem and primary editorial before adopting an old claim. [Task 4]
 
 ## Reusable knowledge
@@ -179,7 +205,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - P11234: reverse fixed operations so edges only open and constraints only relax. b is the minimum feasible winner ability, not the candidate-ID set; q=1 preserves champion-side candidates meeting the round threshold. Per height, q changes once and b only decreases in [0,h], yielding total/amortized O(T(n+m)), not worst-case O(1) per modification. [Task 1]
 - P11234 implementation shields: use a>=lim; do not truncate original ability before XOR; size vis/op/ok for tree nodes; on active-root changes, update leaf mapping, height, connectivity, and constraints together. User reported the final version passed, while official records were not read. [Task 1]
 - At a midpoint, scan left with `B[p][v]` and right with `C[u][p]`: left insert `x` uses `w[v]=B_old[x][v]+[v=x]`, then updates `p<=x,v>=x`; right insert symmetrically uses `w[u]=C_old[u][x]+[u=x]`, then `u<=x,p>=x`. Each endpoint enters once but costs up to O(k^2), so preprocessing is O(nk^2) per level, O(nk^2 log n) overall; right suffix sums make a cross-midpoint query O(k). [Task 2]
-- For class `(s,r)`, only predecessor class `(s-2,r-1)` needs an existence check; sorted/grouped classes permit O(N log N) lookup. Chain-head initialization must distinguish ordinary shortest distance >0 from a chain containing point 1 at distance 0, with other states `+∞`. [Task 3]
+- Mex query: in prefix version `r`, a value is absent from `[l,r]` exactly when its latest occurrence is `<l`; store the segment minimum and descend left first to the first value whose minimum is `<l`. Domain `[0,n]` gives `O((n+q)log n)` time and `O(n log n)` space. [Task 3]
+- Deleting one subset-sum item of weight `w`: from `f(x)=g(x)(1+x^w)`, take `g[i]=f[i]-g[i-w] mod 998244353`, with `g[i]=f[i]` for `i<w`; compute upward in `O(W)`. The minimal-rotation question in this rollout was unanswered; use a linear Booth-style method with smallest-index tie handling when asked again. [Task 3]
 - QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. For `x,y>=k²`, at most `O(n/k²)` such merges cost `O(k²)` each, hence O(n); Editorial #505 has separate threshold-crossing and small-total-size cases. [Task 4]
 
 ## Failures and how to do differently
@@ -187,7 +214,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - Raising an ability lower bound can remove multiple weak candidates; do not reduce it to deleting only the fixed player or an entire side. [Task 1]
 - Do not label a total/amortized activation argument as per-update worst-case O(1). [Task 1]
 - Do not call midpoint preparation unqualified "linear": it is linear in positions, but every inserted value has an O(k^2) two-dimensional update. [Task 2]
-- Chain-head `f_1(t)` legal states were not finished; do not treat predecessor lookup as a complete DP proof or implementation. [Task 3]
+- The persistent-tree and subset-sum arguments were conceptual only; no implementation or test was run. Do not claim the unanswered minimal-rotation item was completed. [Task 3]
 - QOJ7895: "any child can inherit for free" is false. Do not claim full O(n) from this first large-large case; still account for the other size ranges, initialization, moving, truncation, and container maintenance. [Task 4]
 
 # Task Group: MAA Arknights Assistant copilot adaptation and runtime configuration

@@ -62,19 +62,19 @@
     {
       "id": "01a1632f-024e-75f1-9db9-2d465701d4cd",
       "legacy_id": "f808f3aa-93ce-44b6-86b9-39cdeb145914",
-      "name": "MAA Arknights Assistant!",
+      "name": "MAA Arknights Assistant",
       "position": 1,
       "roots": [
-        "@USERPROFILE@/Documents/Codex/MAA Arknights Assistant!"
+        "@USERPROFILE@/Documents/Codex/MAA Arknights Assistant"
       ]
     },
     {
       "id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "legacy_id": "1a69bc52-3895-4909-a669-9020d64973ba",
-      "name": "MAA OI Assistant!",
+      "name": "MAA OI Assistant",
       "position": 0,
       "roots": [
-        "@USERPROFILE@/Documents/Codex/MAA OI Assistant!"
+        "@USERPROFILE@/Documents/Codex/MAA OI Assistant"
       ]
     }
   ],
@@ -852,6 +852,27 @@
     "01a18048-0721-7262-a3cb-e82589f9451d": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a18155-f80d-75a1-8b09-389995317970": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a181be-c4cb-7053-a644-e9d77d6f0d95": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a18261-9c9d-7ed0-ba44-8ddc0e2b84db": {
+      "is_pinned": false,
+      "project_id": null,
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
