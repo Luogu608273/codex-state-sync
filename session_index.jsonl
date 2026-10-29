@@ -169,3 +169,10 @@
 {"id":"01a18155-f80d-75a1-8b09-389995317970","thread_name":"循环移位字典序最小","updated_at":"2026-10-28T07:07:38.5080564Z"}
 {"id":"01a181be-c4cb-7053-a644-e9d77d6f0d95","thread_name":"判断 P5494 能否用 pb_ds","updated_at":"2026-10-28T09:02:34.0126234Z"}
 {"id":"01a18261-9c9d-7ed0-ba44-8ddc0e2b84db","thread_name":"排查内存占用过高","updated_at":"2026-10-28T12:00:10.0607585Z"}
+{"id":"01a184fb-5b4d-75f3-8247-e9d23fb5c116","thread_name":"计算模拟赛奖金应缴税额","updated_at":"2026-10-29T00:07:13.8330237Z"}
+{"id":"01a184fc-d727-73c3-9b61-2ececd0910cd","thread_name":"修复 P3810 三维偏序代码","updated_at":"2026-10-29T00:08:50.8614056Z"}
+{"id":"01a1850d-6bdd-7be1-b9b2-2d1fb8eec5da","thread_name":"快速编写 QOJ 22912 代码","updated_at":"2026-10-29T00:26:57.2230964Z"}
+{"id":"01a1854c-7163-79d2-99cd-e7e71cfbdd36","thread_name":"快速编写 QOJ 22916 代码","updated_at":"2026-10-29T01:35:52.6506005Z"}
+{"id":"01a1858e-1d20-7de0-a8f6-b8df81582550","thread_name":"编写 QOJ 22918 题解代码","updated_at":"2026-10-29T02:47:56.5658731Z"}
+{"id":"01a185b3-77da-7eb2-9755-1bda393ed771","thread_name":"解释 3-SAT 次指数算法与 P=NP","updated_at":"2026-10-29T03:28:31.0410121Z"}
+{"id":"01a185b7-1a03-7552-90af-a366bec6ac78","thread_name":"解释 Seth 与 DAG 可达性","updated_at":"2026-10-29T03:32:26.6305965Z"}

@@ -48,3 +48,8 @@ cap_sid
 *.sqlite-wal
 *.sqlite-shm
 # FileSync: codex v2 end
+
+# FileSync: excluded extensions begin
+*.[iI][nN]
+*.[eE][xX][eE]
+# FileSync: excluded extensions end

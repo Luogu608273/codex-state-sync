@@ -107,12 +107,23 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - Related skill: skills/google-drive-verified-delivery/SKILL.md
 
+## Task 11: Record P13270 minimal-representation prompt-assisted AC
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-28T07-07-37-ox0s-p13270_minimal_representation_training_record.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\28\rollout-2026-10-28T16-02-10-01a18155-f80d-75a1-8b09-389995317970_01a18187-e8a2-7a83-b4d1-1f2767cef294.jsonl, updated_at=2026-10-28T08:04:10+00:00, user-reported AC; final submission not inspected)
+
+### keywords
+
+- P13270, 最小表示法, min(i,j), 双指针, 循环同构, 均摊复杂度, i+j, outputs/复盘/2026-10-28-P13270-最小表示法.md
+
 ## User preferences
 
 - when the user says "[debug]时还要给出完整代码。写入。" -> explain faults/minimal changes and provide modified complete code without changing the idea. [Task 1]
 - when the user says "编写代码时学习我的码风" -> follow their actual naming, layout, template, structures, and implementation habits; do not modernize gratuitously. [Task 1]
 - when the user says "我已经接入了 git，只要是在 gitignore 以外的文件应该都不用备份" -> do not create extra backups for non-ignored project files. [Task 1]
 - when the user says "过了，总结记录吧" -> update training record and single-problem review, preserving prompt-assisted AC versus independent mastery. [Task 2]
+- when the user says "我过了，你总结记录吧" -> update the single-problem review, `outputs/训练记录.md`, and `outputs/训练档案.md`; retain implementation details such as "保留 min(i, j)" and do not turn user-reported AC into independent mastery. [Task 11]
 - for [hint], give one advancing hint and wait; honor "是/否", "只找原题", and "不要给思路" literally. [Task 2]
 - when the user says "有原题吗，我想做一下" -> prioritize a submit-ready problem/link and necessary property hint, not full code/solution. [Task 3]
 - when teaching a new OI problem, the user asked "先确认我目前已有的推导与卡点……一次只给一个推进提示，等我回复后再继续" -> ask for their derivation, state, code, or exact blockage first; do not infer ability from a historical score or alter training records unless asked. [Task 4]
@@ -134,6 +145,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - CF438D: segment tree stores sum and maximum; skip a modulo node when `max<x`. Charge each position separately between point assignments: every assignment gives one position a fresh `O(log V)` budget, and each effective modulo halves its value, so total effective updates are `O((n+q)log V)` and total time `O((n+q)log n log V)`. [Task 10]
 - ZR2-6 delivery workflow: each problem used `std.cpp`, `partial.cpp`, and `solution.md`, with Chinese explanation, proof, complexity, and partial-coverage bounds; compile all variants, run samples plus randomized/brute-force/stress and file-IO checks, then Drive-read-back every uploaded file. `work/ZR2-6/test/validation.json` recorded `ALL PASS`, `FILE IO PASS 8`, and `STRESS PASS`; the 13 uploaded files matched local content. [Task 8]
 - Related skill: skills/google-drive-verified-delivery/SKILL.md. [Task 8]
+- P13270 minimal representation: candidates `i,j` match for `l` characters; on the next mismatch, eliminate the worse candidate through `起点+l` and jump it to `起点+l+1`. Use the old pointer value when swapping roles, skip collisions, stop after `n` matches, and return `min(i,j)` when rotations are identical. Charge a round's `l` equal comparisons plus one mismatch to the `l+1` increase in `i+j` for `O(n)` comparisons; input storage is `O(n)`, auxiliary space `O(1)`. [Task 11]
 
 ## Failures and how to do differently
 
@@ -146,6 +158,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - CF453E: do not reuse `Σ min(m_i,r_iΔ)` for never-cleared items; historical "complete solution" omitted `s_i>0` initial state and `r_i=0`. [Task 7]
 - CF438D: "each position changes only O(log V) times" is false across the whole run because point assignment resets a value; partition at assignments or use the replenished-potential argument. User-reported prompt-assisted AC is not independent mastery. [Task 10]
 - Zhengrui contest pages/API may return an unknown error/401 before the user logs into the embedded browser; obtain login before reading statements or attachments. A timed-out browser download event can still leave the attachment in `C:\Users\605\Downloads`; inspect the directory. Report local validation and analyzed partial scores, never official AC/score without submission evidence. [Task 8]
+- P13270's AC is user feedback; `git diff --check` only verified no whitespace errors in record changes. When revisiting, check global candidate coverage, the final out-of-range jump, all-equal strings, and using the old value during pointer exchange. [Task 11]
 
 # Task Group: MAA OI Assistant algorithm derivations and complexity qualification
 
@@ -172,15 +185,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - divide-and-conquer, midpoint, subsequence DP, B[p,v], C[u,p], incremental update, O(nk^2 log n)
 
-## Task 3: Persistent segment-tree mex and subset-sum deletion recurrences
+## Task 3: Incremental OI derivation coaching and context splitting
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-19T07-37-48-j14v-persistent_segtree_subset_sum_deletion_algorithms.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T18-47-04-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a17cf8-87ea-7d10-b980-564e4c5b7342.jsonl, updated_at=2026-10-27T12:40:10+00:00, conceptual recurrence/invariant validation only)
+- rollout_summaries/2026-10-19T07-37-48-j14v-incremental_oi_training_context_splitting.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T18-47-04-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a17cf8-87ea-7d10-b980-564e4c5b7342.jsonl, updated_at=2026-10-28T07:08:00+00:00, mex/subset-sum conceptual validation; minimal-rotation teaching was moved to a new thread)
 
 ### keywords
 
-- persistent-segment-tree, mex, last-occurrence, segment-tree-minimum, subset-sum, generating-function-inverse, `g[i]=f[i]-g[i-w]`, Booth-algorithm
+- persistent-segment-tree, mex, 最后一次出现的位置, `g(x)(1+x^w)=f(x)`, `g[i]=f[i]-g[i-w]`, 循环移位字典序最小, 整除分块, `floor(n/i)`, O(√n)
 
 ## Task 4: QOJ7895 tree-DP linear-complexity proof
 
@@ -198,6 +211,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - when asked "这个怎么线性提前准备好", show state definitions, incremental scan updates, and per-level aggregation; distinguish linear positions from O(k^2) state updates. [Task 2]
 - when the user supplies "在值域主席树上维护最后一次出现的位置，然后做线段树上二分" -> validate the decisive invariant and complexity concisely instead of replacing the approach. [Task 3]
 - when the user derives `g(x)(1+x^w)=f(x)` -> retain the direct `O(W)` coefficient recurrence rather than defaulting to polynomial inversion. [Task 3]
+- when the user says "别 fork 了，上下文太长了，考虑开新对话吧" -> create an independent chat with only the necessary statement and teaching constraints; for the new OI chat, use Chinese and give "一次只给一个推进提示或问题并等待我回答", not a full solution or code. [Task 3]
 - when proving complexity, the user rejected "分叉点 O(n/k)、状态少" as sufficient -> charge state products and real container operations separately; check the original problem and primary editorial before adopting an old claim. [Task 4]
 
 ## Reusable knowledge
@@ -206,7 +220,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - P11234 implementation shields: use a>=lim; do not truncate original ability before XOR; size vis/op/ok for tree nodes; on active-root changes, update leaf mapping, height, connectivity, and constraints together. User reported the final version passed, while official records were not read. [Task 1]
 - At a midpoint, scan left with `B[p][v]` and right with `C[u][p]`: left insert `x` uses `w[v]=B_old[x][v]+[v=x]`, then updates `p<=x,v>=x`; right insert symmetrically uses `w[u]=C_old[u][x]+[u=x]`, then `u<=x,p>=x`. Each endpoint enters once but costs up to O(k^2), so preprocessing is O(nk^2) per level, O(nk^2 log n) overall; right suffix sums make a cross-midpoint query O(k). [Task 2]
 - Mex query: in prefix version `r`, a value is absent from `[l,r]` exactly when its latest occurrence is `<l`; store the segment minimum and descend left first to the first value whose minimum is `<l`. Domain `[0,n]` gives `O((n+q)log n)` time and `O(n log n)` space. [Task 3]
-- Deleting one subset-sum item of weight `w`: from `f(x)=g(x)(1+x^w)`, take `g[i]=f[i]-g[i-w] mod 998244353`, with `g[i]=f[i]` for `i<w`; compute upward in `O(W)`. The minimal-rotation question in this rollout was unanswered; use a linear Booth-style method with smallest-index tie handling when asked again. [Task 3]
+- Deleting one subset-sum item of weight `w`: from `f(x)=g(x)(1+x^w)`, take `g[i]=f[i]-g[i-w] mod 998244353`, with `g[i]=f[i]` for `i<w`; compute upward in `O(W)`. The rollout also introduced `sum_{i=1}^n floor(n/i)` for `n≤10^12`, target `O(√n)` time and `O(1)` extra space, but contains no solution. [Task 3]
 - QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. For `x,y>=k²`, at most `O(n/k²)` such merges cost `O(k²)` each, hence O(n); Editorial #505 has separate threshold-crossing and small-total-size cases. [Task 4]
 
 ## Failures and how to do differently
@@ -214,7 +228,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - Raising an ability lower bound can remove multiple weak candidates; do not reduce it to deleting only the fixed player or an entire side. [Task 1]
 - Do not label a total/amortized activation argument as per-update worst-case O(1). [Task 1]
 - Do not call midpoint preparation unqualified "linear": it is linear in positions, but every inserted value has an O(k^2) two-dimensional update. [Task 2]
-- The persistent-tree and subset-sum arguments were conceptual only; no implementation or test was run. Do not claim the unanswered minimal-rotation item was completed. [Task 3]
+- The persistent-tree and subset-sum arguments were conceptual only; no implementation or test was run. The source rollout did not complete minimal-rotation teaching or the floor-division problem; do not claim either was solved from it. [Task 3]
 - QOJ7895: "any child can inherit for free" is false. Do not claim full O(n) from this first large-large case; still account for the other size ranges, initialization, moving, truncation, and container maintenance. [Task 4]
 
 # Task Group: MAA Arknights Assistant copilot adaptation and runtime configuration

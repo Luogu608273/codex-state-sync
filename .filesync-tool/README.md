@@ -4,9 +4,9 @@
 
 ## 同步范围
 
-- **目录 1：文档\Codex**。包括子目录、文件和空文件夹；超过 100 MiB 的安装包除外，使用一个仓库。
+- **目录 1：文档\Codex**。包括子目录、文件和空文件夹；所有 `.in`、`.exe` 及超过 100 MiB 的其他安装包除外，使用一个仓库。
 - **目录 2：用户目录\.codex**。优先使用环境变量 `CODEX_HOME`，否则使用 `%USERPROFILE%\.codex`；使用另一个仓库。
-- 两个仓库相互独立。“文档”的其他目录不属于同步目标。文档\\Codex 会包含被 Git 忽略规则排除的普通文件（包括 exe），但会排除超过 100 MiB 的安装包。
+- 两个仓库相互独立。“文档”的其他目录不属于同步目标。文档\\Codex 会包含被 Git 忽略规则排除的普通文件，但所有 `.in`、`.exe` 都不收录；其他超过 100 MiB 的安装包也排除。
 
 `.codex` 默认同步根目录 AGENTS.md、config.toml、hooks.json、history.jsonl、session_index.jsonl 和同步规则，以及 sessions、archived_sessions、attachments、rules、自定义 skills、prompts、instructions、agents、profiles、hooks。聊天同时收录 `.jsonl` 与 `.jsonl.zst`，按原始字节保存。自带 skills/.system、程序缓存、auth.json、cap_sid、SQLite 和未明确收录的应用状态排除。模型/权限/项目/置顶另存为下述小型偏好快照。配置不再按扩展名笼统放行；其他明确由你维护的配置，可在 `.codex/.gitignore` 的 FileSync 区块后逐个添加，例如 `!/settings.yaml`，上传前检查内容。
 
@@ -73,7 +73,7 @@ git clone https://github.com/你的用户名/codex-documents-sync.git "$HOME/Doc
 
 ## 出错时
 
-进入出错目录，用 Git Bash 查看 `git status`、`git remote -v`。两边历史分叉时，工具会停止；可以自行用 `git pull --no-rebase` 合并、解决冲突，再上传。没有配置上游时，确认远程分支名后执行 `git branch --set-upstream-to=origin/main main`。文档\\Codex 中超过 100 MiB 的安装包（msix、misx、msixbundle、appx、appxbundle、exe、msi、msp，不区分大小写）会自动跳过并写入 .gitignore 的 FileSync 区块，本地文件保留；小安装包仍同步。已跟踪的大安装包会停止跟踪，但这一步不删除旧历史中的对象。其他超过 100 MiB 的文件仍会报错，需自行处理或配置 Git LFS。已有 .gitignore 的其他规则保留。
+进入出错目录，用 Git Bash 查看 `git status`、`git remote -v`。两边历史分叉时，工具会停止；可以自行用 `git pull --no-rebase` 合并、解决冲突，再上传。没有配置上游时，确认远程分支名后执行 `git branch --set-upstream-to=origin/main main`。文档\\Codex 中超过 100 MiB 的安装包（msix、misx、msixbundle、appx、appxbundle、exe、msi、msp，不区分大小写）会自动跳过并写入 .gitignore 的 FileSync 区块，本地文件保留；除 `.exe` 外，小安装包仍同步。所有 `.in`、`.exe` 无论大小都排除。已跟踪的大安装包会停止跟踪，但这一步不删除旧历史中的对象。其他超过 100 MiB 的文件仍会报错，需自行处理或配置 Git LFS。已有 .gitignore 的其他规则保留。
 
 升级时会把已跟踪但现已排除的文件从外层 Git 索引移除，保留本地文件；memories 的 gitlink 也仅从外层索引移除。旧提交中的缓存不会因此立即消失。若 auth.json 或 cap_sid 已被跟踪，工具会停止，需另外清理凭据和历史。config.toml 的常见明文凭据字段会拦截上传，但这不是完整的秘密检测，请自行检查自定义配置。
 
@@ -199,3 +199,12 @@ python "$HOME\Documents\FileSync\codex-preferences.py" --root "$HOME\.codex" --r
 登录时仅为所选仓库的 GitHub 地址设置 GCM 凭据助手；其他仓库/平台的助手配置保留。首次接入尚无仓库时，GCM 设置应用于新克隆的仓库。SSH 地址继续使用原来的 SSH 密钥，不自动转换协议；其他 Git 平台沿用原有认证。未安装 GCM 时普通同步沿用现有 Git 认证并提示，浏览器登录入口会说明需要在 Git for Windows 安装程序中启用 GCM。
 
 定时/`-NonInteractive` 模式不会询问姓名邮箱或弹出登录窗口；身份缺失或认证失败会记录明确提示并停止。请先手动运行 13 完成设置，再使用一键同步或定时备份。若文档仓库不在默认位置，可用 `-Target Documents -Root "实际路径" -Action Login`。
+
+
+## 排除输入文件与可执行文件（v7.3）
+
+所有同步范围排除 `.in` 和 `.exe`，包括大写/混合大小写扩展名。文档/Codex 的强制暂存、上传大小检查、下载前状态检查均使用相同排除规则；.codex 的附件、自定义技能、记忆快照和历史记忆快照也排除这两类文件。首次接入的远程仍包含它们时会提示超出范围，先在原电脑用新版工具解除跟踪并上传，再接入。
+
+本地文件保留。以后生成的 `.in`、`.exe` 按全局指令放在 `C:/Users/605/Documents/Output`，不要放进文档/Codex。文档同步会将已跟踪的两类文件从 Git 索引解除，其他修改保留；下一次上传提交这些移除记录后，远程的最新版本才会去掉它们。其他电脑更新前请自行保留所需的旧文件，因为 Git 的删除记录也会同步。
+
+这是同步排除规则，不改写已有提交历史。已有提交中的文件对象仍可能占用 .git 空间；不直接删除 pack、index、HEAD 或 refs。中断操作留下且确认无进程使用的临时文件可以单独清理，历史瘦身需要另行处理。记忆快照读取旧清单时也过滤这两类文件，避免升级后因为旧清单仍列着它们而校验失败。

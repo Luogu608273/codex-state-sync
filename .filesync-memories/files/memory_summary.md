@@ -9,6 +9,7 @@ v1
 ## User preferences
 
 - For OI tutoring, first establish the current derivation/card point; use Chinese, give exactly one advancing hint/invariant, then wait. Do not reveal a full solution, repeat understood setup, or change training records unless asked.
+- When context is too long and the user says "别 fork 了…考虑开新对话吧", start an independent chat carrying only the statement and the requested one-hint-at-a-time teaching constraints.
 - For `[debug]`, keep the user’s approach and style, identify concrete faults, make minimal changes, and return complete modified code.
 - On “过了，总结记录吧”, stop teaching and update the existing record/review; preserve “提示后/订正” versus independent mastery and do not invent code/judge evidence.
 - For a proof gap such as “问题在于单点修改怎么证明”, address the exact gap with state definitions and charged operations instead of repeating the algorithm.
@@ -20,6 +21,7 @@ v1
 
 - For OI work, use Chinese and retain exact invariants, boundary semantics, and complexity qualification; conceptual validation is not an implementation test.
 - Training truth is in `outputs/训练记录.md`, `outputs/训练档案.md`, and `outputs/复盘/`; update a previous entry rather than duplicating a later AC report.
+- For minimal representation, preserve the exact tie rule `min(i,j)` and distinguish user-reported AC from an independently inspected submission.
 - For Drive delivery, compile/test locally, upload only as requested, then read back every uploaded file; report local evidence separately from online judgment.
 - In multi-case DP/debugging, name every index’s semantic role first; audit empty containers, first elements, binary-search `end()`, empty ranges, and state reset.
 
@@ -27,11 +29,17 @@ v1
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant!
 
+#### 2026-10-28
+
+- P13270 minimal representation record: P13270, 最小表示法, `min(i,j)`, 双指针, `i+j`, outputs/复盘/2026-10-28-P13270-最小表示法.md
+  - desc: Prompt-assisted, user-reported AC was recorded in the review, training record, and profile; use for the exact elimination boundary and record-maintenance standard.
+  - learnings: Eliminate through `起点+l`, use old pointer values when swapping, and charge a comparison round to `i+j` growth; final code/judge record was not inspected.
+- Incremental OI coaching and context splitting: 主席树, `g(x)(1+x^w)=f(x)`, 循环移位字典序最小, `floor(n/i)`, 一次只给一个推进提示
+  - desc: Short derivation checks plus an interrupted tutoring handoff; route here for the mex invariant, O(W) subset-sum deletion, or requested new-chat teaching mode.
+  - learnings: Validate a user-supplied core derivation concisely; the source rollout did not solve minimal rotation or floor-division grouping.
+
 #### 2026-10-27
 
-- Persistent segment-tree mex and subset-sum deletion: persistent-segment-tree, last-occurrence, `g[i]=f[i]-g[i-w]`, Booth-algorithm
-  - desc: Conceptual algorithm drill: value-domain prefix versions for mex and the direct O(W) generating-function deletion recurrence; use before opening the full handbook for either derivation.
-  - learnings: Latest occurrence `<l` means absent from `[l,r]`; minimal cyclic rotation remained unanswered and needs a linear Booth-style explanation with smallest-index ties.
 - ZR2-6 four-problem solution authoring and Drive delivery: ZR2-6, contest-2225, std.cpp, partial.cpp, solution.md, `ALL PASS`, `FILE IO PASS 8`, `STRESS PASS`
   - desc: Self-authored Zhengrui #2225 materials in `work/ZR2-6`, then verified Google Drive upload; route similar write/validate/upload work here.
   - learnings: Login is required before reading Zhengrui content; check Downloads after a timed-out event; all 13 uploaded files were read back, but no online submission occurred.

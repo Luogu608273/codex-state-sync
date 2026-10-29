@@ -180,6 +180,21 @@ function Require-Repo {
     if ([IO.Path]::GetFullPath($top).TrimEnd('\', '/') -ine $script:Root.TrimEnd('\', '/')) { throw '目标目录不是仓库根目录，请检查 -Root。' }
 }
 
+function Update-ExcludedExtensionsIgnore {
+    $path = Join-Path $script:Root '.gitignore'
+    $old = ''
+    if (Test-Path -LiteralPath $path) { $old = [IO.File]::ReadAllText($path) }
+    $pattern = '(?ms)^# FileSync: excluded extensions begin\r?\n.*?^# FileSync: excluded extensions end(?:\r?\n|$)'
+    $text = [regex]::Replace($old, $pattern, '').TrimEnd([char]13, [char]10)
+    if ($text) { $text += "`n`n" }
+    $text += "# FileSync: excluded extensions begin`n*.[iI][nN]`n*.[eE][xX][eE]`n# FileSync: excluded extensions end`n"
+    if ($text -cne $old) { [IO.File]::WriteAllText($path, $text, $utf8) }
+}
+
+function Remove-ExcludedExtensionsFromIndex {
+    Invoke-Git @('rm', '-r', '--cached', '--ignore-unmatch', '--', ':(top,icase,glob)**/*.in', ':(top,icase,glob)**/*.exe')
+}
+
 function Save-EmptyDirs {
     param([string[]]$Excluded = @())
     $queue = New-Object 'System.Collections.Generic.Queue[string]'
@@ -217,7 +232,7 @@ function Restore-EmptyDirs {
 }
 
 function Get-DocumentsExclusions {
-    $extensions = @('.msix', '.misx', '.msixbundle', '.appx', '.appxbundle', '.exe', '.msi', '.msp')
+    $extensions = @('.msix', '.misx', '.msixbundle', '.appx', '.appxbundle', '.msi', '.msp')
     $queue = New-Object 'System.Collections.Generic.Queue[string]'
     $queue.Enqueue($script:Root)
     while ($queue.Count) {
@@ -237,6 +252,7 @@ function Get-DocumentsExclusions {
 
 function Test-DocumentsExcludedPath {
     param([string]$Path, [string[]]$Excluded)
+    if ($Path -match '(?i)\.(in|exe)$') { return $true }
     foreach ($entry in $Excluded) {
         if ($Path -ieq $entry -or $Path.StartsWith($entry.TrimEnd('/') + '/', [StringComparison]::OrdinalIgnoreCase)) { return $true }
     }
@@ -260,6 +276,7 @@ function Update-InstallerIgnore {
         $text += ($lines -join "`n") + "`n"
     }
     if ($text -cne $old) { [IO.File]::WriteAllText($ignorePath, $text, $utf8) }
+    Update-ExcludedExtensionsIgnore
 }
 
 function Save-Changes {
@@ -278,6 +295,7 @@ function Save-Changes {
     } else {
         $installers = @(Get-DocumentsExclusions)
         Update-InstallerIgnore -Paths $installers
+        Remove-ExcludedExtensionsFromIndex
         foreach ($path in $installers) {
             Write-Host ("跳过安装包/驱动或运行库备份（保留本地文件）：" + $path) -ForegroundColor Yellow
             Invoke-Git @('rm', '-r', '--cached', '--ignore-unmatch', '--', $path)
@@ -295,6 +313,7 @@ function Save-Changes {
     $addArgs = @('add', '-A')
     if ($Target -eq 'Documents') {
         $addArgs += @('-f', '--', '.')
+        $addArgs += @(':(top,icase,glob,exclude)**/*.in', ':(top,icase,glob,exclude)**/*.exe')
         foreach ($path in $installers) { $addArgs += ':(top,literal,exclude)' + $path }
     }
     $stamps = @{}
@@ -511,6 +530,7 @@ try {
             $statusArgs = @('status', '--porcelain')
             if ($Target -eq 'Documents') {
                 $statusArgs += @('--ignored', '--', '.')
+                $statusArgs += @(':(top,icase,glob,exclude)**/*.in', ':(top,icase,glob,exclude)**/*.exe')
                 foreach ($path in @(Get-DocumentsExclusions)) { $statusArgs += ':(top,literal,exclude)' + $path }
             }
             $dirty = @(Invoke-Git $statusArgs -Capture)

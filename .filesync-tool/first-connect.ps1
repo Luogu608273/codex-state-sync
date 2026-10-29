@@ -14,6 +14,7 @@ function Invoke-FirstGit {
 
 function Test-FirstManagedPath {
     param([string]$Path)
+    if ($Path -match '(?i)\.(in|exe)$') { return $false }
     if ($Path -match '(^/|\\|:|(^|/)\.\.?(/|$)|(^|/)\.git(/|$)|(^|/)\.system(/|$)|(^|/)(auth\.json|cap_sid)(/|$)|\.sqlite($|-))') { return $false }
     foreach ($part in $Path.Split('/')) {
         if ($part -match '[. ]$|[<>|"*?\x00-\x1f]' -or $part -match '^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\.|$)') { return $false }
