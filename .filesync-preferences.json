@@ -12,13 +12,13 @@
         "serviceTier": null
       },
       {
-        "model": "",
-        "reasoningEffort": null,
-        "serviceTier": null
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "low",
+        "serviceTier": "priority"
       },
       {
-        "model": "gpt-6.1-sol-wm",
-        "reasoningEffort": "high",
+        "model": "",
+        "reasoningEffort": null,
         "serviceTier": null
       }
     ],
@@ -922,6 +922,34 @@
     "01a185b7-1a03-7552-90af-a366bec6ac78": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a18682-762d-79d0-8ef0-762b69e7a78c": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a18689-19e7-7c81-b4a0-a3f0117223b9": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1879a-e108-7073-851b-31513741ba01": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a187f5-034c-7be2-8a5d-7857669254e7": {
+      "is_pinned": false,
+      "project_id": null,
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null

@@ -29,11 +29,20 @@ v1
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant!
 
+#### 2026-10-29
+
+- QOJ7895 merge-tree amortized complexity: QOJ7895, merge tree, `x+y<k^2`, point-pair counting, `O(min(k,x/k) min(k,y/k))`
+  - desc: Tree-DP merge-cost proof continuation; search first for the three threshold ranges and the user’s boundary-condition questions.
+  - learnings: Only both-sides-large merges have the `O(n/k^2)` count; cross-threshold charges go to the small side, while small-total merges charge point pairs. Container operations are still open.
+
 #### 2026-10-28
 
 - P13270 minimal representation record: P13270, 最小表示法, `min(i,j)`, 双指针, `i+j`, outputs/复盘/2026-10-28-P13270-最小表示法.md
   - desc: Prompt-assisted, user-reported AC was recorded in the review, training record, and profile; use for the exact elimination boundary and record-maintenance standard.
   - learnings: Eliminate through `起点+l`, use old pointer values when swapping, and charge a comparison round to `i+j` growth; final code/judge record was not inspected.
+- CF455D and CF438D prompt-assisted AC records: CF455D, `2B+1`, `B` and `B+1`, CF438D, point assignment, `O((n+q)log V)`
+  - desc: Updated training records for a block-list solution and a range-modulo segment-tree amortization proof; use for evidence-bound record maintenance.
+  - learnings: Treat AC as user feedback unless submission evidence was inspected. CF438D restarts an `O(log V)` budget per assignment; CF455D block-count analysis must include `q`, split moves, and frequency-table costs.
 - Incremental OI coaching and context splitting: 主席树, `g(x)(1+x^w)=f(x)`, 循环移位字典序最小, `floor(n/i)`, 一次只给一个推进提示
   - desc: Short derivation checks plus an interrupted tutoring handoff; route here for the mex invariant, O(W) subset-sum deletion, or requested new-chat teaching mode.
   - learnings: Validate a user-supplied core derivation concisely; the source rollout did not solve minimal rotation or floor-division grouping.
@@ -46,12 +55,9 @@ v1
 - G123913 connected-graph DP debug and record: G123913, Minimizing Edges, 前后缀最小值, lower_bound, 多测清空
   - desc: Complete-code layered-DP correction with exhaustive small-graph and stress validation, followed by prompt-assisted AC record maintenance.
   - learnings: Separate layer/class-index/distance-coordinate/class-size roles; empty suffix queries require `suf[lst+1]`.
-- CF438D point-assignment amortized proof: CF438D, range modulo, point assignment, potential method, max pruning
-  - desc: Segment-tree modulo pruning and the proof that assignments replenish only one position’s O(log V) budget.
-  - learnings: Partition each position at assignments; do not claim global O(log V) changes per index.
-- CF455D and G123914 tutoring status: CF455D, 提示后 AC, G123914, P11089, 一次只给一个推进提示
-  - desc: CF455D was revised from unfinished to user-reported prompt-assisted AC; Crystal remains an entry point waiting for the user’s derivation.
-  - learnings: Stop explaining after “已经过了”; historical score or prompt facts are not evidence of current independent reasoning.
+- G123914 Crystal tutoring entry point: G123914, P11089, crystal, 一次只给一个推进提示
+  - desc: Entry point only: await the user’s current derivation, state, code, or exact blockage before teaching.
+  - learnings: Historical score or prompt facts are not evidence of current independent reasoning.
 
 #### 2026-10-26
 
@@ -61,9 +67,9 @@ v1
 
 #### 2026-10-24
 
-- P11234, QOJ7895, and midpoint complexity qualification: P11234, QOJ7895, `O(min(k,x/k) min(k,y/k))`, `O(nk²log n)`
+- P11234 and midpoint complexity qualification: P11234, `b_p=min(R,b_v)`, divide-and-conquer, `O(nk²log n)`
   - desc: Contest derivations that require exact candidates/states and amortized—not worst-case—claims.
-  - learnings: Charge actual state products/container work; a proof of one merge-size case is not a full O(n) proof.
+  - learnings: Charge actual state updates and preserve the stated complexity qualifier.
 
 ### C:\Users\605\Documents\Codex\MAA Arknights Assistant!
 

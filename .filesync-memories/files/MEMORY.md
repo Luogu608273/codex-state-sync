@@ -1,18 +1,28 @@
-# Task Group: MAA OI Assistant contest collaboration, training, and debugging
+# Task Group: MAA OI Assistant contest collaboration, training, debugging, and file layout
 
-scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, and persistent project/global coding rules.
+scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse interaction and coding defaults broadly; status, files, and write locations are checkout-specific.
 
 ## Task 1: Persist debug, coding-style, Drive, and Git backup rules
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-update_project_and_global_agents_rules.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-27T12:42:16+00:00, verified writes)
+- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_user_rules_and_migrate_codex_build_files.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-29T04:15:56+00:00, verified rules)
 - rollout_summaries/2026-09-17T02-44-10-nub6-read_cloud_chat_history_and_merge_local_memory_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-09-17\h, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\09\17\rollout-2026-09-17T10-44-10-01a0ad40-0a71-7253-b435-433591a7cbc0.jsonl, updated_at=2026-10-24T08:58:50+00:00, Drive facts superseded by ad-hoc note)
 
 ### keywords
 
 - AGENTS.md, [debug], 完整代码, 码风, 云端硬盘/CKK, Google Drive, .gitignore, Git, 备份
+
+## Task 2: Relocate Codex `.in` and `.exe` build artifacts to Documents/Output
+
+### rollout_summary_files
+
+- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_user_rules_and_migrate_codex_build_files.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-29T04:15:56+00:00, 303 files SHA-256 verified)
+
+### keywords
+
+- .in, .exe, Documents/Output, C:/Users/605/Documents/Output, SHA-256, migration manifest, REMAINING=0
 
 ## Task 2: Record training, recommend problems, and debug P8820
 
@@ -55,11 +65,11 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - P9013, Find and Replace S, mapping, DFS, indegree-zero, in[target], free character, abc -> baa, p9013_debug.cpp, PASS: 450 cases
 
-## Task 6: Record CF455D prompt-assisted AC
+## Task 6: Record CF455D prompt-assisted AC and review
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-26T04-30-51-PGUE-cf455d_training_record_update.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-51-01a17679-bb53-7353-a2d4-67e6f675d538.jsonl, updated_at=2026-10-27T08:32:18+00:00, user-reported prompt-assisted AC; implementation not inspected)
+- rollout_summaries/2026-10-26T04-30-51-PGUE-cf455d_training_record_update.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-51-01a17679-bb53-7353-a2d4-67e6f675d538.jsonl, updated_at=2026-10-28T06:19:38+00:00, user-reported prompt-assisted AC; final implementation/judge record not inspected)
 
 ### keywords
 
@@ -75,11 +85,11 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - G123913, Minimizing Edges, 分层 DP, 奇偶最短路, 前后缀最小值, lower_bound, 多测清空, work/debug-connected-20261027/check.py
 
-## Task 10: Prove CF438D modulo-update amortization and record AC
+## Task 10: Prove CF438D point-assignment amortization and record AC
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-27T08-38-04-NZ6j-cf438d_single_point_assignment_amortized_proof.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-44-15-01a17c82-6c98-79d1-aa99-aa6f1dc64103_01a17c88-14a3-7dd1-8ad0-d082a2410a1a.jsonl, updated_at=2026-10-27T08:58:24+00:00, prompt-assisted AC; final code/judge record not read)
+- rollout_summaries/2026-10-27T08-38-04-NZ6j-cf438d_single_point_update_amortized_proof.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-44-15-01a17c82-6c98-79d1-aa99-aa6f1dc64103_01a17c88-14a3-7dd1-8ad0-d082a2410a1a.jsonl, updated_at=2026-10-28T06:19:40+00:00, user-reported prompt-assisted AC; final code/judge record not read)
 
 ### keywords
 
@@ -195,15 +205,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - persistent-segment-tree, mex, 最后一次出现的位置, `g(x)(1+x^w)=f(x)`, `g[i]=f[i]-g[i-w]`, 循环移位字典序最小, 整除分块, `floor(n/i)`, O(√n)
 
-## Task 4: QOJ7895 tree-DP linear-complexity proof
+## Task 4: QOJ7895 merge-tree linear-complexity proof
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-26T04-30-38-TPtF-qoj7895_linear_dp_complexity_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-38-01a17679-88d3-7c81-85f3-8ae5628e1733.jsonl, updated_at=2026-10-27T06:26:54+00:00, first merge-cost case proved; full implementation/proof not closed)
+- rollout_summaries/2026-10-26T04-30-38-TPtF-qoj7895_merge_tree_amortized_complexity.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-38-01a17679-88d3-7c81-85f3-8ae5628e1733.jsonl, updated_at=2026-10-29T00:01:34+00:00, three merge ranges explained; container operations remain unaccounted)
 
 ### keywords
 
-- QOJ7895, Graph Partitioning 2, tree DP, lazy shift, merge cost, O(min(k,x/k) min(k,y/k)), k^2, Editorial #505
+- QOJ7895, Graph Partitioning 2, tree DP, merge tree, lazy shift, point-pair counting, merge cost, O(min(k,x/k) min(k,y/k)), k^2, Editorial #505
 
 ## User preferences
 
@@ -213,6 +223,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - when the user derives `g(x)(1+x^w)=f(x)` -> retain the direct `O(W)` coefficient recurrence rather than defaulting to polynomial inversion. [Task 3]
 - when the user says "别 fork 了，上下文太长了，考虑开新对话吧" -> create an independent chat with only the necessary statement and teaching constraints; for the new OI chat, use Chinese and give "一次只给一个推进提示或问题并等待我回答", not a full solution or code. [Task 3]
 - when proving complexity, the user rejected "分叉点 O(n/k)、状态少" as sufficient -> charge state products and real container operations separately; check the original problem and primary editorial before adopting an old claim. [Task 4]
+- when explaining an abstract amortized proof, the user asked "何为合并树" and "这句话是什么意思" -> first use a tiny concrete merge example and say whether a size counts original-tree vertices or DP states. [Task 4]
+- when the user asks whether `x+y>k^2` means only `n/k^2` merges -> distinguish both-sides-large from threshold-crossing small-plus-large merges, and give the repeated-small-absorption counterexample before applying a count bound. [Task 4]
 
 ## Reusable knowledge
 
@@ -221,7 +233,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - At a midpoint, scan left with `B[p][v]` and right with `C[u][p]`: left insert `x` uses `w[v]=B_old[x][v]+[v=x]`, then updates `p<=x,v>=x`; right insert symmetrically uses `w[u]=C_old[u][x]+[u=x]`, then `u<=x,p>=x`. Each endpoint enters once but costs up to O(k^2), so preprocessing is O(nk^2) per level, O(nk^2 log n) overall; right suffix sums make a cross-midpoint query O(k). [Task 2]
 - Mex query: in prefix version `r`, a value is absent from `[l,r]` exactly when its latest occurrence is `<l`; store the segment minimum and descend left first to the first value whose minimum is `<l`. Domain `[0,n]` gives `O((n+q)log n)` time and `O(n log n)` space. [Task 3]
 - Deleting one subset-sum item of weight `w`: from `f(x)=g(x)(1+x^w)`, take `g[i]=f[i]-g[i-w] mod 998244353`, with `g[i]=f[i]` for `i<w`; compute upward in `O(W)`. The rollout also introduced `sum_{i=1}^n floor(n/i)` for `n≤10^12`, target `O(√n)` time and `O(1)` extra space, but contains no solution. [Task 3]
-- QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. For `x,y>=k²`, at most `O(n/k²)` such merges cost `O(k²)` each, hence O(n); Editorial #505 has separate threshold-crossing and small-total-size cases. [Task 4]
+- QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. Model the actual merge order as a binary merge tree whose node sizes count original-tree vertices, not states. [Task 4]
+- QOJ7895 three-way charge: for `x,y>=k²`, the `O(n/k²)` large-large merge bound gives `O(n)`; for `x<k²<=x+y`, cost is `O(x)` and the small side cannot be charged again as small; for `x+y<k²`, charge `O(xy/k²)` to point pairs, with total `O(z²/k²)=O(z)` in each disjoint size-`z` fragment. [Task 4]
 
 ## Failures and how to do differently
 
@@ -229,7 +242,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - Do not label a total/amortized activation argument as per-update worst-case O(1). [Task 1]
 - Do not call midpoint preparation unqualified "linear": it is linear in positions, but every inserted value has an O(k^2) two-dimensional update. [Task 2]
 - The persistent-tree and subset-sum arguments were conceptual only; no implementation or test was run. The source rollout did not complete minimal-rotation teaching or the floor-division problem; do not claim either was solved from it. [Task 3]
-- QOJ7895: "any child can inherit for free" is false. Do not claim full O(n) from this first large-large case; still account for the other size ranges, initialization, moving, truncation, and container maintenance. [Task 4]
+- QOJ7895: "any child can inherit for free" is false. Do not say every `x+y>=k²` merge occurs only `O(n/k²)` times: a large side can repeatedly absorb size-`Theta(k)` parts. Apply that count only when both sides are at least `k²`; charge threshold crossings to the smaller side and small-total merges to point pairs. [Task 4]
+- QOJ7895 proof remains partial: still account separately for initialization, moving, truncation, and actual container maintenance before claiming the entire implementation is linear. [Task 4]
 
 # Task Group: MAA Arknights Assistant copilot adaptation and runtime configuration
 
