@@ -1,7 +1,50 @@
+# Task Group: MuMu virtrite 2 Windows transparency utility
+
+scope: Build, package, and maintain stable opacity controls for MuMuPlayer Qt windows without flicker or target-window activation.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-29\mumu (rollout initiated from CHAT with GPT); reuse_rule=Reuse the Qt-bridge approach only after rechecking the installed MuMu path, Qt version, and target process/window behavior.
+
+## Task 1: Build MuMu transparent-mode tool, restore 100% opacity, and package virtrite 2
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-29T14-09-44-PIt9-mumu_virtrite_2_opacity_tool.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=C:\Users\605\.codex\sessions\2026\10\29\rollout-2026-10-29T22-09-44-01a187fe-c9be-7710-8b3e-0da1cb4df187.jsonl, updated_at=2026-10-30T00:34:27+00:00, user-tested MuMu and normal-window opacity; packaged ZIP verified)
+
+### keywords
+
+- MuMuPlayer, virtrite 2, Qt 5.15.6, MuMuQtBridge.dll, QWidget::setWindowOpacity, WS_EX_LAYERED, Alpha=255, boss key, flicker, Ctrl+Shift+0
+
+## User preferences
+
+- when building a Windows window utility, the user asked “尽量不要呼出窗口，需要时让我手动确认窗口状态” -> work in the background and do not activate/switch the target window unless confirmation is needed. [Task 1]
+- when naming the deliverable, the user required the title and tray text to be exactly “virtrite 2” -> preserve specified product text across UI and documentation; do not embellish it. [Task 1]
+- when restoring opacity, the user clarified Ctrl+Shift+0 means “透明化设为 100%” -> explicitly set Alpha=255 rather than removing the layered style. [Task 1]
+
+## Reusable knowledge
+
+- MuMuPlayer at `C:\Program Files\YXArkNights-12.0\shell\MuMuPlayer.exe` used Qt 5.15.6. Direct `WS_EX_LAYERED`/`SetLayeredWindowAttributes` changes to its main window are overwritten by Qt/MuMu; invoke `QWidget::find(WId)` and `QWidget::setWindowOpacity(double)` on the MuMu GUI thread through a short Windows hook instead. [Task 1]
+- For MuMu’s boss-key hide/restore, retain and restore Qt opacity during `WM_STYLECHANGING`, `WM_SHOWWINDOW`, drawing, and position-change phases. The user confirmed restored windows appear directly semi-transparent without flicker. [Task 1]
+- Keep `virtrite 2.exe` and `MuMuQtBridge.dll` together in `C:\Users\605\Documents\Output\virtrite 2`; do not modify the game process, virtual-machine process, or MuMu installation. The verified deliverable ZIP is `C:\Users\605\Documents\Codex\2026-10-29\mumu\outputs\virtrite 2.zip`. [Task 1]
+- Hotkeys: Ctrl+Shift+1–9 set 10%–90%; Ctrl+Shift+0 and Ctrl+Alt+0 set Alpha=255; Ctrl+Shift+plus toggles topmost; Ctrl+Alt+Shift+1–9/0 adjusts/restores all MuMu windows. [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: layered alpha reads back but MuMu remains visually opaque, or polling it causes flicker -> Qt/MuMu is resetting the style; do not poll `SetWindowLongPtr`/`SetLayeredWindowAttributes`. Use the Qt bridge and repair only at lifecycle/state-drift messages. [Task 1]
+- Symptom: a non-visible-window self-test fails a topmost assertion -> Z-order is not reliable there; test hotkey decoding, background command delivery, Alpha=255 read-back, layered-style preservation, and color-key behavior instead. [Task 1]
+
 # Task Group: MAA OI Assistant contest collaboration, training, debugging, and file layout
 
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
-applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse interaction and coding defaults broadly; status, files, and write locations are checkout-specific.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
+
+## Task 13: Debug four C++ contest solutions while preserving the original approach
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-29T12-20-36-JPbj-debug_four_cpp_solutions_p4503_p4802_p11267_p10526.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-10-29T20-20-37-01a1879a-e108-7073-851b-31513741ba01.jsonl, updated_at=2026-10-29T12:30:22+00:00, C++17 compiled; 557 targeted checks and maximum-scale local stress tests; not online-submitted)
+
+### keywords
+
+- [debug], P4503, 企鹅 QQ, rolling hash, double hash, collision, P4802, subset DP, P11267, binary lifting, periodic string, P10526, Trie, Tab completion, C:/TDM-GCC-64/bin/g++.exe
 
 ## Task 1: Persist debug, coding-style, Drive, and Git backup rules
 
@@ -14,7 +57,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - AGENTS.md, [debug], 完整代码, 码风, 云端硬盘/CKK, Google Drive, .gitignore, Git, 备份
 
-## Task 2: Relocate Codex `.in` and `.exe` build artifacts to Documents/Output
+## Task 12: Relocate Codex `.in` and `.exe` build artifacts to Documents/Output
 
 ### rollout_summary_files
 
@@ -69,7 +112,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-26T04-30-51-PGUE-cf455d_training_record_update.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-51-01a17679-bb53-7353-a2d4-67e6f675d538.jsonl, updated_at=2026-10-28T06:19:38+00:00, user-reported prompt-assisted AC; final implementation/judge record not inspected)
+- rollout_summaries/2026-10-26T04-30-51-PGUE-cf455d_training_record_update.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-51-01a17679-bb53-7353-a2d4-67e6f675d538.jsonl, updated_at=2026-10-30T00:01:16+00:00, user-reported prompt-assisted AC; final implementation/judge record not inspected)
 
 ### keywords
 
@@ -79,7 +122,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-24T06-11-00-boCA-debug_g123913_connected_dp_and_record_training.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-14-36-01a16c88-b30c-72f2-b5d9-061256796880_01a17c6c-f0ed-72a1-a40f-726c929cee79.jsonl, updated_at=2026-10-27T08:30:04+00:00, complete-code debug; exhaustive local validation and user-reported AC)
+- rollout_summaries/2026-10-24T06-11-00-boCA-debug_g123913_connected_graph_dp.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-14-36-01a16c88-b30c-72f2-b5d9-061256796880_01a17c6c-f0ed-72a1-a40f-726c929cee79.jsonl, updated_at=2026-10-29T08:19:51+00:00, complete-code debug; exhaustive local validation and user-reported AC)
 
 ### keywords
 
@@ -99,7 +142,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-26T04-31-05-SjDb-cf453e.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-31-06-01a17679-f29a-7312-a074-936eb7159c09.jsonl, updated_at=2026-10-27T06:26:52+00:00, one initialization hint; full solution remains open)
+- rollout_summaries/2026-10-26T04-31-05-SjDb-cf453e_debug_integer_overflow_and_training_record.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\30\rollout-2026-10-30T09-09-55-01a17679-f29a-7312-a074-936eb7159c09_01a18a5b-35db-7751-9538-04b89b1c4316.jsonl, updated_at=2026-10-30T01:28:08+00:00, minimally fixed overflow; random differential testing and user-reported prompt-assisted AC)
 
 ### keywords
 
@@ -121,17 +164,63 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-28T07-07-37-ox0s-p13270_minimal_representation_training_record.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\28\rollout-2026-10-28T16-02-10-01a18155-f80d-75a1-8b09-389995317970_01a18187-e8a2-7a83-b4d1-1f2767cef294.jsonl, updated_at=2026-10-28T08:04:10+00:00, user-reported AC; final submission not inspected)
+- rollout_summaries/2026-10-28T07-07-37-ox0s-p13270_minimal_representation_record.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\28\rollout-2026-10-28T16-02-10-01a18155-f80d-75a1-8b09-389995317970_01a18187-e8a2-7a83-b4d1-1f2767cef294.jsonl, updated_at=2026-10-30T10:11:19+00:00, user-reported prompt-assisted AC; final submission not inspected)
 
 ### keywords
 
 - P13270, 最小表示法, min(i,j), 双指针, 循环同构, 均摊复杂度, i+j, outputs/复盘/2026-10-28-P13270-最小表示法.md
 
+## Task 14: CF436E regret-greedy training, records, and next-problem selection
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-08T07-24-41-CRTs-update_oi_training_selection_and_create_cf429e_work.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T16-19-13-01a11a66-69d2-7072-8c11-2cf4d936b972_01a12f31-c4e4-7e52-8079-ae894a08fd03.jsonl, updated_at=2026-10-22T09:20:51+00:00, training records and selection skill validated)
+- rollout_summaries/2026-10-07T23-57-44-MnAu-cf436e_cardboard_box_proof_training_log_binary_bit_thread.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-09-30\new-chat, rollout_path=C:\Users\605\.codex\sessions\2026\10\08\rollout-2026-10-08T09-56-11-01a118cd-356b-7840-8449-1e7fdcdf3052_01a11939-aa51-7eb0-bbdf-935d71ca73fe.jsonl, updated_at=2026-10-22T09:20:51+00:00, DP differential tests passed; prompt-assisted completion)
+- rollout_summaries/2026-10-05T09-18-17-N9aJ-oi_training_record_cf1348f_recommend_cf436e.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-09-30\new-chat, rollout_path=C:\Users\605\.codex\sessions\2026\10\07\rollout-2026-10-07T17-29-56-01a10b5b-5776-7ca1-a59a-f6674b8f9885_01a115b2-b8c6-7d91-9040-02f257eb8b0d.jsonl, updated_at=2026-10-22T09:20:51+00:00, CF1348F record and CF436E recommendation)
+- rollout_summaries/2026-10-12T08-24-37-WJ22-cf429e_rating_rule_skill_update.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T16-24-37-01a12f36-b67e-7691-aebf-356b6d2a4012.jsonl, updated_at=2026-10-22T09:20:51+00:00, CF429E selection and subjective-difficulty rule)
+
+### keywords
+
+- CF1348F, CF436E, Cardboard Box, four heaps, differential test, CF526F, CF997E, CF429E, subjective difficulty, oi-training/SKILL.md
+
+## Task 15: Interval sum exactly two: retain heuristic status, then teach the network-flow direction
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-10T12-23-24-TcxK-interval_sum_two_spfa_to_network_flow_teaching.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\10\rollout-2026-10-10T20-25-02-01a125c4-9d01-7822-a65b-050e41f57444_01a125c6-1c36-7b72-b8ea-6b00e3e73faa.jsonl, updated_at=2026-10-22T09:20:51+00:00, heuristic locally tested; official flow direction confirmed but teaching incomplete)
+
+### keywords
+
+- ARC232A, interval-sum-2, SPFA, difference constraints, cutoff heuristic, maximum flow, contiguous interval edge, O(n+m)
+
+## Task 16: QOJ9903 and ABC091D minimal-change debugging
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-57-47-ZQJ5-debug_abc091d_two_sequences_binary_search_boundaries.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T16-20-33-01a1532a-aa27-7d73-a462-8e405b983b43_01a1533f-819c-73f3-8395-146ddbaf8b4c.jsonl, updated_at=2026-10-22T09:20:51+00:00, logical randomized check and user-reported prompt-assisted AC)
+- rollout_summaries/2026-10-19T06-42-01-tQ5y-qoj9903_floyd_divide_conquer_debug_and_training_record.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T14-45-26-01a152e5-4dc4-76f3-9772-6a526bdfbbe0_01a152e8-6d16-78c3-8f0c-778e3345e02c.jsonl, updated_at=2026-10-22T09:20:51+00:00, counterexample and state-restoration repair)
+
+### keywords
+
+- QOJ9903, Floyd, missing-midpoint divide-and-conquer, recursive state restore, ABC091D, ARC092B, upper_bound, lower_bound, closed interval
+
+## Task 17: Combo review and a new one-hint teaching thread
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-13T03-36-06-zV6Q-record_combo_and_start_game_teaching.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\13\rollout-2026-10-13T11-36-06-01a13996-1d46-7940-a985-70d85882a317_01a13a25-a514-7f93-abdf-f7c1a1d40788.jsonl, updated_at=2026-10-22T09:20:51+00:00, Combo record complete; D teaching start unverified)
+
+### keywords
+
+- 组合技, AC automaton, fail, cnt, ed, linked list, 最初的博弈, one hint, training record
+
 ## User preferences
 
 - when the user says "[debug]时还要给出完整代码。写入。" -> explain faults/minimal changes and provide modified complete code without changing the idea. [Task 1]
+- for four-file `[debug]` work, the user required "中文回答、最小幅度修改、不改思路、指出每处实质错误并给出完整修正版" -> preserve the original algorithmic direction and coding style, but fix correctness, bounds, and asymptotic failures with concrete counterexamples. [Task 13]
 - when the user says "编写代码时学习我的码风" -> follow their actual naming, layout, template, structures, and implementation habits; do not modernize gratuitously. [Task 1]
 - when the user says "我已经接入了 git，只要是在 gitignore 以外的文件应该都不用备份" -> do not create extra backups for non-ignored project files. [Task 1]
+- when the user asks ".in 和 .exe 不要放到 Codex 文件夹里面，放到 文档/Output" -> create generated inputs and executables under `C:\Users\605\Documents\Output` (with task subdirectories), never under the Codex tree. [Task 12]
 - when the user says "过了，总结记录吧" -> update training record and single-problem review, preserving prompt-assisted AC versus independent mastery. [Task 2]
 - when the user says "我过了，你总结记录吧" -> update the single-problem review, `outputs/训练记录.md`, and `outputs/训练档案.md`; retain implementation details such as "保留 min(i, j)" and do not turn user-reported AC into independent mastery. [Task 11]
 - for [hint], give one advancing hint and wait; honor "是/否", "只找原题", and "不要给思路" literally. [Task 2]
@@ -139,27 +228,38 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - when teaching a new OI problem, the user asked "先确认我目前已有的推导与卡点……一次只给一个推进提示，等我回复后再继续" -> ask for their derivation, state, code, or exact blockage first; do not infer ability from a historical score or alter training records unless asked. [Task 4]
 - in ongoing OI tutoring, the user asked "每次仅给一个推进提示" / "先只讲解，暂不修改共享训练记录" -> continue from the demonstrated sticking point; give one concrete observation or invariant, then wait. Do not repeat an already understood entry point or write shared records. [Task 4][Task 7]
 - when the user says "这题也不用讲了，已经过了，总结记录吧" -> stop explanation immediately; revise the existing CF455D record to user-reported "提示后" AC rather than adding a duplicate or asserting implementation details. [Task 6]
+- for OI training, the user requested “每次只给一个提示，不直接发完整代码或整题解” -> use one small advancing prompt and wait, even when discussing an already identified approach. [Task 6]
 - when the user has the framework and says "问题在于单点修改怎么证明" -> address that exact proof gap rather than restating the full algorithm. [Task 10]
 - when the user clarified "编写 std、题解和部分分程序" -> distinguish self-authored deliverables from downloading existing contest files; ask once only if the requested artifact type is genuinely ambiguous. [Task 8]
 
 ## Reusable knowledge
 
 - The retired H:\我的云端硬盘 mount is not a current route; use connected Google Drive search/list/read interfaces. [Task 1] [ad-hoc note]
+- `.in` and `.exe` belong in `C:/Users/605/Documents/Output`, not `C:/Users/605/Documents/Codex`; the completed 2026-10-29 migration placed 303 files at `Documents/Output/Codex`, retained relative paths, and recorded SHA-256 results in `文件迁移清单-2026-10-29-399d3501.csv`. [Task 12]
 - Training truth is in outputs/训练记录.md, outputs/训练档案.md, and outputs/复盘/; user report, compile/static/random testing, and official AC are distinct. P8820 k=3 also needs LCA-neighbor handling: min(l1.a[0],l1.a[1])+num[w]+min(l2.a[0],l2.a[1]). [Task 2]
 - CF379F: dynamic leaf additions update diameter endpoints by comparing distances to both old endpoints via LCA/binary lifting; prove the diameter-endpoint property before relying on it. [Task 3]
 - .agents/skills/oi-training/SKILL.md calls for checking constraints and the user's attempt first; expose one concrete flaw/counterexample if needed, otherwise ask one advancing question and wait. [Task 4]
 - P9013 functional mapping graph: count `in[v]` on target vertices so free-character availability is target-side; visit indegree-zero roots before residual cycles, otherwise a cycle with an external predecessor is overcharged one temporary operation. `abc -> baa` should be 3. Local checker: `PASS: 450 cases; BFS alphabet=5; seed=9013`. [Task 5]
-- CF455D's record is `AC（2026-10-27 用户反馈）`, completion mode "提示后". The historical block-list idea remains contextual only: right-shift `[l,r]` is delete rank `r`, insert rank `l`; split `2B+1` into `B` and `B+1`, then another split needs about `B` insertions. [Task 6]
+- CF455D's record is `AC（2026-10-27 用户反馈）`, completion mode "提示后". The historical block-list idea remains contextual only: right-shift `[l,r]` is delete rank `r`, insert rank `l`; split `2B+1` into `B` and `B+1`, then another split needs about `B` insertions. Only splitting means the block count also depends on `q`; include splitting moves, frequency-table initialization/clearing, and allocation in complexity discussion. [Task 6]
 - CF453E must distinguish never-cleared `min(m_i,s_i+r_i t)` from last-cleared-at-`t_0` `min(m_i,r_i(t-t_0))`; `r_i=0` precludes division. A same-timestamp persistent-segment-tree query does not replace outer ODT/set timestamp segments. [Task 7]
 - G123913: first give every index a single meaning (layer, class index, distance coordinate, or class size). Clear `ans`/`vec` per test, skip empty layers, guard `j=0`, `lower_bound==end()`, and empty suffixes; `suf[lst+1]` is required for a queried empty interval. Local checker covered samples, all 23,940 permitted 2–5-node self-loop graphs, large cases, and 50,000 tests. [Task 9]
 - CF438D: segment tree stores sum and maximum; skip a modulo node when `max<x`. Charge each position separately between point assignments: every assignment gives one position a fresh `O(log V)` budget, and each effective modulo halves its value, so total effective updates are `O((n+q)log V)` and total time `O((n+q)log n log V)`. [Task 10]
 - ZR2-6 delivery workflow: each problem used `std.cpp`, `partial.cpp`, and `solution.md`, with Chinese explanation, proof, complexity, and partial-coverage bounds; compile all variants, run samples plus randomized/brute-force/stress and file-IO checks, then Drive-read-back every uploaded file. `work/ZR2-6/test/validation.json` recorded `ALL PASS`, `FILE IO PASS 8`, and `STRESS PASS`; the 13 uploaded files matched local content. [Task 8]
 - Related skill: skills/google-drive-verified-delivery/SKILL.md. [Task 8]
 - P13270 minimal representation: candidates `i,j` match for `l` characters; on the next mismatch, eliminate the worse candidate through `起点+l` and jump it to `起点+l+1`. Use the old pointer value when swapping roles, skip collisions, stop after `n` matches, and return `min(i,j)` when rotations are identical. Charge a round's `l` equal comparisons plus one mismatch to the `l+1` increase in `i+j` for `O(n)` comparisons; input storage is `O(n)`, auxiliary space `O(1)`. [Task 11]
+- P4503: deleting one position from every string can be counted with precomputed whole-string double hashes and powers in expected `O(nL)`; rescanning every string after every deletion is `O(nL^2)`, and a single modular hash is not a correctness proof. The tested collision pair is `aygI5JfL87` / `aEBPICi06Z`. [Task 13]
+- CF436E: preserve a user’s four-heap regret-greedy states, use `INF=1e18`, run the loop for the target star count, and lazy-delete only entries whose rollback cost still matches. The reported completion was prompt-assisted and differential-tested, not independent mastery. For unspecified next-problem recommendations, read the training record/profile, cover an unrecorded or weak type, recommend exactly one verified problem, and withhold algorithm labels and key observations. [Task 14]
+- ARC232A interval-sum-2: retain a cutoff SPFA only as an explicitly unsound heuristic; distinguish a real negative cycle from exhaustion. For the official flow explanation, start with a containment example: positions contained by interval IDs `[u,v]` become capacity-1 edges `u -> v+1`, and value-2 flow corresponds to every surviving interval having sum 2. [Task 15]
+- QOJ9903 Floyd state restricts allowed intermediate vertices, never start/end vertices, so `add(k)` must update all `i,j`; sibling recursion needs separate parent-state restoration. ABC091D closed-interval counting is `upper_bound(R)-lower_bound(L)`, not reversed bounds; retain duplicates. [Task 16]
+- Combo review: after AC-automaton fail accumulation, use `cnt[u] == ed[u]` to retain non-contained patterns; maintain their increasing latest starts in a linked list so the head is the fixed-right-endpoint contribution minimum. Completion was user-reported; do not assert final code/judge verification. [Task 17]
+- P4802 subset DP for a simple path from `0` to `n-1` must return `max_j f[n-1][j]`, not only the all-cities mask; guard both unreachable DP states and missing edges before adding. [Task 13]
+- P11267 periodic-string lifting: when a partial tail has no `1`, first use the nearest `1` to the left in the current cycle; only otherwise fall back to the previous cycle's global last `1`. The repaired construction is `O(70n+61q)`. [Task 13]
+- P10526 command completion: precompute each Trie node's `T` endpoint, include the root empty-prefix completion, and maintain matching node `cur` plus mismatched-suffix length `cnt` so character, backspace, Tab, and Enter are `O(1)`; total `O(26N+sum(|t_i|)+m)`. [Task 13]
 
 ## Failures and how to do differently
 
 - A write-script validation failure is not success: re-read target state before claiming a rule was written. [Task 1]
+- During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
 - Do not revive old mount/permission guidance for H:\我的云端硬盘. [Task 1] [ad-hoc note]
 - Random/brute-force checks do not establish official AC; P8820 must also remove or conditionalize freopen("transmit2.in",...). [Task 2]
 - Do not begin a full solution before the user supplies their present reasoning; G123914 facts in the initial prompt are not evidence of the user's own approach. [Task 4]
@@ -169,6 +269,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - CF438D: "each position changes only O(log V) times" is false across the whole run because point assignment resets a value; partition at assignments or use the replenished-potential argument. User-reported prompt-assisted AC is not independent mastery. [Task 10]
 - Zhengrui contest pages/API may return an unknown error/401 before the user logs into the embedded browser; obtain login before reading statements or attachments. A timed-out browser download event can still leave the attachment in `C:\Users\605\Downloads`; inspect the directory. Report local validation and analyzed partial scores, never official AC/score without submission evidence. [Task 8]
 - P13270's AC is user feedback; `git diff --check` only verified no whitespace errors in record changes. When revisiting, check global candidate coverage, the final out-of-range jump, all-equal strings, and using the old value during pointer exchange. [Task 11]
+- Do not call local compilation, fixed counterexamples, randomized checks, or maximum-scale stress tests an online AC. For Task 13, all four C++17 builds and 557 targeted checks passed, but no online submission occurred. [Task 13]
+- Debug shields: test the actual semantic endpoint condition (P4802), a collision adversary rather than trusting one hash (P4503), partial-period boundaries (P11267), and root/leaf plus backspace paths before dereferencing Trie transitions (P10526). [Task 13]
 
 # Task Group: MAA OI Assistant algorithm derivations and complexity qualification
 
@@ -195,21 +297,11 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - divide-and-conquer, midpoint, subsequence DP, B[p,v], C[u,p], incremental update, O(nk^2 log n)
 
-## Task 3: Incremental OI derivation coaching and context splitting
+## Task 3: QOJ7895 merge-tree linear-complexity proof
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-19T07-37-48-j14v-incremental_oi_training_context_splitting.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T18-47-04-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a17cf8-87ea-7d10-b980-564e4c5b7342.jsonl, updated_at=2026-10-28T07:08:00+00:00, mex/subset-sum conceptual validation; minimal-rotation teaching was moved to a new thread)
-
-### keywords
-
-- persistent-segment-tree, mex, 最后一次出现的位置, `g(x)(1+x^w)=f(x)`, `g[i]=f[i]-g[i-w]`, 循环移位字典序最小, 整除分块, `floor(n/i)`, O(√n)
-
-## Task 4: QOJ7895 merge-tree linear-complexity proof
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-26T04-30-38-TPtF-qoj7895_merge_tree_amortized_complexity.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-38-01a17679-88d3-7c81-85f3-8ae5628e1733.jsonl, updated_at=2026-10-29T00:01:34+00:00, three merge ranges explained; container operations remain unaccounted)
+- rollout_summaries/2026-10-26T04-30-38-TPtF-qoj7895_linear_complexity_debug_ac.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\26\rollout-2026-10-26T12-30-38-01a17679-88d3-7c81-85f3-8ae5628e1733.jsonl, updated_at=2026-10-30T00:00:55+00:00, proof, overflow repair, and user-reported prompt-assisted AC)
 
 ### keywords
 
@@ -219,31 +311,25 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 - when checking a derivation, the user corrected: "不是 u 全部都删掉，而是只删掉 < R 的部分吧" -> state the surviving candidate set, not a whole-side deletion. [Task 1]
 - when asked "这个怎么线性提前准备好", show state definitions, incremental scan updates, and per-level aggregation; distinguish linear positions from O(k^2) state updates. [Task 2]
-- when the user supplies "在值域主席树上维护最后一次出现的位置，然后做线段树上二分" -> validate the decisive invariant and complexity concisely instead of replacing the approach. [Task 3]
-- when the user derives `g(x)(1+x^w)=f(x)` -> retain the direct `O(W)` coefficient recurrence rather than defaulting to polynomial inversion. [Task 3]
-- when the user says "别 fork 了，上下文太长了，考虑开新对话吧" -> create an independent chat with only the necessary statement and teaching constraints; for the new OI chat, use Chinese and give "一次只给一个推进提示或问题并等待我回答", not a full solution or code. [Task 3]
-- when proving complexity, the user rejected "分叉点 O(n/k)、状态少" as sufficient -> charge state products and real container operations separately; check the original problem and primary editorial before adopting an old claim. [Task 4]
-- when explaining an abstract amortized proof, the user asked "何为合并树" and "这句话是什么意思" -> first use a tiny concrete merge example and say whether a size counts original-tree vertices or DP states. [Task 4]
-- when the user asks whether `x+y>k^2` means only `n/k^2` merges -> distinguish both-sides-large from threshold-crossing small-plus-large merges, and give the repeated-small-absorption counterexample before applying a count bound. [Task 4]
+- when proving complexity, the user rejected "分叉点 O(n/k)、状态少" as sufficient -> charge state products and real container operations separately; check the original problem and primary editorial before adopting an old claim. [Task 3]
+- when explaining an abstract amortized proof, the user asked "何为合并树" and "这句话是什么意思" -> first use a tiny concrete merge example and say whether a size counts original-tree vertices or DP states. [Task 3]
+- when the user asks whether `x+y>k^2` means only `n/k^2` merges -> distinguish both-sides-large from threshold-crossing small-plus-large merges, and give the repeated-small-absorption counterexample before applying a count bound. [Task 3]
 
 ## Reusable knowledge
 
 - P11234: reverse fixed operations so edges only open and constraints only relax. b is the minimum feasible winner ability, not the candidate-ID set; q=1 preserves champion-side candidates meeting the round threshold. Per height, q changes once and b only decreases in [0,h], yielding total/amortized O(T(n+m)), not worst-case O(1) per modification. [Task 1]
 - P11234 implementation shields: use a>=lim; do not truncate original ability before XOR; size vis/op/ok for tree nodes; on active-root changes, update leaf mapping, height, connectivity, and constraints together. User reported the final version passed, while official records were not read. [Task 1]
 - At a midpoint, scan left with `B[p][v]` and right with `C[u][p]`: left insert `x` uses `w[v]=B_old[x][v]+[v=x]`, then updates `p<=x,v>=x`; right insert symmetrically uses `w[u]=C_old[u][x]+[u=x]`, then `u<=x,p>=x`. Each endpoint enters once but costs up to O(k^2), so preprocessing is O(nk^2) per level, O(nk^2 log n) overall; right suffix sums make a cross-midpoint query O(k). [Task 2]
-- Mex query: in prefix version `r`, a value is absent from `[l,r]` exactly when its latest occurrence is `<l`; store the segment minimum and descend left first to the first value whose minimum is `<l`. Domain `[0,n]` gives `O((n+q)log n)` time and `O(n log n)` space. [Task 3]
-- Deleting one subset-sum item of weight `w`: from `f(x)=g(x)(1+x^w)`, take `g[i]=f[i]-g[i-w] mod 998244353`, with `g[i]=f[i]` for `i<w`; compute upward in `O(W)`. The rollout also introduced `sum_{i=1}^n floor(n/i)` for `n≤10^12`, target `O(√n)` time and `O(1)` extra space, but contains no solution. [Task 3]
-- QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. Model the actual merge order as a binary merge tree whose node sizes count original-tree vertices, not states. [Task 4]
-- QOJ7895 three-way charge: for `x,y>=k²`, the `O(n/k²)` large-large merge bound gives `O(n)`; for `x<k²<=x+y`, cost is `O(x)` and the small side cannot be charged again as small; for `x+y<k²`, charge `O(xy/k²)` to point pairs, with total `O(z²/k²)=O(z)` in each disjoint size-`z` fragment. [Task 4]
+- QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. Model the actual merge order as a binary merge tree whose node sizes count original-tree vertices, not states. [Task 3]
+- QOJ7895 three-way charge: for `x,y>=k²`, the `O(n/k²)` large-large merge bound gives `O(n)`; for `x<k²<=x+y`, cost is `O(x)` and the small side cannot be charged again as small; for `x+y<k²`, charge `O(xy/k²)` to point pairs, with total `O(z²/k²)=O(z)` in each disjoint size-`z` fragment. [Task 3]
 
 ## Failures and how to do differently
 
 - Raising an ability lower bound can remove multiple weak candidates; do not reduce it to deleting only the fixed player or an entire side. [Task 1]
 - Do not label a total/amortized activation argument as per-update worst-case O(1). [Task 1]
 - Do not call midpoint preparation unqualified "linear": it is linear in positions, but every inserted value has an O(k^2) two-dimensional update. [Task 2]
-- The persistent-tree and subset-sum arguments were conceptual only; no implementation or test was run. The source rollout did not complete minimal-rotation teaching or the floor-division problem; do not claim either was solved from it. [Task 3]
-- QOJ7895: "any child can inherit for free" is false. Do not say every `x+y>=k²` merge occurs only `O(n/k²)` times: a large side can repeatedly absorb size-`Theta(k)` parts. Apply that count only when both sides are at least `k²`; charge threshold crossings to the smaller side and small-total merges to point pairs. [Task 4]
-- QOJ7895 proof remains partial: still account separately for initialization, moving, truncation, and actual container maintenance before claiming the entire implementation is linear. [Task 4]
+- QOJ7895: "any child can inherit for free" is false. Do not say every `x+y>=k²` merge occurs only `O(n/k²)` times: a large side can repeatedly absorb size-`Theta(k)` parts. Apply that count only when both sides are at least `k²`; charge threshold crossings to the smaller side and small-total merges to point pairs. [Task 3]
+- QOJ7895 proof remains partial: still account separately for initialization, moving, truncation, and actual container maintenance before claiming the entire implementation is linear. [Task 3]
 
 # Task Group: MAA Arknights Assistant copilot adaptation and runtime configuration
 
@@ -316,7 +402,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only cha
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_ranking_and_arknights_roguelike_seed_entry.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-26T08:47:58+00:00, API order confirmed; formula remains undisclosed)
+- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_hot_song_order_and_arknights_roguelike_seeds.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-29T03:14:46+00:00, API order confirmed; formula remains undisclosed)
 
 ### keywords
 
@@ -326,7 +412,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only cha
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_ranking_and_arknights_roguelike_seed_entry.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-26T08:47:58+00:00, historical feature; unavailable after 2026-03-03)
+- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_hot_song_order_and_arknights_roguelike_seeds.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-29T03:14:46+00:00, historical feature; unavailable after 2026-03-03)
 
 ### keywords
 

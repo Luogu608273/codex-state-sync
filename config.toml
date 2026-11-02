@@ -1,13 +1,13 @@
 model = "gpt-6.1-sol"
 model_reasoning_effort = "high"
-service_tier = "default"
+service_tier = "priority"
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
 
 notify = [ "C:\\Users\\605\\AppData\\Local\\Programs\\Codex\\app\\resources\\cua_node\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
 [desktop]
 followUpQueueMode = "steer"
-conversationDetailMode = "STEPS_PROSE"
+conversationDetailMode = "STEPS_COMMANDS"
 sansFontSize = 14
 codeFontSize = 13
 ambient-suggestions-enabled = true
@@ -58,9 +58,6 @@ enabled = true
 [plugins."computer-use@openai-bundled"]
 enabled = true
 
-[plugins."code-review@openai-bundled"]
-enabled = true
-
 [mcp_servers.node_repl]
 args = []
 command = 'C:\Users\605\AppData\Local\Programs\Codex\app\resources\cua_node\bin\node_repl.exe'
@@ -78,12 +75,13 @@ BROWSER_USE_TINYSKY_ENABLED = "1"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.1016.61520"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"C:/Users/605/.codex/plugins/cache/openai-bundled/browser/26.1016.61520/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.1027.30824"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"C:/Users/605/.codex/plugins/cache/openai-bundled/browser/26.1027.30824/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_NATIVE_PIPE = "1"
-SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-5ac7384f-bae0-41cb-a122-254c91eb040b'
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-7457830b-55c2-4154-90d7-ca27cc66053d'
 CODEX_CLI_PATH = 'C:\Users\605\AppData\Local\Programs\Codex\app\resources\codex.exe'
 NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "CODEX_WINDOWS_REGISTERED_CORE"
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 
 [windows]
 sandbox = "elevated"

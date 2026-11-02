@@ -9,12 +9,12 @@
       {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
-        "serviceTier": null
+        "serviceTier": "priority"
       },
       {
         "model": "gpt-6.1-sol",
-        "reasoningEffort": "low",
-        "serviceTier": "priority"
+        "reasoningEffort": "high",
+        "serviceTier": null
       },
       {
         "model": "",
@@ -37,7 +37,7 @@
     "model": "gpt-6.1-sol",
     "model_reasoning_effort": "high",
     "sandbox_mode": "danger-full-access",
-    "service_tier": "default"
+    "service_tier": "priority"
   },
   "format": 1,
   "local_permission_selection": {
@@ -950,6 +950,69 @@
     "01a187f5-034c-7be2-8a5d-7857669254e7": {
       "is_pinned": false,
       "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a187fe-c9be-7710-8b3e-0da1cb4df187": {
+      "is_pinned": false,
+      "project_id": "01a1632e-dde8-7d70-a88b-cdcaa37e133c",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a18a69-6891-7e32-a68d-b2e3ad57a505": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a18ba1-9f5e-7f91-b707-610284dd2c12": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a18bc9-f6e3-7860-a5be-9c7ec5190985": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a19a15-e4d5-7eb0-a47f-9d6214770d8f": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a19aeb-8a75-7cc3-a899-6865dd295ef5": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a19afa-952a-7cb0-980e-490708b8601b": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a19bc5-7707-71e3-ae92-b5fc4b568d1a": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a19bc7-cd8d-7ae1-b22c-027e9526ed71": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
