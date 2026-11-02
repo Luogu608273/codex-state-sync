@@ -7,6 +7,11 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "xhigh",
+        "serviceTier": "priority"
+      },
+      {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
         "serviceTier": "priority"
@@ -14,11 +19,6 @@
       {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
-        "serviceTier": null
-      },
-      {
-        "model": "",
-        "reasoningEffort": null,
         "serviceTier": null
       }
     ],
@@ -1018,6 +1018,20 @@
       "thread_section_id": null
     },
     "01a19bd9-0a46-7653-8241-1adbf43ea49d": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a19bdf-0546-7800-9bb2-9c037a9a9fc2": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a19c57-2be6-7db3-b1a8-461248416d85": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
