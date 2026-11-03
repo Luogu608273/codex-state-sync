@@ -36,6 +36,36 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-29\mumu (rollout initiated 
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
 
+## Task 18: Deliver five Zhengrui contest packages to the local CKK sync folder, including C++ SPJs
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-02T12-58-40-2sVT-zr_batch_solutions_and_cpp_spj_preference.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-11-02T20-58-41-01a19c57-2be6-7db3-b1a8-461248416d85.jsonl, updated_at=2026-11-02T13:46:19+00:00, 20 problems/78 files locally validated and SHA-256 read-back verified)
+
+### keywords
+
+- 正睿, ZR2-4, ZR2-6, ZR2-7, ZR2-8, ZR2-9, std.cpp, solution.md, partial.cpp, SPJ, spj.cpp, CKK, 本地同步盘, ZROI
+
+## Task 19: Stepwise CSP-S 2026 T4 hub / 研发基地 tree-DP tutoring
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-02T10-22-05-lDc5-csp_s_2026_t4_hub_stepwise_dp_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\02\rollout-2026-11-02T18-22-05-01a19bc7-cd8d-7ae1-b22c-027e9526ed71.jsonl, updated_at=2026-11-02T10:24:29+00:00, first hint only; await the user's next derivation)
+
+### keywords
+
+- CSP-S 2026, P17834, hub, 研发基地, 树形DP, 二分答案, 固定半径, 连通块, 状态压缩, f_{u,s,d,k,1/2}
+
+## Task 20: Möbius inclusion-exclusion binary lexicographic construction implementation guidance
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-30T01-25-26-OwfP.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\30\rollout-2026-10-30T12-17-48-01a18a69-6891-7e32-a68d-b2e3ad57a505_01a18b07-3671-78b3-be19-445574a0d5bc.jsonl, updated_at=2026-10-30T04:20:54+00:00, derivation checked; no implementation or sample validation)
+
+### keywords
+
+- Möbius, 容斥, floor division, 字典序, 连续0, 连续1, 二分, exgcd, phi, long long, u0, C(L)
+
 ## Task 13: Debug four C++ contest solutions while preserving the original approach
 
 ### rollout_summary_files
@@ -46,22 +76,31 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - [debug], P4503, 企鹅 QQ, rolling hash, double hash, collision, P4802, subset DP, P11267, binary lifting, periodic string, P10526, Trie, Tab completion, C:/TDM-GCC-64/bin/g++.exe
 
-## Task 1: Persist debug, coding-style, Drive, and Git backup rules
+## Task 21: Record P17833《迁徙》prompt-assisted AC review
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_user_rules_and_migrate_codex_build_files.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-29T04:15:56+00:00, verified rules)
-- rollout_summaries/2026-09-17T02-44-10-nub6-read_cloud_chat_history_and_merge_local_memory_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-09-17\h, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\09\17\rollout-2026-09-17T10-44-10-01a0ad40-0a71-7253-b435-433591a7cbc0.jsonl, updated_at=2026-10-24T08:58:50+00:00, Drive facts superseded by ad-hoc note)
+- rollout_summaries/2026-11-02T06-37-55-TRyP-record_p17833_migration_review.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\02\rollout-2026-11-02T18-12-33-01a19afa-952a-7cb0-980e-490708b8601b_01a19bbf-141d-76e2-ac02-07f051486742.jsonl, updated_at=2026-11-02T10:14:05+00:00, user-reported prompt-assisted AC; implementation/judge record not inspected)
 
 ### keywords
 
-- AGENTS.md, [debug], 完整代码, 码风, 云端硬盘/CKK, Google Drive, .gitignore, Git, 备份
+- P17833, 迁徙, migrate, pre, suf, 最短路, 状态压缩, 分叉计数, 桶统计, O(n)
+
+## Task 1: Persist debug-stop rule and relocate Codex build artifacts
+
+### rollout_summary_files
+
+- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_debug_stop_rule_and_migrate_codex_artifacts.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-11-03T00:55:13+00:00, debug-stop rule and 303-file SHA-256-verified migration)
+
+### keywords
+
+- AGENTS.md, [debug], 做法不正确, stop debugging, 完整代码, .in, .exe, Documents/Output, SHA256, Git
 
 ## Task 12: Relocate Codex `.in` and `.exe` build artifacts to Documents/Output
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_user_rules_and_migrate_codex_build_files.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-10-29T04:15:56+00:00, 303 files SHA-256 verified)
+- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_debug_stop_rule_and_migrate_codex_artifacts.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-11-03T00:55:13+00:00, 303 files SHA-256 verified)
 
 ### keywords
 
@@ -216,12 +255,11 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## User preferences
 
-- when the user says "[debug]时还要给出完整代码。写入。" -> explain faults/minimal changes and provide modified complete code without changing the idea. [Task 1]
+- when the user says "如果在调试代码时发现做法不正确，报告做法不正确，然后停止调试" -> once the algorithm/approach is confirmed wrong, state the specific reason or counterexample and stop: do not modify code, switch approaches, or provide a complete revision. This overrides the earlier complete-code debug rule. [Task 1]
 - for four-file `[debug]` work, the user required "中文回答、最小幅度修改、不改思路、指出每处实质错误并给出完整修正版" -> preserve the original algorithmic direction and coding style, but fix correctness, bounds, and asymptotic failures with concrete counterexamples. [Task 13]
-- when the user says "编写代码时学习我的码风" -> follow their actual naming, layout, template, structures, and implementation habits; do not modernize gratuitously. [Task 1]
-- when the user says "我已经接入了 git，只要是在 gitignore 以外的文件应该都不用备份" -> do not create extra backups for non-ignored project files. [Task 1]
 - when the user asks ".in 和 .exe 不要放到 Codex 文件夹里面，放到 文档/Output" -> create generated inputs and executables under `C:\Users\605\Documents\Output` (with task subdirectories), never under the Codex tree. [Task 12]
 - when the user says "过了，总结记录吧" -> update training record and single-problem review, preserving prompt-assisted AC versus independent mastery. [Task 2]
+- when the user says "过了，总结记录吧" after P17833 -> record the user's existing derivation separately from hint-supplied steps and retain "提示后 AC，未独立重做" rather than marking mastery. [Task 21]
 - when the user says "我过了，你总结记录吧" -> update the single-problem review, `outputs/训练记录.md`, and `outputs/训练档案.md`; retain implementation details such as "保留 min(i, j)" and do not turn user-reported AC into independent mastery. [Task 11]
 - for [hint], give one advancing hint and wait; honor "是/否", "只找原题", and "不要给思路" literally. [Task 2]
 - when the user says "有原题吗，我想做一下" -> prioritize a submit-ready problem/link and necessary property hint, not full code/solution. [Task 3]
@@ -231,10 +269,14 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - for OI training, the user requested “每次只给一个提示，不直接发完整代码或整题解” -> use one small advancing prompt and wait, even when discussing an already identified approach. [Task 6]
 - when the user has the framework and says "问题在于单点修改怎么证明" -> address that exact proof gap rather than restating the full algorithm. [Task 10]
 - when the user clarified "编写 std、题解和部分分程序" -> distinguish self-authored deliverables from downloading existing contest files; ask once only if the requested artifact type is genuinely ambiguous. [Task 8]
+- when teaching CSP-S 2026 T4, the user said “教我今年 ST4，我场上会了 n^4” and supplied `f_{u,s,d,k,1/2}` -> continue from the user's state and symbols; give exactly one next observation, then wait rather than re-teaching or disclosing a full solution. [Task 19]
+- when delivering Zhengrui materials, the user required `ZR2-场次`, `std.cpp`/`solution.md`/`partial.cpp`, and “额外留一下 SPJ” -> use the requested competition directory names; for interactive problems leave a local judge and running notes. [Task 18]
+- when the user said “留 cpp SPJ。顺便在本地 agents 里面写一下，编写 SPJ 时优先考虑 cpp” -> prefer C++ for special/interactive judges and retain compilable `.cpp` source. [Task 18]
+- when a mathematical derivation is finished, the user asked “实现上有什么要注意的” -> proactively cover integer boundaries, complexity, and a focused verification set rather than only state the formula. [Task 20]
 
 ## Reusable knowledge
 
-- The retired H:\我的云端硬盘 mount is not a current route; use connected Google Drive search/list/read interfaces. [Task 1] [ad-hoc note]
+- The actual project rule file for this task was `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`, not the similarly named rollout cwd with `!`; verify the real path before editing. [Task 1]
 - `.in` and `.exe` belong in `C:/Users/605/Documents/Output`, not `C:/Users/605/Documents/Codex`; the completed 2026-10-29 migration placed 303 files at `Documents/Output/Codex`, retained relative paths, and recorded SHA-256 results in `文件迁移清单-2026-10-29-399d3501.csv`. [Task 12]
 - Training truth is in outputs/训练记录.md, outputs/训练档案.md, and outputs/复盘/; user report, compile/static/random testing, and official AC are distinct. P8820 k=3 also needs LCA-neighbor handling: min(l1.a[0],l1.a[1])+num[w]+min(l2.a[0],l2.a[1]). [Task 2]
 - CF379F: dynamic leaf additions update diameter endpoints by comparing distances to both old endpoints via LCA/binary lifting; prove the diameter-endpoint property before relying on it. [Task 3]
@@ -255,10 +297,16 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P4802 subset DP for a simple path from `0` to `n-1` must return `max_j f[n-1][j]`, not only the all-cities mask; guard both unreachable DP states and missing edges before adding. [Task 13]
 - P11267 periodic-string lifting: when a partial tail has no `1`, first use the nearest `1` to the left in the current cycle; only otherwise fall back to the previous cycle's global last `1`. The repaired construction is `O(70n+61q)`. [Task 13]
 - P10526 command completion: precompute each Trie node's `T` endpoint, include the root empty-prefix completion, and maintain matching node `cur` plus mismatched-suffix length `cnt` so character, backspace, Tab, and Enter are `O(1)`; total `O(26N+sum(|t_i|)+m)`. [Task 13]
+- P17834 [CSP-S 2026] 研发基地 / hub: fixed-radius feasibility can minimize the selected-point count with at most two connected components, then binary-search `R`. If the minimum is `<=k`, add an adjacent unselected boundary point repeatedly to reach exactly `k`; components do not increase and distances do not worsen. The next compression prompt is to move `s` from `f_{u,s,d,k,1/2}` into the DP value. [Task 19]
+- P17833《迁徙》: after fixing adjacent fork points `b,b+1`, keep the local splice constraints `L_b=a` and `R_{b+1}=c`; `(pre_a+1)(suf_c+1)` alone is insufficient. Compress the last/first-edge conditions into one-dimensional `pre/suf`, then aggregate independent left/right candidates with forward/reverse buckets for O(n) time and O(n) space; keep `a<b`, `c>b+1`, and zero-length extensions counted as 1. [Task 21]
+- Möbius construction: for `B=x0+L*y0`, compute each inclusion-exclusion term separately: if `m<B+y0` return 0; `U=(m-y0)/B`; if `U<u0` return 0; otherwise `(U-u0)/y0+1`. Do not move floor division outside `C(L)=sum mu(d) F_L((n+2)/d)`. Precompute the segment-invariant minimal positive `u0`; `y0=1` gives `u0=1`. [Task 20]
+- Lexicographic runs: for `0`, binary-search maximal `L` with `C0(L)>=k` and retain `k`; for `1`, set `r=T-k+1`, binary-search `C1(L)>=r`, then set `k=C1(L)-r+1`. Check initial `k<=phi(n+2)`, stop at `x+y=n+2`, use `long long`, and bound a zero run by `floor((n+2-x0-y0)/y0)` (swap coordinates for one). [Task 20]
+- The Zhengrui batch at `C:\Users\605\我的云端硬盘\CKK` delivered 20 problems/78 files in `ZR2-4`, `ZR2-6`, `ZR2-7`, `ZR2-8`, `ZR2-9`; 40 programs compiled, 36 ordinary file-IO checks and 4 local-interactor checks passed, and SHA-256 read-back passed. This user-specified local sync folder is distinct from the retired `H:\我的云端硬盘` mount. [Task 18] [ad-hoc note]
+- Interactive deliverables include `ZR2-4\check\spj.cpp` and `ZR2-9\period\spj.cpp` plus `judge.md`. `check` has a deterministic 9-round finite-state certificate; `period` has a n<=1e6 9-query upper-bound certificate and 16,587 local hidden-string tests. [Task 18]
 
 ## Failures and how to do differently
 
-- A write-script validation failure is not success: re-read target state before claiming a rule was written. [Task 1]
+- Similar directory names can point to the wrong target: reading `MAA OI Assistant!\AGENTS.md` failed because the actual file was under `MAA OI Assistant`; use `Get-ChildItem` or `rg --files -g AGENTS.md` before writing. [Task 1]
 - During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
 - Do not revive old mount/permission guidance for H:\我的云端硬盘. [Task 1] [ad-hoc note]
 - Random/brute-force checks do not establish official AC; P8820 must also remove or conditionalize freopen("transmit2.in",...). [Task 2]
@@ -271,6 +319,11 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P13270's AC is user feedback; `git diff --check` only verified no whitespace errors in record changes. When revisiting, check global candidate coverage, the final out-of-range jump, all-equal strings, and using the old value during pointer exchange. [Task 11]
 - Do not call local compilation, fixed counterexamples, randomized checks, or maximum-scale stress tests an online AC. For Task 13, all four C++17 builds and 557 targeted checks passed, but no online submission occurred. [Task 13]
 - Debug shields: test the actual semantic endpoint condition (P4802), a collision adversary rather than trusting one hash (P4503), partial-period boundaries (P11267), and root/leaf plus backspace paths before dereferencing Trie transitions (P10526). [Task 13]
+- P17834 tutoring remains partial: first verify what “今年 ST4” identifies, then do not advance beyond one hint until the user responds. [Task 19]
+- P17833's user-reported AC did not include final code or online judge evidence; do not present implementation or complexity as submission-verified. Before multiplying decomposed path counts, explicitly check the local three-point splice condition; otherwise the direct product misses valid constraints. [Task 21]
+- Möbius construction was not implemented or sample-tested; after coding, specifically test out-of-range `k`, terminal state, `1`-run reverse ranking, `U<u0`, `y0=1`, and multiplication/accumulator bounds. [Task 20]
+- Do not treat a Google Drive search failure as proof that CKK is unavailable: for this delivery the user specified `C:\Users\605\我的云端硬盘\CKK`. Conversely, do not revive the retired `H:\我的云端硬盘` mount. [Task 18] [ad-hoc note]
+- Random `check` observations of at most 6 rounds do not prove an 8-round guarantee; distinguish them from the deterministic 9-round partial certificate. [Task 18]
 
 # Task Group: MAA OI Assistant algorithm derivations and complexity qualification
 

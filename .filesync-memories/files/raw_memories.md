@@ -69,65 +69,58 @@ References:
 - 最终合并后的规则包含：`### 询问题目解法或讲解知识点时（[hint]、[teach]）`，一次一个提示、逐步讲解、明确状态/转移/不变量/复杂度、严格遵守“是或否/只找原题/不要给思路”等限制。
 
 ## Thread `01a0f184-ab47-7b92-81fe-2d65c1d6977f`
-updated_at: 2026-10-29T04:15:56+00:00
+updated_at: 2026-11-03T00:55:13+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl
-rollout_summary_file: 2026-09-30T08-53-18-5kYf-persist_user_rules_and_migrate_codex_build_files.md
+rollout_summary_file: 2026-09-30T08-53-18-5kYf-persist_debug_stop_rule_and_migrate_codex_artifacts.md
 
 ---
-description: Persisted durable coding/file-handling preferences and successfully moved all Codex .in/.exe artifacts to Documents/Output with SHA-256 verification
-task: update project/global AGENTS rules and relocate .in/.exe files
-task_group: oi-training-workflow-and-windows-file-layout
+description: 用户新增调试停止规则，并完成 Codex 下构建/测试文件迁移；关键注意是确认真实 AGENTS.md 路径，避免带感叹号目录混淆
+task: persist-debug-stop-on-wrong-approach-and-relocate-in-exe-files
+task_group: C:\Users\605\Documents\Codex\MAA OI Assistant!
 task_outcome: success
 cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
-keywords: AGENTS.md, debug-complete-code, coding-style, 云端硬盘/CKK, Google Drive, Git, .gitignore, .in, .exe, Documents/Output, SHA256, migration manifest
+keywords: AGENTS.md, debug, 做法不正确, stop debugging, .in, .exe, Documents\Output, SHA256, Git
 ---
 
-### Task 1: Persist user coding and backup preferences
+### Task 1: 调试错误思路时停止
 
-task: update project and global AGENTS.md
-task_group: project/global workflow rules
+task: persist user debug stop rule
+task_group: project AGENTS rules
 task_outcome: success
 
 Preference signals:
-- 用户说“[debug]时还要给出完整代码。写入。” -> 调试回答必须说明错误/修改点并提供完整修改后代码，同时保持最小修改、不改变思路。
-- 用户说“编写代码时学习我的码风” -> 编写或修改 C++ 时沿用用户实际代码的命名、排版、模板、结构和实现习惯，避免无关现代化改写。
-- 用户指定代码文件夹为“云端硬盘/CKK” -> 需要参考码风时通过已连接 Google Drive 实际搜索/读取，不把该位置当成本地路径，也不虚称已读取。
-- 用户说“我已经接入了 git，只要是在 gitignore 以外的文件应该都不用备份” -> Git 项目中未被 `.gitignore` 忽略的文件默认不额外备份。
+- 用户说“如果在调试代码时发现做法不正确，报告做法不正确，然后停止调试” -> 一旦确认算法/做法不正确，应报告具体原因或反例并立即停止，不修改代码、不更换做法、不提供完整修正版；该规则优先于既有完整代码规则。
 
 Reusable knowledge:
-- 项目规则文件：`C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md`。
-- 全局规则文件：`C:\Users\605\.codex\AGENTS.md`。
-- 已验证相关规则写入成功；全局 Git 备份规则位于第 14 行附近。
+- 实际写入的规则文件是 `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`，不是 rollout cwd 中带 `!` 的同名目录。
 
 Failures and how to do differently:
-- 云端规则首次写入校验因换行/插入定位失败；改用正则定位 `## 训练环境与文件`、保留原换行格式后成功。写入规则时应先验证锚点和最终内容。
+- 读取 `C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md` 失败；未来处理相似路径时先用 `Get-ChildItem`/`rg --files -g AGENTS.md` 确认真实项目和规则文件。
 
 References:
-- 项目调试规则：`[debug] 时，在说明错误和修改点后，还要给出修改后的完整代码；仍遵守最小幅度修改、不更改思路的要求。`
-- 全局备份规则：`在已接入 Git 的项目中，修改未被 .gitignore 忽略的文件时，默认不额外创建备份文件`。
+- `调试代码时，一旦确认做法不正确，应明确报告“做法不正确”，指出具体错误原因或反例，然后立即停止调试；不继续修改代码，不更换做法，也不提供完整修正版，等待用户下一步要求。`
 
-### Task 2: Relocate `.in` and `.exe` files
+### Task 2: 迁移 .in/.exe 文件
 
-task: move all `.in`/`.exe` under Codex to Documents/Output
-task_group: Windows file layout and OI build artifacts
-task_outcome: success
+task: move Codex build and test artifacts to Output
+task_group: Windows file organization
+ task_outcome: success
 
 Preference signals:
-- 用户要求 `.in` 和 `.exe` 不放在 Codex 文件夹，而放到“文档/Output” -> 后续编译、测试数据和反例文件都应放在 `C:\Users\605\Documents\Output` 及其子目录。
+- 用户要求“`.in` 和 `.exe` 不要放到 Codex 文件夹里面，放到 文档/Output”，并要求检查现有文件 -> 今后编译产物、测试数据和中间文件默认写入 `C:\Users\605\Documents\Output`。
 
 Reusable knowledge:
-- 303 个文件已从 `C:\Users\605\Documents\Codex` 迁移到 `C:\Users\605\Documents\Output\Codex`，保留相对目录层级。
-- 数量为 204 个 `.in`、99 个 `.exe`，总计 317,665,659 bytes；每个文件移动前后均做 SHA-256 校验。
-- 迁移清单：`C:\Users\605\Documents\Output\文件迁移清单-2026-10-29-399d3501.csv`。
-- 全局规则已写入：`.in`/`.exe` 统一放 `C:/Users/605/Documents/Output`，不得在 Codex 树中创建或存放。
+- 扫描 `C:\Users\605\Documents\Codex` 找到 303 个文件（204 `.in`、99 `.exe`，317,665,659 bytes），全部移动至 `C:\Users\605\Documents\Output\Codex`，保留目录层级。
+- 移动前后使用 SHA256 校验；303 个全部 verified，失败 0；复查 Codex 中剩余数量为 0。
+- 清单：`C:\Users\605\Documents\Output\文件迁移清单-2026-10-29-399d3501.csv`。
 
 Failures and how to do differently:
-- 首次递归扫描因目录在扫描期间消失而失败：`Cannot find path ... because it does not exist.`。后续扫描遇到不存在目录时跳过并记录，成功完成迁移。
+- 首次扫描因目录在扫描中消失而失败：`Cannot find path ... because it does not exist.` 后续应对不存在目录跳过并继续扫描。
 
 References:
-- 最终验证：`Planned=303`, `Verified=303`, `Failed=0`。
-- 迁移后复查：`REMAINING=0`, `MANIFEST_ENTRIES=303`, `INVALID_DESTINATIONS=0`。
+- 全局规则已写入：`.in`/`.exe` 统一放在 `C:/Users/605/Documents/Output`，不得放在 `C:/Users/605/Documents/Codex` 及其子目录。
+- 最终验证：`Planned=303; Verified=303; Failed=0; REMAINING=0; INVALID_DESTINATIONS=0`。
 
 ## Thread `01a10b5b-5776-7ca1-a59a-f6674b8f9885`
 updated_at: 2026-10-22T09:20:51+00:00
@@ -2059,4 +2052,211 @@ References:
 - `outputs\验证记录.md`
 - 用户反馈：`半透明正常，画面刷新正常，不闪屏`；最终老板键验证：`正常，直接半透明显示，不闪了`。
 - 最终自测：`Self-test exit code: 0`。
+
+## Thread `01a18a69-6891-7e32-a68d-b2e3ad57a505`
+updated_at: 2026-10-30T04:20:54+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\30\rollout-2026-10-30T12-17-48-01a18a69-6891-7e32-a68d-b2e3ad57a505_01a18b07-3671-78b3-be19-445574a0d5bc.jsonl
+rollout_summary_file: 2026-10-30T01-25-26-OwfP.md
+
+---
+description: 带 Möbius 容斥的二进制字典序构造算法：两层下取整的安全计数、连续 0/1 段排名处理及实现边界
+ task: implement-and-verify-mobius-counting-lexicographic-binary-construction
+ task_group: MAA OI Assistant algorithm implementation
+ task_outcome: partial
+ cwd: C:\Users\605\Documents\Codex\MAA OI Assistant
+ keywords: Möbius, 容斥, floor division, 字典序, 连续0, 连续1, 二分, exgcd, phi, long long
+---
+
+### Task 1: 两层下取整的容斥计数
+
+task: simplify-fixed-inclusion-exclusion-count
+task_group: MAA OI Assistant mathematical counting
+task_outcome: success
+
+Reusable knowledge:
+- 令 `B=x0+L*y0`，固定容斥项的计数可写成 `max(0, 1+floor((floor((m-y0)/B)-u0)/y0))`，也可合并为 `max(0, 1+floor((m-y0-B*u0)/(B*y0)))`。
+- 不能把整体 `C(L)=sum mu(d) F_L((n+2)/d)` 化成一个分式：不同容斥项的 `u0` 不同，且带正负号的容斥求和不能与下取整交换。
+
+Failures and how to do differently:
+- 不要仅凭合并后的单项公式简化整个容斥和；必须逐项计算后累加。
+
+References:
+- `B=x0+L*y0`
+- `F_L(m)=max(0, 1+floor((floor((m-y0)/B)-u0)/y0))`
+- `C(L)=sum_{d|n+2} mu(d) F_L((n+2)/d)`
+
+### Task 2: 字典序构造的排名与工程实现
+
+task: implement-binary-segment-ranking-and-counting
+task_group: MAA OI Assistant lexicographic construction
+ task_outcome: partial
+
+Preference signals:
+- 用户询问“实现上有什么要注意的”，表明完成数学推导后应主动给出边界、整数除法、复杂度和验证建议，而不应只宣布推导完成。
+
+Reusable knowledge:
+- 连续 `0` 段使用正序排名：二分最大 `L` 使 `C0(L)>=k`，更新后 `k` 不变。
+- 连续 `1` 段位于字典序末端，先设 `r=T-k+1`，二分最大 `L` 使 `C1(L)>=r`，更新正序排名为 `k=C1(L)-r+1`。
+- 初始总数是 `phi(n+2)`，先检查 `k` 是否越界；当 `x+y=n+2` 时必须停止。
+- 为避免 C++ 负数除法向零截断，固定项计数使用非负除法：若 `m<B+y0` 返回 `0`；令 `U=(m-y0)/B`，若 `U<u0` 返回 `0`，否则返回 `(U-u0)/y0+1`。
+- 同一段二分期间 `u0` 与 `L` 无关，应预处理每个容斥项的最小正解；`y0=1` 时 `u0=1`。连续 `1` 可交换坐标复用计数函数。
+- 使用 `long long`；连续 `0` 的上界为 `floor((n+2-x0-y0)/y0)`，连续 `1` 时交换分母。若 `D=2^{omega(n+2)}`，整体复杂度为 `O(D log^2 n)`，空间为 `O(D+log n)`。
+
+Failures and how to do differently:
+- 本轮没有实际实现、编译或样例验证，故结论只能记为部分完成。实现后应专门测试 `k` 越界、终止状态、连续 `1` 的倒数排名、`U<u0`、`y0=1` 及大整数乘法边界。
+
+References:
+- `r=T-k+1`；连续 `1` 更新后 `k=C1(L)-r+1`。
+- `m<B+y0 -> 0`；`U=(m-y0)/B`；`U<u0 -> 0`；否则 `(U-u0)/y0+1`。
+- 容斥项数量上界在本题范围内为 `D<=512`。
+
+## Thread `01a19afa-952a-7cb0-980e-490708b8601b`
+updated_at: 2026-11-02T10:14:05+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\02\rollout-2026-11-02T18-12-33-01a19afa-952a-7cb0-980e-490708b8601b_01a19bbf-141d-76e2-ac02-07f051486742.jsonl
+rollout_summary_file: 2026-11-02T06-37-55-TRyP-record_p17833_migration_review.md
+
+---
+description: 记录 P17833《迁徙》提示后 AC；核心 takeaway 是把相邻分叉路径条件压入一维 pre/suf 状态，并按中心点拆成左右独立聚合，避免枚举三元组。
+task: P17833 迁徙训练复盘与训练档案更新
+task_group: oi-training记录
+ task_outcome: success
+cwd: C:\Users\605\Documents\Codex\MAA OI Assistant
+keywords: P17833, 迁徙, migrate, pre, suf, 最短路, 状态压缩, 分叉计数, 桶统计, O(n)
+---
+
+### Task 1: P17833《迁徙》复盘记录
+
+task: 记录提示后 AC 的算法推导、卡点和后续检查项
+task_group: oi-training记录
+task_outcome: success
+
+Preference signals:
+- 用户说“过了，总结记录吧” -> 通过后希望立即更新训练记录、训练档案和单题复盘。
+- 文档将题目记为“提示后 AC，未独立重做，不标记已掌握”，且注明最终提交和评测记录未读取 -> 类似训练记录应区分用户反馈、提示程度与实际核验，不能把 AC 自动等同于掌握。
+
+Reusable knowledge:
+- 用户场上自述已有 O(n²) 窗口 DP，并独立得到：两条最短路恰有一个不同位置，且不同岛屿编号相邻。
+- 将涉及前后点的条件压入一维状态：`pre_c` 统计以 `c` 为终点且最后一跳满足 `R_a=c` 的路径数；`suf_a` 对称统计第一跳满足 `L_c=a` 的路径数。
+- 固定相邻分叉点 `b,b+1` 后，必须补拼接条件 `L_b=a` 与 `R_{b+1}=c`；仅使用 `(pre_a+1)(suf_c+1)` 会漏掉连接限制。
+- 左右候选集合在固定 `b` 后独立，可拆成乘积；用正反扫描桶分别统计 `|A_b|` 与 `|C_b|`，每个中心点 O(1)，讨论方案总复杂度 O(n) 时间、O(n) 空间。
+- 记录中明确保留边界：`a<b`、`c>b+1`，零长度延伸单独计 1；计数和乘法应使用足够宽的整数类型。
+
+Failures and how to do differently:
+- 未读取最终代码、线上评测和场上得分，未来引用时只能说“用户反馈 AC”，不能声称实现或复杂度已被提交验证。
+- 单一相邻分叉的完整证明及局部条件对全局最短路结构的充分性没有完整展开；后续重做时应补证明并独立实现。
+
+References:
+- `outputs/复盘/2026-11-02-P17833-迁徙.md`
+- `outputs/训练记录.md`：`## 2026-11-02 CSP-S 2026 T3 迁徙`
+- `outputs/训练档案.md`：`## 2026-11-02 迁徙：状态压缩与独立贡献聚合`
+- Verification: `git diff --check -- outputs/训练记录.md outputs/训练档案.md` exited successfully with no output.
+
+## Thread `01a19bc7-cd8d-7ae1-b22c-027e9526ed71`
+updated_at: 2026-11-02T10:24:29+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\02\rollout-2026-11-02T18-22-05-01a19bc7-cd8d-7ae1-b22c-027e9526ed71.jsonl
+rollout_summary_file: 2026-11-02T10-22-05-lDc5-csp_s_2026_t4_hub_stepwise_dp_hint.md
+
+---
+description: 用户学习 CSP-S 2026 T4《研发基地》时已有 O(n^4) 树形 DP；教学应从其状态继续，一次只给一个提示，先引导固定半径并最小化选点数，再考虑状态压缩
+ task: teach_csp_s_2026_t4_hub_from_existing_tree_dp
+task_group: oi-training
+task_outcome: partial
+cwd: C:\Users\605\Documents\Codex\MAA OI Assistant
+keywords: CSP-S 2026, P17834, hub, 研发基地, 树形DP, 二分答案, 固定半径, 连通块, 状态压缩
+---
+
+### Task 1: 从 O(n^4) 树形 DP 推导《研发基地》
+
+task: 基于用户已有树形 DP 提供分步提示
+task_group: CSP-S 2026 T4 / oi-training
+task_outcome: partial
+
+Preference signals:
+- 用户说“教我今年 ST4，我场上会了 n^4”，并给出已有状态 `f_{u,s,d,k,1/2}` -> 类似任务中应从用户现有推导接着讲，不要直接重讲完整题解。
+- 项目规范及本轮执行均采用“一次只给一个提示” -> 给出一个观察后等待用户追问，不要同时泄露完整思路、代码或多个后续提示。
+- 用户自行维护状态并先尝试推导 -> 保留其符号和思路；若需改进，指出具体状态压缩或复杂度瓶颈。
+
+Reusable knowledge:
+- 已核实题目为 `P17834 [CSP-S 2026] 研发基地 / hub`：树上恰选 `k` 个点，所选点至多形成两个连通块，最小化最大通勤距离，规模可达 `n=10^6`。
+- 高价值第一步：固定通勤半径 `R`，求满足距离限制和至多两个连通块的最少选点数，再二分最小可行 `R`。
+- 若固定 `R` 时最少选点数不超过目标 `k`，可沿已有选点集边界逐个补入相邻未选点至恰好 `k`；连通块数不会增加，距离不会变差。
+- 用户原状态包含 `s`（选点数）、当前点到连通块最高点的距离、连通块外节点最大深度以及连通块数量。下一步可引导其思考把 `s` 从状态维度移到 DP 值，维护相同边界状态下的最少选点数。
+
+Failures and how to do differently:
+- 不要在用户只请求提示时直接给完整二分后 DP、贪心合并或代码；当前 rollout 只完成了第一步提示，后续应等待用户回应。
+- “今年 ST4”需要先核实具体题目；本轮通过搜索确认是 2026 CSP-S T4《研发基地》，未来遇到类似简称也应先确认年份和题号。
+
+References:
+- 题号：`P17834 [CSP-S 2026] 研发基地 / hub`
+- 用户原状态：`f_{u,s,d,k,1/2}`
+- 已给提示：固定 `R` 求最少选点数；可行性对 `R` 单调；尝试将 `s` 从状态下标移到 DP 值。
+
+## Thread `01a19c57-2be6-7db3-b1a8-461248416d85`
+updated_at: 2026-11-02T13:46:19+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
+rollout_path: C:\Users\605\.codex\archived_sessions\rollout-2026-11-02T20-58-41-01a19c57-2be6-7db3-b1a8-461248416d85.jsonl
+rollout_summary_file: 2026-11-02T12-58-40-2sVT-zr_batch_solutions_and_cpp_spj_preference.md
+
+---
+description: 完成五场正睿比赛的 20 题 std/solution/partial 整理并保存到本地 CKK，同步加入交互题 C++ SPJ；用户明确偏好 SPJ 优先使用并保留 cpp
+ task: compile_and_deliver_zr2-4_zr2-6_zr2-7_zr2-8_zr2-9_solutions_with_spj
+ task_group: MAA OI Assistant竞赛题解与本地云盘交付
+ task_outcome: success
+ cwd: C:\Users\605\Documents\Codex\MAA OI Assistant
+ keywords: 正睿, ZR2-4, ZR2-6, ZR2-7, ZR2-8, ZR2-9, std.cpp, partial.cpp, solution.md, SPJ, spj.cpp, 交互题, CKK, Google Drive, 本地同步盘, ZROI
+---
+
+### Task 1: 五场比赛题解包
+
+task: 为正睿 #2214/#2225/#2226/#2227/#2234 编写并整理 std、题解、partial，保存到 CKK
+ task_group: 竞赛题解编写与本地交付
+ task_outcome: success
+
+Preference signals:
+- 用户指定二十联测目录格式为 `ZR2-场次`，最终应使用 `ZR2-4`、`ZR2-6`、`ZR2-7`、`ZR2-8`、`ZR2-9`。
+- 用户要求每题包含 `std.cpp`、`solution.md`、`partial.cpp`，并指定保存到 `C:\Users\605\我的云端硬盘\CKK`。
+- 用户后续明确要求交互题“额外留一下 SPJ” -> 交互题交付默认应附本地判题器和运行说明。
+
+Reusable knowledge:
+- 最终交付共 20 题、78 个文件，目标目录为 `C:\Users\605\我的云端硬盘\CKK\ZR2-4`、`ZR2-6`、`ZR2-7`、`ZR2-8`、`ZR2-9`；SHA-256 回读校验通过。
+- 40 份程序均完成编译；36 份普通程序通过默认文件 IO 检查，4 份交互程序通过本地交互器检查。
+- 交互题文件：`ZR2-4\check\spj.cpp`、`ZR2-4\check\judge.md`、`ZR2-9\period\spj.cpp`、`ZR2-9\period\judge.md`。
+- `check` 确定性 partial 的有限状态证书为最多 9 轮：`initial_states=195828`、`recovery_states=495315`、`transitions=12769602`。随机 std 本地 10000 组最多观察到 6 轮，但不应据此宣称 8 轮满分。
+- `period` 的质因子幂二分上界在 n≤1e6 时最多 9 次询问；本地交互测试覆盖 16587 个隐藏串，另有完整 n 上界证书。
+- 验证和产物统一放在 `C:\Users\605\Documents\Output\ZR-batch-20261102`，避免污染 Codex 工作区。
+
+Failures and how to do differently:
+- Google Drive 搜索没有定位 CKK，正睿网页直连也曾失败；用户指定本地同步盘后才完成。未来类似任务应优先检查 `C:\Users\605\我的云端硬盘\CKK`，不要把它当作普通 Google Drive API 目录。
+- `check` 的随机版和确定性 9 轮版必须在 README/solution 中明确区分；随机测试结果不能替代最坏轮数证明。
+- ending 的初版实现曾因后缀排序方向和空后缀处理出错，对拍发现后修正；类似大整数/位分配题必须保留独立小数据暴力验证。
+
+References:
+- `C:\Users\605\Documents\Output\ZR-batch-20261102\delivery.json`
+- `C:\Users\605\Documents\Output\ZR-batch-20261102\final-checks.json`
+- `C:\Users\605\Documents\Output\ZR-batch-20261102\interactive.json`
+- `C:\Users\605\Documents\Output\ZR-batch-20261102\spj-validation.json`
+
+### Task 2: C++ SPJ 偏好与项目规则
+
+task: 保留 cpp SPJ，并把“编写 SPJ 时优先考虑 cpp”写入本地 agents
+ task_group: 项目工作流偏好与 AGENTS.md
+ task_outcome: success
+
+Preference signals:
+- 用户原话：“留 cpp SPJ。顺便在本地 agents 里面写一下，编写 SPJ 时优先考虑 cpp” -> 未来编写特殊判题器或交互判题器时，默认优先 C++ 并保留 `.cpp` 源文件。
+
+Reusable knowledge:
+- 已修改 `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`，新增：`编写 SPJ（特殊判题器、交互判题器）时优先使用 C++，并保留 .cpp 源文件。`
+- 已写入 `C:\Users\605\.codex\memories_v2\extensions\ad_hoc\notes\2026-11-02-spj-cpp-preference.md`。
+
+Failures and how to do differently:
+- 不要只提供 Python SPJ 或只保留生成脚本；交付时应留下可直接编译的 C++ `.cpp` 判题器，并最好附编译运行说明。
+
+References:
+- `AGENTS.md:73`
+- `C:\Users\605\我的云端硬盘\CKK\ZR2-4\check\spj.cpp`
+- `C:\Users\605\我的云端硬盘\CKK\ZR2-9\period\spj.cpp`
 
