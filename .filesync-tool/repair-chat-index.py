@@ -127,7 +127,9 @@ class AppServer:
                 continue
             if reply.get('id') == seq:
                 if 'error' in reply:
-                    raise RuntimeError(method + ': RPC ' + str(reply['error'].get('code', 'error')))
+                    error = reply['error']
+                    raise RuntimeError(method + ': RPC ' + str(error.get('code', 'error'))
+                                       + ' ' + str(error.get('message', ''))[:2000])
                 return reply.get('result', {})
         raise TimeoutError(method + ' 超时')
 
@@ -402,8 +404,11 @@ def prepare(root, executable, home, verify, hashes, raw_history):
             api.initialize()
             for relative in batch:
                 logical = raw_history.headers[relative]['id']
-                result = api.call('thread/resume', {'threadId': logical, 'excludeTurns': True,
-                                  'cwd': str(home), 'approvalPolicy': 'never', 'sandbox': 'read-only'})
+                try:
+                    result = api.call('thread/resume', {'threadId': logical, 'excludeTurns': True,
+                                      'cwd': str(home), 'approvalPolicy': 'never', 'sandbox': 'read-only'})
+                except Exception as error:
+                    raise RuntimeError('片段 ' + relative + '（会话 ' + logical + '）：' + str(error)) from error
                 if result.get('thread', {}).get('id') != logical:
                     raise RuntimeError('原生恢复返回了不同的会话 ID。')
                 replayed.add(relative); remaining.remove(relative)
@@ -822,6 +827,7 @@ def recover(root, executable, check_only=False):
 
 
 def restore(root, executable, check_only=False):
+    print('恢复引擎：' + str(executable), flush=True)
     report = recover(root, executable, check_only)
     safe = {k: v for k, v in report.items() if k not in ('failures', 'skipped')}
     print(json.dumps(safe, ensure_ascii=False), flush=True)

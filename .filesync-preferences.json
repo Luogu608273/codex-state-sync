@@ -730,13 +730,6 @@
       "section_position": null,
       "thread_section_id": null
     },
-    "01a1663b-7dae-72f2-bcc1-743466313a2a": {
-      "is_pinned": false,
-      "project_id": null,
-      "section_entered_at_ms": null,
-      "section_position": null,
-      "thread_section_id": null
-    },
     "01a166e6-1a72-76d0-8767-c309a1ed45f2": {
       "is_pinned": false,
       "project_id": null,
@@ -752,13 +745,6 @@
       "thread_section_id": null
     },
     "01a16c88-b30c-72f2-b5d9-061256796880": {
-      "is_pinned": false,
-      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
-      "section_entered_at_ms": null,
-      "section_position": null,
-      "thread_section_id": null
-    },
-    "01a16c88-f53f-7852-a719-6d6d3279b600": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
@@ -1095,6 +1081,13 @@
       "thread_section_id": null
     },
     "01a1a541-5e20-7c32-bfee-74e8ccb1c382": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1a618-a8c8-7a50-bb64-2a6e23974c5c": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,

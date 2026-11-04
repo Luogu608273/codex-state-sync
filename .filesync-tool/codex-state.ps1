@@ -68,6 +68,7 @@ function Update-CodexRules {
     $text = $codexIgnoreV2 + $lf
     if ($custom) { $text += $custom + $lf }
     if ($text -cne $old) { [IO.File]::WriteAllText($ignore, $text, $utf8) }
+    Update-ExcludedExtensionsIgnore
     foreach ($path in @(Invoke-Git @('ls-files', '--cached', '--ignored', '--exclude-standard') -Capture)) {
         Invoke-Git @('rm', '--cached', '--ignore-unmatch', '--', $path)
     }
@@ -86,6 +87,7 @@ function Get-MemoryInventory {
         if ($dir.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw "记忆目录含链接：$($dir.FullName)" }
         foreach ($item in @(Get-ChildItem -LiteralPath $dir.FullName -Force)) {
             if ($item.Name -in @('.git', '.system', 'auth.json', 'cap_sid') -or $item.Name -like '*.sqlite*') { continue }
+            if (-not $item.PSIsContainer -and $item.Extension -in @('.in', '.exe')) { continue }
             if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw "记忆内容含链接：$($item.FullName)" }
             if ($item.PSIsContainer) { $queue.Enqueue($item.FullName); continue }
             $length = $item.Length
@@ -117,6 +119,7 @@ function Read-MemoryMap {
         if ($relative.Split('/') | Where-Object { $_ -match '[. ]$' -or $_ -match '[<>|"*?]' }) { throw '记忆路径包含 Windows 不安全名称。' }
         if ($relative -match '(^/|\\|:|(^|/)\.\.?(/|$)|(^|/)\.git(/|$)|(^|/)\.system(/|$))' -or
             $property.Value -notmatch '^[0-9a-f]{64}$') { throw '记忆清单存在不安全的路径或哈希。' }
+        if ($relative -match '(?i)\.(in|exe)$') { continue }
         $map[$relative] = [string]$property.Value
     }
     return $map
@@ -228,13 +231,14 @@ function Save-PreviousMemoryFiles {
     }
 }
 
-$fileSyncToolFiles = @('sync.ps1', 'codex-state.ps1', 'first-connect.ps1', 'repair-chat-index.py', 'codex-preferences.py', 'schedule.ps1', 'sync.cmd', 'sync-all.cmd')
+$fileSyncToolFiles = @('sync.ps1', 'codex-state.ps1', 'first-connect.ps1', 'repair-chat-index.py', 'codex-preferences.py', 'schedule.ps1', 'sync.cmd', 'sync-all.cmd', 'README.md')
 function Export-FileSyncTool {
     $destination = Join-Path $script:Root '.filesync-tool'
     if (Test-Path -LiteralPath $destination) { $null = Get-MemoryInventory $destination }
-    $toolFiles = @($fileSyncToolFiles)
-    # Documentation is optional; missing executable scripts must still stop export.
-    if (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'README.md')) { $toolFiles += 'README.md' }
+    # Keep README in the shared download allowlist, but do not require it locally.
+    $toolFiles = @($fileSyncToolFiles | Where-Object {
+        $_ -ne 'README.md' -or (Test-Path -LiteralPath (Join-Path $PSScriptRoot $_))
+    })
     foreach ($name in $toolFiles) {
         $source = Get-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Force -ErrorAction Stop
         if ($source.PSIsContainer -or ($source.Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw "工具文件无效：$name" }
