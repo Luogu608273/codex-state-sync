@@ -260,20 +260,71 @@ def baseline_path(root):
     return folder / 'filesync-preferences-baseline.json'
 
 
+def retain_pending(current, previous, pending_ids=()):
+    """Keep preferences for absent chats without undoing present local edits."""
+    result = copy.deepcopy(current)
+    pending = (set(previous['threads']) - set(current['threads'])) | (set(pending_ids) & set(previous['threads']))
+    pid_map = {}
+    for tid in sorted(pending):
+        row = copy.deepcopy(previous['threads'][tid])
+        pid = row['project_id']
+        if pid and pid not in pid_map:
+            source = next(p for p in previous['projects'] if p['id'] == pid)
+            roots = sorted(map(norm, source['roots']))
+            matches = [p for p in result['projects'] if roots and sorted(map(norm, p['roots'])) == roots]
+            if len(matches) > 1:
+                raise RuntimeError('待恢复聊天的项目路径存在歧义，原快照保留。')
+            collision = next((p for p in result['projects'] if p['id'] == pid), None)
+            if collision and sorted(map(norm, collision['roots'])) != roots:
+                raise RuntimeError('待恢复聊天的项目 ID 冲突，原快照保留。')
+            target = matches[0] if matches else collision
+            if target is None:
+                if any(p['legacy_id'] == source['legacy_id'] for p in result['projects']):
+                    source = dict(source, legacy_id=str(uuid.uuid4()))
+                result['projects'].append(copy.deepcopy(source))
+                target = source
+            pid_map[pid] = target['id']
+        if pid:
+            row['project_id'] = pid_map[pid]
+        sid = row['thread_section_id']
+        if sid:
+            source = next(s for s in previous['sections'] if s['id'] == sid)
+            target = next((s for s in result['sections'] if s['id'] == sid), None)
+            if target and target['name'] != source['name']:
+                raise RuntimeError('待恢复聊天的分组 ID 冲突，原快照保留。')
+            if target is None:
+                result['sections'].append(copy.deepcopy(source))
+        result['threads'][tid] = row
+    for pid in previous['project_order']:
+        target = pid_map.get(pid)
+        if target and target not in result['project_order']:
+            result['project_order'].append(target)
+    result['projects'].sort(key=lambda p: p['id'])
+    result['sections'].sort(key=lambda s: s['id'])
+    return validate(result)
+
+
 def export(root, home=None):
     target = root / SNAPSHOT
     baseline = baseline_path(root)
     previous = read_bytes(target)
-    current = encode(validate(capture(root, home)))
+    captured = validate(capture(root, home))
+    current = encode(captured)
+    pending_ids = set()
     if previous:
-        validate(json.loads(previous.decode('utf-8-sig')))
-        saved = read_json(baseline).get('sha256')
+        previous_data = validate(json.loads(previous.decode('utf-8-sig')))
+        saved_baseline = read_json(baseline)
+        saved = saved_baseline.get('sha256')
         if digest(previous) != saved and previous != current:
             raise RuntimeError('已下载的偏好快照尚未恢复。请退出 Codex 后选主菜单 11，避免新电脑空状态覆盖原备份。')
+        pending_ids = ((set(previous_data['threads']) - set(captured['threads'])) |
+                       (set(saved_baseline.get('pending_thread_ids', [])) & set(previous_data['threads'])))
+        current = encode(retain_pending(captured, previous_data, pending_ids))
     if previous != current:
         atomic_write(target, current)
-    atomic_write(baseline, encode({'sha256': digest(current)}))
-    return {'snapshot_bytes': len(current), 'threads': len(json.loads(current)['threads'])}
+    atomic_write(baseline, encode({'sha256': digest(current), 'pending_thread_ids': sorted(pending_ids)}))
+    return {'snapshot_bytes': len(current), 'threads': len(json.loads(current)['threads']),
+            'pending_threads': len(pending_ids)}
 
 
 def plan_restore(root, data, home=None):
@@ -299,8 +350,6 @@ def plan_restore(root, data, home=None):
             legacy_map[p['id']] = p['legacy_id'] if p['legacy_id'] not in used_legacy else str(uuid.uuid4())
         used_legacy.add(legacy_map[p['id']])
     missing = set(data['threads']) - set(current['threads'])
-    if missing:
-        raise RuntimeError('偏好快照中有 %d 个聊天尚未导入。请先下载并用主菜单 10 恢复聊天。' % len(missing))
     sid_map = {}
     for section in data['sections']:
         match = next((x for x in current['sections'] if x['id'] == section['id']), None)
@@ -325,6 +374,8 @@ def plan_restore(root, data, home=None):
     pinned = set(state.get('pinned-thread-ids', []))
     sql_threads = {}
     for tid, source in data['threads'].items():
+        if tid in missing:
+            continue
         row = copy.deepcopy(source)
         pid = row['project_id']
         if pid:
@@ -350,7 +401,7 @@ def plan_restore(root, data, home=None):
             atoms[key] = copy.deepcopy(value)
     if data['local_permission_selection'] is not None:
         atoms['permission-selection-by-host-id:local'] = copy.deepcopy(data['local_permission_selection'])
-    return {'state': state, 'pid_map': pid_map, 'threads': sql_threads,
+    return {'state': state, 'pid_map': pid_map, 'threads': sql_threads, 'pending_thread_ids': sorted(missing),
             'config': patch_config(read_bytes(root / 'config.toml'), data['config']), 'data': data, 'home': home,
             'current': current, 'input_hashes': {name: digest(read_bytes(root / name))
                                               for name in ('.codex-global-state.json', 'config.toml')}}
@@ -366,7 +417,8 @@ def apply_plan(root, plan, guard=None, refresh_snapshot=False):
     if refresh_snapshot:
         snapshot_bytes = encode(validate(plan['data']))
         updates[root / SNAPSHOT] = snapshot_bytes
-        updates[baseline_path(root)] = encode({'sha256': digest(snapshot_bytes)})
+        updates[baseline_path(root)] = encode({'sha256': digest(snapshot_bytes),
+                                              'pending_thread_ids': plan['pending_thread_ids']})
     paths = list(updates)
     original = {p: read_bytes(p) for p in paths}
     present = {p: p.exists() for p in paths}
@@ -429,7 +481,8 @@ def apply_plan(root, plan, guard=None, refresh_snapshot=False):
                     path.unlink()
             raise
     return {'backup': str(backup), 'projects': len(plan['pid_map']), 'threads': len(plan['threads']),
-            'pinned': sum(x['is_pinned'] for x in plan['threads'].values())}
+            'pinned': sum(x['is_pinned'] for x in plan['threads'].values()),
+            'pending_threads': len(plan['pending_thread_ids']), 'pending_thread_ids': plan['pending_thread_ids']}
 
 
 def restore(root, check_only=False, home=None):
@@ -439,10 +492,13 @@ def restore(root, check_only=False, home=None):
     raw = read_bytes(path)
     data = validate(json.loads(raw.decode('utf-8-sig')))
     plan = plan_restore(root, data, home)
+    plan['input_hashes'][SNAPSHOT] = digest(raw)
     if check_only:
-        return {'check_only': True, 'projects': len(data['projects']), 'threads': len(data['threads'])}
+        return {'check_only': True, 'projects': len(data['projects']), 'threads': len(plan['threads']),
+                'pending_threads': len(plan['pending_thread_ids']), 'pending_thread_ids': plan['pending_thread_ids']}
     report = apply_plan(root, plan)
-    atomic_write(baseline_path(root), encode({'sha256': digest(raw)}))
+    atomic_write(baseline_path(root), encode({'sha256': digest(raw),
+                                            'pending_thread_ids': plan['pending_thread_ids']}))
     return report
 
 
@@ -471,8 +527,13 @@ def infer_projects(root, check_only=False, home=None):
         if len(choices) != 1:
             continue
         data['threads'][tid]['project_id'] = choices.pop(); changed.append(tid)
+    if incoming:
+        data = retain_pending(data, validate(json.loads(incoming.decode('utf-8-sig'))),
+                              read_json(baseline_file).get('pending_thread_ids', []))
     if check_only:
-        return {'check_only': True, 'inferred_project_links': len(changed), 'pins_inferred': 0}
+        missing = sorted(set(data['threads']) - {row['id'] for row in cwd_rows})
+        return {'check_only': True, 'inferred_project_links': len(changed), 'pins_inferred': 0,
+                'pending_threads': len(missing), 'pending_thread_ids': missing}
     # Reconcile known global assignments as well as inferred legacy memberships.
     plan = plan_restore(root, data, home)
     plan['input_hashes'][SNAPSHOT] = digest(incoming)
@@ -503,6 +564,10 @@ def main():
     else:
         report = infer_projects(root, args.check_only)
     print(json.dumps(report, ensure_ascii=False))
+    if report.get('pending_threads'):
+        print('注意：%d 个聊天的偏好仍待恢复，对应条目已保留在快照中；其余可用条目%s。'
+              % (report['pending_threads'], '已检查，未写入' if args.check_only else '已处理'))
+        print('需要恢复的聊天可先通过主菜单 10 导入，再运行 11；缺失或空会话不会阻塞其它条目。')
 
 
 if __name__ == '__main__':

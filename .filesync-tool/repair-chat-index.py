@@ -147,19 +147,42 @@ def find_codex(explicit=None):
     if explicit:
         candidates = [Path(explicit)]
     else:
-        base = Path(os.environ.get('LOCALAPPDATA', '')) / 'OpenAI' / 'Codex' / 'bin'
-        candidates = sorted(base.glob('*/codex.exe'), key=lambda p: p.stat().st_mtime, reverse=True)
+        candidates = []
+        local = os.environ.get('LOCALAPPDATA')
+        if local:
+            # Desktop releases bundle the CLI under resources; the top-level
+            # Codex.exe is the GUI and must not be launched as a CLI probe.
+            desktop = Path(local) / 'Programs' / 'Codex'
+            candidates.extend([desktop / 'app' / 'resources' / 'codex.exe',
+                               desktop / 'resources' / 'codex.exe'])
+            base = Path(local) / 'OpenAI' / 'Codex' / 'bin'
+            candidates.extend(sorted(base.glob('*/codex.exe'),
+                                     key=lambda p: p.stat().st_mtime, reverse=True))
+        for variable in ('ProgramW6432', 'ProgramFiles', 'ProgramFiles(x86)'):
+            base = os.environ.get(variable)
+            if base:
+                desktop = Path(base) / 'Codex'
+                candidates.extend([desktop / 'app' / 'resources' / 'codex.exe',
+                                   desktop / 'resources' / 'codex.exe'])
         found = shutil.which('codex.exe') or shutil.which('codex')
         if found:
             candidates.append(Path(found))
+    seen = set()
     for path in candidates:
+        key = os.path.normcase(os.path.abspath(path))
+        if key in seen or not path.is_file():
+            continue
+        seen.add(key)
         try:
             result = subprocess.run([str(path), '--version'], stdout=subprocess.PIPE,
-                                    stderr=subprocess.PIPE, timeout=8)
-            if result.returncode == 0 and b'codex' in result.stdout.lower():
+                                    stderr=subprocess.PIPE, timeout=8,
+                                    creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+            if result.returncode == 0 and re.search(rb'^codex-cli\s+\d', result.stdout, re.MULTILINE):
                 return path
         except (OSError, subprocess.TimeoutExpired):
             pass
+    if explicit:
+        raise RuntimeError('--codex-exe 未指向可运行的 Codex CLI 引擎：' + str(explicit))
     raise RuntimeError('未找到可运行的 Codex 引擎。请先安装并启动一次 Codex，或指定 --codex-exe。')
 
 
@@ -813,10 +836,17 @@ def restore(root, executable, check_only=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--root', required=True)
+    parser.add_argument('--root')
     parser.add_argument('--codex-exe')
     parser.add_argument('--check-only', action='store_true')
+    parser.add_argument('--check-engine', action='store_true',
+                        help='只检测 Codex CLI 引擎路径，不读取或恢复聊天')
     args = parser.parse_args()
+    if args.check_engine:
+        print('Codex 引擎：' + str(find_codex(args.codex_exe)))
+        return
+    if not args.root:
+        parser.error('恢复或检查聊天时必须指定 --root')
     restore(args.root, find_codex(args.codex_exe), args.check_only)
 
 

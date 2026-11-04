@@ -34,7 +34,7 @@
   },
   "config": {
     "approval_policy": "never",
-    "model": "gpt-6.1-sol",
+    "model": "gpt-6-astra",
     "model_reasoning_effort": "high",
     "sandbox_mode": "danger-full-access",
     "service_tier": "priority"
@@ -436,9 +436,23 @@
       "section_position": null,
       "thread_section_id": null
     },
+    "01a139bf-f434-7f31-83e3-5f8c441b3c16": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
     "01a139cb-cad1-7c41-bf83-f1eb69f1e5a8": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a13a25-a514-7f93-abdf-f7c1a1d40788": {
+      "is_pinned": false,
+      "project_id": null,
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
@@ -593,6 +607,13 @@
     "01a1582c-844c-7c13-b25b-67921b416404": {
       "is_pinned": false,
       "project_id": "01a1632f-024e-75f1-9db9-2d465701d4cd",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a15838-d1b7-7ed0-ba08-21ca67bc7694": {
+      "is_pinned": false,
+      "project_id": null,
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
@@ -879,7 +900,7 @@
     },
     "01a184fb-5b4d-75f3-8247-e9d23fb5c116": {
       "is_pinned": false,
-      "project_id": null,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
@@ -1062,6 +1083,13 @@
     "01a1a13e-bda1-75b3-beee-c5c25b43253f": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1a414-4975-7c33-80ad-a44c9a087bd5": {
+      "is_pinned": false,
+      "project_id": null,
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
