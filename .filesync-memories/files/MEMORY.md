@@ -1,3 +1,45 @@
+# Task Group: FileSync Codex chat recovery, preference restoration, and release merge
+
+scope: Repair the Windows FileSync tool's Codex CLI discovery, chat-index/preference recovery, and safe release packaging without modifying live Codex data during diagnosis.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse tool workflow and failure shields for C:\Users\605\Documents\FileSync after rechecking current Codex paths/version; do not apply deletion steps to live chat data without explicit user authorization and backups.
+
+## Task 1: Repair Codex engine discovery without closing Codex or moving `.codex`
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-04T01-02-35-TeLj-filesync_repair_merge_chat_index_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-04\cong, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\04\rollout-2026-11-04T09-02-35-01a1a414-4975-7c33-80ad-a44c9a087bd5.jsonl, updated_at=2026-11-04T10:45:09+00:00, 11 path tests and isolated app-server check passed)
+
+### keywords
+
+- FileSync, repair-chat-index.py, find_codex, --check-engine, codex-cli, app-server, C:\Users\605\AppData\Local\Programs\Codex\app\resources\codex.exe, CODEX_HOME
+
+## Task 2: Make menus 11/12 tolerate missing chats, clean two confirmed-invalid records, and merge release changes
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-04T01-02-35-TeLj-filesync_repair_merge_chat_index_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-04\cong, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\04\rollout-2026-11-04T09-02-35-01a1a414-4975-7c33-80ad-a44c9a087bd5.jsonl, updated_at=2026-11-04T10:45:09+00:00, real-data-copy 11 → 12 → 11 → export passed; release SHA-256 matched)
+
+### keywords
+
+- codex-preferences.py, codex-state.ps1, menu-11, menu-12, pending_thread_ids, retain_pending, state_5.sqlite, sqlite/codex-dev.db, README.md, .filesync-tool, .in, .exe, FileSync.zip
+
+## User preferences
+
+- when repairing chat sync, the user asked “只修复工具不直接移动 .codex 文件” and “不要推出 codex 进程” -> modify the tool, use temporary copies/isolated checks, and leave the running Codex process and real `.codex` data untouched unless the user explicitly authorizes a live recovery. [Task 1]
+
+## Reusable knowledge
+
+- The validated current CLI candidate was `C:\Users\605\AppData\Local\Programs\Codex\app\resources\codex.exe`; `find_codex()` should try this desktop path, the old `LOCALAPPDATA/OpenAI/Codex/bin` path, Program Files, and PATH, then accept only a `codex-cli` version response so it does not launch the GUI executable. `--check-engine` must remain read-only. [Task 1]
+- Run the recovery app-server in an isolated temporary directory and filter `CODEX_HOME` plus authentication environment variables. A real recovery still requires Codex to be exited; diagnosis/engine discovery does not. [Task 1]
+- Menu 11 should restore imported chats first and retain unimported references as `pending_thread_ids`; they must not block other preferences, and later `11 → 12 → 11 → export` must retain then clear them once available. The final read-only check is `python ...\codex-preferences.py --root C:\Users\605\.codex --restore --check-only`, expected here as `projects: 3, threads: 144, pending_threads: 0`. [Task 2]
+- For FileSync self-backup, `.filesync-tool/README.md` is optional/first-connection allowlisted, but eight runtime scripts remain required and strictly checked; unknown tool scripts stay rejected and `.in`/`.exe` are excluded case-insensitively. [Task 2]
+
+## Failures and how to do differently
+
+- Symptom: recovery says it cannot find the engine -> the old script only searched `OpenAI/Codex/bin`; add current desktop/Program Files/PATH candidates and validate the `codex-cli` response instead of assuming a binary named `Codex.exe` is the CLI. [Task 1]
+- Symptom: one missing snapshot chat makes menus 11 and 12 fail -> missing threads were treated as a global error; process per chat, retain pending metadata, and continue restoring valid entries. [Task 2]
+- After authorized deletion of an invalid chat, clean its preference snapshot reference, `state_5.sqlite` `threads` row, and `sqlite/codex-dev.db` sidebar cache while keeping a backup; otherwise menu 11 still fails. [Task 2]
+
 # Task Group: MAA OI Assistant contest collaboration, training, debugging, and file layout
 
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.

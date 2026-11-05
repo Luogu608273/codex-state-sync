@@ -2264,7 +2264,7 @@ References:
 ## Thread `01a1a13e-bda1-75b3-beee-c5c25b43253f`
 updated_at: 2026-11-03T12:08:36+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
-rollout_path: C:\Users\605\.codex\sessions\2026\11\03\rollout-2026-11-03T19-50-06-01a1a13e-bda1-75b3-beee-c5c25b43253f.jsonl
+rollout_path: C:\Users\605\.codex\archived_sessions\rollout-2026-11-03T19-50-06-01a1a13e-bda1-75b3-beee-c5c25b43253f.jsonl
 rollout_summary_file: 2026-11-03T11-50-05-Cs6r-zr2_10_contest_solutions_browser_repair_validation.md
 
 ---
@@ -2318,4 +2318,78 @@ References:
 - 验证脚本：`C:\Users\605\Documents\Output\ZR2-10\verify.py`、`stress.py`、`extra.py`、`final_check.py`
 - 最终状态标志：`file IO: 8 passed`、`final checks passed`、`SHA-256 read-back verification passed`
 - 最终 README 明确声明：未在线提交，没有官方 AC 或分数。
+
+## Thread `01a1a414-4975-7c33-80ad-a44c9a087bd5`
+updated_at: 2026-11-04T10:45:09+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\2026-11-04\cong
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\04\rollout-2026-11-04T09-02-35-01a1a414-4975-7c33-80ad-a44c9a087bd5.jsonl
+rollout_summary_file: 2026-11-04T01-02-35-TeLj-filesync_repair_merge_chat_index_preferences.md
+
+---
+description: 修复并合并 Windows FileSync 工具：补齐新版 Codex 引擎识别，修复菜单 11/12 对缺失聊天的处理，删除两条失效聊天索引，并保留 .in/.exe 排除规则与 README 可选逻辑
+ task: FileSync 工具修复、聊天索引/偏好恢复、跨对话修改合并
+task_group: C:\Users\605\Documents\FileSync
+task_outcome: success
+cwd: C:\Users\605\Documents\Codex\2026-11-04\cong
+keywords: FileSync, repair-chat-index.py, codex-preferences.py, codex-state.ps1, find_codex, --check-engine, menu-11, menu-12, pending_thread_ids, README.md, .in, .exe, app-server
+---
+
+### Task 1: 修复 Codex 引擎识别
+
+task: 让聊天恢复工具识别新版 Codex CLI，而不关闭 Codex 或修改真实 .codex 数据
+task_group: FileSync recovery engine
+task_outcome: success
+
+Preference signals:
+- 用户说“只修复工具不直接移动 .codex 文件”“不要推出 codex 进程” -> 后续类似任务应只修改工具，优先临时副本、隔离 app-server 和 `--check-only` 验证。
+
+Reusable knowledge:
+- 新版 CLI 位于 `C:\Users\605\AppData\Local\Programs\Codex\app\resources\codex.exe`，版本为 `codex-cli 0.166.0-alpha.5.1`。
+- `repair-chat-index.py` 的 `find_codex()` 现在支持新版桌面路径、旧版 `LOCALAPPDATA/OpenAI/Codex/bin`、Program Files 和 PATH，并通过 `codex-cli` 版本格式过滤 GUI 可执行文件。
+- `--check-engine` 只检测引擎路径，不读取或恢复聊天。
+
+Failures and how to do differently:
+- 原脚本只查旧版路径，导致菜单 10/恢复功能找不到引擎；不要只依赖旧的 `OpenAI/Codex/bin` 路径。
+
+References:
+- `C:\Users\605\Documents\FileSync\repair-chat-index.py`
+- 验证命令：`python -B C:\Users\605\Documents\FileSync\repair-chat-index.py --check-engine`
+- 结果：`Codex 引擎：C:\Users\605\AppData\Local\Programs\Codex\app\resources\codex.exe`
+
+### Task 2: 菜单 11/12 的缺失聊天兼容与失效索引清理
+
+task: 修复偏好恢复被未导入聊天阻塞，并删除两个确认无效的聊天记录/索引
+task_group: FileSync preferences and chat index repair
+task_outcome: success
+
+Reusable knowledge:
+- 两个问题 ID：`01a1663b-7dae-72f2-bcc1-743466313a2a`（只有 session_meta，无正文）；`01a16c88-f53f-7852-a719-6d6d3279b600`（原始文件有 1 轮、2 条助手消息，标题为 `P11089 [ROI 2021] 手机游戏 (Day 1)`）。
+- 删除了对应原始文件、`state_5.sqlite` 索引行和侧栏缓存；删除前有备份，其他聊天行和原始文件校验不变。
+- `codex-preferences.py` 现在使用 `retain_pending()` 和 `pending_thread_ids`：已存在聊天先恢复，缺失聊天只报告并保留快照内容，不阻塞其它聊天；聊天后来导入后可再次运行 11。
+
+Failures and how to do differently:
+- 原逻辑将任意 missing thread 视为全局错误；应按条目处理，不能让两个失效记录阻塞全部偏好恢复。
+- 删除聊天时必须同步清理快照引用、主状态数据库和 `sqlite/codex-dev.db` 缓存。
+
+References:
+- 索引清理备份：`C:\Users\605\Documents\Output\FileSync\index-cleanup-20261104-182849`
+- 偏好清理报告：`C:\Users\605\Documents\Output\FileSync\preferences-cleanup-20261104-183928\report.json`
+- 真实副本验证结果：`11 → 12 → 11 → export`，最终 `pending_threads: 0`。
+
+### Task 3: 合并另一对话修改
+
+task: 将另一对话的 FileSync 改动与本对话修复合并并安装
+task_group: FileSync release merge
+task_outcome: success
+
+Reusable knowledge:
+- 另一对话保留的有效改动：新版引擎识别、RPC 详细错误、`.in`/`.exe` 排除规则。
+- 本对话恢复的有效改动：菜单 11/12 pending 偏好兼容、README 缺失时跳过。
+- 最终改动文件：`codex-state.ps1`、`codex-preferences.py`、`README.md`。9 个发布文件和两个 ZIP 副本均完成 SHA256 校验。
+- README 是可选说明文件；8 个运行脚本仍必须存在。`.filesync-tool/README.md` 首次接入白名单允许，未知脚本拒绝。
+
+References:
+- 合并包：`C:\Users\605\Documents\Codex\2026-11-04\cong\outputs\FileSync.zip`
+- 安装包副本：`C:\Users\605\Documents\Output\FileSync\FileSync.zip`
+- 最终只读检查：`codex-preferences.py --restore --check-only` 返回 `projects: 3, threads: 144, pending_threads: 0`。
 
