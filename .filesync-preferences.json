@@ -1184,6 +1184,27 @@
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
+    },
+    "01a1c315-529e-7f21-9874-e8cf31aa26d3": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1c331-0b45-7523-b01a-f24a04cbec48": {
+      "is_pinned": false,
+      "project_id": "01a1632e-dde8-7d70-a88b-cdcaa37e133c",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1c4e3-c6a0-74e3-954c-5e91f7d99615": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
     }
   }
 }

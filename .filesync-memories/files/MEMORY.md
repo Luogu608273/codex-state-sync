@@ -1,3 +1,68 @@
+# Task Group: CSP-S 2026 submission archive analysis and Markdown reporting
+
+scope: Scan a large contest-submission archive, separate distinctive examples from repeated mistakes, and produce evidence-checked Chinese Markdown reports.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-05\b-n; reuse_rule=Reuse the analysis and validation workflow for comparable source archives, but do not reuse this contest's counts, contestant IDs, or report conclusions.
+
+## Task 1: Generate sorted distinctive-case and repeated-pattern reports from `answers`
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-05T08-52-15-vk2l-csp_s_2026_misleading_code_awards_markdown.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-05\b-n, rollout_path=C:\Users\605\.codex\sessions\2026\11\05\rollout-2026-11-05T16-52-20-01a1aae8-a323-7be2-8cec-4c49ec7b99a9.jsonl, updated_at=2026-11-05T09:17:47+00:00, success: report evidence, sorting, counts, fences, and anti-false-positive assertions passed)
+
+### keywords
+
+- CSP-S 2026, answers, GD-CSP-S-2026迷惑行为大赏.md, 重复现象统计与选手名单.md, freopen, Floyd ijk, Floyd ikj, GB18030, GB2312, UTF-8, TDM-GCC, -fsyntax-only
+
+## User preferences
+
+- when compiling a code-archive report, the user requested “整理为 Markdown，按选手排序，附带代码片段，然后做简要说明” -> sort by contestant number; retain original representative snippets with path/line context and a brief explanation. [Task 1]
+- when the user said “较多重复的（比如 `//freopen`，`ijk` 和 `ikj`）仅做统计并列表，只把独特的展示代码片段并作说明” -> put only distinctive examples in the body; aggregate repeated patterns with complete counts/lists. [Task 1]
+- when source encodings and I/O audits matter, the user explicitly flagged GB2312 versus UTF-8 and a `//freopen` beside an active call -> decode per file and inspect effective code/conditional branches, not raw comment hits. [Task 1]
+- when the user requested “根本没开文件读写的也统计” -> separately classify no I/O, empty files, commented-only I/O, and input-only/output-only cases. [Task 1]
+
+## Reusable knowledge
+
+- Scan source per file: prefer UTF-8, then use GB18030-compatible decoding for GB2312/GBK; output Markdown as UTF-8. Strip comments and strings, process conditional compilation, macros, line splicing, alternate APIs, and Pascal `assign/reset/rewrite` before classifying file I/O. [Task 1]
+- For Floyd, verify loop scope and that `k` is the transfer intermediate in `dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])`; list multi-round repeated relaxation separately instead of calling every `ijk/ikj` text match wrong. [Task 1]
+- Large scan output should be written to `work/*.json` or `*.txt`, queried in small slices, then checked with final assertions. Use TDM-GCC 10.3.0 GNU++14 `-fsyntax-only` for suspicious effective code and exclude environment-only diagnostics such as missing `iconv.h`. [Task 1]
+- The completed archive had 5,068 contestant directories and 18,220 source programs; outputs were `outputs\GD-CSP-S-2026迷惑行为大赏.md` (51 contestants/53 distinctive entries) and `outputs\重复现象统计与选手名单.md`. These counts are archive-specific. [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: text scanning labels ordinary build loops or valid code as bad Floyd -> cause: matching `ijk/ikj` without transfer-expression/scope analysis -> inspect the actual relaxation and treat multi-pass structures separately. [Task 1]
+- Symptom: `.pas` is wrongly classified as no I/O -> cause: only C/C++ I/O recognition -> add Pascal-specific I/O detection. [Task 1]
+- Symptom: commented `feropen/freoepn` or a missing local header is reported as contestant compile failure -> cause: scanning inactive text or conflating environment diagnostics -> classify/compile comment-stripped effective code and record the environmental cause. [Task 1]
+
+# Task Group: Minecraft Java 26.3 low-cost dupe-like emerald farming research
+
+scope: Distinguish a requested string-duper-like item-production mechanism from conventional farms, gamerules, and server extensions.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-05\xian; reuse_rule=Version- and server-sensitive research only; recheck current Minecraft/Paper compatibility and test any plugin before recommending it as working.
+
+## Task 1: Find a 26.3 equivalent of a string duper for emerald production
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-05T10-02-47-dl3q-mc_263_emerald_dupe_like_string_farm.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-05\xian, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\05\rollout-2026-11-05T18-02-51-01a1ab29-3801-7f63-aa77-25948289ec00.jsonl, updated_at=2026-11-05T10:06:10+00:00, partial: candidate plugin found but not installed/tested)
+
+### keywords
+
+- Minecraft 26.3, Java, emerald farm, string duper, tripwire hook duplication, gamerule, random_tick_speed, Paper, StringDuperFix
+
+## User preferences
+
+- when the user corrected “不是这样的，希望有刷线机类似的方案” -> interpret the request as a low-cost duplication/exploit-like continuous item source (or a compatible server extension), not bamboo, crop, or ordinary villager-trading farms. [Task 1]
+- when the user mentions a gamerule in this context -> distinguish a vanilla `/gamerule` from Paper configuration, plugins, and mods; do not represent server-side compatibility settings as vanilla commands. [Task 1]
+
+## Reusable knowledge
+
+- `/gamerule minecraft:random_tick_speed` accelerates random ticks such as plant growth; it does not accelerate villager restocks or restore tripwire/string duplication. [Task 1]
+- The research evidence places traditional tripwire-hook duplication through 26.1-pre1 and says it was fixed in 26.1-pre2, so it cannot be assumed to work in 26.3. `StringDuperFix` claims Paper 26.3 support, but its 26.3 status was alpha and it was not tested in this rollout. [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: an answer offers bamboo, sticks, crops, or fletcher trading -> cause: treating “刷线机类似” as merely a request for emerald income -> first establish whether the target is vanilla, Fabric/Carpet, or Paper/plugin duplication behavior. [Task 1]
+- Symptom: third-party claims say a 26.3 duper works -> cause: unverified/version-conflicting reports -> check Mojang changes and target-server documentation, then install and test in the actual environment before calling it viable. [Task 1]
+
 # Task Group: FileSync Codex chat recovery, preference restoration, and release merge
 
 scope: Repair the Windows FileSync tool's Codex CLI discovery, chat-index/preference recovery, and safe release packaging without modifying live Codex data during diagnosis.
@@ -44,6 +109,36 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse t
 
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
+
+## Task 23: Locate ZR2-7 originals and write a verified 1-based T2 `path.cpp` standard solution
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-10T01-31-56-oaor-find_original_problems_and_write_t2_path_std.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\10\rollout-2026-11-10T09-31-57-01a1c315-529e-7f21-9874-e8cf31aa26d3.jsonl, updated_at=2026-11-10T02:12:25+00:00, T1--T4 source mapping and T2 sample0--sample5 verified)
+
+### keywords
+
+- ZR2-7, path, Browsing the Collection, QOJ 2617, reverse BFS, successor DSU, 1-indexed, bitmask, path.cpp, path.in, path.out
+
+## Task 24: Teach P10787 tree orientation through doubling segment states and feasibility proof
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-09T07-45-17-F3CH-p10787_tree_orientation_doubling_proof.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\09\rollout-2026-11-09T15-54-52-01a1bf44-c3e4-7e62-89d8-badd9f1dbb63_01a1bf4d-89b0-7a23-9c9b-10cdcfa92c7f.jsonl, updated_at=2026-11-09T08:30:12+00:00, partial: doubling maintenance derived; feasibility construction must be completed)
+
+### keywords
+
+- P10787, NOI2024, 树的定向, LCA, 倍增, min(count,2), s_i, 订阅, 强制定向, 未定向边, 二染色
+
+## Task 25: Guide P9531 from prefix/suffix MST merging toward LCT
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-07T07-38-30-w1fG-p9531_lct_guided_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=C:\Users\605\.codex\sessions\2026\11\07\rollout-2026-11-07T15-38-30-01a1b4f1-d68e-7d73-8129-43ad56c467f0.jsonl, updated_at=2026-11-07T07:39:08+00:00, partial: one next-step hint only)
+
+### keywords
+
+- P9531, JOIST 2022, Reconstruction Project, LCT, Kruskal, MST, DSU, prefix-suffix MST, |t-x|<w-x, interval, oi-training
 
 ## Task 18: Deliver five Zhengrui contest packages to the local CKK sync folder, including C++ SPJs
 
@@ -264,6 +359,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## User preferences
 
+- when the user asked “改成 1-indexed” then clarified “位掩码不用 1-indexed，下标要 1-indexed” -> keep ordinary bitmask mathematics 0-based (`0..(1<<m)-1`, `1 << (j-1)`), while making entity, array, queue, and DSU positions 1-based. [Task 23]
+- when teaching an OI problem from the user's own derivation, continue interactively: P10787/P9531 evidence favors preserving their invariants and asking one next question rather than jumping to a complete LCT/proof/code solution. [Task 24] [Task 25]
 - when the user says "如果在调试代码时发现做法不正确，报告做法不正确，然后停止调试" -> once the algorithm/approach is confirmed wrong, state the specific reason or counterexample and stop: do not modify code, switch approaches, or provide a complete revision. This overrides the earlier complete-code debug rule. [Task 1]
 - for four-file `[debug]` work, the user required "中文回答、最小幅度修改、不改思路、指出每处实质错误并给出完整修正版" -> preserve the original algorithmic direction and coding style, but fix correctness, bounds, and asymptotic failures with concrete counterexamples. [Task 13]
 - when the user asks ".in 和 .exe 不要放到 Codex 文件夹里面，放到 文档/Output" -> create generated inputs and executables under `C:\Users\605\Documents\Output` (with task subdirectories), never under the Codex tree. [Task 12]
@@ -284,6 +381,10 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Reusable knowledge
 
+- ZR2-7 originals: T1 = Codeforces 1156C Match Points; T2 = QOJ #2617 Browsing the Collection; T3 = QOJ #10170 Data Structures Master; T4 = QOJ #7976 最后的晚餐. T2's checked solution is `C:\Users\605\Downloads\1110\path\path.cpp`: per-terminal reverse multi-source BFS over `(item, mask)`, with successor DSU to skip visited interval states; default `path.in/path.out`, `LOCAL` for stdio. `sample0` through `sample5` matched after `-std=c++14 -O2 -static`. [Task 23]
+- P10787: split each constraint path at LCA into O(log n) disjoint doubling segments. Maintain `min(undirected_count,2)` plus up/down direction flags; `s_i=Σ min(c_B,2)` equals 1 exactly when the entire constraint has one unoriented edge. Subscribe constraints to segments and process transitions 2→1/1→0, while propagating direction flags even if count class is unchanged. Before choosing the next lexicographic edge, exhaust forced-orientation cascades. [Task 24]
+- P10787 feasibility proof remains incomplete: after contracting oriented-edge components, each unsatisfied constraint has endpoint distance at least 2 in the remaining tree. A valid continuation must give and prove a construction (the summary suggests depth-parity/two-color alternating directions) that inserts a local turn into every length-at-least-2 constrained path. [Task 24]
+- P9531 has `N≤500, M≤100000, Q≤1000000`; per-query O(n) merging is the bottleneck. For a fixed edge `e=(u,v,w)` and `x≤w`, use Kruskal's strict-smaller-cost connectivity criterion and first solve `|t-x|<w-x` to turn edge selection into an x-interval question. [Task 25]
 - The actual project rule file for this task was `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`, not the similarly named rollout cwd with `!`; verify the real path before editing. [Task 1]
 - `.in` and `.exe` belong in `C:/Users/605/Documents/Output`, not `C:/Users/605/Documents/Codex`; the completed 2026-10-29 migration placed 303 files at `Documents/Output/Codex`, retained relative paths, and recorded SHA-256 results in `文件迁移清单-2026-10-29-399d3501.csv`. [Task 12]
 - Training truth is in outputs/训练记录.md, outputs/训练档案.md, and outputs/复盘/; user report, compile/static/random testing, and official AC are distinct. P8820 k=3 also needs LCA-neighbor handling: min(l1.a[0],l1.a[1])+num[w]+min(l2.a[0],l2.a[1]). [Task 2]
@@ -314,6 +415,9 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Failures and how to do differently
 
+- Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
+- P10787's last proof answer stopped after the contraction reduction; do not present it as complete. Finish the edge-orientation construction and its all-constraints proof before claiming feasibility. [Task 24]
+- P9531 teaching stopped after the first interval hint and has no user confirmation, LCT model, proof, complexity, or implementation validation; wait for the user's inequality/connectedness response, then supply only one additional observation. [Task 25]
 - Similar directory names can point to the wrong target: reading `MAA OI Assistant!\AGENTS.md` failed because the actual file was under `MAA OI Assistant`; use `Get-ChildItem` or `rg --files -g AGENTS.md` before writing. [Task 1]
 - During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
 - Do not revive old mount/permission guidance for H:\我的云端硬盘. [Task 1] [ad-hoc note]
