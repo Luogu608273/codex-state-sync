@@ -1,3 +1,67 @@
+# Task Group: Minecraft Java commands and mechanics
+
+scope: Give concise, directly usable Java-edition commands and mechanics answers while stating version, dimension, and conditions that change the result.
+applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Reuse commands and response style for Minecraft Java questions; recheck version-sensitive mechanics and do not apply Java details to Bedrock or modded/server-specific setups.
+
+## Task 1: Clear Nether lava near the player with `/fill`
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\10\rollout-2026-11-10T10-02-13-01a1c331-0b45-7523-b01a-f24a04cbec48.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: Nether lava command supplied)
+
+### keywords
+
+- Minecraft Java, Nether, `/fill`, minecraft:lava, minecraft:air, Y=0, Y=255, fill limit
+
+## Task 2: Give the ordinary drowned lethal-fall estimate
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\10\rollout-2026-11-10T10-02-13-01a1c331-0b45-7523-b01a-f24a04cbec48.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: qualified Java estimate)
+
+### keywords
+
+- drowned, fall damage, 23 blocks, generic.safe_fall_distance, 20 health, Java Edition, stone
+
+## Task 3: Remove a boat leashed to a Happy Ghast
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\10\rollout-2026-11-10T10-02-13-01a1c331-0b45-7523-b01a-f24a04cbec48.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: corrected to scissors/leash operation)
+
+### keywords
+
+- Happy Ghast, leash, scissors, boat, chest boat, Java 1.21.6, Chase the Skies
+
+## Task 4: Clear nearby dropped items
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\10\rollout-2026-11-10T10-02-13-01a1c331-0b45-7523-b01a-f24a04cbec48.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: scoped item selector supplied)
+
+### keywords
+
+- `/kill`, @e, type=minecraft:item, distance=..10, dropped items, entity selector
+
+## User preferences
+
+- when asking Java command/mechanics questions, the user favors Chinese, short, directly copyable commands; state the operative version, dimension, and conditions rather than expanding into generic background. [Task 1][Task 2]
+- when the user says “fill 的上限可以调，我已经调过了” -> do not repeat the default block-modification-limit warning; give the target command. [Task 1]
+- when asking how to operate an entity mechanic, give “准备物品 + 对准对象 + 操作” steps first. [Task 3]
+
+## Reusable knowledge
+
+- Nether full-height lava replacement around the executor, horizontal ±100: `/fill ~-100 0 ~-100 ~100 255 ~100 minecraft:air replace minecraft:lava`; `replace minecraft:lava` leaves other blocks untouched. [Task 1]
+- A full-health ordinary Java drowned landing on an ordinary solid block dies from about 23 blocks of vertical fall; this assumes no water, hay/honey, equipment, effects, or altered attributes. `generic.safe_fall_distance` is 3.0 and ordinary drowned health is 20. [Task 2]
+- To detach a boat from a Happy Ghast, use scissors to cut the leash; have any rider dismount first. [Task 3]
+- Clear item entities within 10 blocks of the command executor: `/kill @e[type=minecraft:item,distance=..10]`; it does not target mobs or players. [Task 4]
+
+## Failures and how to do differently
+
+- Symptom: a `/fill` command covers the wrong vertical world range -> cause: using Overworld heights before establishing the dimension -> confirm or label the dimension first. [Task 1]
+- Symptom: a fall-distance or entity-mechanic answer sounds universal -> cause: Java/Bedrock/version conditions were omitted -> name Java edition/version and decisive conditions. [Task 2][Task 3]
+- Symptom: saying to right-click the boat as the primary Happy Ghast fix -> cause: the evidence supported cutting the leash with scissors -> lead with scissors, then rider constraints. [Task 3]
+
 # Task Group: CSP-S 2026 submission archive analysis and Markdown reporting
 
 scope: Scan a large contest-submission archive, separate distinctive examples from repeated mistakes, and produce evidence-checked Chinese Markdown reports.
@@ -160,15 +224,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - ZR2-10, contest/2235, chengdu, wuhan, shenyang, xiamen, solution.md, std.cpp, partial.cpp, This page crashed, 156.0.8078.48.manifest, SideBySide, file IO: 8 passed
 
-## Task 19: Tree minimum-connected-selection rerooting and O(n log n) state design
+## Task 19: Derive O(n log n) rerooting DP for connected-radius tree covering
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-02T10-22-05-lDc5-tree_dp_rerooting_onlogn_state_design.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\03\rollout-2026-11-03T20-30-42-01a19bc7-cd8d-7ae1-b22c-027e9526ed71_01a1a163-eb18-7eb2-9ae0-61af0bc67a9d.jsonl, updated_at=2026-11-03T12:31:25+00:00, rerooting recurrence validated; O(n log n) design remains incomplete)
+- rollout_summaries/2026-11-02T10-22-05-lDc5-tree_dp_rerooting_onlogn_incomplete.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\03\rollout-2026-11-03T20-30-42-01a19bc7-cd8d-7ae1-b22c-027e9526ed71_01a1a163-eb18-7eb2-9ae0-61af0bc67a9d.jsonl, updated_at=2026-11-05T07:47:08+00:00, partial: state/upward transitions clarified; branch merge and full algorithm unproved)
 
 ### keywords
 
-- tree rerooting, fixed R, f_u, g_u, h_v, q=g_u-f_v, O(n² log n), O(n log n), (s,d), connected component
+- tree-dp, rerooting, radius R, f_u, g_u, h_v, O(n² log n), O(n log n), (s,d), state merge, connected component
 
 ## Task 20: Möbius inclusion-exclusion binary lexicographic construction implementation guidance
 
@@ -378,6 +442,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - when the user said “留 cpp SPJ。顺便在本地 agents 里面写一下，编写 SPJ 时优先考虑 cpp” -> prefer C++ for special/interactive judges and retain compilable `.cpp` source. [Task 18]
 - when the embedded browser blocked a requested contest package, the user said “直接尝试修复”“继续，不用问我” -> continue safe diagnosis and repair rather than returning the environment problem for user action. [Task 22]
 - when a mathematical derivation is finished, the user asked “实现上有什么要注意的” -> proactively cover integer boundaries, complexity, and a focused verification set rather than only state the formula. [Task 20]
+- when discussing this tree DP, the user clarified selection is “尽量靠近根” and an overextended component adds at “原连通块的最高点的父亲” -> retain these canonical placements explicitly in transitions and connectivity reasoning. [Task 19]
 
 ## Reusable knowledge
 
@@ -405,7 +470,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P4802 subset DP for a simple path from `0` to `n-1` must return `max_j f[n-1][j]`, not only the all-cities mask; guard both unreachable DP states and missing edges before adding. [Task 13]
 - P11267 periodic-string lifting: when a partial tail has no `1`, first use the nearest `1` to the left in the current cycle; only otherwise fall back to the previous cycle's global last `1`. The repaired construction is `O(70n+61q)`. [Task 13]
 - P10526 command completion: precompute each Trie node's `T` endpoint, include the root empty-prefix completion, and maintain matching node `cur` plus mismatched-suffix length `cnt` so character, backspace, Tab, and Enter are `O(1)`; total `O(26N+sum(|t_i|)+m)`. [Task 13]
-- Fixed-radius tree rerooting (one connected component): `f_u=1+Σ[h_v+1>R]f_v`. On edge `(u,v)`, remove the v-branch contribution from `g_u` before deciding whether the u-side must be paid; the validated recurrence is `q=g_u-(h_v+1>R ? f_v : 0)`, `g_v=f_v+(t+1>R ? q : 0)`. The `(s,d)` constant-summary idea remains an unfinished O(n log n) direction. [Task 19]
+- For a rooted side, the proposed O(n log n) summary is `(s,d)`: `s=0` means no selected point and `d` is maximum depth kept below R; `s>0` is minimum selected count and `d` is distance to the component's highest point. Optimize first by `s`, then smaller `d`. On adding one parent: unselected depth reaching R becomes `(1,0)` by selecting the new root; an existing component that exceeds the radius becomes `(s+1,R)` by adding the parent of its highest point. The older fixed-root recurrence is `f_u=1+Σ[h_v+1>R]f_v`. [Task 19]
 - P17833《迁徙》: after fixing adjacent fork points `b,b+1`, keep the local splice constraints `L_b=a` and `R_{b+1}=c`; `(pre_a+1)(suf_c+1)` alone is insufficient. Compress the last/first-edge conditions into one-dimensional `pre/suf`, then aggregate independent left/right candidates with forward/reverse buckets for O(n) time and O(n) space; keep `a<b`, `c>b+1`, and zero-length extensions counted as 1. [Task 21]
 - Möbius construction: for `B=x0+L*y0`, compute each inclusion-exclusion term separately: if `m<B+y0` return 0; `U=(m-y0)/B`; if `U<u0` return 0; otherwise `(U-u0)/y0+1`. Do not move floor division outside `C(L)=sum mu(d) F_L((n+2)/d)`. Precompute the segment-invariant minimal positive `u0`; `y0=1` gives `u0=1`. [Task 20]
 - Lexicographic runs: for `0`, binary-search maximal `L` with `C0(L)>=k` and retain `k`; for `1`, set `r=T-k+1`, binary-search `C1(L)>=r`, then set `k=C1(L)-r+1`. Check initial `k<=phi(n+2)`, stop at `x+y=n+2`, use `long long`, and bound a zero run by `floor((n+2-x0-y0)/y0)` (swap coordinates for one). [Task 20]
@@ -430,7 +495,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P13270's AC is user feedback; `git diff --check` only verified no whitespace errors in record changes. When revisiting, check global candidate coverage, the final out-of-range jump, all-equal strings, and using the old value during pointer exchange. [Task 11]
 - Do not call local compilation, fixed counterexamples, randomized checks, or maximum-scale stress tests an online AC. For Task 13, all four C++17 builds and 557 targeted checks passed, but no online submission occurred. [Task 13]
 - Debug shields: test the actual semantic endpoint condition (P4802), a collision adversary rather than trusting one hash (P4503), partial-period boundaries (P11267), and root/leaf plus backspace paths before dereferencing Trie transitions (P10526). [Task 13]
-- Tree rerooting only validated the one-component recurrence; before implementing, check R=0/1, leaves, and the maximum-distance definitions on both sides of a cut. Do not claim the unfinished `(s,d)` branch-merge state is an O(n log n) solution. [Task 19]
+- Tree rerooting has not derived the multi-branch merge, a full rerooting/data structure, or an O(n log n) proof. Before implementing, prove merge sufficiency and per-edge/amortized complexity, verify `(s,d)` for outside-side interactions, and check R=0/1, leaves, and both cut-side maximum-distance definitions. [Task 19]
 - Symptom: embedded browser shows “This page crashed” / `render process gone exitCode=18 reason=launch-failed` -> inspect Codex browser logs and Windows SideBySide first. In this rollout the missing assembly was `156.0.8078.48`; adding `156.0.8078.48.manifest` declaring `chrome_elf.dll` restored statement access. [Task 22]
 - P17833's user-reported AC did not include final code or online judge evidence; do not present implementation or complexity as submission-verified. Before multiplying decomposed path counts, explicitly check the local three-point splice condition; otherwise the direct product misses valid constraints. [Task 21]
 - Möbius construction was not implemented or sample-tested; after coding, specifically test out-of-range `k`, terminal state, `1`-run reverse ranking, `U<u0`, `y0=1`, and multiplication/accumulator bounds. [Task 20]

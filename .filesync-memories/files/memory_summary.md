@@ -16,6 +16,7 @@ v1
 - For code-archive reports: sort by contestant, show only distinctive original snippets with short explanations, and make repeated patterns a complete statistics/list section.
 - For safe FileSync/Codex repair, “只修复工具不直接移动 .codex 文件”“不要推出 codex 进程” -> use isolated copies/read-only checks and leave live data/processes alone.
 - Do not default to retired `H:\我的移动硬盘`/its `CKK`, `Gemini`, or `Google AI Studio` paths; use connected Google Drive unless a current location is explicitly supplied. [ad-hoc note]
+- For Minecraft Java questions, answer in Chinese with a directly copyable command or a short operation sequence; name the dimension, edition/version, and conditions that affect the result.
 
 ## General Tips
 
@@ -23,8 +24,17 @@ v1
 - Before editing a project, locate the actual `AGENTS.md`; similarly named checkouts can differ.
 - For archive static analysis, decode per file; inspect effective code rather than comments/strings; write large scan evidence to files and assert final counts.
 - For version-sensitive Minecraft advice, identify vanilla versus Fabric/Carpet/Paper first and test a claimed plugin before calling it working.
+- For Java `/fill`, do not assume Overworld height limits when the user is in the Nether; confirm or label the dimension first.
 
 ## What's in Memory
+
+### C:\Users\605\Documents\Codex\CHAT with GPT
+
+#### 2026-11-11
+
+- Minecraft Java commands and mechanics: `/fill`, minecraft:lava, drowned, Happy Ghast, scissors, `type=minecraft:item`
+  - desc: Direct Java commands for Nether lava and nearby drops, plus qualified drowned fall damage and Happy Ghast boat-leash operation.
+  - learnings: Nether lava uses Y=0..255; say “scissors cut the leash,” not boat right-click; version/dimension conditions matter.
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
@@ -39,12 +49,6 @@ v1
 - P10787 tree orientation: `P10787`, `NOI2024`, `min(count,2)`, `s_i`, `倍增`, `订阅`, `二染色`
   - desc: Segment-state maintenance, forced-orientation cascade, and the explicitly incomplete feasibility proof.
   - learnings: `s_i=Σmin(c_B,2)` detects exactly one unoriented edge; contraction proof still needs a complete alternating-direction construction.
-
-#### 2026-11-07
-
-- P9531 LCT guided hint: `P9531`, `JOIST 2022`, `LCT`, `prefix-suffix MST`, `|t-x|<w-x`
-  - desc: Use for continuing the user's MST-merge-to-LCT derivation without overrunning the one-hint training convention.
-  - learnings: Fix an edge and derive its x-interval/strict-connectivity criterion; no full model or implementation was validated.
 
 ### Older Memory Topics
 
@@ -67,6 +71,8 @@ v1
 
 - Zhengrui package delivery and browser repair: `ZR2-4`, `ZR2-6`, `ZR2-10`, `std.cpp`, `partial.cpp`, `spj.cpp`, `SHA-256`
   - desc: Contest-material layout, C++ SPJ rule, local validation/Drive read-back, and browser SideBySide repair.
+- P9531 LCT guided hint: `P9531`, `JOIST 2022`, `LCT`, `prefix-suffix MST`, `|t-x|<w-x`
+  - desc: Continue the user's MST-merge-to-LCT derivation without overrunning the one-hint convention; cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
 - OI debugging, proofs, and training records: `P9013`, `CF455D`, `P17833`, `P4802`, `tree rerooting`, `oi-training/SKILL.md`
   - desc: Task-local counterexamples, complexity shields, prompt-assisted-AC boundaries, and one-hint teaching conventions.
 
