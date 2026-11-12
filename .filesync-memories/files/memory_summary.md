@@ -17,6 +17,7 @@ v1
 - For safe FileSync/Codex repair, “只修复工具不直接移动 .codex 文件”“不要推出 codex 进程” -> use isolated copies/read-only checks and leave live data/processes alone.
 - Do not default to retired `H:\我的移动硬盘`/its `CKK`, `Gemini`, or `Google AI Studio` paths; use connected Google Drive unless a current location is explicitly supplied. [ad-hoc note]
 - For Minecraft Java questions, answer in Chinese with a directly copyable command or a short operation sequence; name the dimension, edition/version, and conditions that affect the result.
+- For C++ “常数过大” reviews, inspect hot paths, memory layout, and access counts; mark code-derived optimizations as unverified until compiled, differential-tested, and benchmarked.
 
 ## General Tips
 
@@ -25,6 +26,7 @@ v1
 - For archive static analysis, decode per file; inspect effective code rather than comments/strings; write large scan evidence to files and assert final counts.
 - For version-sensitive Minecraft advice, identify vanilla versus Fabric/Carpet/Paper first and test a claimed plugin before calling it working.
 - For Java `/fill`, do not assume Overworld height limits when the user is in the Nether; confirm or label the dimension first.
+- For tree-doubling constant reductions, do not treat a narrower propagation condition (for example, only `fl`) or fewer dependency records as safe until direction flags and short segments pass differential tests.
 
 ## What's in Memory
 
@@ -38,17 +40,25 @@ v1
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
+#### 2026-11-11
+
+- Tree-doubling dynamic-update constant optimization: `N=5e5`, `M=20`, `query`, `update`, `add2`, `deque<edge> g`, `st`, `f1`, `f2`, `fl`
+  - desc: Candidate initialization/dependency optimizations for the supplied C++ tree code; use for profiling and safe optimization planning, not as an already-validated patch.
+  - learnings: `reg()` may replace initial `query(..., i)` contributions, but `fl`-only propagation and deleted dependencies need compile, differential, and benchmark evidence.
+
 #### 2026-11-10
 
 - ZR2-7 original-problem lookup and T2 `path.cpp`: `ZR2-7`, `QOJ 2617`, `Browsing the Collection`, `reverse BFS`, `successor DSU`, `1-indexed`, `bitmask`
   - desc: Four original-problem mappings plus the directly submit-ready T2 standard solution; search for path implementation or index-style guidance.
   - learnings: Items/arrays are 1-based, but masks remain `0..(1<<m)-1`; `sample0`--`sample5` passed with C++14 static build.
 
-#### 2026-11-09
+### C:\Users\605\Documents\Codex\2026-11-05\xian
 
-- P10787 tree orientation: `P10787`, `NOI2024`, `min(count,2)`, `s_i`, `倍增`, `订阅`, `二染色`
-  - desc: Segment-state maintenance, forced-orientation cascade, and the explicitly incomplete feasibility proof.
-  - learnings: `s_i=Σmin(c_B,2)` detects exactly one unoriented edge; contraction proof still needs a complete alternating-direction construction.
+#### 2026-11-11
+
+- Minecraft 26.3 dupe-like/non-raid emerald automation: `string duper`, `tripwire hook dupe`, `random_tick_speed`, `End portal sand duper`, `iron farm`, `toolsmith`
+  - desc: Distinguishes exploit-like continuous item production from routine farming; includes untested Paper route plus researched vanilla sand→glass→cartographer and iron→toolsmith alternatives.
+  - learnings: First establish vanilla/Fabric/Carpet/Paper; `random_tick_speed` does not restore duplication or accelerate villager restocks.
 
 ### Older Memory Topics
 
@@ -56,11 +66,6 @@ v1
 
 - CSP-S 2026 code-archive Markdown: `CSP-S 2026`, `freopen`, `Floyd ijk`, `GB18030`, `-fsyntax-only`, `GD-CSP-S-2026迷惑行为大赏.md`
   - desc: Evidence-checked contestant-sorted report workflow; cwd-specific output/counts are recorded in the dedicated handbook block.
-
-#### C:\Users\605\Documents\Codex\2026-11-05\xian
-
-- Minecraft 26.3 string-duper-like farm research: `string duper`, `tripwire hook duplication`, `random_tick_speed`, `Paper`, `StringDuperFix`
-  - desc: Distinguishes exploit-like item production from regular farms; candidate plugin was untested and version-sensitive.
 
 #### C:\Users\605\Documents\Codex\2026-11-04\cong / C:\Users\605\Documents\FileSync
 
