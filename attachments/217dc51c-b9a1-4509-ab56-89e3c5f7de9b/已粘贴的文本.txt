@@ -1,0 +1,240 @@
+首先观察到，对于值相同的位置，显然先减后加不优，所以必然前半部分是正的，后半部分是负的。
+
+然后可以发现，在前面减一个大的数然后在后面加一个小的数一定劣于在前面加一个大的并在后面减一个小的。也就是对于 $y > x$，第一个 $-y$ 必然出现在第一个 $-x$ 之后。
+
+接下来一个关键性质就是，当小于 $x$ 的数的符号固定之后，一定尽可能多的取 $-x$，取满一个最长后缀。
+
+这个要较为严谨地证明比较困难，看起来其他题解都没有给，下面附一个。
+
+::::info[证明]
+
+假设没有取满，必然存在一个大于 $x$ 的取负。那么设 $i$ 为 $x$ 中最后一个取正的位置，$j$ 为第一个 $> x$ 且取负的位置，设 $j$ 位置的值为 $y$。
+
+将 $i$ 改成负的，这会使得后面的前缀和降低。由于当前方案是最优方案，所以直接将 $i$ 改成负的会使方案不合法，也就是出现了前缀和为负的位置。记 $k$ 为此时第一个前缀和为负的位置。
+
+然后必然有 $j \le k$。假设不存在，我们定一个临时方案，其中小于 $x$ 的符号不变，等于 $x$ 的取满最长后缀，大于 $x$ 的取正。
+
+接着观察这个临时方案中 $[L, k]$ 的部分。值小于 $x$ 的部分符号不变，贡献相等。大于 $x$ 的部分全部取正，根据上面的假设贡献也相等。
+
+![](https://cdn.luogu.com.cn/upload/image_hosting/xqnituvy.webp)
+
+而值等于 $x$ 的时候，因为我们假设了没有取满最长后缀，所以两个方案符号不同时，必然当前方案为负临时方案为正。
+
+![](https://cdn.luogu.com.cn/upload/image_hosting/6r3rnmt6.webp)
+
+这样一来就有 $S_{cur}(k) > S_{tmp}(k)$，而 $tmp$ 合法则 $S_{tmp}(k) \ge 0$，这与 $k$ 的前缀和为负矛盾。所以必然存在一个大于 $x$ 的位置 $j$ 并且 $j \le k$。
+
+我们上面已经把 $i$ 的符号取负了，使得 $S_k$ 减少了 $2x$，接下来把 $j$ 的符号取正，发现由于 $j \le k$，这会使得 $S_k$ 增加 $2j$。这样 $S_k$ 以及之后的所有前缀和都总共增加了 $2(j - i) > 0$。所以当前操作是合法的。
+
+![](https://cdn.luogu.com.cn/upload/image_hosting/z4k9m5wv.webp)
+
+那么我们持续做这样的交换 $i, j$ 符号，直到不存在 $j \le k$，也就是 $i$ 不在这个最长前缀里面。这样我们就得到了一个取满最长前缀的方案。
+
+::::
+
+有了这个关键性质，我们就可以按值域从小到大贪心，每次二分正负分界点即可。
+
+至于二分如何 check，考虑先令所有 $x$ 为正，当前二分到 $p$，也就是从 $p$ 开始全部取负，那么对于每个 $p < t < R$，$S_t$ 都会减少 $cnt_x(p, t)\times 2x$。
+
+那么我们维护 $pre_x(i)$ 表示 $a_i \le x$ 取负、$a_i > x$ 取正的前缀和，并定 $lst$ 表示 $x - 1$ 的答案（如果 $x = 1$ 就取 $L - 1$）。这里 $a_i \le x$ 全部取负是因为我们用不上取正的部分于是干脆全部取负。
+
+那么这时判定条件就是对于前缀和最小的位置要非负，也就是 $S_{p - 1} = \min\limits_{p \le t \le R}pre_x(t) - pre_x(p - 1) \ge 0$。
+
+其中 $S_{p - 1}$ 可以由上一层的状态转移而来，也就是 $S_{p - 1} = preS_{lst} + pre_{x - 1}(p - 1) - pre_{x - 1}(lst)$。
+
+然后中间的区间最小值用 st 表简单维护一下即可。
+
+::::info[后来改的一个能过的代码]
+```cpp
+#include <bits/stdc++.h>
+#define endl '\n'
+
+using namespace std;
+
+using ll = long long;
+
+const ll N = 2e5 + 5, V = 100, M = V + 5, L = 25;
+
+int n, m, a[N], lst[N], cnt[N], ans[N], pre[2][N], sum[N], st[L][N];
+struct node
+{
+	int l, r;
+} b[N];
+
+ll query(int l, int r)
+{
+	int k = __lg(r - l + 1);
+	return min(st[k][l], st[k][r - (1 << k) + 1]);
+}
+
+void init() {}
+
+void solve()
+{
+	cin >> n;
+	for (int i = 1; i <= n; ++i)
+	{
+		cin >> a[i];
+		pre[0][i] = pre[0][i - 1] + a[i];
+	}
+	cin >> m;
+	for (int i = 1; i <= m; ++i)
+		cin >> b[i].l >> b[i].r, lst[i] = b[i].l - 1;
+	for (int x = 1; x <= V; ++x)
+	{
+		for (int i = 1; i <= n; ++i)
+		{
+			st[0][i] = pre[x & 1][i] = pre[x & 1][i - 1] + (a[i] <= x ? -a[i] : a[i]);
+			cnt[i] = cnt[i - 1] + (a[i] == x);
+		}
+		if (!cnt[n])
+			continue;
+		for (int j = 1; j <= __lg(n); ++j)
+		{
+			for (int i = 1; i + (1 << j) - 1 <= n; ++i)
+				st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))]);
+		}
+		for (int i = 1, res; i <= m; ++i)
+		{
+			if (cnt[b[i].r] == cnt[lst[i]])
+				continue;
+			res = b[i].r + 1;
+			for (int l = lst[i] + 1, r = b[i].r, mid; l <= r;)
+			{
+				mid = (l + r) >> 1;
+				if (sum[i] + pre[x & 1 ^ 1][mid - 1] - pre[x & 1 ^ 1][lst[i]] + query(mid, b[i].r) - pre[x & 1][mid - 1] >= 0)
+				{
+					res = mid;
+					r = mid - 1;
+				}
+				else
+					l = mid + 1;
+			}
+			sum[i] += pre[x & 1 ^ 1][res - 1] - pre[x & 1 ^ 1][lst[i]];
+			lst[i] = res - 1;
+			ans[i] += cnt[b[i].r] - cnt[lst[i]];
+		}
+	}
+	for (int i = 1; i <= m; ++i)
+		cout << ans[i] << endl;
+}
+
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	cout.tie(nullptr);
+	int _ = 1;
+	// cin >> _;
+	init();
+	while (_--)
+		solve();
+	return 0;
+}
+```
+::::
+
+---
+
+终于到最激动人心的环节：怎么去掉这个 $\log n$。
+
+首先发现这个二分是可以去掉的。我们先假设全部取负，然后我们算出最小的前缀和 $minn$。如果 $minn < 0$，需要改成正的个数恰好是 $h = \lceil \frac{-minn}{2x} \rceil$。
+
+下界是需要改 $h$ 个非常好理解。而为什么能取到这个下界，我们将最靠左的 $h$ 个全部改成正的即可。此时前 $h$ 个一定合法，而后面的由于已经增加了 $2xh$，也一定合法。因此恰好需要改 $h$ 个。
+
+然后我们记录每个元素出现位置，直接向后跳 $h$ 个位置即可。
+
+另外还有 st 表的 $NV\log N$。对于这个我们考虑按段建表。假设 $x$ 的出现位置分别为 $p_1, p_2, \cdots, p_{t_x}$。那么查询就是从某个 $p_l$ 开始到 $R$。
+
+记最后一个出现位置为 $p_r$，将这个查询分成 $[p_l, p_{l + 1} - 1], [p_{l + 1}, p_{l + 2} - 1]\cdots, [p_r, R]$ 这几个段。然后 st 表的每个位置维护 $[p_i, p_{i + 1} - 1]$ 这样一个段，$[p_r, R]$ 单独维护序列中每个位置到所在段左端点的值 $low_R$。这样 st 表总长度就是 $\sum t_x = N$，总复杂度就是 $O(N \log N)$，于是我们就成功消掉了 $V$。
+
+不卡常的情况下能达到 690ms。比别的快一大截。
+
+::::info[code]
+#include <bits/stdc++.h>
+#define endl '\n'
+
+using namespace std;
+
+using ll = long long;
+
+const ll N = 2e5 + 5, V = 100, M = V + 5, L = 25;
+
+int n, m, a[N], num[M], lst[N], cnt[N], ans[N], pre[N], sum[N], pos[N], minn[N], st[L][N];
+struct node
+{
+	int l, r;
+} b[N];
+
+int query(int l, int r)
+{
+	int k = __lg(r - l + 1);
+	return min(st[k][l], st[k][r - (1 << k) + 1]);
+}
+
+void init() {}
+
+void solve()
+{
+	cin >> n;
+	for (int i = 1; i <= n; ++i)
+		cin >> a[i], ++num[a[i]];
+	cin >> m;
+	for (int i = 1; i <= m; ++i)
+		cin >> b[i].l >> b[i].r, lst[i] = b[i].l - 1;
+	for (int x = 1, tot; x <= V; ++x)
+	{
+		if (!num[x])
+			continue;
+		tot = 0;
+		for (int i = 1; i <= n; ++i)
+		{
+			pre[i] = pre[i - 1] + (a[i] <= x ? -a[i] : a[i]);
+			if (a[i] == x)
+				pos[++tot] = i, minn[i] = pre[i];
+			else
+				minn[i] = min(minn[i - 1], pre[i]);
+			cnt[i] = tot;
+		}
+		for (int i = 1; i < tot; ++i)
+			st[0][i] = minn[pos[i + 1] - 1];
+		for (int j = 1; (1 << j) < tot; ++j)
+		{
+			for (int i = 1; i + (1 << j) <= tot; ++i)
+				st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))]);
+		}
+		for (int i = 1, l, r, res, s, k; i <= m; ++i)
+		{
+			l = cnt[lst[i]] + 1, r = cnt[b[i].r];
+			if (l > r)
+				continue;
+			res = minn[b[i].r];
+			if (l < r)
+				res = min(res, query(l, r - 1));
+			s = sum[i] - pre[lst[i]], k = 0;
+			if (s + res < 0)
+			{
+				k = (-s - res + 2 * x - 1) / (2 * x);
+				lst[i] = pos[l + k - 1];
+				sum[i] = s + pre[lst[i]] + 2 * x * k;
+			}
+			ans[i] += r - l + 1 - k;
+		}
+	}
+	for (int i = 1; i <= m; ++i)
+		cout << ans[i] << endl;
+}
+
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	cout.tie(nullptr);
+	int _ = 1;
+	// cin >> _;
+	init();
+	while (_--)
+		solve();
+	return 0;
+}
+::::

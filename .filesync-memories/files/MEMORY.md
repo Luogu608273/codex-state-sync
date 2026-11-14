@@ -1,66 +1,78 @@
-# Task Group: Minecraft Java commands and mechanics
+# Task Group: PCL Minecraft 26.3 Fabric repair and modded gameplay questions
 
-scope: Give concise, directly usable Java-edition commands and mechanics answers while stating version, dimension, and conditions that change the result.
-applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Reuse commands and response style for Minecraft Java questions; recheck version-sensitive mechanics and do not apply Java details to Bedrock or modded/server-specific setups.
+scope: Repair the actual PCL-selected Fabric profile through local configuration, then answer version-specific 26.3 mod compatibility and diamond-acquisition questions.
+applies_to: cwd=D:\PCL 正式版 2.12.7.3; reuse_rule=Reuse the profile/caching checks only for this PCL layout or after confirming an equivalent structure; recheck mod metadata and Minecraft version-specific loot/mechanics.
 
-## Task 1: Clear Nether lava near the player with `/fill`
-
-### rollout_summary_files
-
-- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T08-15-53-01a1c331-0b45-7523-b01a-f24a04cbec48_01a1cd1c-6a6a-7c23-b25c-b2bd591b1b75.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: Nether lava command supplied)
-
-### keywords
-
-- Minecraft Java, Nether, `/fill`, minecraft:lava, minecraft:air, Y=0, Y=255, fill limit
-
-## Task 2: Give the ordinary drowned lethal-fall estimate
+## Task 1: Repair the PCL 26.3 instance so it launches Fabric Loader 0.20.1
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T08-15-53-01a1c331-0b45-7523-b01a-f24a04cbec48_01a1cd1c-6a6a-7c23-b25c-b2bd591b1b75.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: qualified Java estimate)
+- rollout_summaries/2026-11-10T02-02-13-rEKc-repair_pcl_fabric_26_3_and_minecraft_diamond_options.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T14-38-07-01a1c331-0b45-7523-b01a-f24a04cbec48_01a1ce7a-5a13-71b2-85d4-059d052fcb37.jsonl, updated_at=2026-11-13T00:08:59+00:00, success: static Fabric/profile/dependency validation passed)
 
 ### keywords
 
-- drowned, fall damage, 23 blocks, generic.safe_fall_distance, 20 health, Java Edition, stone
+- PCL, Minecraft 26.3, Fabric 0.20.1, KnotClient, 26.3.json, InstallManifest, InstanceCache, Jade
 
-## Task 3: Remove a boat leashed to a Happy Ghast
+## Task 2: Decide whether Colorful Anvils needs a server installation
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T08-15-53-01a1c331-0b45-7523-b01a-f24a04cbec48_01a1cd1c-6a6a-7c23-b25c-b2bd591b1b75.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: corrected to scissors/leash operation)
+- rollout_summaries/2026-11-10T02-02-13-rEKc-repair_pcl_fabric_26_3_and_minecraft_diamond_options.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T14-38-07-01a1c331-0b45-7523-b01a-f24a04cbec48_01a1ce7a-5a13-71b2-85d4-059d052fcb37.jsonl, updated_at=2026-11-13T00:08:59+00:00, success: Modrinth side requirements checked)
 
 ### keywords
 
-- Happy Ghast, leash, scissors, boat, chest boat, Java 1.21.6, Chase the Skies
+- Colorful Anvils, colorful-anvils-unoffical-port, Modrinth, client_side=required, server_side=required, Fabric
 
-## Task 4: Clear nearby dropped items
+## Task 3: Find a practical vanilla 26.3 source of diamond items
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-10T02-02-13-rEKc-minecraft_java_commands_and_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T08-15-53-01a1c331-0b45-7523-b01a-f24a04cbec48_01a1cd1c-6a6a-7c23-b25c-b2bd591b1b75.jsonl, updated_at=2026-11-11T01:20:55+00:00, success: scoped item selector supplied)
+- rollout_summaries/2026-11-10T02-02-13-rEKc-repair_pcl_fabric_26_3_and_minecraft_diamond_options.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T14-38-07-01a1c331-0b45-7523-b01a-f24a04cbec48_01a1ce7a-5a13-71b2-85d4-059d052fcb37.jsonl, updated_at=2026-11-13T00:08:59+00:00, success: local loot tables and vault constraint checked)
 
 ### keywords
 
-- `/kill`, @e, type=minecraft:item, distance=..10, dropped items, entity selector
+- diamonds, Y=-58, branch mining, TNT tunnel bore, Fortune III, trial vault, ominous vault, 128 players
 
 ## User preferences
 
-- when asking Java command/mechanics questions, the user favors Chinese, short, directly copyable commands; state the operative version, dimension, and conditions rather than expanding into generic background. [Task 1][Task 2]
-- when the user says “fill 的上限可以调，我已经调过了” -> do not repeat the default block-modification-limit warning; give the target command. [Task 1]
-- when asking how to operate an entity mechanic, give “准备物品 + 对准对象 + 操作” steps first. [Task 3]
+- when repairing Windows/PCL configuration, the user said “不要使用 Computer Use，使用命令行解决问题” -> use the command line rather than GUI automation. [Task 1]
+- when the user said “不用启动，修好了告诉我” -> complete static configuration, dependency, and file validation without launching the game unless requested. [Task 1]
 
 ## Reusable knowledge
 
-- Nether full-height lava replacement around the executor, horizontal ±100: `/fill ~-100 0 ~-100 ~100 255 ~100 minecraft:air replace minecraft:lava`; `replace minecraft:lava` leaves other blocks untouched. [Task 1]
-- A full-health ordinary Java drowned landing on an ordinary solid block dies from about 23 blocks of vertical fall; this assumes no water, hay/honey, equipment, effects, or altered attributes. `generic.safe_fall_distance` is 3.0 and ordinary drowned health is 20. [Task 2]
-- To detach a boat from a Happy Ghast, use scissors to cut the leash; have any rider dismount first. [Task 3]
-- Clear item entities within 10 blocks of the command executor: `/kill @e[type=minecraft:item,distance=..10]`; it does not target mobs or players. [Task 4]
+- PCL actually launches the instance-root `26.3.json`: Fabric is enabled only when that file contains Fabric libraries/arguments and `mainClass=net.fabricmc.loader.impl.launch.knot.KnotClient`; an extra internal `versions\\fabric-loader-0.20.1-26.3` profile alone is insufficient. [Task 1]
+- Set `PCL\\config.json` `MinecraftInstallManifest.Components.ModLoaderVersions.Fabric` to the loader version and clear `.minecraft\\PCL.ini` `InstanceCache` after a version-profile repair. The validated repair also checked seven official Fabric libraries, the KnotClient entry, the Mojang client hash, manifest, cache invalidation, and nine enabled mods' required dependencies. [Task 1]
+- `colorful-anvils-unoffical-port` is marked `client_side=required` and `server_side=required`: install it on both sides for multiplayer; a single-player world has its embedded server locally. [Task 2]
+- Vanilla single-player/small servers have no practical stationary diamond-item farm. Batch acquisition is Y=-58 branch mining or a TNT tunnel bore with Fortune III. Trial-chamber vaults can yield diamonds, but a vault records its most recent 128 distinct players, so one player cannot repeatedly key-farm it for production. [Task 3]
 
 ## Failures and how to do differently
 
-- Symptom: a `/fill` command covers the wrong vertical world range -> cause: using Overworld heights before establishing the dimension -> confirm or label the dimension first. [Task 1]
-- Symptom: a fall-distance or entity-mechanic answer sounds universal -> cause: Java/Bedrock/version conditions were omitted -> name Java edition/version and decisive conditions. [Task 2][Task 3]
-- Symptom: saying to right-click the boat as the primary Happy Ghast fix -> cause: the evidence supported cutting the leash with scissors -> lead with scissors, then rider constraints. [Task 3]
+- Symptom: Fabric files exist but PCL still starts vanilla -> cause: only the nested loader profile was checked -> inspect the root version JSON, its `mainClass`, and PCL install manifest; invalidate `InstanceCache`. [Task 1]
+- Symptom: a repair validation starts Minecraft without consent -> cause: treating launch testing as mandatory -> honor “不用启动”; report the exact static checks completed and their boundary. [Task 1]
+- Symptom: trial-vault rewards are presented as solo diamond automation -> cause: omitting the 128-distinct-player history constraint -> distinguish loot availability from a practical repeatable farm. [Task 3]
+
+# Task Group: MAA OI Assistant two-dimensional prefix-sum DP optimization
+
+scope: Reduce string-DP transitions that sum the strict upper-left rectangle from quartic to quadratic time.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant; reuse_rule=Reuse for states with a `p<i,q<j` rectangle sum after confirming the same state semantics and boundary indexing.
+
+## Task 1: Optimize `f[i,j]` with a two-dimensional prefix sum
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-12T01-14-30-wY1s-dp_2d_prefix_sum_optimization.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T11-17-40-01a1cd52-11df-7c23-9e5f-562e210e3e9a_01a1cdc2-d6be-7f82-b291-f58e2e939b6e.jsonl, updated_at=2026-11-12T03:26:20+00:00, success: O(n^4) transition reduced to O(n^2))
+
+### keywords
+
+- DP, 二维前缀和, prefix sum, f[i,j], g[i,j], S_i=S_j, O(n^2), p<i, q<j
+
+## Reusable knowledge
+
+- For `f[i,j] = 1 + sum_{p<i,q<j} f[p,q]` when `S_i=S_j`, define `g[i,j]=sum_{p<=i,q<=j}f[p,q]`: then `f[i,j]=1+g[i-1,j-1]`; otherwise it is `0`. Update `g` by inclusion-exclusion, `g[i,j]=f[i,j]+g[i,j-1]+g[i-1,j]-g[i-1,j-1]`, with row/column 0 set to 0. The answer is `g[n,n]`. [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: the equal-character condition is implemented as `i=j` -> cause: confusing matching symbols with matching indices -> compare `S_i` and `S_j`; `S=00` has a valid `f[1,2]` counterexample. [Task 1]
 
 # Task Group: CSP-S 2026 submission archive analysis and Markdown reporting
 
@@ -198,15 +210,35 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - ZR2-7, path, Browsing the Collection, QOJ 2617, reverse BFS, successor DSU, 1-indexed, bitmask, path.cpp, path.in, path.out
 
-## Task 24: Optimize constants in tree-doubling dynamic-update C++ code
+## Task 26: Verify an exchange argument for arbitrary `x` and its claimed complexity
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-09T07-45-17-F3CH-cpp_tree_dp_constant_optimization.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\11\rollout-2026-11-11T16-18-59-01a1bf44-c3e4-7e62-89d8-badd9f1dbb63_01a1c9b0-58cf-7460-8d1c-33b9e36f7af6.jsonl, updated_at=2026-11-11T08:19:42+00:00, partial: candidate optimizations were not compiled, tested, or benchmarked)
+- rollout_summaries/2026-11-12T09-12-56-Pij3-exchange_proof_for_arbitrary_x.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T17-46-19-01a1cf08-1769-7dc3-8e99-cadee2329a4d_01a1cf26-a62e-7d71-a8be-9c7ae0f8db78.jsonl, updated_at=2026-11-12T09:46:50+00:00, partial: counterexample and proof gap identified)
 
 ### keywords
 
-- C++, 常数优化, tree doubling, update, query, add2, deque, st, f1, f2, fl, performance
+- exchange argument, prefix sums, longest suffix, binary search, O(QV log N), counterexample, `(2,1,2)`, `i<j`
+
+## Task 24: Optimize constants in P10787 tree-orientation doubling maintenance
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-09T07-45-17-F3CH-p10787_tree_orientation_constant_optimization_and_training_r.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\11\rollout-2026-11-11T16-18-59-01a1bf44-c3e4-7e62-89d8-badd9f1dbb63_01a1c9b0-58cf-7460-8d1c-33b9e36f7af6.jsonl, updated_at=2026-11-12T09:12:53+00:00, user-reported AC; optimization candidates remain unverified)
+
+### keywords
+
+- P10787, 树的定向, C++, 常数优化, tree doubling, LCA, update, query, add2, deque, st, f1, f2, fl, bfs, 训练记录
+
+## Task 27: Record P10787《树的定向》as user-reported AC
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-09T07-45-17-F3CH-p10787_tree_orientation_constant_optimization_and_training_r.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\11\rollout-2026-11-11T16-18-59-01a1bf44-c3e4-7e62-89d8-badd9f1dbb63_01a1c9b0-58cf-7460-8d1c-33b9e36f7af6.jsonl, updated_at=2026-11-12T09:12:53+00:00, `git diff --check` and record-presence checks passed; online record not read)
+
+### keywords
+
+- P10787, 树的定向, `outputs/训练记录.md`, `outputs/训练档案.md`, `outputs/复盘/2026-11-12-P10787-树的定向.md`, 用户反馈 AC, 提示后完成, 未独立重做
 
 ## Task 25: Guide P9531 from prefix/suffix MST merging toward LCT
 
@@ -440,6 +472,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - when the user asked “改成 1-indexed” then clarified “位掩码不用 1-indexed，下标要 1-indexed” -> keep ordinary bitmask mathematics 0-based (`0..(1<<m)-1`, `1 << (j-1)`), while making entity, array, queue, and DSU positions 1-based. [Task 23]
 - when teaching an OI problem from the user's own derivation, continue interactively: P9531 evidence favors preserving their invariants and asking one next question rather than jumping to a complete LCT/proof/code solution. [Task 25]
 - when the user provides complete C++ and says “常数过大，有没有推荐的常数优化” -> investigate actual hot paths, memory layout, and access counts before generic compiler advice; identify unverified proposals as such. [Task 24]
+- when the user presents a proof draft for a generalized exchange argument -> verify the exchange's effect on every prefix interval and the actual cost of each binary-search predicate, rather than accepting a claimed monotonicity or complexity bound. [Task 26]
 - when the user says "如果在调试代码时发现做法不正确，报告做法不正确，然后停止调试" -> once the algorithm/approach is confirmed wrong, state the specific reason or counterexample and stop: do not modify code, switch approaches, or provide a complete revision. This overrides the earlier complete-code debug rule. [Task 1]
 - for four-file `[debug]` work, the user required "中文回答、最小幅度修改、不改思路、指出每处实质错误并给出完整修正版" -> preserve the original algorithmic direction and coding style, but fix correctness, bounds, and asymptotic failures with concrete counterexamples. [Task 13]
 - when the user asks ".in 和 .exe 不要放到 Codex 文件夹里面，放到 文档/Output" -> create generated inputs and executables under `C:\Users\605\Documents\Output` (with task subdirectories), never under the Codex tree. [Task 12]
@@ -462,8 +495,10 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 ## Reusable knowledge
 
 - ZR2-7 originals: T1 = Codeforces 1156C Match Points; T2 = QOJ #2617 Browsing the Collection; T3 = QOJ #10170 Data Structures Master; T4 = QOJ #7976 最后的晚餐. T2's checked solution is `C:\Users\605\Downloads\1110\path\path.cpp`: per-terminal reverse multi-source BFS over `(item, mask)`, with successor DSU to skip visited interval states; default `path.in/path.out`, `LOCAL` for stdio. `sample0` through `sample5` matched after `-std=c++14 -O2 -static`. [Task 23]
-- For the `N=5e5+5`, `M=20` tree-doubling code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. Confirm `st[x][k].fl` semantics first. [Task 24]
-- Candidate structural savings: assess whether `build()`'s `add2(e[i].v, k-1, e[i].v)` dependency can instead be updated through a parent `k+1` segment, and whether `deque<edge> g` is a cache/memory bottleneck. Profile `st`/`g` locality, bit-operation calls, input scale, and compiler flags before declaring a win. [Task 24]
+- P10787 splits a restricted path into doubling segments with states 0/1/at-least-2 unoriented edges; segment-state changes follow reverse references and decrement `s_i = Σ min(c_B, 2)`, with count 1 queued for direction resolution. The LCA sides determine orientation; a contracted-tree two-coloring proves the next greedy bit may remain 0 after forced propagation. [Task 27]
+- For the P10787 `N=5e5+5`, `M=20` code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. `build()` may compute the same-start parent `k+1` segment directly after `st[x][k]`, removing `add2(e[i].v, k-1, e[i].v)` while retaining upper-segment multi-parent references. [Task 24]
+- The `old.fl == cur.fl` early return is only justified because `bfs()` queries a constraint at `s[i] == 1`; then a segment has at most one remaining unoriented edge. It is not a general replacement for propagating `f1/f2`. [Task 24]
+- In an exchange proof, split on the last positive `x` at `i` and first negative value greater than `x` at `j`: `j<i` is prefix-safe, but for `i<j` only prefixes in `[i,j-1]` can decline. Use the “first” property and the longest-feasible-suffix temporary plan to bound that interval. `O(QV log N)` binary-search calls yield that time only if each decision is O(1). [Task 26]
 - P9531 has `N≤500, M≤100000, Q≤1000000`; per-query O(n) merging is the bottleneck. For a fixed edge `e=(u,v,w)` and `x≤w`, use Kruskal's strict-smaller-cost connectivity criterion and first solve `|t-x|<w-x` to turn edge selection into an x-interval question. [Task 25]
 - The actual project rule file for this task was `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`, not the similarly named rollout cwd with `!`; verify the real path before editing. [Task 1]
 - `.in` and `.exe` belong in `C:/Users/605/Documents/Output`, not `C:/Users/605/Documents/Codex`; the completed 2026-10-29 migration placed 303 files at `Documents/Output/Codex`, retained relative paths, and recorded SHA-256 results in `文件迁移清单-2026-10-29-399d3501.csv`. [Task 12]
@@ -496,7 +531,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 ## Failures and how to do differently
 
 - Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
-- Symptom: a proposed speedup only compares `fl` or drops dependency records -> cause: `f1/f2` updates may still affect later `bfs()` decisions -> preserve the original implementation, differential-test direction-flag changes, length-1/2 segments, and final-edge orientation before applying. Compile and benchmark as well; these proposals were not tested. [Task 24]
+- Symptom: treating P10787 candidate speedups as a confirmed patch -> cause: neither the C++ change nor benchmarks were run, and `f1/f2` or parent-order updates may still matter -> preserve the original, differential-test `fl/f1/f2`, parent ordering, length-1/2 segments, and final-edge orientation, then compile and benchmark. User-reported AC does not confirm which optimization was used. [Task 24][Task 27]
+- Symptom: an exchange proof says all prefix sums are nondecreasing after swapping -> cause: `i<j` can lower the middle interval; `(2,1,2)` changes `(+2,+1,-2)` to `(+2,-1,+2)`, lowering the second prefix 3 to 1 -> prove the `[i,j-1]` case separately. Do not equate binary-search count with total complexity without an O(1) predicate. [Task 26]
 - P9531 teaching stopped after the first interval hint and has no user confirmation, LCT model, proof, complexity, or implementation validation; wait for the user's inequality/connectedness response, then supply only one additional observation. [Task 25]
 - Similar directory names can point to the wrong target: reading `MAA OI Assistant!\AGENTS.md` failed because the actual file was under `MAA OI Assistant`; use `Get-ChildItem` or `rg --files -g AGENTS.md` before writing. [Task 1]
 - During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
@@ -530,11 +566,11 @@ applies_to: workflow=deliverables and cloud storage; reuse_rule=Apply until the 
 
 ### keywords
 
-- H:\\我的移动硬盘, CKK, Gemini, Google AI Studio, Google Drive, 本地同步路径, 交付目录
+- H:\\我的云端硬盘, CKK, Gemini, Google AI Studio, Google Drive, 本地同步路径, 交付目录
 
 ## User preferences
 
-- when selecting a delivery location, the user explicitly retired `H:\\我的移动硬盘` and its `CKK`, `Gemini`, and `Google AI Studio` directories as current local sync paths -> do not default to, seek, or request access to that movable-disk mount; use connected Google Drive for delivery unless the user specifies a current destination. [Task 1]
+- when selecting a delivery location, the user explicitly retired `H:\\我的云端硬盘` and its `CKK`, `Gemini`, and `Google AI Studio` directories as current local sync paths -> do not default to, seek, or request access to that local mount; use connected Google Drive for delivery unless the user specifies a current destination. [Task 1]
 
 ## Reusable knowledge
 
@@ -542,7 +578,7 @@ applies_to: workflow=deliverables and cloud storage; reuse_rule=Apply until the 
 
 ## Failures and how to do differently
 
-- Symptom: a delivery workflow proposes or searches `H:\\我的移动硬盘` as a default -> cause: stale historical sync-path guidance -> pivot to connected Google Drive or ask for an explicitly current destination. [Task 1]
+- Symptom: a delivery workflow proposes or searches `H:\\我的云端硬盘` as a default -> cause: stale historical sync-path guidance -> pivot to connected Google Drive or ask for an explicitly current destination. [Task 1]
 
 # Task Group: MuMu virtrite 2 Windows transparency utility
 
