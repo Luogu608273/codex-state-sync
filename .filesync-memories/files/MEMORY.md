@@ -1,3 +1,32 @@
+# Task Group: Windows high-memory diagnosis: PcaSvc process-object handles
+
+scope: Diagnose Windows 10 memory pressure that remains after logout, especially suspected system-service handle retention; requires administrator verification before assigning root cause.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-13\d-2; reuse_rule=Reuse the measurement and before/after procedure on Windows, but treat all counts, PIDs, and service state as transient.
+
+## Task 1: Diagnose high Windows memory usage; identify PcaSvc as a strong but unconfirmed lead
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-13T02-13-58-uXkE-windows_memory_pcasvc_process_handle_leak.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-13\d-2, rollout_path=C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl, updated_at=2026-11-13T02:16:35+00:00, partial: administrator restart comparison not performed)
+
+### keywords
+
+- Windows 10, PcaSvc, Program Compatibility Assistant, process objects, handle leak, nonpaged pool, RAMMap, Restart-Service, PowerShell
+
+## User preferences
+
+- when the user said “进行过注销但是没有效果” -> distinguish user-session memory from system-service/kernel resources; do not repeat logout or app-closing advice. [Task 1]
+
+## Reusable knowledge
+
+- The observed machine had 16104 MiB physical memory with only 394–861 MiB available; process private resident memory was about 5.25 GiB, so Task Manager process totals did not explain the pressure. PcaSvc (PID 10224) held about 51,842 distinct process objects / 53,082 handles while only about 287 processes were running; nonpaged pool was about 1.56 GiB and `Proc` about 165 MiB. This is a strong handle-retention lead, not proof of the reclaimed-RAM amount. [Task 1]
+- In an elevated PowerShell, snapshot available memory, process-object count, and PcaSvc handles; run `Restart-Service PcaSvc -ErrorAction Stop`, wait 5 seconds, then take the same snapshot. Object count falling from about 52,000 to hundreds with clear available-memory recovery confirms material contribution; if objects fall but memory does not, continue via RAMMap Use Counts/Processes/Driver Locked and pool tags. [Task 1]
+- Logout does not necessarily release kernel objects held by a system service. [Task 1]
+
+## Failures and how to do differently
+
+- The diagnostic session lacked elevation, so `Restart-Service PcaSvc` and its before/after validation did not run. Do not present PcaSvc as the confirmed root cause or equate 51,842 objects with equal RAM consumption. [Task 1]
+
 # Task Group: PCL Minecraft 26.3 Fabric repair and modded gameplay questions
 
 scope: Repair the actual PCL-selected Fabric profile through local configuration, then answer version-specific 26.3 mod compatibility and diamond-acquisition questions.
@@ -210,15 +239,35 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - ZR2-7, path, Browsing the Collection, QOJ 2617, reverse BFS, successor DSU, 1-indexed, bitmask, path.cpp, path.in, path.out
 
-## Task 26: Verify an exchange argument for arbitrary `x` and its claimed complexity
+## Task 26: Debug and optimize P11994/Uiro value-greedy ST-table solution
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-12T09-12-56-Pij3-exchange_proof_for_arbitrary_x.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\12\rollout-2026-11-12T17-46-19-01a1cf08-1769-7dc3-8e99-cadee2329a4d_01a1cf26-a62e-7d71-a8be-9c7ae0f8db78.jsonl, updated_at=2026-11-12T09:46:50+00:00, partial: counterexample and proof gap identified)
+- rollout_summaries/2026-11-12T09-12-56-Pij3-p11994_uiro_st_rmq_optimization.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T17-15-32-01a1cf08-1769-7dc3-8e99-cadee2329a4d_01a1d430-d3a3-7423-8a2c-22a59cd68737.jsonl, updated_at=2026-11-13T12:33:49+00:00, brute-force and full-scale local performance validated)
 
 ### keywords
 
-- exchange argument, prefix sums, longest suffix, binary search, O(QV log N), counterexample, `(2,1,2)`, `i<j`
+- P11994, Uiro, JOI, ST table, RMQ, low, lst, sum, binary search, TLE, O(NV+QV+NlogN)
+
+## Task 28: Debug, verify, and archive P14347 [JOISC 2019] Lamps three-state DP
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-13T00-42-22-KQ0H-p14347_joisc_2019_lamps_three_state_dp_debug_and_archive.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T09-05-29-01a1d25b-0290-70d0-8681-4c5bc5f3638b_01a1d270-2f83-7cd0-9cef-cd9233db3a5e.jsonl, updated_at=2026-11-13T02:59:12+00:00, user-reported prompt-assisted AC; records updated)
+
+### keywords
+
+- P14347, JOISC 2019, Lamps, 灯, nung, three-state DP, interval assignment, interval XOR, rolling array, 0-to-1
+
+## Task 29: Debug P17834 tree-radius WA and produce a faster local implementation
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-13T08-31-15-Zf8U-p17834_debug_wa_and_optimize_tle.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T16-50-58-01a1d408-4abc-71e1-bee6-47382f8c93cc_01a1d41a-5832-78d1-b5f8-9129ca0e8421.jsonl, updated_at=2026-11-13T09:19:23+00:00, compiled/differential/performance tested; not online-submitted)
+
+### keywords
+
+- P17834, hub, tree radius, binary search, leaf peeling, degree-2 chain, difference array, XOR adjacency, fread, TLE, WA
 
 ## Task 24: Optimize constants in P10787 tree-orientation doubling maintenance
 
@@ -472,7 +521,9 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - when the user asked “改成 1-indexed” then clarified “位掩码不用 1-indexed，下标要 1-indexed” -> keep ordinary bitmask mathematics 0-based (`0..(1<<m)-1`, `1 << (j-1)`), while making entity, array, queue, and DSU positions 1-based. [Task 23]
 - when teaching an OI problem from the user's own derivation, continue interactively: P9531 evidence favors preserving their invariants and asking one next question rather than jumping to a complete LCT/proof/code solution. [Task 25]
 - when the user provides complete C++ and says “常数过大，有没有推荐的常数优化” -> investigate actual hot paths, memory layout, and access counts before generic compiler advice; identify unverified proposals as such. [Task 24]
-- when the user presents a proof draft for a generalized exchange argument -> verify the exchange's effect on every prefix interval and the actual cost of each binary-search predicate, rather than accepting a claimed monotonicity or complexity bound. [Task 26]
+- when the user posts complete code and asks “给完整代码” while also asking “low 是什么，st 表是对着段建的吗” -> preserve the current value-enumeration framework, provide a directly replaceable complete implementation, then define `pre`/`low`/`pos`/segments before explaining the RMQ and complexity. [Task 26]
+- when the user says “过了，原题是 P14347，你总结记录到原题题号” -> archive under the confirmed formal problem number as well as the training name; mark it “提示后 AC/提示后完成” rather than independent mastery. [Task 28]
+- when the user supplies a WA implementation or says “TLE 了，有什么卡常建议吗 给完整代码” -> first produce a smallest concrete counterexample and minimal boundary fix; for performance, retain the verified algorithm and give the complete replacement rather than generic tips. [Task 29]
 - when the user says "如果在调试代码时发现做法不正确，报告做法不正确，然后停止调试" -> once the algorithm/approach is confirmed wrong, state the specific reason or counterexample and stop: do not modify code, switch approaches, or provide a complete revision. This overrides the earlier complete-code debug rule. [Task 1]
 - for four-file `[debug]` work, the user required "中文回答、最小幅度修改、不改思路、指出每处实质错误并给出完整修正版" -> preserve the original algorithmic direction and coding style, but fix correctness, bounds, and asymptotic failures with concrete counterexamples. [Task 13]
 - when the user asks ".in 和 .exe 不要放到 Codex 文件夹里面，放到 文档/Output" -> create generated inputs and executables under `C:\Users\605\Documents\Output` (with task subdirectories), never under the Codex tree. [Task 12]
@@ -498,7 +549,10 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P10787 splits a restricted path into doubling segments with states 0/1/at-least-2 unoriented edges; segment-state changes follow reverse references and decrement `s_i = Σ min(c_B, 2)`, with count 1 queued for direction resolution. The LCA sides determine orientation; a contracted-tree two-coloring proves the next greedy bit may remain 0 after forced propagation. [Task 27]
 - For the P10787 `N=5e5+5`, `M=20` code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. `build()` may compute the same-start parent `k+1` segment directly after `st[x][k]`, removing `add2(e[i].v, k-1, e[i].v)` while retaining upper-segment multi-parent references. [Task 24]
 - The `old.fl == cur.fl` early return is only justified because `bfs()` queries a constraint at `s[i] == 1`; then a segment has at most one remaining unoriented edge. It is not a general replacement for propagating `f1/f2`. [Task 24]
-- In an exchange proof, split on the last positive `x` at `i` and first negative value greater than `x` at `j`: `j<i` is prefix-safe, but for `i<j` only prefixes in `[i,j-1]` can decline. Use the “first” property and the longest-feasible-suffix temporary plan to bound that interval. `O(QV log N)` binary-search calls yield that time only if each decision is O(1). [Task 26]
+- P11994/Uiro: for the repaired per-query binary-search version, `lst[i]` is the already determined prefix's right endpoint, initially `L-1`; `sum[i]` is indexed by query; initialize every `res=R+1`; update `sum` using the old `lst` before assigning `lst=res-1`; and precompute `pre[0]`. This version matched brute DP on 18,554 queries and ran a full random scale in about 2.17s. [Task 26]
+- To remove P11994's inner binary search, for fixed `x` let `low[i]` be the minimum `pre` from the current `x`-start segment to `i`, reset at `a[i]==x`; build ST on complete segment minima `low[pos[j+1]-1]`, read the right partial segment from `low[R]`, and compute `h=max(0,ceil(-mn/(2x)))` to select directly via `pos`. Thus scanning contributes `O(NV)`, queries `O(QV)`, and all segment ST tables `O(N log N)`. The optimized implementation agreed with 83,736 small intervals and benchmarked about 0.250s versus 9.448s baseline. [Task 26]
+- P14347: put assignments before XOR; DP states `0/1/2` mean assign 0/assign 1/retain. A transition starts an assignment when `t!=2 && t!=s`, and starts an XOR interval on `0→1` in `d=c xor b`. Initialize only `f[0][2]=0`, roll as current `p=i&1` / previous `p^1`, and answer at `f[n&1]`. The sample set and four extra cases passed; the record is user-reported prompt-assisted AC. [Task 28]
+- P17834 `check(x)`: after leaf peeling, if a degree-two chain of length `len` must delete `m=cnt-k` consecutive vertices, only starts `[1,len-m+1]` are legal; per-position forbidden starts are `[j+d_j-m+1,j-d_j]` with `d_j=x-h_j`. The 7-node path with `k=2` exposes scanning to `len` (wrong answer 1 instead of 2). The faster locally tested version preprocesses one leaf-peeling order, walks chains using XOR adjacency, uses static arrays/fread, and prunes `m>2*x`; it remains unsubmitted. [Task 29]
 - P9531 has `N≤500, M≤100000, Q≤1000000`; per-query O(n) merging is the bottleneck. For a fixed edge `e=(u,v,w)` and `x≤w`, use Kruskal's strict-smaller-cost connectivity criterion and first solve `|t-x|<w-x` to turn edge selection into an x-interval question. [Task 25]
 - The actual project rule file for this task was `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`, not the similarly named rollout cwd with `!`; verify the real path before editing. [Task 1]
 - `.in` and `.exe` belong in `C:/Users/605/Documents/Output`, not `C:/Users/605/Documents/Codex`; the completed 2026-10-29 migration placed 303 files at `Documents/Output/Codex`, retained relative paths, and recorded SHA-256 results in `文件迁移清单-2026-10-29-399d3501.csv`. [Task 12]
@@ -532,7 +586,9 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
 - Symptom: treating P10787 candidate speedups as a confirmed patch -> cause: neither the C++ change nor benchmarks were run, and `f1/f2` or parent-order updates may still matter -> preserve the original, differential-test `fl/f1/f2`, parent ordering, length-1/2 segments, and final-edge orientation, then compile and benchmark. User-reported AC does not confirm which optimization was used. [Task 24][Task 27]
-- Symptom: an exchange proof says all prefix sums are nondecreasing after swapping -> cause: `i<j` can lower the middle interval; `(2,1,2)` changes `(+2,+1,-2)` to `(+2,-1,+2)`, lowering the second prefix 3 to 1 -> prove the `[i,j-1]` case separately. Do not equate binary-search count with total complexity without an O(1) predicate. [Task 26]
+- P11994 symptom: empty binary-search range reads an uninitialized `res` -> cause: `lst=L` instead of `L-1` and no `res=R+1` default. Also never read `sum[lst[i]]`: balances are stored as `sum[i]`; compute old-prefix differences before overwriting `lst`. [Task 26]
+- P14347 symptom: rolling DP behaves erratically or misses a suffix XOR segment -> cause: indexing a two-layer `f` by `i`, globally-zero unreachable states, or counting `1→0` without a right sentinel. Use parity layers, INF unreachable states, and `0→1` segment starts. A legal-suffix-only approach is also unsound: `00100 → 10001` splits an assignment that can be shared. [Task 28]
+- P17834 symptom: chain difference scan returns feasible too early -> cause: inspecting illegal right-end deletion starts outside `[1,len-m+1]`; restrict the scan even if the difference array has values there. Compilation, 990 random brute comparisons, and large constructed benchmarks are not online AC; submit or validate against official data before claiming acceptance. [Task 29]
 - P9531 teaching stopped after the first interval hint and has no user confirmation, LCT model, proof, complexity, or implementation validation; wait for the user's inequality/connectedness response, then supply only one additional observation. [Task 25]
 - Similar directory names can point to the wrong target: reading `MAA OI Assistant!\AGENTS.md` failed because the actual file was under `MAA OI Assistant`; use `Get-ChildItem` or `rg --files -g AGENTS.md` before writing. [Task 1]
 - During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
@@ -589,7 +645,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-29\mumu (rollout initiated 
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-29T14-09-44-PIt9-mumu_virtrite_2_opacity_tool.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=C:\Users\605\.codex\sessions\2026\10\29\rollout-2026-10-29T22-09-44-01a187fe-c9be-7710-8b3e-0da1cb4df187.jsonl, updated_at=2026-10-30T00:34:27+00:00, user-tested MuMu and normal-window opacity; packaged ZIP verified)
+- rollout_summaries/2026-10-29T14-09-44-PIt9-mumu_virtrite_2_opacity_tool.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\29\rollout-2026-10-29T22-09-44-01a187fe-c9be-7710-8b3e-0da1cb4df187.jsonl, updated_at=2026-10-30T00:34:27+00:00, user-tested MuMu and normal-window opacity; packaged ZIP verified)
 
 ### keywords
 

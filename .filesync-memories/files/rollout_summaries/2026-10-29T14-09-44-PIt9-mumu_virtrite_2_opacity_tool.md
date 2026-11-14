@@ -1,6 +1,6 @@
 thread_id: 01a187fe-c9be-7710-8b3e-0da1cb4df187
 updated_at: 2026-10-30T00:34:27+00:00
-rollout_path: C:\Users\605\.codex\sessions\2026\10\29\rollout-2026-10-29T22-09-44-01a187fe-c9be-7710-8b3e-0da1cb4df187.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\29\rollout-2026-10-29T22-09-44-01a187fe-c9be-7710-8b3e-0da1cb4df187.jsonl
 cwd: \\?\C:\Users\605\Documents\Codex\CHAT with GPT
 git_branch: main
 

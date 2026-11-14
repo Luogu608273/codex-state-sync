@@ -14,12 +14,12 @@
       {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
-        "serviceTier": "priority"
+        "serviceTier": null
       },
       {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
-        "serviceTier": null
+        "serviceTier": "priority"
       }
     ],
     "flat-project-sidebar-preferences-v1": {
@@ -1263,6 +1263,48 @@
       "thread_section_id": null
     },
     "01a1d408-4abc-71e1-bee6-47382f8c93cc": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1d8a8-c71b-7d20-9d7f-4db816ebcc94": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1d8c6-5da2-7810-ab95-2fd3a06fd2da": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1d8d9-e547-75e0-b493-4d341572d7ca": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1d8ec-1587-7070-8c41-dee01c198c95": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1d8f2-2ac4-72d1-8e61-bca07fbca476": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1d910-d599-7cc1-8b2a-4b9738269563": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
