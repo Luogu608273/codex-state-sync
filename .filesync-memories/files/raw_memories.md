@@ -1303,72 +1303,71 @@ References:
 - 用户原话：“只保留相互距离最长的两个点”；“有原题吗，我想做一下”
 
 ## Thread `01a1582c-844c-7c13-b25b-67921b416404`
-updated_at: 2026-10-23T11:11:02+00:00
+updated_at: 2026-11-14T08:02:24+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl
-rollout_summary_file: 2026-10-20T07-17-54-WET2-arknights_maa_prts_job_adaptation.md
+rollout_summary_file: 2026-10-20T07-17-54-WET2-cv8_mon3tr_job_and_project_directory_migration.md
 
 ---
-description: 通过一图流快照、PRTS 作业、MAA 地图/技能数据为 TW-EX-7 作业做静态适配；最终加入凛御银灰、Lancet-2 和塞雷娅，并严格避免塞雷娅治疗结城理。静态校验通过但突袭未实战验证。
-task: adapt-prts-104914-with-silverash-robot-saria
- task_group: MAA Arknights Assistant / PRTS copilot adaptation
-task_outcome: partial
-cwd: C:\Users\605\Documents\Codex\MAA Arknights Assistant!
-keywords: PRTS-104914, TW-EX-7, 凛御银灰, 塞雷娅, Lancet-2, 结城理, 一图流, MAA, SkillUsage, range_table, static-validation
+description: 将 CV-8 作业 87122 中无法获得的流明替换为 Mon3tr 一技能，保持原位置并新增重构体；随后迁移到去掉感叹号的新项目目录。静态校验成功，未实战验证。
+task: adapt-prts-87122-replace-lumen-with-mon3tr-and-add-reconstruction
+ task_group: arknights-homework-maa-copilot
+ task_outcome: partial
+cwd: C:\Users\605\Documents\Codex\MAA Arknights Assistant
+keywords: prts-87122, CV-8, Mon3tr, 重构体, operators-2026-11-14, MAA, copilot, migration
 ---
 
-### Task 1: TW-EX-7 作业加入凛御银灰、小车和塞雷娅
+### Task 1: CV-8 Mon3tr 替换作业
 
-task: modify-prts-job-104914-for-raid-support
-task_group: MAA/PRTS作业适配
-task_outcome: partial
-
-Preference signals:
-- 用户明确要求“加入凛御银灰和小车，并在合适的位置部署凛御银灰，并设置技能好自动开” -> 后续类似修改应同时处理部署坐标、首次技能时序和后续自动开技能。
-- 用户反馈上一版“过不了突袭”，随后明确要求“塞雷娅不要奶到结城理” -> 把治疗范围排除结城理作为硬约束，必须用实际范围数据验证，不可凭朝向猜测。
-
-Reusable knowledge:
-- 2026-10-23 一图流快照成功获取 229 条记录（HTTP/业务状态 200）；密钥存于项目 `.secrets/yituliu-readonly.key`，不得复制到记忆、作业或说明文件。
-- 作业 104914 是 TW-EX-7「分别计算」，`stage_name` 为 `act11d0_ex07`，普通/突袭共用 12×9 地图；突袭条件包括敌人攻击和生命 1.2 倍、我方防御降至 30%，部署上限8。
-- 原作业阵容是圣聆初雪与结城理，原要求均为精二90；本地适配改为当前自有精二60，并保留“待实测”状态。
-- 凛御银灰静态配置：借用，精二90、3技能专三，放 MAA `(7,3)` 朝右；先显式使用一次3技能，再用 `SkillUsage:1` 设置后续好了自动开。Lancet-2 精零1级只放在待部署区、不部署，用于首次费用交换。
-- 塞雷娅静态配置：自有精二60，2技能7级，放 `(8,4)` 朝上，在最终障碍物换箱完成后部署。其2技能范围覆盖初雪 `(8,2)` 和凛御银灰 `(7,3)`，不覆盖结城理 `(10,2)`；不要改为3技能，因为3技能范围会覆盖结城理。
-- 最终文件：`data/copilot-104914/TW-EX-7-silverash-robot.json`；复现/校验脚本：`data/copilot-104914/build_adapted.py`；校验结果：`data/copilot-104914/validation.json`。
-
-Failures and how to do differently:
-- 上一版只加入凛御银灰与 Lancet-2 后用户反馈突袭仍失败，不能把静态通过当作战斗成功；后续应优先保留失败状态并明确“未实战验证”。
-- 新增凛御银灰回费后，原作业的 `cost_changes` 等待可能提前触发；本次改为固定 `pre_delay`（2500/1500/2500 ms），但这只是近似时序，仍需实战检查。
-- MAA 地图数组已是自上而下排列；只有路线实体坐标需要用 `y = height - 1 - row` 转换。范围计算使用 `range_table.json`，不要仅凭朝向推断。
-
-References:
-- `data/copilot-104914/TW-EX-7-silverash-robot.json`
-- `data/copilot-104914/README.md`
-- `data/copilot-104914/build_adapted.py`
-- `data/copilot-104914/validation.json`
-- 用户硬约束原文：`注意塞雷娅不要奶到结城理`
-- 最终静态证据：`heals_initial_snow: true`, `heals_silverash: true`, `heals_makoto: false`, `combat_verified: false`
-
-### Task 2: GO-EX-7 作业加入结城理
-
-task: adapt-prts-job-51044-with-makoto
- task_group: MAA/PRTS作业适配
-task_outcome: partial
+task: replace Lumen with Mon3tr S1 and add Reconstruction
+ task_group: arknights-homework-maa-copilot
+ task_outcome: partial
 
 Preference signals:
-- 用户要求“同时修改作业的干员适配等信息” -> 添加干员时同步修改 `opers`、练度、技能、模组、助战和作业说明。
+- 用户要求“保留在原来的位置” -> 替换干员时保持原坐标、朝向和部署顺序。
+- 用户要求“找一个合适的地方放重构体” -> 必须同时检查地图地块合法性、召唤物范围、增益目标和部署时序。
 
 Reusable knowledge:
-- 作业 51044 的本地修改版为 `data/copilot-51044/GO-EX-7-raid-makoto.json`，结城理静态位置为 `(7,4)` 朝下；仅需借用维什戴尔。
-- 2026-10-20 一图流快照共 228 条；静态检查覆盖部署格、干员练度/模组、替身范围和部署上限。
-- 本机 MAA Python SDK 校验未完成：系统仅可用 Python 3.8，SDK 使用 3.10+ 类型注解，导入报 `TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'`。未来不要宣称核心加载或实战可执行性已验证。
+- 作业 `prts://87122` 对应 CV-8「告别往昔」，内部关卡 ID `act28side_08`，地图 13×9，部署上限 8。
+- 最新一图流快照于 2026-11-14 15:55 获取成功：240 条、无重复 ID、HTTP/业务状态 200；元数据在 `data/operators-2026-11-14.meta.json`。密钥不应写入作业或导出文件。
+- 用户快照中 Mon3tr 为精二60、一技能专三、X 模组三级；其一技能是游戏自动触发，不应保留流明三技能的手动一次性设置。
+- 生成文件 `data/copilot-87122/CV-8-Mon3tr-S1.json`：Mon3tr 保持流明原位 `(10,5)`、朝左；重构体新增在 `(9,4)`、朝上，放在原五名干员部署完成后。
+- Mon3tr 朝左的 `y-2` 范围覆盖 `(9,4)`；重构体位于 Mon3tr 治疗范围内。重构体周围覆盖逻各斯 `(9,3)`、乌尔比安 `(8,4)`、Mon3tr `(10,5)`；重构体阻挡数为 0，不应承担阻挡。
+- 重构体是召唤物，不加入 `opers` 自动编队列表，只写成部署动作。
+- 原五名干员位置、朝向和部署顺序保持：逻各斯 `(9,3)` 左、奶盾 `(7,3)` 左、圣聆初雪 `(7,6)` 上、Mon3tr `(10,5)` 左、乌尔比安 `(8,4)` 左；随后部署重构体。
 
 Failures and how to do differently:
-- 结城理方案仅依据地图、路线和练度差距推断，用户未提供具体漏怪位置；应明确说明是地图推断方案，不是最低练度或通关保证。
+- 本次仅完成公开作业读取、数据刷新、JSON/地图/范围/练度静态验证；未加载 MAA 核心、未连接设备、未执行战斗，因此不能宣称通关或实战稳定。
+- Mon3tr 一技能只提供治疗与额外跳跃，不能视为流明三技能的异常状态解除能力等价替代；作业说明应保留这一限制。
 
 References:
-- `data/copilot-51044/GO-EX-7-raid-makoto.json`
-- `data/copilot-51044/README.md`
-- MAA SDK 错误：`TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'`
+- `data/copilot-87122/CV-8-Mon3tr-S1.json`
+- `data/copilot-87122/build_adapted.py`
+- `data/copilot-87122/adaptation.json`
+- `data/copilot-87122/validation.json`
+- `data/copilot-87122/README.md`
+- 验证输出：`Saved CV-8-Mon3tr-S1.json; five self-owned slots, six legal deployments, original positions preserved, token geometry checked; combat not tested.`
+
+### Task 2: 迁移重命名项目目录
+
+task: migrate project from directory with ! to directory without !
+task_group: filesystem-project-migration
+ task_outcome: partial
+
+Preference signals:
+- 用户说“项目文件我重命名了，少了一个感叹号，你迁移一下” -> 后续工作应优先使用新目录 `C:\Users\605\Documents\Codex\MAA Arknights Assistant`，不要继续假设旧路径。
+
+Reusable knowledge:
+- 旧目录：`C:\Users\605\Documents\Codex\MAA Arknights Assistant!`
+- 新目录：`C:\Users\605\Documents\Codex\MAA Arknights Assistant`
+- 已复制并逐文件校验 11 个新增文件；密钥文件在两处内容一致。
+
+Failures and how to do differently:
+- 删除旧目录的迁移命令被自动审批策略拦截，旧目录副本仍保留。未来把“复制并校验”与“删除旧目录”分开；删除前单独确认并接受可能需要用户手动清理。
+
+References:
+- 迁移结果：`CopiedAndVerified: 11`, `OldDirectoryPreserved: true`
+- 自动审批错误：策略阻止包含旧目录清理的命令。
 
 ## Thread `01a1584a-74ae-7f32-975c-19d77940e5ce`
 updated_at: 2026-10-22T09:20:51+00:00
@@ -2958,4 +2957,102 @@ References:
 - 关键数组：`deg, adj, q, id, fa, lay, h, a, dif`。
 - 本地证据：`brute 990`；长链 `250000 0.06`，梳状树 `125001 0.077`，星形树 `1 0.045`。
 - 题目约束：单组 `n<=10^6`，总规模 `N<=2*10^6`。
+
+## Thread `01a1d8d9-e547-75e0-b493-4d341572d7ca`
+updated_at: 2026-11-14T07:19:59+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\16\rollout-2026-11-16T17-12-32-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e3a1-29fb-7511-beff-6fb31ac879a4.jsonl
+rollout_summary_file: 2026-11-14T06-58-41-lSS6-p12445_tutoring_incremental_inclusion_exclusion_dp.md
+
+---
+description: P12445 讲题中先按用户要求等待思路，后在用户明确请求后诊断技巧并解释“容斥写进 DP”与 P2151 单坏条件容斥的区别
+ task: tutor P12445 数好图，等待用户思路并解释容斥 DP
+ task_group: MAA OI Assistant / oi-training
+ task_outcome: partial
+ cwd: C:\Users\605\Documents\Codex\MAA OI Assistant
+ keywords: P12445, 数好图, 容斥, DP, P2151, oi-training, 训练档案
+---
+
+### Task 1: 先确认题面并等待思路
+
+task: 按用户要求学习 P12445，但暂不给提示
+ task_group: incremental competitive-programming tutoring
+ task_outcome: success
+
+Preference signals:
+- 用户明确要求“先不用给提示，等我说我的做法” -> 默认先核实题面和约束，等待用户思路，不主动展开算法或关键观察。
+
+Reusable knowledge:
+- 项目 `.agents/skills/oi-training/SKILL.md` 要求先确认约束与用户推导；没有明确卡点时不要追加完整解法或多个提示。
+
+References:
+- 题面：洛谷 `P12445 [COTS 2025] 数好图 / Promet`
+- 约束：`2≤N≤2000`，P 为素数；统计恰有 K 个点同时满足 `1→u`、`u→N` 可达。
+
+### Task 2: 技巧诊断与容斥 DP 类比
+
+task: 检查 P12445 可能陌生的技巧，并解释“容斥写进 DP”
+ task_group: counting-DP tutoring
+ task_outcome: success
+
+Preference signals:
+- 用户主动改问“先帮我检查一下这道题有什么科技或者技巧我可能不会的，然后告诉我” -> 用户明确授权后可先做技巧诊断，但仍应避免直接给完整推导。
+- 用户用 P2151 的“减去走回头路”作类比 -> 解释新技巧时优先连接其熟悉题型，并明确指出本题多坏条件带来的交集问题。
+
+Reusable knowledge:
+- 查阅题解与训练档案后，判断本题主要值得确认的是“把容斥写进 DP”，而不是重型科技；另一个潜在卡点是分类计数后判断哪些选择能独立相乘。
+- P2151 更接近单个坏条件：每次从所有转移中减去回头边。本题多个坏条件需处理交集；DP 中对每个坏条件分“不钦定”和“钦定发生”两支，钦定分支翻转符号，且“不钦定”不等于禁止该坏条件发生。
+- 用户训练档案反复记录提示后完成、未独立重做；不要把本次解释视为已掌握，后续应通过用户自己的推导验证。
+
+Failures and how to do differently:
+- 本轮尚未验证用户是否真正理解，也未进入 P12445 的具体状态设计；后续等待用户回应，按一次一个具体断点或问题推进，避免直接给完整题解。
+
+References:
+- 题解：`https://www.luogu.com.cn/article/gx2swjje`
+- 用户原话：“先不用给提示，等我说我的做法”
+- 用户原话：“你说的把容斥写进 dp 是不是 P2151 那种先求出全部的方案然后减去走回头路的不合法方案”
+- 训练技能文件：`.agents/skills/oi-training/SKILL.md`
+
+## Thread `01a1d8f2-2ac4-72d1-8e61-bca07fbca476`
+updated_at: 2026-11-16T07:04:49+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\14\rollout-2026-11-14T17-02-48-01a1d8f2-2ac4-72d1-8e61-bca07fbca476_01a1d94b-88f5-7393-9a84-6d3d18e66b84.jsonl
+rollout_summary_file: 2026-11-14T07-25-11-26dU-p10441.md
+
+---
+description: P10441 乒乓球：用出度计数三元环并通过逐行翻边构造达到均衡出度上限；用户反馈提示后 AC，调试修复了多测答案矩阵残留
+ task: P10441 三元环最大化的构造、贪心证明与多测调试
+ task_group: oi-training / graph orientation construction
+ task_outcome: success
+ cwd: C:\Users\605\Documents\Codex\MAA OI Assistant
+ keywords: P10441, 乒乓球, 出度, 三元环, 贪心, 后缀加一, long long, 多测, ans矩阵
+---
+
+### Task 1: 三元环上限与逐行贪心构造
+
+task: 证明并实现 P10441 中达到三元环上限的定向构造
+task_group: 图定向构造与贪心证明
+task_outcome: success
+
+Preference signals:
+- 用户在开始写代码前要求先确认“这样贪心能做到三元环数的上限”，并在证明完成后才进入实现阶段 -> 类似题目应先给出上限、终态结构和贪心不变量，再写代码。
+- 用户关注扫描端点的严格证明，主动补出 `d_u-d_{u+1}=1`、此前后缀覆盖关系及本轮只让 `d_u` 下降，从而得到最左候选增量 `<=0` -> 不应只声称连续性，要明确验证边界。
+
+Reusable knowledge:
+- 对任意点 `i`，唯一可能成为“连赢两场”的点可用于计数三元组，因此三元环数为 `C(n,3)-Σ_i C(d_i,2)`。总出度固定时，出度两两相差至多 1 的序列使该和最小；奇数 `n` 时所有出度为 `(n-1)/2`，偶数 `n` 时出度为 `n/2` 与 `n/2-1` 各半。
+- 从全序 `i -> j (i<j)` 出发，翻转 `u -> v` 的三元环增量是 `t=d_u-d_v-1`。按 `u=1..n`、`v=n..u+1` 扫描，`0<t<=remaining` 时翻边并更新 `d_u--, d_v++`。
+- 已处理的完整行只给某个后缀统一加 1，因此相邻候选的出度差始终至多 1；向左移动一格时增量最多下降 1。对当前行最左边 `v=u+1`，初始 `d_u-d_{u+1}=1`，此前任何给 `u` 加出度的后缀也给 `u+1` 加出度，而当前翻边只让 `d_u` 变小，因此 `d_u-d_{u+1}-1<=0`。所以若某个增量首次大于剩余量，继续向左扫描必遇到恰好等于剩余量的边。
+- 令 `h=floor(n/2)`，归纳可得完整贪心恰好翻转所有满足 `v-u>h` 的边。终态出度为 `min(n-u,h)+max(0,u-1-h)`，奇数时恒为 `h`，偶数时前后各半为 `h` 和 `h-1`，因此达到三元环上限。
+- 每组时间 `O(n^2)`、答案矩阵空间 `O(n^2)`；`m` 和剩余量必须用 `long long`。
+
+Failures and how to do differently:
+- 原实现多测时重置了 `d`，但没有重置 `ans`。反例输入 `2\n3 1\n3 0\n` 会使第二组错误保留第一组翻过的边。因为循环每组都会访问每一对 `i<j`，在计算 `t` 前写 `ans[j][i]=0` 即可恢复本组全序初始方向；翻边时再写为 1。
+- `t>remaining` 时应继续向左扫描，而不是终止；增量的单步下降界保证能找到 `t==remaining`。
+
+References:
+- 复盘文件：`outputs/复盘/2026-11-16-P10441-乒乓球.md`
+- 训练记录：`outputs/训练记录.md`（P10441 条目）
+- 训练档案：`outputs/训练档案.md`（2026-11-16 P10441）
+- 关键修复：在内层循环判断增量前加入 `ans[j][i] = 0;`
+- 验证：用户反馈 AC；`git diff --check` 通过；检索确认上述三个记录文件均包含 P10441 条目。
 

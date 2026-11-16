@@ -2,110 +2,101 @@ v1
 
 ## User Profile
 
-- Works mainly in Chinese on OI/C++ training and contest deliverables, plus Minecraft/PCL and Windows/Codex troubleshooting.
-- Uses checkouts under `C:\Users\605\Documents\Codex`; values concrete artifacts and calibrated evidence. Compilation, local differential/stress tests, user-reported AC, and official AC are distinct.
-- In OI work, commonly supplies code, a derivation, or a complexity target and expects the reply to advance from that exact point.
+- Primarily works in Chinese on OI/C++ training, contest deliverables, and a few Windows, Minecraft/PCL, and MAA Copilot projects.
+- Uses Codex checkouts under `C:\Users\605\Documents\Codex`; values concrete artifacts and calibration: compilation, local testing, user-reported AC, and official AC are different claims.
+- In OI discussion, often supplies a derivation or partial code and wants the response to continue from that exact point.
 
 ## User preferences
 
-- For OI teaching, use Chinese and normally give one advancing hint/observation, then wait; do not disclose a full solution early. If the user explicitly asks “给完整代码/完整做法”, preserve their framework and give a directly usable complete implementation.
-- For supplied C++/WA, first find the smallest counterexample and make the minimal correct repair; for TLE, inspect hot paths, memory layout, and access count instead of listing generic flags.
-- “过了，总结记录吧” -> update training record, profile, and one-problem review under the formal original problem number when supplied; retain “提示后 AC” versus independent redo.
-- Keep requested contest layout exactly (`solution.md`, `std.cpp`, `partial.cpp`); “留 cpp SPJ” means compilable C++ special judge plus run notes.
-- Generated `.in` and `.exe` belong under `C:\Users\605\Documents\Output`, not a Codex checkout.
-- For safe FileSync/Codex repair: “只修复工具不直接移动 .codex 文件”“不要推出 codex 进程” -> isolate/read-check live data; do not alter it without authorization.
-- For PCL/Windows repair: “不要使用 Computer Use，使用命令行解决问题”; when told “不用启动”, validate statically and do not launch the game.
-- Do not use retired `H:\我的云端硬盘` (or its CKK/Gemini/Google AI Studio paths) as a current destination; use connected Google Drive or a newly supplied destination. [ad-hoc note]
+- For OI teaching, normally wait for their idea and give one advancing hint/question in Chinese; do not disclose a full solution early. “先不用给提示，等我说我的做法” is literal. Explicit requests for technique diagnosis or complete code change that boundary, not the default.
+- For constructive greedy, establish the upper bound, terminal structure, invariant, and scan-endpoint proof before writing code; the user actively checks boundary arguments, not just intuitive continuity.
+- Explain unfamiliar techniques through a known analogy when offered (for example P2151), but state the structural difference.
+- For C++ WA, find the smallest counterexample and make the minimal correct repair; for TLE, inspect hot paths, memory layout, and access counts rather than give generic flags.
+- “过了，总结记录吧” means update the formal original-problem training record/review and preserve “提示后 AC” versus independent mastery.
+- Keep requested contest layout exactly (`solution.md`, `std.cpp`, `partial.cpp`); “留 cpp SPJ” means a compilable C++ special judge plus run notes.
+- Generated `.in` and `.exe` go under `C:\Users\605\Documents\Output`, not a Codex checkout.
+- For renamed projects, follow the newly supplied path; for MAA operator replacement, preserve original coordinate, direction, and deployment order unless explicitly allowed otherwise.
+- Never default to the retired `H:\我的云端硬盘` local mount; use connected Google Drive or a currently supplied destination. [ad-hoc note]
 
 ## General Tips
 
-- Locate the actual `AGENTS.md` before edits; similarly named MAA OI checkouts differ.
-- Label validation exactly: compilation, samples, differential/stress tests, SHA-256 read-back, user report, and official AC are not interchangeable.
-- For Windows memory pressure that survives logout, compare process totals with kernel objects/pool tags and do an elevated before/after service test; do not infer RAM impact from handle count alone.
-- For Minecraft, establish vanilla/Fabric/Carpet/Paper and exact version; for PCL, inspect root version JSON and install manifest before assuming a loader is active.
+- Locate the actual `AGENTS.md` before editing: similarly named MAA OI/Arknights directories differ.
+- State validation boundaries exactly; static schema/range checks and local random tests do not prove combat clears or online AC.
+- In multi-test constructive code, reset every output-state structure, not only the numeric state; use a tiny two-case regression that catches residual matrix/array state.
+- MAA Copilot roster, game data, and asset paths are time-specific: refresh/reinspect them before reuse, and never store API secrets.
+- For Windows memory pressure persisting after logout, compare process totals with kernel objects/pool tags and use an elevated before/after service test; handle count alone is not RAM causality.
 
 ## What's in Memory
 
+### C:\Users\605\Documents\Codex\MAA Arknights Assistant
+
+#### 2026-11-14
+
+- CV-8 Mon3tr Copilot adaptation and renamed-directory migration: `prts://87122`, `CV-8`, `Mon3tr`, `重构体`, `CV-8-Mon3tr-S1.json`, `OldDirectoryPreserved`
+  - desc: Static MAA-job replacement, reconstruction-token geometry, and migration from the `!` checkout.
+  - learnings: Mon3tr S1 stays at `(10,5)` left; Reconstruction `(9,4)` is an action-only zero-block summon. Combat was not tested; use the no-`!` checkout.
+
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
-#### 2026-11-13
+#### 2026-11-16
 
-- P11994/Uiro value-greedy ST/RMQ optimization: `P11994`, `Uiro`, `low`, `pos`, `lst`, `sum`, `O(NV+QV+NlogN)`
-  - desc: Debugged boundary state and optimized the inner binary search into segment RMQ plus direct `h`; open for complete code, definitions, and local validation.
-  - learnings: `lst=L-1`, query-indexed `sum`, and `res=R+1`; ST is over complete `x`-start segments, not the whole prefix array.
-- P17834 tree-radius WA/TLE: `P17834`, `degree-2 chain`, `difference array`, `XOR adjacency`, `fread`
-  - desc: Counterexample-led chain-start boundary repair and faster `O(n log n)` local implementation for huge trees.
-  - learnings: Scan only `[1,len-m+1]`; the optimized version has local brute/performance evidence but no online submission.
-- P14347 Lamps: `P14347`, `JOISC 2019`, `three-state DP`, `interval XOR`, `rolling array`, `nung`
-  - desc: Three-state linear DP repair, tests, and training archive under its original problem number.
-  - learnings: Only retain-state is reachable on empty prefix; count XOR starts as `0→1`; status is prompt-assisted user-reported AC.
+- P10441 `乒乓球` directed-triangle construction: `P10441`, `出度`, `三元环`, `翻边`, `ans矩阵`, `long long`
+  - desc: Maximum-triangle bound, row-by-row edge-reversal greedy, formal endpoint argument, and multi-test residual-matrix repair.
+  - learnings: `C(n,3)-ΣC(d_i,2)` is optimized by balanced outdegrees; if `t>remaining`, scan left rather than stopping. User reported prompt-assisted AC; no independent redo recorded.
 
-#### 2026-11-12
+#### 2026-11-14
 
-- Two-dimensional prefix-sum string DP: `f[i,j]`, `g[i,j]`, `S_i=S_j`, `p<i`, `q<j`, `O(n^2)`
-  - desc: Upper-left-rectangle transition optimization and state-condition pitfall.
-  - learnings: Match symbols (`S_i=S_j`), not indices; include explicit zero boundaries.
-- P10787 tree orientation: `P10787`, `fl`, `add2`, `tree doubling`, `训练记录`
-  - desc: Constant optimization review and user-reported training record for this checkout.
-  - learnings: Candidate speedups require differential tests before promotion.
-
-### C:\Users\605\Documents\Codex\2026-11-13\d-2
+- P12445 incremental inclusion-exclusion DP tutoring: `P12445`, `数好图`, `容斥写进 DP`, `P2151`, `oi-training`
+  - desc: Waiting-first tutoring and the distinction between single- and multiple-bad-condition inclusion-exclusion.
+  - learnings: No DP state or mastery was verified; wait for the user's own derivation and advance one breakpoint at a time.
 
 #### 2026-11-13
 
-- Windows memory pressure / PcaSvc: `PcaSvc`, `Program Compatibility Assistant`, `process objects`, `nonpaged pool`, `Restart-Service`
-  - desc: High-memory diagnosis where a service retained about 51,842 process objects after logout.
-  - learnings: Still unconfirmed: administrator before/after restart of PcaSvc is required before assigning causality.
+- P11994/Uiro and P17834 debugging: `P11994`, `ST table`, `P17834`, `difference array`, `XOR adjacency`
+  - desc: Boundary repairs and optimized local implementations with brute/performance evidence.
+  - learnings: `lst=L-1`/`res=R+1`; chain starts must stay in `[1,len-m+1]`. Neither local validation is online AC.
 
-### D:\PCL 正式版 2.12.7.3
+- P14347 Lamps training record: `P14347`, `three-state DP`, `interval XOR`, `提示后 AC`
+  - desc: Repaired rolling-state DP and formal record routing.
+  - learnings: Only retain is reachable at empty prefix; start XOR on `0→1`.
+
+### Windows desktop / C:\Users\605\Documents\Codex\2026-11-13\d-2
 
 #### 2026-11-13
 
-- PCL Fabric 26.3 repair and diamond options: `26.3.json`, `KnotClient`, `InstallManifest`, `InstanceCache`, `Colorful Anvils`, `trial vault`
-  - desc: Root-profile repair, client/server mod requirement, and diamond-item options.
-  - learnings: Fabric must be in root profile and manifest; static dependency/hash checks sufficed because launch was disallowed.
-
-### C:\Users\605\Documents\Codex\2026-11-05\xian
-
-#### 2026-11-11
-
-- Minecraft 26.3 emerald automation: `string duper`, `random_tick_speed`, `End portal sand duper`, `iron farm`, `toolsmith`
-  - desc: Separate exploit-like continuous production from conventional emerald farms and server-specific fixes.
-  - learnings: Establish vanilla/Fabric/Carpet/Paper first; tick speed neither restores duplication nor accelerates villager restocks.
+- PcaSvc high-memory/process-object diagnosis: `PcaSvc`, `process objects`, `nonpaged pool`, `Restart-Service`
+  - desc: Evidence and the required administrator before/after test for suspected retained process objects.
+  - learnings: Causality remains unconfirmed without the service-restart comparison.
 
 ### Older Memory Topics
 
-#### C:\Users\605\Documents\Codex\MAA OI Assistant!
+#### C:\Users\605\Documents\Codex\MAA OI Assistant*
 
-- Contest collaboration and algorithm derivations: `std.cpp`, `partial.cpp`, `spj.cpp`, `P11234`, `QOJ7895`, `midpoint preprocessing`
-  - desc: Delivery layout, verification boundaries, competition-tree DP, divide-and-conquer preprocessing, and merge-tree complexity proofs; cwd-sensitive.
-
-#### C:\Users\605\Documents\Codex\MAA OI Assistant
-
-- ZR2 packages and original-problem lookup: `ZR2-7`, `QOJ 2617`, `successor DSU`, `ZR2-10`, `solution.md`, `std.cpp`, `partial.cpp`
-  - desc: Original mappings, verified path solution, package validation, and embedded-browser repair.
+- Contest collaboration, training records, debugging, and artifact layout: `AGENTS.md`, `过了，总结记录吧`, `[debug]`, `Documents/Output`, `std.cpp`
+  - desc: Interaction defaults, original-problem record rules, C++ failure shields, ZR packages, browser repair, and delivery validation.
+- Two-dimensional prefix-sum string DP: `f[i,j]`, `g[i,j]`, `S_i=S_j`, `O(n^2)`
+  - desc: Strict upper-left-rectangle transition optimization; match symbols rather than indices and preserve zero boundaries. cwd=C:\Users\605\Documents\Codex\MAA OI Assistant.
+- Algorithm derivations and qualified complexity: `P11234`, `QOJ7895`, `Möbius`, `divide-and-conquer`, `O(n log n)`
+  - desc: State semantics and proof/complexity caveats; includes unresolved rerooting-DP boundaries.
+- CSP-S submission archive reporting: `CSP-S 2026`, `Markdown`, `submission archive`, `distinctive examples`
+  - desc: Evidence-checked Chinese reporting that separates repeated mistakes from representative submissions.
 
 #### C:\Users\605\Documents\Codex\2026-11-04\cong / C:\Users\605\Documents\FileSync
 
-- FileSync chat recovery and preference restoration: `repair-chat-index.py`, `find_codex`, `pending_thread_ids`, `state_5.sqlite`
-  - desc: Safe CLI discovery, isolated recovery checks, missing-chat handling, and release verification.
+- FileSync Codex chat recovery: `repair-chat-index.py`, `state_5.sqlite`, `pending_thread_ids`
+  - desc: Isolated recovery and safe live-data handling.
+
+#### D:\PCL 正式版 2.12.7.3 / Minecraft
+
+- PCL Fabric repair and Minecraft automation: `26.3.json`, `InstallManifest`, `string duper`, `trial vault`
+  - desc: Root-profile verification, launch boundary, and version/server-aware game mechanics.
 
 #### Windows desktop / CHAT with GPT
 
-- MuMu, graphics, Codex, and power scheduling: `MuMuQtBridge.dll`, `QWidget::setWindowOpacity`, `RX550`, `UIPI`, `ScheduledTask`
-  - desc: Windows opacity, GPU/elevation, Codex diagnostics, and scheduling; inspect the matching MEMORY block before changing live programs.
-
-#### C:\Users\605\Documents\Codex\MAA Arknights Assistant!
-
-- MAA copilot adaptation: `TW-EX-7`, `GO-EX-7`, `range_table.json`, `OperatorMissing`
-  - desc: Formation/range configuration and runtime caveats for the MAA checkout.
-
-#### Research-only chats
-
-- NetEase, BOF22, Arknights, and redirects: `popularity=100`, `api/v6/playlist/detail`, `aha.wasm`
-  - desc: Evidence-led web research and source-validation traps.
+- Graphics, transparency, power scheduling, and research: `MuMuQtBridge.dll`, `RX550`, `UIPI`, `ScheduledTask`, `NetEase`, `aha.wasm`
+  - desc: Inspect matching MEMORY blocks before changing live programs; research claims remain source/time-sensitive.
 
 #### Delivery destination and cloud-storage workflow
 
-- Retired local sync paths: `H:\我的云端硬盘`, `CKK`, `Google Drive`
-  - desc: Do not use the retired local mount as a current destination. [ad-hoc note]
+- Retired local sync path: `H:\我的云端硬盘`, `Google Drive`, `CKK`
+  - desc: Do not use the retired mount as a current delivery target. [ad-hoc note]

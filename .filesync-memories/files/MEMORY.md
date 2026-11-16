@@ -229,6 +229,26 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse t
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
 
+## Task 31: Construct the maximum number of directed triangles for P10441 `乒乓球`
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-14T07-25-11-26dU-p10441.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\14\rollout-2026-11-14T17-02-48-01a1d8f2-2ac4-72d1-8e61-bca07fbca476_01a1d94b-88f5-7393-9a84-6d3d18e66b84.jsonl, updated_at=2026-11-16T07:04:49+00:00, user-reported prompt-assisted AC; records updated)
+
+### keywords
+
+- P10441, 乒乓球, JOIST 2024, 出度, 三元环, 贪心, 翻边, 后缀加一, long long, 多测, ans矩阵
+
+## Task 30: Tutor P12445 `数好图` incrementally; explain inclusion-exclusion inside DP
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-14T06-58-41-lSS6-p12445_tutoring_incremental_inclusion_exclusion_dp.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\16\rollout-2026-11-16T17-12-32-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e3a1-29fb-7511-beff-6fb31ac879a4.jsonl, updated_at=2026-11-14T07:19:59+00:00, concept explanation only; no state design or mastery verification)
+
+### keywords
+
+- P12445, 数好图, Promet, COTS 2025, 容斥写进 DP, P2151, 单坏条件, 多坏条件, oi-training
+
 ## Task 23: Locate ZR2-7 originals and write a verified 1-based T2 `path.cpp` standard solution
 
 ### rollout_summary_files
@@ -518,6 +538,10 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## User preferences
 
+- when proving a constructive greedy before coding, the user asked “这样贪心能做到三元环数的上限” and only then “到这里就完成思考可以开始写了吗” -> establish the bound, final structure, invariant, and feasibility before implementation. [Task 31]
+- when checking a scan/continuity argument, the user supplied the endpoint reasoning `d_u-d_{u+1}=1` and why the leftmost increment is `<=0` -> prove the boundary explicitly, not merely assert continuity. [Task 31]
+- when beginning P12445, the user said “先不用给提示，等我说我的做法” -> confirm the statement/constraints and wait; do not volunteer the algorithm or key observation. If they later explicitly ask what techniques they may not know, diagnose only those techniques before returning to incremental teaching. [Task 30]
+- when the user compares a new method with P2151's “减去走回头路”, connect to that familiar case but identify the different condition structure rather than treating it as the same technique. [Task 30]
 - when the user asked “改成 1-indexed” then clarified “位掩码不用 1-indexed，下标要 1-indexed” -> keep ordinary bitmask mathematics 0-based (`0..(1<<m)-1`, `1 << (j-1)`), while making entity, array, queue, and DSU positions 1-based. [Task 23]
 - when teaching an OI problem from the user's own derivation, continue interactively: P9531 evidence favors preserving their invariants and asking one next question rather than jumping to a complete LCT/proof/code solution. [Task 25]
 - when the user provides complete C++ and says “常数过大，有没有推荐的常数优化” -> investigate actual hot paths, memory layout, and access counts before generic compiler advice; identify unverified proposals as such. [Task 24]
@@ -545,6 +569,9 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Reusable knowledge
 
+- P10441 `乒乓球`: directed-triangle count is `C(n,3)-Σ_i C(d_i,2)`, because the non-cycle triangle has a unique two-win vertex. With fixed total outdegree, minimizing the sum means balanced degrees: all `(n-1)/2` for odd `n`; `n/2` and `n/2-1` half each for even `n`. From the total-order orientation `i -> j (i<j)`, reversing `u -> v` changes the count by `t=d_u-d_v-1`. Scan `u=1..n`, `v=n..u+1`, and reverse when `0<t<=remaining`, updating `d_u--, d_v++`. [Task 31]
+- In that scan, completed rows uniformly add one to a suffix, so each step left lowers the candidate increment by at most one. At `v=u+1`, prior suffixes that increased `u` also increased `u+1`, while this row only decreases `d_u`, hence `d_u-d_{u+1}-1<=0`; if an increment exceeds `remaining`, keep scanning left until it equals `remaining`. The full greedy reverses exactly `v-u>floor(n/2)`, yielding the balanced degree sequence. Use `long long` for `m`/remaining; time and matrix space are `O(n^2)`. [Task 31]
+- P12445 `[COTS 2025] 数好图 / Promet`: `2≤N≤2000`, with prime `P`, counts DAGs having exactly `K` vertices both reachable from 1 and able to reach N. The likely unfamiliar part is “把容斥写进 DP”, plus deciding after reachability classification which edge choices multiply independently. P2151's all-transitions-minus-the-back-edge is a single bad condition; here multiple bad conditions require intersections. In the DP, branch each condition into “not designated” and “designated to occur”; flip the designated branch's sign. “Not designated” does not prohibit it—the alternating signs cancel. [Task 30]
 - ZR2-7 originals: T1 = Codeforces 1156C Match Points; T2 = QOJ #2617 Browsing the Collection; T3 = QOJ #10170 Data Structures Master; T4 = QOJ #7976 最后的晚餐. T2's checked solution is `C:\Users\605\Downloads\1110\path\path.cpp`: per-terminal reverse multi-source BFS over `(item, mask)`, with successor DSU to skip visited interval states; default `path.in/path.out`, `LOCAL` for stdio. `sample0` through `sample5` matched after `-std=c++14 -O2 -static`. [Task 23]
 - P10787 splits a restricted path into doubling segments with states 0/1/at-least-2 unoriented edges; segment-state changes follow reverse references and decrement `s_i = Σ min(c_B, 2)`, with count 1 queued for direction resolution. The LCA sides determine orientation; a contracted-tree two-coloring proves the next greedy bit may remain 0 after forced propagation. [Task 27]
 - For the P10787 `N=5e5+5`, `M=20` code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. `build()` may compute the same-start parent `k+1` segment directly after `st[x][k]`, removing `add2(e[i].v, k-1, e[i].v)` while retaining upper-segment multi-parent references. [Task 24]
@@ -584,6 +611,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Failures and how to do differently
 
+- P10441 multi-test symptom: `d` resets but `ans` retains an earlier reversed edge; input `2\n3 1\n3 0\n` leaves a triangle in the second case. Because every `i<j` is revisited, set `ans[j][i]=0` before calculating its increment, then set it to 1 only when reversing. Never stop on `t>remaining`; the one-step decrement bound is the reason a later `t==remaining` exists. [Task 31]
+- The P12445 discussion neither verified understanding nor reached concrete DP states. Do not infer mastery from the explanation or training archive; wait for the user's derivation and advance through one specific breakpoint/question rather than revealing the full solution. [Task 30]
 - Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
 - Symptom: treating P10787 candidate speedups as a confirmed patch -> cause: neither the C++ change nor benchmarks were run, and `f1/f2` or parent-order updates may still matter -> preserve the original, differential-test `fl/f1/f2`, parent ordering, length-1/2 segments, and final-edge orientation, then compile and benchmark. User-reported AC does not confirm which optimization was used. [Task 24][Task 27]
 - P11994 symptom: empty binary-search range reads an uninitialized `res` -> cause: `lst=L` instead of `L-1` and no `res=R+1` default. Also never read `sum[lst[i]]`: balances are stored as `sum[i]`; compute old-prefix differences before overwriting `lst`. [Task 26]
@@ -728,34 +757,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 - QOJ7895: "any child can inherit for free" is false. Do not say every `x+y>=k²` merge occurs only `O(n/k²)` times: a large side can repeatedly absorb size-`Theta(k)` parts. Apply that count only when both sides are at least `k²`; charge threshold crossings to the smaller side and small-total merges to point pairs. [Task 3]
 - QOJ7895 proof remains partial: still account separately for initialization, moving, truncation, and actual container maintenance before claiming the entire implementation is linear. [Task 3]
 
-# Task Group: MAA Arknights Assistant copilot adaptation and runtime configuration
-
-scope: Adapt MAA Copilot jobs, diagnose formation prechecks, and preserve GPU/runtime configuration evidence.
-applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant!; reuse_rule=Reinspect current job/assets/logs before reuse; roster, MAA version, and results are time-specific.
-
-## Task 1: TW-EX-7, GO-EX-7, and AMD inference setup
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-20T07-17-54-WET2-arknights_maa_prts_job_adaptation.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-10-23T11:11:02+00:00, static validation only)
-
-### keywords
-
-- prts://104914, TW-EX-7, 塞雷娅, range_table.json, GO-EX-7, OperatorMissing, RX550, GpuDescription
-
-## User preferences
-
-- when adapting jobs, "同时修改作业的干员适配等信息" -> synchronize actions, opers, skills, levels, modules, support, and explanation. [Task 1]
-- when the user says "塞雷娅不要奶到结城理", treat range exclusion as a measured hard constraint. [Task 1]
-
-## Reusable knowledge
-
-- Saria S2 at (8,4) Up covers Snow and SilverAsh, not Makoto; derive from range_table.json. OperatorMissing can mean level/elite/skill mismatch. GPU config needs restarted logs resolving Radeon. [Task 1]
-
-## Failures and how to do differently
-
-- Static validation, connection, or screenshot success does not prove raid clear; do not alter paused diagnosis/configuration without new instruction. [Task 1]
-
 # Task Group: Windows graphics, Codex desktop, and power scheduling
 
 scope: Diagnose Windows graphics/desktop faults, investigate Codex UI/sync, and schedule explicit one-time system sleep.
@@ -854,3 +855,47 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only cha
 
 - Do not infer a cross-artist/global Top 20 from a single artist's hot ordering. The formal NetEase ranking formula remains unverified. [Task 1]
 - Boundary-aware automated matching is only a candidate filter; manually validate official Credits/roles before declaring BOF22 participation. [Task 3]
+# Task Group: MAA Arknights Assistant CV-8 Copilot adaptation and project-directory migration
+
+scope: Replace unavailable operators in an MAA Copilot job while preserving the original deployment, validate token geometry, and follow a user-renamed checkout.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant; reuse_rule=Reinspect the current roster, game data, job, and directory names; static validation is not combat verification.
+
+## Task 1: Replace Lumen in `prts://87122` CV-8 with Mon3tr S1 and deploy Reconstruction
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T07-17-54-WET2-cv8_mon3tr_job_and_project_directory_migration.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-14T08:02:24+00:00, static validation only; use new checkout path below)
+
+### keywords
+
+- prts://87122, CV-8, act28side_08, Mon3tr, 重构体, `CV-8-Mon3tr-S1.json`, `range_table.json`, `operators-2026-11-14`
+
+## Task 2: Migrate from the `!` checkout to the renamed project directory
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T07-17-54-WET2-cv8_mon3tr_job_and_project_directory_migration.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-14T08:02:24+00:00, 11 files copied and SHA-256 checked)
+
+### keywords
+
+- `MAA Arknights Assistant!`, `MAA Arknights Assistant`, migration, `CopiedAndVerified: 11`, `OldDirectoryPreserved: true`, SHA-256
+
+## User preferences
+
+- when replacing an operator, the user asked: "保持在原来的位置" -> retain the original coordinate, direction, and deployment order unless separately authorized. [Task 1]
+- when the user asked: "找一个合适的地方放重构体" -> check legal tiles, summon range, intended buff targets, and deployment timing, not merely the operator list. [Task 1]
+- when the user says the project was renamed and "少了一个感叹号，你迁移一下" -> switch future work to `C:\Users\605\Documents\Codex\MAA Arknights Assistant`; do not keep assuming the old path. [Task 2]
+
+## Reusable knowledge
+
+- `prts://87122` is CV-8 `act28side_08`, a 13x9 map with deployment limit 8. The 2026-11-14 snapshot had 240 unique records; never write the read-only key into jobs or exports. [Task 1]
+- In `data/copilot-87122/CV-8-Mon3tr-S1.json`, Mon3tr S1 stays at `(10,5)` facing left. Its `y-2` range covers the Reconstruction at `(9,4)`; deploy that zero-block summon after the original five operators. It belongs in deployment actions, not the `opers` auto-roster. [Task 1]
+- Reconstruction at `(9,4)` covers Logos `(9,3)`, Ulpianus `(8,4)`, and Mon3tr `(10,5)`; validate map legality, no overlap, range geometry, roster level/module data, and deployment budget. Rebuild with `data/copilot-87122/build_adapted.py`; inspect `validation.json` and `README.md`. [Task 1]
+- The active path is `C:\Users\605\Documents\Codex\MAA Arknights Assistant`; the old `...Assistant!` copy remains. Eleven added files were copied and individually SHA-256 verified. [Task 2]
+
+## Failures and how to do differently
+
+- Static JSON/map/range/roster validation, without an MAA-core load, device connection, or battle, does not prove a clear or stability. Report it as untested combat. [Task 1]
+- Mon3tr S1 is an automatic heal skill with extra jump; it is not an equivalent replacement for Lumen S3's status-cleansing function. Preserve that limitation in the job explanation. [Task 1]
+- Symptom: relative files are missing just after a directory rename -> cause: continuing from the `!` checkout -> confirm old/new directories before reading project skills or secrets. [Task 1][Task 2]
+- Symptom: cleanup is blocked after otherwise verified migration -> cause: a destructive old-directory deletion was bundled with copy work -> copy and verify first, then obtain separate explicit authorization for removal; the old copy is currently preserved. [Task 2]
