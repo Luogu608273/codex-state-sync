@@ -1,3 +1,35 @@
+# Task Group: Minecraft Pocket Edition historical version identification and Java gameplay mapping
+
+scope: Identify remembered iOS Pocket Edition feature sets and map them to the closest Java gameplay stage without treating release dates as a one-to-one equivalence.
+applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Use for Minecraft version-history questions; recheck release notes when a precise first-feature or Java-version claim matters.
+
+## Task 1: Map remembered PE features to a lower bound and Java gameplay stage
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-16T10-33-03-9Hi9-minecraft_pocket_edition_java_version_mapping.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\16\rollout-2026-11-16T19-07-01-01a1e3ea-e2bf-7902-b8ee-5b5831758849_01a1e409-f811-7f22-9166-3753544dbaad.jsonl, updated_at=2026-11-16T11:23:53+00:00, partial: feature lower bound established; smooth-lighting symptom cannot date a precise PE minor version)
+
+### keywords
+
+- Minecraft, Pocket Edition, MCPE 0.9.0, 0.12.1, 0.14.0, 0.15.0, Java 1.8, Java 1.11, item frame, anvil, observer, sticky piston, slime block, smooth lighting
+
+## User preferences
+
+- when comparing historical versions, the user corrected “不是同期版本，而是对应的版本” -> compare the actual feature set and gameplay stage rather than matching release dates. [Task 1]
+- when the user adds features such as “有铁砧” and “有侦测器和粘性活塞，活塞推动粘液块可以把村民弹起” -> revise the earlier lower bound explicitly instead of retaining a rough first answer. [Task 1]
+- when a visual memory is described as “平滑光照是失效的，就是每格亮度完全相同” -> distinguish uniform per-block lighting / missing smooth-lighting transitions from an overall room-darkening symptom before inferring a version. [Task 1]
+
+## Reusable knowledge
+
+- PE 0.9.0 added infinite worlds, giant mushrooms, vines, and a Java-1.7.2-like biome range; mushrooms alone do not distinguish 0.9.x from 0.10.x. PE 0.12.1 had enchanting tables and anvils; PE 0.14.0 added item frames and slime blocks; PE 0.15.0 added pistons, sticky pistons, and observers. [Task 1]
+- A remembered item-frame/anvil/enchantment set has a PE 0.14.0 lower bound; adding observers and sticky pistons raises it to PE 0.15.0. Java 1.8 explains slime-block piston entity launching, but not observers; report individual feature first appearances and an overall gameplay approximation separately rather than calling the whole set “Java 1.8.” [Task 1]
+- Early PE smooth-lighting behavior changed across releases, so “each block has the same brightness and adjacent blocks jump” supports a missing-transition description but cannot independently pin a PE minor version. [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: “smooth lighting failed” is interpreted as a sealed room suddenly becoming dark -> cause: the visual observation was not restated first -> confirm whether the user means uniform face brightness, stepwise light levels, AO, or global darkness before dating it. [Task 1]
+- Symptom: “PE 0.14.0 corresponds to Java 1.8” is stated as a strict equivalence -> cause: redstone components arrived on different timelines -> list matched and unmatched features; observer presence rules out Java 1.8 as a single-feature-complete match. [Task 1]
+
 # Task Group: Windows high-memory diagnosis: PcaSvc process-object handles
 
 scope: Diagnose Windows 10 memory pressure that remains after logout, especially suspected system-service handle retention; requires administrator verification before assigning root cause.
@@ -229,6 +261,16 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse t
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
 
+## Task 30: Combine three DP layers with a staged convolution and endpoint constraints
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-14T06-58-41-lSS6-three_layer_dp_convolution_endpoint_constraints.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\16\rollout-2026-11-16T21-39-52-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e495-e9d6-7cb2-baf1-45998894a8e6.jsonl, updated_at=2026-11-16T13:40:18+00:00, success: O(n^2) staged merge and endpoint conditions established)
+
+### keywords
+
+- DP, convolution, f, g, H, endpoint constraint, complement, O(n^2), graph counting
+
 ## Task 31: Construct the maximum number of directed triangles for P10441 `乒乓球`
 
 ### rollout_summary_files
@@ -238,16 +280,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 ### keywords
 
 - P10441, 乒乓球, JOIST 2024, 出度, 三元环, 贪心, 翻边, 后缀加一, long long, 多测, ans矩阵
-
-## Task 30: Tutor P12445 `数好图` incrementally; explain inclusion-exclusion inside DP
-
-### rollout_summary_files
-
-- rollout_summaries/2026-11-14T06-58-41-lSS6-p12445_tutoring_incremental_inclusion_exclusion_dp.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\16\rollout-2026-11-16T17-12-32-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e3a1-29fb-7511-beff-6fb31ac879a4.jsonl, updated_at=2026-11-14T07:19:59+00:00, concept explanation only; no state design or mastery verification)
-
-### keywords
-
-- P12445, 数好图, Promet, COTS 2025, 容斥写进 DP, P2151, 单坏条件, 多坏条件, oi-training
 
 ## Task 23: Locate ZR2-7 originals and write a verified 1-based T2 `path.cpp` standard solution
 
@@ -540,8 +572,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - when proving a constructive greedy before coding, the user asked “这样贪心能做到三元环数的上限” and only then “到这里就完成思考可以开始写了吗” -> establish the bound, final structure, invariant, and feasibility before implementation. [Task 31]
 - when checking a scan/continuity argument, the user supplied the endpoint reasoning `d_u-d_{u+1}=1` and why the leftmost increment is `<=0` -> prove the boundary explicitly, not merely assert continuity. [Task 31]
-- when beginning P12445, the user said “先不用给提示，等我说我的做法” -> confirm the statement/constraints and wait; do not volunteer the algorithm or key observation. If they later explicitly ask what techniques they may not know, diagnose only those techniques before returning to incremental teaching. [Task 30]
-- when the user compares a new method with P2151's “减去走回头路”, connect to that familiar case but identify the different condition structure rather than treating it as the same technique. [Task 30]
+- when combining layered combinatorial DP, the user proposed “那三层 dp 合起来可以考虑分步计算” -> prefer staged convolution of independently computed layers over an unnecessary three-dimensional joint state. [Task 30]
 - when the user asked “改成 1-indexed” then clarified “位掩码不用 1-indexed，下标要 1-indexed” -> keep ordinary bitmask mathematics 0-based (`0..(1<<m)-1`, `1 << (j-1)`), while making entity, array, queue, and DSU positions 1-based. [Task 23]
 - when teaching an OI problem from the user's own derivation, continue interactively: P9531 evidence favors preserving their invariants and asking one next question rather than jumping to a complete LCT/proof/code solution. [Task 25]
 - when the user provides complete C++ and says “常数过大，有没有推荐的常数优化” -> investigate actual hot paths, memory layout, and access counts before generic compiler advice; identify unverified proposals as such. [Task 24]
@@ -571,7 +602,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - P10441 `乒乓球`: directed-triangle count is `C(n,3)-Σ_i C(d_i,2)`, because the non-cycle triangle has a unique two-win vertex. With fixed total outdegree, minimizing the sum means balanced degrees: all `(n-1)/2` for odd `n`; `n/2` and `n/2-1` half each for even `n`. From the total-order orientation `i -> j (i<j)`, reversing `u -> v` changes the count by `t=d_u-d_v-1`. Scan `u=1..n`, `v=n..u+1`, and reverse when `0<t<=remaining`, updating `d_u--, d_v++`. [Task 31]
 - In that scan, completed rows uniformly add one to a suffix, so each step left lowers the candidate increment by at most one. At `v=u+1`, prior suffixes that increased `u` also increased `u+1`, while this row only decreases `d_u`, hence `d_u-d_{u+1}-1<=0`; if an increment exceeds `remaining`, keep scanning left until it equals `remaining`. The full greedy reverses exactly `v-u>floor(n/2)`, yielding the balanced degree sequence. Use `long long` for `m`/remaining; time and matrix space are `O(n^2)`. [Task 31]
-- P12445 `[COTS 2025] 数好图 / Promet`: `2≤N≤2000`, with prime `P`, counts DAGs having exactly `K` vertices both reachable from 1 and able to reach N. The likely unfamiliar part is “把容斥写进 DP”, plus deciding after reachability classification which edge choices multiply independently. P2151's all-transitions-minus-the-back-edge is a single bad condition; here multiple bad conditions require intersections. In the DP, branch each condition into “not designated” and “designated to occur”; flip the designated branch's sign. “Not designated” does not prohibit it—the alternating signs cancel. [Task 30]
+- For fixed endpoint-constrained tables `f_{n,r}` and `g_{r,k}`, first compute `x_k=Σ_{r=k}^n f_{n,r}g_{r,k}`, then multiply by the internal table: `ans_k=x_kH_k`. Fixed `S` can be reindexed as `1..k`, so `H_k` depends only on `k`; all three tables and the merge remain `O(n^2)`. `ans_1=0`, and `ans_0=2^{C(n,2)}-Σ_{k=2}^n ans_k (mod P)`. [Task 30]
 - ZR2-7 originals: T1 = Codeforces 1156C Match Points; T2 = QOJ #2617 Browsing the Collection; T3 = QOJ #10170 Data Structures Master; T4 = QOJ #7976 最后的晚餐. T2's checked solution is `C:\Users\605\Downloads\1110\path\path.cpp`: per-terminal reverse multi-source BFS over `(item, mask)`, with successor DSU to skip visited interval states; default `path.in/path.out`, `LOCAL` for stdio. `sample0` through `sample5` matched after `-std=c++14 -O2 -static`. [Task 23]
 - P10787 splits a restricted path into doubling segments with states 0/1/at-least-2 unoriented edges; segment-state changes follow reverse references and decrement `s_i = Σ min(c_B, 2)`, with count 1 queued for direction resolution. The LCA sides determine orientation; a contracted-tree two-coloring proves the next greedy bit may remain 0 after forced propagation. [Task 27]
 - For the P10787 `N=5e5+5`, `M=20` code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. `build()` may compute the same-start parent `k+1` segment directly after `st[x][k]`, removing `add2(e[i].v, k-1, e[i].v)` while retaining upper-segment multi-parent references. [Task 24]
@@ -612,7 +643,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 ## Failures and how to do differently
 
 - P10441 multi-test symptom: `d` resets but `ans` retains an earlier reversed edge; input `2\n3 1\n3 0\n` leaves a triangle in the second case. Because every `i<j` is revisited, set `ans[j][i]=0` before calculating its increment, then set it to 1 only when reversing. Never stop on `t>remaining`; the one-step decrement bound is the reason a later `t==remaining` exists. [Task 31]
-- The P12445 discussion neither verified understanding nor reached concrete DP states. Do not infer mastery from the explanation or training archive; wait for the user's derivation and advance through one specific breakpoint/question rather than revealing the full solution. [Task 30]
+- Symptom: reused `g` table undercounts or has an incorrectly restricted state space -> cause: forcing the ordinary prefix's last point into `S` -> only force the final point when extracting the size-`r` result; ordinary prefix endpoints may be either category. Keep both endpoint constraints: `1,n∈R` in `f`, and the first/last points in `S` in `g`. [Task 30]
 - Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
 - Symptom: treating P10787 candidate speedups as a confirmed patch -> cause: neither the C++ change nor benchmarks were run, and `f1/f2` or parent-order updates may still matter -> preserve the original, differential-test `fl/f1/f2`, parent ordering, length-1/2 segments, and final-edge orientation, then compile and benchmark. User-reported AC does not confirm which optimization was used. [Task 24][Task 27]
 - P11994 symptom: empty binary-search range reads an uninitialized `res` -> cause: `lst=L` instead of `L-1` and no `res=R+1` default. Also never read `sum[lst[i]]`: balances are stored as `sum[i]`; compute old-prefix differences before overwriting `lst`. [Task 26]
