@@ -265,7 +265,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-14T06-58-41-lSS6-three_layer_dp_convolution_endpoint_constraints.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\16\rollout-2026-11-16T21-39-52-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e495-e9d6-7cb2-baf1-45998894a8e6.jsonl, updated_at=2026-11-16T13:40:18+00:00, success: O(n^2) staged merge and endpoint conditions established)
+- rollout_summaries/2026-11-14T06-58-41-lSS6-three_layer_dp_convolution_endpoint_constraints.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T15-02-15-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e850-3d42-7ed3-9989-b5a43183332c.jsonl, updated_at=2026-11-16T13:40:18+00:00, success: O(n^2) staged merge and endpoint conditions established)
 
 ### keywords
 
@@ -636,7 +636,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P17833《迁徙》: after fixing adjacent fork points `b,b+1`, keep the local splice constraints `L_b=a` and `R_{b+1}=c`; `(pre_a+1)(suf_c+1)` alone is insufficient. Compress the last/first-edge conditions into one-dimensional `pre/suf`, then aggregate independent left/right candidates with forward/reverse buckets for O(n) time and O(n) space; keep `a<b`, `c>b+1`, and zero-length extensions counted as 1. [Task 21]
 - Möbius construction: for `B=x0+L*y0`, compute each inclusion-exclusion term separately: if `m<B+y0` return 0; `U=(m-y0)/B`; if `U<u0` return 0; otherwise `(U-u0)/y0+1`. Do not move floor division outside `C(L)=sum mu(d) F_L((n+2)/d)`. Precompute the segment-invariant minimal positive `u0`; `y0=1` gives `u0=1`. [Task 20]
 - Lexicographic runs: for `0`, binary-search maximal `L` with `C0(L)>=k` and retain `k`; for `1`, set `r=T-k+1`, binary-search `C1(L)>=r`, then set `k=C1(L)-r+1`. Check initial `k<=phi(n+2)`, stop at `x+y=n+2`, use `long long`, and bound a zero run by `floor((n+2-x0-y0)/y0)` (swap coordinates for one). [Task 20]
-- The Zhengrui batch at `C:\Users\605\我的云端硬盘\CKK` delivered 20 problems/78 files in `ZR2-4`, `ZR2-6`, `ZR2-7`, `ZR2-8`, `ZR2-9`; 40 programs compiled, 36 ordinary file-IO checks and 4 local-interactor checks passed, and SHA-256 read-back passed. This user-specified local sync folder is distinct from the retired `H:\我的云端硬盘` mount. [Task 18] [ad-hoc note]
+- The Zhengrui batch at `C:\Users\605\我的云端硬盘\CKK` delivered 20 problems/78 files in `ZR2-4`, `ZR2-6`, `ZR2-7`, `ZR2-8`, `ZR2-9`; 40 programs compiled, 36 ordinary file-IO checks and 4 local-interactor checks passed, and SHA-256 read-back passed. This was a task-specific historical destination, not a current default. [Task 18]
 - Interactive deliverables include `ZR2-4\check\spj.cpp` and `ZR2-9\period\spj.cpp` plus `judge.md`. `check` has a deterministic 9-round finite-state certificate; `period` has a n<=1e6 9-query upper-bound certificate and 16,587 local hidden-string tests. [Task 18]
 - ZR2-10 has `README.md`, `validation.json`, and four problem folders each containing `solution.md`, `std.cpp`, and `partial.cpp`. All eight programs compiled with TDM-GCC 10.3.0 C++17 `-O2`; samples, 623 independent small-data cases, file IO, stress, and SHA-256 read-back passed, but it was not online-submitted. [Task 22]
 
@@ -652,7 +652,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P9531 teaching stopped after the first interval hint and has no user confirmation, LCT model, proof, complexity, or implementation validation; wait for the user's inequality/connectedness response, then supply only one additional observation. [Task 25]
 - Similar directory names can point to the wrong target: reading `MAA OI Assistant!\AGENTS.md` failed because the actual file was under `MAA OI Assistant`; use `Get-ChildItem` or `rg --files -g AGENTS.md` before writing. [Task 1]
 - During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
-- Do not revive old mount/permission guidance for H:\我的云端硬盘. [Task 1] [ad-hoc note]
 - Random/brute-force checks do not establish official AC; P8820 must also remove or conditionalize freopen("transmit2.in",...). [Task 2]
 - P9013: arbitrary DFS numeric order can falsely charge a cycle that is reachable from an external predecessor; do root-first traversal, then residual cycles. Local randomized/BFS validation is not official AC. [Task 5]
 - CF455D: previous "not passed" status must be revised, not retained beside the newer AC feedback. Do not elevate the user report into inspected implementation, actual pass date, running time, or verified complexity. [Task 6]
@@ -666,35 +665,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - Symptom: embedded browser shows “This page crashed” / `render process gone exitCode=18 reason=launch-failed` -> inspect Codex browser logs and Windows SideBySide first. In this rollout the missing assembly was `156.0.8078.48`; adding `156.0.8078.48.manifest` declaring `chrome_elf.dll` restored statement access. [Task 22]
 - P17833's user-reported AC did not include final code or online judge evidence; do not present implementation or complexity as submission-verified. Before multiplying decomposed path counts, explicitly check the local three-point splice condition; otherwise the direct product misses valid constraints. [Task 21]
 - Möbius construction was not implemented or sample-tested; after coding, specifically test out-of-range `k`, terminal state, `1`-run reverse ranking, `U<u0`, `y0=1`, and multiplication/accumulator bounds. [Task 20]
-- Do not treat a Google Drive search failure as proof that CKK is unavailable: for this delivery the user specified `C:\Users\605\我的云端硬盘\CKK`. Conversely, do not revive the retired `H:\我的云端硬盘` mount. [Task 18] [ad-hoc note]
+- For this historical delivery, `C:\Users\605\我的云端硬盘\CKK` was the user-specified destination; do not infer that it is a current cloud-storage default. [Task 18]
 - Random `check` observations of at most 6 rounds do not prove an 8-round guarantee; distinguish them from the deterministic 9-round partial certificate. [Task 18]
-
-# Task Group: Delivery destination and retired local sync-path guidance
-
-scope: Choose a delivery destination when a task refers to the retired movable-disk sync setup; do not treat old local paths as current destinations.
-applies_to: workflow=deliverables and cloud storage; reuse_rule=Apply until the user supplies a current local destination or changes this preference; this entry is sourced from an ad-hoc note, not a rollout summary.
-
-## Task 1: Retire obsolete movable-disk sync-path guidance
-
-### rollout_summary_files
-
-- extensions/ad_hoc/notes/20261006-172853-remove-drive-sync-path.md (source=ad-hoc note; no rollout summary metadata available)
-
-### keywords
-
-- H:\\我的云端硬盘, CKK, Gemini, Google AI Studio, Google Drive, 本地同步路径, 交付目录
-
-## User preferences
-
-- when selecting a delivery location, the user explicitly retired `H:\\我的云端硬盘` and its `CKK`, `Gemini`, and `Google AI Studio` directories as current local sync paths -> do not default to, seek, or request access to that local mount; use connected Google Drive for delivery unless the user specifies a current destination. [Task 1]
-
-## Reusable knowledge
-
-- Remove old references, access assumptions, and delivery suggestions tied to the retired movable-disk sync paths; do not change unrelated C++ or contest-delivery preferences. [Task 1]
-
-## Failures and how to do differently
-
-- Symptom: a delivery workflow proposes or searches `H:\\我的云端硬盘` as a default -> cause: stale historical sync-path guidance -> pivot to connected Google Drive or ask for an explicitly current destination. [Task 1]
 
 # Task Group: MuMu virtrite 2 Windows transparency utility
 
@@ -822,9 +794,75 @@ applies_to: cwd=Windows desktop and Codex desktop; reuse_rule=Hardware, feature 
 - Never declare GPU recovery from device code alone. [Task 1]
 - Clearing the input-language `Ctrl+Shift+0` conflict did not fix Milthm when 1–9 worked; inspect the application’s layered style/zero-key path. Synthetic self-tests do not prove game-renderer compatibility; try equal/elevated integrity for Endfield before blaming fullscreen. [Task 1]
 
-# Task Group: Chat research on NetEase rankings, BOF22 playlist authors, Arknights help, and redirects
+# Task Group: BOF22 rules, rankings, NetEase playlist audit, and BMS genre guide
 
-scope: Evidence-led public-web research for NetEase music ordering, BOF22 participation audits, Arknights integrated-strategy help, and client-side redirects.
+scope: Source-backed BOF22 research, full NetEase playlist-to-participant matching, and comparative BMS/rhythm-game genre explanations.
+applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Requery volatile rankings and check official BOF22 pages; reuse the audit method but not an identity match without current source evidence.
+
+## Task 1: Explain BOF22 rankings, timing, impression permissions, and Tripcode/Delete Key
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_rules_rankings_playlist_crosscheck_and_genre_guide.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-11-16T08:54:50+00:00, official-rule research)
+
+### keywords
+
+- BOF22, manbow, impressions, Long Impression, individual war, old total, new total, median, Ratio Point, FINAL STRIKER, Tripcode, Delete Key
+
+## Task 2: Produce a current high-rated BOF22 snapshot
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_rules_rankings_playlist_crosscheck_and_genre_guide.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-11-16T08:54:50+00:00, historical 2026-10-19 snapshot)
+
+### keywords
+
+- BOF22, event=152, action=sp, average, median, impressions >= 10, Disq, high-rated-snapshot.json
+
+## Task 3: Exhaustively match NetEase playlist 8483155610 to BOF22 participants
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_rules_rankings_playlist_crosscheck_and_genre_guide.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-11-16T08:54:50+00:00, complete audit)
+
+### keywords
+
+- BOF22, 网易云, playlist 8483155610, api/v6/playlist/detail, api/song/detail, event=152, Credits, teamprofile, NoKANY, Kankitsu, Lime, UnicodeEncodeError, xi, JURUMA
+
+## Task 4: Explain BMS/rhythm-game genre labels comparatively
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_rules_rankings_playlist_crosscheck_and_genre_guide.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-11-16T08:54:50+00:00, genre guide)
+
+### keywords
+
+- Speedcore, Neurofunk, Trance, Artcore, DnB, breakbeat, four-on-the-floor, bass texture, BMS, rhythm-game genres
+
+## User preferences
+
+- when the user asks about a “ranking,” explicitly distinguish average, raw total, adjusted total, median, team, and individual categories; give the official source, metric/formula, query time, and uncertainty. [Task 1]
+- when the user asks “目前评分较高” -> use current official data, an explicit threshold/metric, timestamp, and per-entry links rather than subjective recommendations. [Task 2]
+- when the user asks “把所有作者扒下来全部查一遍” -> cover all tracks/artists, retain per-item results, and separate confirmed creator matches from ambiguous aliases and non-creator roles. [Task 3]
+- when explaining genre labels, the user asked “还有其他更多的曲风也介绍一下” -> give a broad comparative map using drums, bass, sound design, and arrangement; treat BPM as secondary and distinguish strict genres from loose fusion/aesthetic labels. [Task 4]
+
+## Reusable knowledge
+
+- BOF22 old individual total is raw score sum; new total adds Ratio/FINAL STRIKER adjustments; median is a separate ranking. Long Impression is available without author status or mandatory account, requires a non-empty comment and 100–1000 score, and should follow actual BMS play. Tripcode is the public reviewer marker; Delete Key only edits/deletes a review. [Task 1]
+- For a current average snapshot, fetch `event.cgi?action=sp&event=152`, exclude `(Disq)`, require `impressions >= 10`, sort raw `average` descending, then median/impressions/ID. The 2026-10-19 snapshot (396 numeric rows, 38 eligible) is not the official individual-war order and becomes stale. [Task 2]
+- For playlist 8483155610, use `/api/v6/playlist/detail?id=...&n=100000&s=0` for track IDs and batch `/api/song/detail?ids=[...]`; retain artist-ID-0 records by name. The validated audit recovered 373 tracks, 275 raw artist records, 270 displayed names, cross-checked 475 BOF22 entries and 175 teams. [Task 3]
+- Treat artist field, Credits, and team member list as distinct evidence levels. Confirmed music/BMS names were NoKANY, Kankitsu/Lime, ARForest, Cranky, OfficialAz3, ああああ, 庭師, ARMYTOM, BITPLANE, kanoryo, LYRi "Cyanblue" WHiTE, nm-y, and 米虾Fomiki; classify vocal/lyric, graphics, virtual singer, team-only, and unresolved identities separately. [Task 3]
+- Neurofunk is bass-design-centered DnB; Speedcore is extreme high-tempo Hardcore; Artcore is a loose rhythm-game/doujin label often mixing melodic piano/strings with DnB or breakbeat. Use four-on-the-floor versus breakbeat, bass texture, primary melodic/sound-design focus, and gradual versus abrupt structure as the listening checklist. [Task 4]
+
+## Failures and how to do differently
+
+- Symptom: direct manbow/YouTube fetch is throttled or unavailable -> use official rule pages and direct HTTP retrieval where possible; label video-specific date/content claims unverified when unfetched. [Task 1]
+- Symptom: a snapshot is presented as BOF's final individual ranking -> cause: sorting raw average rather than the official category -> name the metric and date, and mark scores volatile. [Task 2]
+- Symptom: UTF-8 output fails with `UnicodeEncodeError: 'gbk' codec can't encode character` -> set `PYTHONIOENCODING=utf-8` or `sys.stdout.reconfigure(encoding='utf-8')`. Naive substring matches such as xi/Yi Xi or uma/JURUMA are candidates only; require conservative boundaries and official Credits/team-role verification. [Task 3]
+
+# Task Group: Chat research on NetEase rankings, Arknights help, and redirects
+
+scope: Evidence-led public-web research for NetEase music ordering, Arknights integrated-strategy help, and client-side redirects.
 applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only chats; reuse_rule=Recheck platform data and sources; do not promote incomplete or secondary-source claims as verified.
 
 ## Task 1: NetEase equal-popularity ordering
@@ -847,17 +885,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only cha
 
 - 明日方舟, 集成战略, 界园, 参数预设, 预设模式, 启用参数, 常规行动, 种子, 机械师园圃
 
-## Task 3: Full NetEase playlist 8483155610 extraction and BOF22 cross-check
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-14T12-49-48-QJBa-bof22_netease_playlist_full_artist_crosscheck.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl, updated_at=2026-10-24T08:49:49+00:00, complete audit)
-
-### keywords
-
-- BOF22, 网易云, playlist 8483155610, api/v6/playlist/detail, api/song/detail, event=152, List_def, teamprofile, Credits, NoKANY, Kankitsu, Lime, Cranky, ARForest, OfficialAz3
-
-## Task 4: Mihoyo client-side random redirect analysis
+## Task 3: Mihoyo client-side random redirect analysis
 
 ### rollout_summary_files
 
@@ -871,62 +899,46 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only cha
 
 - when platform scores tie, the user corrected: "不对不对，你研究一下网易云相同热度是怎么排的" -> reproduce displayed/API order or state the formula is undisclosed; do not substitute comments as ranking. [Task 1]
 - when asking "肉鸽如何使用种子开局，我没找到相关界面" -> give the feature's official name, exact route, unlock condition, and whether it is currently available. [Task 2]
-- when asking "把所有作者扒下来全部查一遍" -> cover the full set, retain per-item results, and distinguish confirmed, pending, and not found instead of returning representative names. [Task 3]
-- for random-page analysis, identify candidate set/random method/trigger and separate proven facts from inference. [Task 4]
+- for random-page analysis, identify candidate set/random method/trigger and separate proven facts from inference. [Task 3]
 
 ## Reusable knowledge
 
 - NetEase popularity/pop=100 does not resolve rank. /api/artist/{id} or /api/v1/artist/songs?id={id}&order=hot gives a single artist's hot-work order; comment total is a separate metric and cannot reconstruct it. [Task 1]
 - 界园的种子功能正式名为“参数预设/预设模式”：历史路径是主题大厅 → “常规行动”上方 → “启用参数”；需先完成一局常规行动，且限时开放已于 2026-03-03 结束，所以当前找不到入口正常。不要与黑流树海机械师园圃的自然物“种子”混淆。 [Task 2]
-- Playlist 8483155610: /api/v6/playlist/detail?id=...&n=100000&s=0 returns trackIds; batch /api/song/detail?ids=[...] for full details. Preserve ID-0 artists by name. The verified audit recovered 373/373 tracks, 270 display artist names, and used official BOF22 work pages, Credits, and team table before confirming matches. [Task 3]
-- Short-string matching creates false positives such as xi/Yi Xi and uma/JURUMA. Do not equate virtual singers, comment appearances, source songs, or acknowledgements with a real-world BOF22 author entry; leave Tsugu/Plum pending where identity evidence is insufficient. Set UTF-8 stdout on Windows to avoid GBK UnicodeEncodeError. [Task 3]
-- Mihoyo redirect evidence was client-side: aha.js loads aha.wasm and then uses location.replace. [Task 4]
+- Mihoyo redirect evidence was client-side: aha.js loads aha.wasm and then uses location.replace. [Task 3]
 
 ## Failures and how to do differently
 
 - Do not infer a cross-artist/global Top 20 from a single artist's hot ordering. The formal NetEase ranking formula remains unverified. [Task 1]
-- Boundary-aware automated matching is only a candidate filter; manually validate official Credits/roles before declaring BOF22 participation. [Task 3]
-# Task Group: MAA Arknights Assistant CV-8 Copilot adaptation and project-directory migration
+# Task Group: MAA Arknights Assistant BB-EX-6 Mon3tr rope-preserving Copilot adaptation
 
-scope: Replace unavailable operators in an MAA Copilot job while preserving the original deployment, validate token geometry, and follow a user-renamed checkout.
-applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant; reuse_rule=Reinspect the current roster, game data, job, and directory names; static validation is not combat verification.
+scope: Add Mon3tr S1 to a Babel Tower MAA Copilot job without breaking its 稳固锁链 connections; static validation only.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant; reuse_rule=Reinspect the current roster, game data, map/runes, and original job before adapting another stage; do not infer combat success from static checks.
 
-## Task 1: Replace Lumen in `prts://87122` CV-8 with Mon3tr S1 and deploy Reconstruction
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-20T07-17-54-WET2-cv8_mon3tr_job_and_project_directory_migration.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-14T08:02:24+00:00, static validation only; use new checkout path below)
-
-### keywords
-
-- prts://87122, CV-8, act28side_08, Mon3tr, 重构体, `CV-8-Mon3tr-S1.json`, `range_table.json`, `operators-2026-11-14`
-
-## Task 2: Migrate from the `!` checkout to the renamed project directory
+## Task 1: Add Mon3tr S1 to `prts://86659` BB-EX-6 while preserving rope links
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-20T07-17-54-WET2-cv8_mon3tr_job_and_project_directory_migration.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-14T08:02:24+00:00, 11 files copied and SHA-256 checked)
+- rollout_summaries/2026-10-20T07-17-54-WET2-bb_ex6_mon3tr_s1_rope_preserving_adaptation.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-17T01:41:17+00:00, static validation; combat not tested)
 
 ### keywords
 
-- `MAA Arknights Assistant!`, `MAA Arknights Assistant`, migration, `CopiedAndVerified: 11`, `OldDirectoryPreserved: true`, SHA-256
+- prts://86659, BB-EX-6, act33side_ex06, Mon3tr, 一技能, 稳固锁链, 铁索, 歌蕾蒂娅, 乌尔比安, 逻各斯, `BB-EX-6-Mon3tr-S1.json`, static-validation
 
 ## User preferences
 
-- when replacing an operator, the user asked: "保持在原来的位置" -> retain the original coordinate, direction, and deployment order unless separately authorized. [Task 1]
-- when the user asked: "找一个合适的地方放重构体" -> check legal tiles, summon range, intended buff targets, and deployment timing, not merely the operator list. [Task 1]
-- when the user says the project was renamed and "少了一个感叹号，你迁移一下" -> switch future work to `C:\Users\605\Documents\Codex\MAA Arknights Assistant`; do not keep assuming the old path. [Task 2]
+- when the user asked “增加一个 Mon3tr 带一技能，部署在合适的位置” -> choose and validate the location from legal tiles, healing range, rope links, and deployment timing, not by merely appending an operator. [Task 1]
+- when the user emphasized “需要注意关卡机制的铁索” -> preserve original deployment order and verify rope endpoints, two-link capacity, and retreat risk before introducing another deployment. [Task 1]
 
 ## Reusable knowledge
 
-- `prts://87122` is CV-8 `act28side_08`, a 13x9 map with deployment limit 8. The 2026-11-14 snapshot had 240 unique records; never write the read-only key into jobs or exports. [Task 1]
-- In `data/copilot-87122/CV-8-Mon3tr-S1.json`, Mon3tr S1 stays at `(10,5)` facing left. Its `y-2` range covers the Reconstruction at `(9,4)`; deploy that zero-block summon after the original five operators. It belongs in deployment actions, not the `opers` auto-roster. [Task 1]
-- Reconstruction at `(9,4)` covers Logos `(9,3)`, Ulpianus `(8,4)`, and Mon3tr `(10,5)`; validate map legality, no overlap, range geometry, roster level/module data, and deployment budget. Rebuild with `data/copilot-87122/build_adapted.py`; inspect `validation.json` and `README.md`. [Task 1]
-- The active path is `C:\Users\605\Documents\Codex\MAA Arknights Assistant`; the old `...Assistant!` copy remains. Eleven added files were copied and individually SHA-256 verified. [Task 2]
+- `prts://86659` is BB-EX-6 `act33side_ex06`, a 12x8 map with deployment limit 8 and normal/challenge-compatible difficulty. The refreshed 2026-11-17 roster had 240 records: Mon3tr met E2-60, S1M3, X-module requirements; the current project checkout is `C:\Users\605\Documents\Codex\MAA Arknights Assistant`. Never export the ignored read-only key. [Task 1]
+- `data/copilot-86659/BB-EX-6-Mon3tr-S1.json` places Mon3tr at MAA `(10,5)` facing up, after the original three operators and a 2x-speed action. S1 is automatic and needs no manual-skill action. Its direct `y-2` range covers 歌蕾蒂娅 `(10,3)` and 乌尔比安 `(9,4)`; 逻各斯 `(10,2)` is only a possible healing-chain target, not a guaranteed one. [Task 1]
+- The retained rope edges are `歌蕾蒂娅 -> 乌尔比安` and `乌尔比安 -> 逻各斯`; Ulpianus is already at its two-link limit, so Mon3tr must be a final ordinary-high-ground deployment that neither creates nor retargets a rope. Connector tiles need the last-deployed in-range operator with capacity; losing a sustaining link can make the operator wobble/retreat. [Task 1]
+- Rebuild/inspect `data/copilot-86659/build_adapted.py`, `validation.json`, `adaptation.json`, and `README.md`. Static checks covered JSON, legal tiles, challenge locks, overlap, original order, healing geometry, rope support range/capacity, deployment limit, and secret leakage. [Task 1]
 
 ## Failures and how to do differently
 
-- Static JSON/map/range/roster validation, without an MAA-core load, device connection, or battle, does not prove a clear or stability. Report it as untested combat. [Task 1]
-- Mon3tr S1 is an automatic heal skill with extra jump; it is not an equivalent replacement for Lumen S3's status-cleansing function. Preserve that limitation in the job explanation. [Task 1]
-- Symptom: relative files are missing just after a directory rename -> cause: continuing from the `!` checkout -> confirm old/new directories before reading project skills or secrets. [Task 1][Task 2]
-- Symptom: cleanup is blocked after otherwise verified migration -> cause: a destructive old-directory deletion was bundled with copy work -> copy and verify first, then obtain separate explicit authorization for removal; the old copy is currently preserved. [Task 2]
+- Symptom: tile assertion fails for 歌蕾蒂娅 -> cause: treating her melee tile as high-ground -> validate each operator's actual ground/high-ground type; both 歌蕾蒂娅 and 乌尔比安 needed ground eligibility. [Task 1]
+- A Grade-7 Gladiia S1 does not meet the original M3 requirement. Preserve that roster shortfall and suggest training/borrowing; do not present the squad as fully compliant. [Task 1]
+- Static validation does not load MAA Core, connect a device, or fight. It cannot establish normal/challenge clear, rope survival, healing-chain target priority, or stability. [Task 1]

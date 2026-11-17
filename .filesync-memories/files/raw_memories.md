@@ -871,72 +871,101 @@ References:
 - Microsoft `SetWindowLongPtrW`: it fails when the target window belongs to a higher privilege process in the UIPI hierarchy.
 
 ## Thread `01a13a76-3840-7ff1-9bb2-e275f75b1894`
-updated_at: 2026-10-24T08:49:49+00:00
+updated_at: 2026-11-16T08:54:50+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\CHAT with GPT
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\19\rollout-2026-10-19T20-48-58-01a13a76-3840-7ff1-9bb2-e275f75b1894_01a15435-3eec-7482-ba85-cc8a640b9828.jsonl
-rollout_summary_file: 2026-10-14T12-49-48-QJBa-bof22_netease_playlist_full_artist_crosscheck.md
+rollout_summary_file: 2026-10-14T12-49-48-QJBa-bof22_rules_rankings_playlist_crosscheck_and_genre_guide.md
 
 ---
-description: 从网易云歌单完整提取373首歌曲的270个艺人署名，并与BOF22官方475条作品和175个团队成员表交叉核对；生成逐名Markdown报告，确认13个音乐/BMS制作署名及其他演唱、美术、团队线索。
-task: extract-all-netease-playlist-artists-and-crosscheck-bof22
-task_group: BOF22 research / Netease playlist audit
-task_outcome: success
-cwd: C:\Users\605\Documents\Codex\CHAT with GPT
-keywords: BOF22, 网易云, playlist, music.163.com, event=152, List_def, teamprofile, Credits, NoKANY, Kankitsu, Lime, Cranky, ARForest, OfficialAz3
+description: BOF22 research workflow, exhaustive NetEase playlist cross-check, and user preference for precise source-backed comparisons
+ task: research BOF22 rules/rankings and map a 373-song playlist to BOF22 participants
+ task_group: BOF22/BMS research
+ task_outcome: success
+ cwd: C:\Users\605\Documents\Codex\CHAT with GPT
+ keywords: BOF22, manbow, impressions, Long Impression, individual war, Ratio Point, FINAL STRIKER, NetEase playlist, UTF-8, genre, Artcore, Neurofunk
 ---
 
-### Task 1: Extract complete Netease playlist metadata
+### Task 1: BOF22 rules and rankings
 
-task: Retrieve every song and artist from playlist 8483155610
-task_group: Netease playlist extraction
-task_outcome: success
-
-Preference signals:
-- 用户要求“把所有作者扒下来全部查一遍” -> 类似请求应做全量提取并提供逐项结果，不只返回代表性作者。
-
-Reusable knowledge:
-- `/api/v6/playlist/detail?id=8483155610&n=100000&s=0` 返回373个完整歌曲编号；需用 `/api/song/detail?ids=[...]` 分批补齐歌曲详情。
-- 最终验证：`declared_tracks=373`、`retrieved_tracks=373`、`unique_song_ids=373`、`missing_track_ids=[]`、`extra_track_ids=[]`。
-- 数据包含275条艺人记录、270个不同显示署名；ID为0的艺人应按名称保留，不能简单按ID合并。
-
-Failures and how to do differently:
-- 网易云网页及旧接口不可用时，使用 v6 接口和歌曲详情接口。
-- Windows 控制台输出非ASCII时会触发 `UnicodeEncodeError: 'gbk' codec can't encode character`；脚本应设置 UTF-8 stdout。
-
-References:
-- `outputs/bof22-playlist-20261024/collect.py`
-- `outputs/bof22-playlist-20261024/songs.json`
-- `outputs/bof22-playlist-20261024/artists.json`
-- `outputs/bof22-playlist-20261024/validation.json`
-
-### Task 2: Cross-check all playlist artists against BOF22
-
-task: Match every playlist artist against official BOF22 works, credits, and teams
-task_group: BOF22 participant research
-task_outcome: success
+task: explain BOF22 ranking categories, publication timing, impression permissions, and Tripcode/Delete Key
+task_group: BOF22 rules
+ task_outcome: success
 
 Preference signals:
-- 用户要求“全部查一遍” -> 应保留全量逐名结果，并明确“已确认、待确认、未查到”，避免把搜索猜测写成事实。
+- When the user asks about a “ranking,” explicitly distinguish average, raw total, adjusted total, median, team, and individual categories; the user repeatedly followed up to clarify these distinctions.
+- For current data, state the official source, metric/formula, timestamp, and uncertainty.
 
 Reusable knowledge:
-- 官方 BOF22 数据源：`https://manbow.nothing.sh/event/event.cgi?action=List_def&event=152` 和 `https://manbow.nothing.sh/event/event_teamprofile.cgi?event=152`。
-- 官方完整列表与简表均解析为475个作品编号；团队表解析为175个团队。
-- 可靠确认必须优先依据作品页 Credits、BMS Artist 字段和团队成员角色。短字符串匹配只能产生候选，不能直接判定参赛。
-- 已确认音乐/BMS制作署名：NoKANY（276、290）、Kankitsu/Lime（289、465）、ARForest（463）、Cranky（364）、OfficialAz3（62、152、274）、ああああ（289）、庭師（384）、ARMYTOM（364）、BITPLANE/Bitplane（300、301）、kanoryo（105）、LYRi “Cyanblue” WHiTE（459、460）、nm-y（381）、米虾Fomiki（88）。
-- 其他已确认参与：Sennzai（演唱，390）、はぁち（演唱，352）、Eili（作词/演唱，390/397）、花見くくる（演唱，290）、rN（Stone Arch Project 的 Graphics）。
-- Kankitsu 的网易云艺人资料 alias 包含 Lime；BOF22 No.465 明确署名 `Lime / Kankitsu`。
-- `つぐ/Tsugu` 与 `Plum/plum` 只保留为待确认，不能因名字相似强行合并。
+- Tripcode is a public reviewer identity marker; Delete Key is the review edit/delete password, not a login password.
+- Long Impression is available to ordinary users without author status or mandatory account; requires a non-empty comment, 100–1000 score, and evaluation based on actually playing the BMS.
+- BOF22 individual old total is raw score sum; new total includes Ratio/FINAL STRIKER adjustments; median is separate.
+- Ordinary promotion opened 2026-09-01; registration began 2026-10-01 23:00 JST; registration reveal 2026-10-09 19:00; FS media reveal 2026-10-16 00:00.
 
 Failures and how to do differently:
-- 初始 substring matching 产生 `xi`、`uma` 等误命中；未来使用边界匹配后仍必须人工检查 Credits。
-- 不要把歌单艺人出现在作品评论区、原曲来源或致谢名单当作本届参赛作者。
-- 虚拟歌手如初音ミク、重音テト、洛天依、闇音レンリ应单独归类，不当作现实作曲者参赛。
+- Some direct manbow/YouTube fetches were throttled. Use official rule pages and direct HTTP retrieval where possible; label video-specific claims unverified if the page cannot be fetched.
 
 References:
-- 报告：`outputs/bof22-playlist-20261024/网易云歌单作者_BOF22全量核查.md`
-- 全部曲目：`outputs/bof22-playlist-20261024/歌单373首_曲目与全部署名.md`
-- 逐名机器结果：`outputs/bof22-playlist-20261024/reviewed-results.json`
-- 代表性官方 Credits：No.289 `A Paper Plane`、No.364 `Disrupt`、No.384 `X_I_A`、No.390 `0×塔`、No.397 `GENESIS ~Cycles of Creation~`、No.459 `記憶の花束`、No.460 `AKASHiC∞PLANET`。
+- `https://www.bmsoffighters.net/bof22/rule.html`
+- `https://bmsoffighters.net/information/181/bof22_impressionaccount_test/`
+
+### Task 2: Current high-rated snapshot
+
+task: produce a current top-10/high-rated BOF22 list
+task_group: BOF22 data snapshot
+ task_outcome: success
+
+Preference signals:
+- “目前评分较高” should default to official current data, an explicit threshold/metric, query timestamp, and per-entry links—not subjective recommendations.
+
+Reusable knowledge:
+- Fetch `https://manbow.nothing.sh/event/event.cgi?action=sp&event=152`; exclude `(Disq)`, require `impressions >= 10`, sort raw `average` descending, then median/impressions/id.
+- Snapshot was saved at `outputs/bof22-20261019/high-rated-snapshot.json`; scores are volatile and this is not the official individual-war order.
+
+### Task 3: Exhaustive playlist-to-BOF22 matching
+
+task: cross-check every artist in NetEase playlist 8483155610 against BOF22 entries and teams
+task_group: BOF22 playlist audit
+ task_outcome: success
+
+Preference signals:
+- User expects all tracks/artists checked, not a sample; ambiguous aliases and roles must be separated from confirmed creator matches.
+- Reproducible local reports and validation counts are valuable.
+
+Reusable knowledge:
+- Playlist validation: 373 distinct tracks, 275 raw artist records, 270 displayed names; compared against 475 entries and 175 teams.
+- Confirmed music/BMS names: NoKANY, Kankitsu/Lime, ARForest, Cranky, OfficialAz3, ああああ, 庭師, ARMYTOM, BITPLANE, kanoryo, LYRi "Cyanblue" WHiTE, nm-y, 米虾Fomiki.
+- Separately classify vocal/lyric, graphics, virtual singer, team-only, and unresolved identity matches.
+- Avoid naive substring matches; use Unicode normalization, word boundaries, artist IDs, official Credits, and team role labels.
+- Windows output may default to GBK; set `PYTHONIOENCODING=utf-8` or `sys.stdout.reconfigure(encoding='utf-8')`.
+
+Failures and how to do differently:
+- Initial output failed with `UnicodeEncodeError: 'gbk' codec can't encode character`; rerun with UTF-8 output.
+- Short-name matching caused false positives (xi/Yi Xi, uma/JURUMA, etc.); require conservative boundaries and manual source verification.
+
+References:
+- `C:\Users\605\Documents\Codex\CHAT with GPT\outputs\bof22-playlist-20261024\网易云歌单作者_BOF22全量核查.md`
+- `C:\Users\605\Documents\Codex\CHAT with GPT\outputs\bof22-playlist-20261024\歌单373首_曲目与全部署名.md`
+- Scripts: `collect.py`, `audit_sources.py`, `check_full_credits.py`, `build_report.py`
+
+### Task 4: Genre explanation
+
+task: explain Speedcore, Neurofunk, Trance, Artcore, and additional BMS/rhythm-game genres
+task_group: music genre education
+ task_outcome: success
+
+Preference signals:
+- After an initial four-genre explanation, the user explicitly requested more genres; future answers should offer a broad comparative map.
+- Explain by audible cues—drums, bass, sound design, arrangement—with BPM as secondary context; distinguish strict genres from loose fusion/aesthetic labels.
+
+Reusable knowledge:
+- Neurofunk is bass-design-focused DnB; Speedcore is an extreme high-tempo Hardcore direction; Artcore is a loose rhythm-game/doujin fusion label often combining melodic piano/strings with DnB/breakbeat.
+- Useful listening checklist: four-on-the-floor vs breakbeat; bass texture; main melodic/sound-design focus; gradual layering vs abrupt structural changes.
+
+References:
+- `https://ukf.com/discover/genres/drum-and-bass/`
+- `https://musicbrainz.org/genre/a9207ed8-8173-420d-a8d7-5add746d7304`
+- `https://www.native-instruments.com/blogs/blog/hardstyle-music`
+- `https://www.chimetunes.net/music`
 
 ## Thread `01a13d43-893b-7dc1-8124-b32eb06745b6`
 updated_at: 2026-10-26T03:37:48+00:00
@@ -1303,71 +1332,54 @@ References:
 - 用户原话：“只保留相互距离最长的两个点”；“有原题吗，我想做一下”
 
 ## Thread `01a1582c-844c-7c13-b25b-67921b416404`
-updated_at: 2026-11-14T08:02:24+00:00
+updated_at: 2026-11-17T01:41:17+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl
-rollout_summary_file: 2026-10-20T07-17-54-WET2-cv8_mon3tr_job_and_project_directory_migration.md
+rollout_summary_file: 2026-10-20T07-17-54-WET2-bb_ex6_mon3tr_s1_rope_preserving_adaptation.md
 
 ---
-description: 将 CV-8 作业 87122 中无法获得的流明替换为 Mon3tr 一技能，保持原位置并新增重构体；随后迁移到去掉感叹号的新项目目录。静态校验成功，未实战验证。
-task: adapt-prts-87122-replace-lumen-with-mon3tr-and-add-reconstruction
- task_group: arknights-homework-maa-copilot
- task_outcome: partial
+description: 为 BB-EX-6 作业 86659 增加 Mon3tr 一技能，保留巴别塔稳固锁链连接并完成静态地图/阵容验证；歌蕾蒂娅自有一技能等级不足，未实战验证
+task: adapt prts://86659 with Mon3tr S1 while preserving Babel Tower rope links
+task_group: C:\Users\605\Documents\Codex\MAA Arknights Assistant
+task_outcome: partial
 cwd: C:\Users\605\Documents\Codex\MAA Arknights Assistant
-keywords: prts-87122, CV-8, Mon3tr, 重构体, operators-2026-11-14, MAA, copilot, migration
+keywords: prts://86659, BB-EX-6, act33side_ex06, Mon3tr, 稳固锁链, 铁索, MAA, copilot, static-validation
 ---
 
-### Task 1: CV-8 Mon3tr 替换作业
+### Task 1: BB-EX-6 Mon3tr 一技能适配
 
-task: replace Lumen with Mon3tr S1 and add Reconstruction
- task_group: arknights-homework-maa-copilot
- task_outcome: partial
+task: 在 `prts://86659` 中增加 Mon3tr 一技能并保持原有铁索连接
 
-Preference signals:
-- 用户要求“保留在原来的位置” -> 替换干员时保持原坐标、朝向和部署顺序。
-- 用户要求“找一个合适的地方放重构体” -> 必须同时检查地图地块合法性、召唤物范围、增益目标和部署时序。
+task_group: Arknights MAA 作业改造
 
-Reusable knowledge:
-- 作业 `prts://87122` 对应 CV-8「告别往昔」，内部关卡 ID `act28side_08`，地图 13×9，部署上限 8。
-- 最新一图流快照于 2026-11-14 15:55 获取成功：240 条、无重复 ID、HTTP/业务状态 200；元数据在 `data/operators-2026-11-14.meta.json`。密钥不应写入作业或导出文件。
-- 用户快照中 Mon3tr 为精二60、一技能专三、X 模组三级；其一技能是游戏自动触发，不应保留流明三技能的手动一次性设置。
-- 生成文件 `data/copilot-87122/CV-8-Mon3tr-S1.json`：Mon3tr 保持流明原位 `(10,5)`、朝左；重构体新增在 `(9,4)`、朝上，放在原五名干员部署完成后。
-- Mon3tr 朝左的 `y-2` 范围覆盖 `(9,4)`；重构体位于 Mon3tr 治疗范围内。重构体周围覆盖逻各斯 `(9,3)`、乌尔比安 `(8,4)`、Mon3tr `(10,5)`；重构体阻挡数为 0，不应承担阻挡。
-- 重构体是召唤物，不加入 `opers` 自动编队列表，只写成部署动作。
-- 原五名干员位置、朝向和部署顺序保持：逻各斯 `(9,3)` 左、奶盾 `(7,3)` 左、圣聆初雪 `(7,6)` 上、Mon3tr `(10,5)` 左、乌尔比安 `(8,4)` 左；随后部署重构体。
-
-Failures and how to do differently:
-- 本次仅完成公开作业读取、数据刷新、JSON/地图/范围/练度静态验证；未加载 MAA 核心、未连接设备、未执行战斗，因此不能宣称通关或实战稳定。
-- Mon3tr 一技能只提供治疗与额外跳跃，不能视为流明三技能的异常状态解除能力等价替代；作业说明应保留这一限制。
-
-References:
-- `data/copilot-87122/CV-8-Mon3tr-S1.json`
-- `data/copilot-87122/build_adapted.py`
-- `data/copilot-87122/adaptation.json`
-- `data/copilot-87122/validation.json`
-- `data/copilot-87122/README.md`
-- 验证输出：`Saved CV-8-Mon3tr-S1.json; five self-owned slots, six legal deployments, original positions preserved, token geometry checked; combat not tested.`
-
-### Task 2: 迁移重命名项目目录
-
-task: migrate project from directory with ! to directory without !
-task_group: filesystem-project-migration
- task_outcome: partial
+task_outcome: partial
 
 Preference signals:
-- 用户说“项目文件我重命名了，少了一个感叹号，你迁移一下” -> 后续工作应优先使用新目录 `C:\Users\605\Documents\Codex\MAA Arknights Assistant`，不要继续假设旧路径。
+- 用户说“增加一个 Mon3tr 带一技能，部署在合适的位置” -> 类似任务应检查地图合法地块、技能范围、治疗链覆盖和部署时序，而非只修改 `opers`。
+- 用户强调“需要注意关卡机制的铁索” -> 巴别塔关卡改作业必须保留原部署顺序并验证接驳地块的锁链端点、连接上限和撤退风险。
 
 Reusable knowledge:
-- 旧目录：`C:\Users\605\Documents\Codex\MAA Arknights Assistant!`
-- 新目录：`C:\Users\605\Documents\Codex\MAA Arknights Assistant`
-- 已复制并逐文件校验 11 个新增文件；密钥文件在两处内容一致。
+- `prts://86659` 对应 BB-EX-6「越过障碍」，内部 ID `act33side_ex06`，地图 12×8，部署上限 8；原作业难度字段为 3，兼容普通/突袭。
+- 最终作业 `data/copilot-86659/BB-EX-6-Mon3tr-S1.json` 将 Mon3tr 设为精二60、一技能专三、X 模组类型，部署在 MAA `(10,5)`、朝上，并放在原三人之后；一技能由游戏自动触发。
+- Mon3tr `(10,5)` 朝上时直接治疗范围覆盖歌蕾蒂娅 `(10,3)` 和乌尔比安 `(9,4)`；逻各斯 `(10,2)`不在直接范围内，只能依赖治疗链跳跃，实际目标受血量和优先级影响。
+- 原铁索连接经静态模型验证保持为 `歌蕾蒂娅 -> 乌尔比安`、`乌尔比安 -> 逻各斯`；乌尔比安两条链已满，Mon3tr 作为普通高台最后部署，不改选既有连接。
+- 巴别塔机制要点：接驳地块初始不可部署；部署接驳地块干员需连接支援范围内最后部署且未满链的干员；每名干员最多维持两条稳固锁链；接驳地块干员失去维持链会进入颠簸并可能退场。
+- 2026-11-17 一图流快照成功获取 240 条记录；Mon3tr 达标，但用户自有歌蕾蒂娅一技能仅 7 级，原作业要求专三，适配记录保留该缺口，建议培养或借用满足条件的歌蕾蒂娅。
+- 生成并通过静态检查：`data/copilot-86659/BB-EX-6-Mon3tr-S1.json`、`validation.json`、`adaptation.json`、`README.md`、`build_adapted.py`；检查包括 JSON、合法地块、突袭封锁格、无重叠、原部署顺序、治疗范围、锁链支援范围、两链容量和部署上限。
 
 Failures and how to do differently:
-- 删除旧目录的迁移命令被自动审批策略拦截，旧目录副本仍保留。未来把“复制并校验”与“删除旧目录”分开；删除前单独确认并接受可能需要用户手动清理。
+- 首次构建脚本将歌蕾蒂娅的地块类型误判为高台，导致地块断言失败；修正为歌蕾蒂娅和乌尔比安均使用地面可部署类型后通过。
+- 静态验证只证明文件和几何/连接模型一致；没有加载 MAA 核心、连接设备或执行战斗，不能报告通关或实战稳定。
+- 不要把歌蕾蒂娅 7 级一技能当作原作业专三要求已满足；也不要把 Mon3tr 治疗链的理论覆盖写成实战必然治疗逻各斯。
 
 References:
-- 迁移结果：`CopiedAndVerified: 11`, `OldDirectoryPreserved: true`
-- 自动审批错误：策略阻止包含旧目录清理的命令。
+- `data/copilot-86659/BB-EX-6-Mon3tr-S1.json`
+- `data/copilot-86659/build_adapted.py`
+- `data/copilot-86659/validation.json`
+- `data/copilot-86659/adaptation.json`
+- `data/copilot-86659/README.md`
+- `data/operators-2026-11-17.json` and `data/operators-2026-11-17.meta.json`
+- `validation.json` evidence: `rope_edges = [["歌蕾蒂娅","乌尔比安"],["乌尔比安","逻各斯"]]`, direct healing targets are `歌蕾蒂娅` and `乌尔比安`, `combat_verified = false`.
 
 ## Thread `01a1584a-74ae-7f32-975c-19d77940e5ce`
 updated_at: 2026-10-22T09:20:51+00:00
@@ -2961,7 +2973,7 @@ References:
 ## Thread `01a1d8d9-e547-75e0-b493-4d341572d7ca`
 updated_at: 2026-11-16T13:40:18+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
-rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\16\rollout-2026-11-16T21-39-52-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e495-e9d6-7cb2-baf1-45998894a8e6.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T15-02-15-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e850-3d42-7ed3-9989-b5a43183332c.jsonl
 rollout_summary_file: 2026-11-14T06-58-41-lSS6-three_layer_dp_convolution_endpoint_constraints.md
 
 ---

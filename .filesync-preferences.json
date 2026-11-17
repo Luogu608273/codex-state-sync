@@ -1387,6 +1387,34 @@
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
+    },
+    "01a1e78b-4b28-7953-b97b-bfc1673aaf0b": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1e88f-e6bd-7a91-a667-5b7e97948c60": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1e8a2-8658-7e60-8798-73f1d2088208": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1e8ec-e82c-7320-8902-02951d6268ad": {
+      "is_pinned": false,
+      "project_id": "01a1632e-dde8-7d70-a88b-cdcaa37e133c",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
     }
   }
 }

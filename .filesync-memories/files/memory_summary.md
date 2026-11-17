@@ -15,7 +15,9 @@ v1
 - Keep requested contest layout exactly (`solution.md`, `std.cpp`, `partial.cpp`); “留 cpp SPJ” means a compilable C++ special judge plus run notes.
 - Generated `.in` and `.exe` go under `C:\Users\605\Documents\Output`, not a Codex checkout.
 - For version-history questions, map the supplied feature set and gameplay stage rather than release dates; incorporate later feature corrections and distinguish close-but-incomplete matches.
-- Never default to the retired `H:\我的云端硬盘` local mount; use connected Google Drive or a currently supplied destination. [ad-hoc note]
+- For rankings or current scores, name the official source, exact metric/formula, query time, and uncertainty; do not use “ranking” generically when average, total, median, team, and individual differ.
+- When the user asks for an exhaustive audit, check the full set and report confirmed, ambiguous, and non-equivalent roles separately rather than returning examples.
+- For cloud-drive content, use connected Google Drive or a currently supplied destination; do not infer a delivery path from historical local-sync artifacts. [ad-hoc note]
 
 ## General Tips
 
@@ -23,6 +25,7 @@ v1
 - State validation boundaries exactly; static schema/range checks and local random tests do not prove combat clears or online AC.
 - In multi-test constructive code, reset every output-state structure, not only the numeric state; use a tiny two-case regression that catches residual matrix/array state.
 - MAA Copilot roster, game data, and asset paths are time-specific: refresh/reinspect them before reuse, and never store API secrets.
+- In MAA Babel Tower jobs, preserve deployment order and validate 稳固锁链 endpoints/capacity before adding a deployment; static geometry checks are not combat proof.
 - In layered combinatorial DP, retain stated endpoint constraints through intermediate tables; staged convolution can preserve `O(n^2)` without a joint three-dimensional state.
 - For Minecraft historical mapping, separate individual feature first appearances from a single overall Java-version approximation; visual lighting memories alone may not date a minor release.
 
@@ -50,17 +53,21 @@ v1
 
 #### 2026-11-16
 
+- BOF22 rules, rankings, playlist audit, and genre guide: `BOF22`, `Long Impression`, `Ratio Point`, `playlist 8483155610`, `Credits`, `UnicodeEncodeError`, `Artcore`
+  - desc: Official-category disambiguation, current-score snapshot method, exhaustive NetEase-to-BOF22 audit, and BMS genre comparisons.
+  - learnings: Current ranking answers need metric/formula/time; matching uses Credits/roles rather than substring hits; set UTF-8 on Windows for the audit scripts.
+
 - Minecraft Pocket Edition historical version identification: `MCPE 0.14.0`, `0.15.0`, `observer`, `sticky piston`, `Java 1.8`, `smooth lighting`
   - desc: Feature-memory lower bounds and Java gameplay mapping; use for iOS/PE history questions, distinct from current 26.3 gameplay research.
   - learnings: item frames imply at least 0.14.0; observers plus sticky pistons imply at least 0.15.0; Java 1.8 explains slime-piston launching but not observers.
 
 ### C:\Users\605\Documents\Codex\MAA Arknights Assistant
 
-#### 2026-11-14
+#### 2026-11-17
 
-- CV-8 Mon3tr Copilot adaptation and renamed-directory migration: `prts://87122`, `CV-8`, `Mon3tr`, `重构体`, `CV-8-Mon3tr-S1.json`, `OldDirectoryPreserved`
-  - desc: Static MAA-job replacement, reconstruction-token geometry, and migration from the `!` checkout.
-  - learnings: Mon3tr S1 stays at `(10,5)` left; Reconstruction `(9,4)` is an action-only zero-block summon. Combat was not tested; use the no-`!` checkout.
+- BB-EX-6 Mon3tr rope-preserving Copilot adaptation: `prts://86659`, `act33side_ex06`, `Mon3tr`, `稳固锁链`, `BB-EX-6-Mon3tr-S1.json`, `Gladiia S1`
+  - desc: Static adaptation of BB-EX-6 that retains the Babel Tower rope chain while adding automatic Mon3tr S1.
+  - learnings: Mon3tr is `(10,5)` up and last; preserve 歌蕾蒂娅→乌尔比安→逻各斯, record Gladiia's S1M3 shortfall, and do not claim a combat clear.
 
 ### Windows desktop / C:\Users\605\Documents\Codex\2026-11-13\d-2
 
@@ -108,8 +115,3 @@ v1
 
 - CSP-S submission archive reporting: `CSP-S 2026`, `Markdown`, `submission archive`, `distinctive examples`
   - desc: Evidence-checked Chinese reporting that separates repeated mistakes from representative submissions.
-
-#### Delivery destination and cloud-storage workflow
-
-- Retired local sync path: `H:\我的云端硬盘`, `Google Drive`, `CKK`
-  - desc: Do not use the retired mount as a current delivery target. [ad-hoc note]
