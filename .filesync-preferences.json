@@ -1436,6 +1436,27 @@
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
+    },
+    "01a1edbe-bbfc-7df1-9b11-c9fa91b3bf71": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1ee19-efd5-7602-99a1-13c2699a3788": {
+      "is_pinned": false,
+      "project_id": "01a1632f-024e-75f1-9db9-2d465701d4cd",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1ee47-cc86-7f91-92d7-d22dfd5adacc": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
     }
   }
 }

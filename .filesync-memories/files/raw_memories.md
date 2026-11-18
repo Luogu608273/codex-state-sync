@@ -69,58 +69,78 @@ References:
 - 最终合并后的规则包含：`### 询问题目解法或讲解知识点时（[hint]、[teach]）`，一次一个提示、逐步讲解、明确状态/转移/不变量/复杂度、严格遵守“是或否/只找原题/不要给思路”等限制。
 
 ## Thread `01a0f184-ab47-7b92-81fe-2d65c1d6977f`
-updated_at: 2026-11-03T00:55:13+00:00
+updated_at: 2026-11-18T00:02:31+00:00
 cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl
-rollout_summary_file: 2026-09-30T08-53-18-5kYf-persist_debug_stop_rule_and_migrate_codex_artifacts.md
+rollout_summary_file: 2026-09-30T08-53-18-5kYf-persist_user_coding_rules_migrate_build_artifacts_and_locate.md
 
 ---
-description: 用户新增调试停止规则，并完成 Codex 下构建/测试文件迁移；关键注意是确认真实 AGENTS.md 路径，避免带感叹号目录混淆
-task: persist-debug-stop-on-wrong-approach-and-relocate-in-exe-files
-task_group: C:\Users\605\Documents\Codex\MAA OI Assistant!
+description: Persisted durable coding/debugging preferences, relocated all Codex .in/.exe artifacts to Output with verification, and identified the authoritative OI training record files.
+task: persist project/global rules, migrate build artifacts, locate training records
+task_group: C++ OI training workflow and Windows file organization
 task_outcome: success
 cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
-keywords: AGENTS.md, debug, 做法不正确, stop debugging, .in, .exe, Documents\Output, SHA256, Git
+keywords: AGENTS.md, debug, complete code, minimal changes, coding style, Google Drive CKK, Git, gitignore, .in, .exe, Output, training records
 ---
 
-### Task 1: 调试错误思路时停止
+### Task 1: Debugging and coding preferences
 
-task: persist user debug stop rule
-task_group: project AGENTS rules
+task: persist user-specific debug and coding rules
+task_group: OI C++ workflow
 task_outcome: success
 
 Preference signals:
-- 用户说“如果在调试代码时发现做法不正确，报告做法不正确，然后停止调试” -> 一旦确认算法/做法不正确，应报告具体原因或反例并立即停止，不修改代码、不更换做法、不提供完整修正版；该规则优先于既有完整代码规则。
+- When the user requested `[debug]时还要给出完整代码。写入。`, future debugging should explain each substantive error, make minimal changes without changing the idea, and include the complete modified code.
+- When the user said “编写代码时学习我的码风”, future code should imitate the user's actual naming, layout, template, data structures, and implementation habits; avoid gratuitous modernization.
+- If debugging confirms the approach itself is wrong, the user wants an explicit report that “做法不正确”, a concrete reason/counterexample, and immediate stopping—no edits, alternative approach, or full corrected code until requested.
+- The user said code is in Google Drive `云端硬盘/CKK`; use connected Drive search/list/read to inspect representative code before claiming style reference, and do not treat this as a local filesystem path.
+- The user said Git is connected and non-ignored files do not need extra backups; avoid backup copies for tracked/non-ignored project files by default.
 
 Reusable knowledge:
-- 实际写入的规则文件是 `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`，不是 rollout cwd 中带 `!` 的同名目录。
+- Actual project rule file was confirmed at `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md` (without `!`), while the global file is `C:\Users\605\.codex\AGENTS.md`. Verify paths because the rollout cwd contained a similar but different directory name.
 
 Failures and how to do differently:
-- 读取 `C:\Users\605\Documents\Codex\MAA OI Assistant!\AGENTS.md` 失败；未来处理相似路径时先用 `Get-ChildItem`/`rg --files -g AGENTS.md` 确认真实项目和规则文件。
+- An initial attempt to read the cwd's `AGENTS.md` failed because that exact file did not exist. Search `rg --files --hidden -g AGENTS.md` and inspect parent/project rules before editing.
 
 References:
-- `调试代码时，一旦确认做法不正确，应明确报告“做法不正确”，指出具体错误原因或反例，然后立即停止调试；不继续修改代码，不更换做法，也不提供完整修正版，等待用户下一步要求。`
+- `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`
+- `C:\Users\605\.codex\AGENTS.md`
 
-### Task 2: 迁移 .in/.exe 文件
+### Task 2: Relocate `.in` and `.exe` artifacts
 
-task: move Codex build and test artifacts to Output
-task_group: Windows file organization
- task_outcome: success
+task: move Codex build/test artifacts to Documents\Output
+task_group: Windows file organization and OI tooling
+task_outcome: success
 
 Preference signals:
-- 用户要求“`.in` 和 `.exe` 不要放到 Codex 文件夹里面，放到 文档/Output”，并要求检查现有文件 -> 今后编译产物、测试数据和中间文件默认写入 `C:\Users\605\Documents\Output`。
+- User requested `.in` and `.exe` files not be placed in Codex, but in `文档/Output`; future compilation, test generation, and counterexample reproduction should honor this automatically.
 
 Reusable knowledge:
-- 扫描 `C:\Users\605\Documents\Codex` 找到 303 个文件（204 `.in`、99 `.exe`，317,665,659 bytes），全部移动至 `C:\Users\605\Documents\Output\Codex`，保留目录层级。
-- 移动前后使用 SHA256 校验；303 个全部 verified，失败 0；复查 Codex 中剩余数量为 0。
-- 清单：`C:\Users\605\Documents\Output\文件迁移清单-2026-10-29-399d3501.csv`。
+- Scan source root `C:\Users\605\Documents\Codex`, skip reparse points, preserve relative paths under `C:\Users\605\Documents\Output\Codex`, avoid collisions, and verify SHA-256 after moving.
+- Verified migration: 303 files total (204 `.in`, 99 `.exe`), 317,665,659 bytes, 303 verified, 0 failed; a second scan found `REMAINING=0`.
+- Manifest: `C:\Users\605\Documents\Output\文件迁移清单-2026-10-29-399d3501.csv`.
 
 Failures and how to do differently:
-- 首次扫描因目录在扫描中消失而失败：`Cannot find path ... because it does not exist.` 后续应对不存在目录跳过并继续扫描。
+- A first traversal failed on a directory that disappeared during scanning (`MAA Arknights Assistant!\data\maa-probe-2026-10-10`). Robust scans should tolerate vanished directories and record them rather than aborting the whole migration.
 
 References:
-- 全局规则已写入：`.in`/`.exe` 统一放在 `C:/Users/605/Documents/Output`，不得放在 `C:/Users/605/Documents/Codex` 及其子目录。
-- 最终验证：`Planned=303; Verified=303; Failed=0; REMAINING=0; INVALID_DESTINATIONS=0`。
+- Global rule added: `.in` inputs and `.exe` executables belong under `C:/Users/605/Documents/Output`, not under `C:/Users/605/Documents/Codex`.
+
+### Task 3: Locate the authoritative training record
+
+task: tell the user where the problem-solving record list is
+task_group: OI training records
+ task_outcome: success
+
+Reusable knowledge:
+- Main list: `C:\Users\605\Documents\Codex\MAA OI Assistant\outputs\训练记录.md`.
+- Related archive: `outputs\训练档案.md`; individual reviews are in `outputs\复盘\`.
+- A search initially failed with Windows `目录名称无效。` because no valid working directory was supplied; retry with `workdir=C:\Users\605\Documents\Codex` succeeded.
+- The main table records date, problem/link, result/score, time, completion mode, errors/blockers, review link, and redo result. Treat user-reported AC, local tests, and official AC as distinct evidence.
+
+References:
+- `C:/Users/605/Documents/Codex/MAA OI Assistant/outputs/训练记录.md`
+- `C:/Users/605/Documents/Codex/MAA OI Assistant/outputs/训练档案.md`
 
 ## Thread `01a10b5b-5776-7ca1-a59a-f6674b8f9885`
 updated_at: 2026-10-22T09:20:51+00:00
@@ -2876,7 +2896,7 @@ References:
 ## Thread `01a1d2ae-df3f-75e3-9eca-aa7f685deb5c`
 updated_at: 2026-11-13T02:16:35+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\2026-11-13\d-2
-rollout_path: C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl
 rollout_summary_file: 2026-11-13T02-13-58-uXkE-windows_memory_pcasvc_process_handle_leak.md
 
 ---
@@ -2971,42 +2991,46 @@ References:
 - 题目约束：单组 `n<=10^6`，总规模 `N<=2*10^6`。
 
 ## Thread `01a1d8d9-e547-75e0-b493-4d341572d7ca`
-updated_at: 2026-11-16T13:40:18+00:00
+updated_at: 2026-11-17T08:12:41+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T15-02-15-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e850-3d42-7ed3-9989-b5a43183332c.jsonl
-rollout_summary_file: 2026-11-14T06-58-41-lSS6-three_layer_dp_convolution_endpoint_constraints.md
+rollout_summary_file: 2026-11-14T06-58-41-lSS6-p12445_shu_hao_tu_dp_debug_and_review.md
 
----
-description: 三层 DP 可分步合并；关键是保留首末点约束并正确处理 g 表末点条件，最终用补集得到 k=0
- task: three-layer-dp-convolution
- task_group: combinatorial-dp
+description: P12445《数好图》三层 DP 修正并完成 AC；关键是补齐 h 的 j=0 容斥列、正确初始化 h，以及对三因子合并逐步取模
+ task: debug_and_validate_p12445_three_layer_dp
+ task_group: MAA OI Assistant / OI training review
  task_outcome: success
  cwd: C:\Users\605\Documents\Codex\MAA OI Assistant
- keywords: DP, convolution, f, g, H, endpoint constraint, complement, O(n^2), graph counting
----
+ keywords: P12445, 数好图, Promet, f, g, h, 容斥, DAG, modulo overflow, C++17, brute force
 
-### Task 1: 分步合并三层 DP
+### Task 1: 修正并验证 P12445 DP
 
-task: 用 f、g、H 三层状态计算各个 |S|=k 的方案数
-task_group: combinatorial-dp
+task: debug_and_validate_p12445_three_layer_dp
+task_group: OI algorithm debugging and training record
 task_outcome: success
 
 Preference signals:
-- 用户提出“那三层 dp 合起来可以考虑分步计算”，说明类似组合计数问题中应优先给出分层 DP 和逐步卷积，而不是构造三维状态。
+- 用户说“过了，总结记录吧” -> AC 后希望把思路、错误、验证和复盘位置同步沉淀到训练记录中。
+- 用户自己推导了三组转移，主要需要逐项核对边界和实现；类似任务应优先保留其推导并检查最小反例、状态边界和模运算。
 
 Reusable knowledge:
-- 先计算 `x_k = sum_{r=k}^n f_{n,r} * g_{r,k}`，再计算 `ans_k = x_k * H_k`；其中 `H_k` 只依赖 k，因为固定 S 后可按原编号重排为 `1..k`。
-- 若只要存在一个满足条件的点，则首末点自动满足，因此 `ans_1 = 0`。
-- 总图数为 `2^(C(n,2))`，可用补集计算 `ans_0 = 2^(C(n,2)) - sum_{k=2}^n ans_k (mod P)`。
-- 三张 DP 表均为 O(n²) 状态、常数转移；合并枚举每个 `(r,k)` 一次，总复杂度 O(n²)。
+- `h[1][0]=1, h[1][1]=-1 mod P` 是首点初始化；`h` 的 `j=0` 列不能漏掉：`h[i][0]=(2^(i-1)-1)h[i-1][0]`，并贡献到 `t[i+1]`。
+- 合并项应强制末点同时加入两层：`pw[n-j] * f[n-1][j-1] % P * g[j-1][i-1]`。
+- `long long` 下三因子乘法必须在第二次乘法前取模，否则可能溢出。
+- 最小反例 `n=2` 可快速发现漏算：原程序输出 `2 0 0`，正确答案 `1 0 1`。
+- 已在 C++17 下编译，并用 `n=2..6` 的全部合法 DAG 边集暴力枚举验证；同时通过 `n=2000` 的总和及边界一致性检查。
 
 Failures and how to do differently:
-- `f_{n,r}` 计算时固定 `1,n in R`；`g_{r,k}` 也要固定首末两点属于 S。复用 g 表时，普通前缀末点类别可任选，只有取出最终规模 r 的结果时才强制第 r 个点进入 S；否则会错误收缩状态空间。
+- 原代码从 `j=1` 开始处理 `h`，既未递推 `h[i][0]`，也未将其加入 `t[i+1]`；修复后再验证最小规模。
+- 原代码每行写 `h[i][i]=-1`，这不符合后续状态定义；仅保留 `h[1][1]=P-1` 的特殊初始化。
+- 原代码直接计算 `pw*f*g`，应写成 `pw*f%P*g`。
 
 References:
-- `x_k=\\sum_{r=k}^{n} f_{n,r}\\,g_{r,k}`
-- `ans_k=x_kH_k`
-- `ans_0=2^{\\binom n2}-\\sum_{k=2}^{n}ans_k\\pmod P`
+- 复盘：`outputs/复盘/2026-11-17-P12445-数好图.md`
+- 训练记录：`outputs/训练记录.md`
+- 训练档案：`outputs/训练档案.md`
+- 验证输出：`All graphs n=2..6 OK`; `n=2000 sanity OK`
+- 编译文件：`C:\Users\605\Documents\Output\P12445-debug-61f7d4e3\P12445.cpp`
 
 ## Thread `01a1d8f2-2ac4-72d1-8e61-bca07fbca476`
 updated_at: 2026-11-16T07:04:49+00:00
@@ -3096,7 +3120,7 @@ References:
 ## Thread `01a1e8a2-8658-7e60-8798-73f1d2088208`
 updated_at: 2026-11-17T08:33:06+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
-rollout_path: C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T16-32-12-01a1e8a2-8658-7e60-8798-73f1d2088208.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T20-05-01-01a1e8a2-8658-7e60-8798-73f1d2088208_01a1ee8b-cb75-7920-b78d-a92877b22133.jsonl
 rollout_summary_file: 2026-11-17T08-32-07-tojm-p10197_interval_monotonicity_hint.md
 
 description: P10197 训练式讲解中修正“区间一定单调”的过强结论，并将目标转化为最小化相邻绝对差路径；本轮停在单步提示，未完成完整证明或代码验证

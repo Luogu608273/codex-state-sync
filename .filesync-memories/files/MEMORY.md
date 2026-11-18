@@ -1,3 +1,44 @@
+# Task Group: Arcaea mobile free songs and main-story pack purchasing
+
+scope: Answer time-sensitive Arcaea mobile acquisition and purchase questions by server/platform, separating permanent free content, World Mode/World Extend events, vouchers, and story packs.
+applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Reuse the classification and ambiguity checks, but recheck current server, platform, event dates, song counts, and store prices.
+
+## Task 1: Find free songs and limited-time acquisition routes
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-17T09-53-22-mwQR-arcaea_free_songs_and_main_story_packs.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T17-53-22-01a1e8ec-e82c-7320-8902-02951d6268ad.jsonl, updated_at=2026-11-17T10:06:28+00:00, success: mobile free-content categories and dated events researched)
+
+### keywords
+
+- Arcaea, 韵律源点, 免费曲, World Mode, World Extend, Renegade, Voyage to The Future, Innocence, Memory Archive ticket, 明日方舟联动
+
+## Task 2: Clarify whether the first four main-story packs need purchase
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-17T09-53-22-mwQR-arcaea_free_songs_and_main_story_packs.md (cwd=\\?\C:\Users\605\Documents\Codex\CHAT with GPT, rollout_path=C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T17-53-22-01a1e8ec-e82c-7320-8902-02951d6268ad.jsonl, updated_at=2026-11-17T10:06:28+00:00, partial: pack names/numbering clarified; full current per-pack price check was not completed)
+
+### keywords
+
+- Eternal Core, Vicious Labyrinth, Luminous Sky, Adverse Prelude, Black Fate, main story, Chapter 4, Memory, World Mode
+
+## User preferences
+
+- when asking “有哪些曲可以免费获得” and then whether the main story needs purchase -> organize the answer as permanent free, World Mode unlock, limited-time free, and paid-but-voucher-eligible; state mobile platform, server, date, and expiry. [Task 1]
+- when correcting the scope to “前四章” -> list the specific packs and current prices/purchase order instead of only answering “要”; first distinguish story-pack numbering from World Mode Chapter 4. [Task 2]
+
+## Reusable knowledge
+
+- Mobile free content includes the base Arcaea pack, World Extend maps, beginner-mission rewards, and special collaborations. At the 2026-11-17 snapshot, the base pack was about 64 songs; some require permanent World Mode unlock. Tier 4 grants `Innocence`; Tier 5 grants a Memory Archive voucher subject to song-eligibility limits. [Task 1]
+- World Extend maps are time-limited and typically non-rerunning; flag nearby deadlines. `Renegade` was a limited World Mode collaboration unlock from 2026-11-17 through 2028-03-17, while `Voyage to The Future` was listed through 2026-11-19 23:59; these are historical, not durable availability claims. [Task 1]
+- The prologue is readable for free, while story song packs normally cost Memory rather than fragments. Act I order is Eternal Core → Vicious Labyrinth → Luminous Sky → Adverse Prelude → Black Fate → Final Verdict; `Adverse Prelude` is often called 3.5, so “the first four chapters” is ambiguous and needs explicit clarification. [Task 2]
+
+## Failures and how to do differently
+
+- Search results mix international/Chinese servers, mobile, and Switch content; establish platform and server before counting free songs or quoting events. Fandom returned 402, so prefer official notices plus cross-checked wiki sources. [Task 1]
+- The earlier answer did not give all requested pack names, current prices, or sale status. Do not infer prices from historical snippets; inspect the current target-server store and identify whether the user means story chapters or World Mode. [Task 2]
+
 # Task Group: Minecraft Pocket Edition historical version identification and Java gameplay mapping
 
 scope: Identify remembered iOS Pocket Edition feature sets and map them to the closest Java gameplay stage without treating release dates as a one-to-one equivalence.
@@ -39,7 +80,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-13\d-2; reuse_rule=Reuse th
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-13T02-13-58-uXkE-windows_memory_pcasvc_process_handle_leak.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-13\d-2, rollout_path=C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl, updated_at=2026-11-13T02:16:35+00:00, partial: administrator restart comparison not performed)
+- rollout_summaries/2026-11-13T02-13-58-uXkE-windows_memory_pcasvc_process_handle_leak.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-13\d-2, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl, updated_at=2026-11-13T02:16:35+00:00, partial: administrator restart comparison not performed)
 
 ### keywords
 
@@ -261,15 +302,25 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse t
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
 
-## Task 30: Combine three DP layers with a staged convolution and endpoint constraints
+## Task 30: Debug P12445 `数好图` three-layer DP and record user-reported AC
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-14T06-58-41-lSS6-three_layer_dp_convolution_endpoint_constraints.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T15-02-15-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e850-3d42-7ed3-9989-b5a43183332c.jsonl, updated_at=2026-11-16T13:40:18+00:00, success: O(n^2) staged merge and endpoint conditions established)
+- rollout_summaries/2026-11-14T06-58-41-lSS6-p12445_shu_hao_tu_dp_debug_and_review.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\17\rollout-2026-11-17T15-02-15-01a1d8d9-e547-75e0-b493-4d341572d7ca_01a1e850-3d42-7ed3-9989-b5a43183332c.jsonl, updated_at=2026-11-17T08:12:41+00:00, success: user-reported AC; exhaustive n=2..6 DAG validation and n=2000 sanity passed)
 
 ### keywords
 
-- DP, convolution, f, g, H, endpoint constraint, complement, O(n^2), graph counting
+- P12445, 数好图, Promet, f, g, h, 容斥, DAG, modulo overflow, C++17, brute force
+
+## Task 32: Give one-step tutoring for P10197 interval ordering structure
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-17T08-32-07-tojm-p10197_interval_monotonicity_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T20-05-01-01a1e8a2-8658-7e60-8798-73f1d2088208_01a1ee8b-cb75-7920-b78d-a92877b22133.jsonl, updated_at=2026-11-17T08:33:06+00:00, partial: one counterexample and next question; await user response)
+
+### keywords
+
+- P10197, USACO24FEB, Minimum Sum of Maximums, max identity, absolute differences, monotonic interval, counterexample, oi-training
 
 ## Task 31: Construct the maximum number of directed triangles for P10441 `乒乓球`
 
@@ -415,7 +466,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_debug_stop_rule_and_migrate_codex_artifacts.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-11-03T00:55:13+00:00, debug-stop rule and 303-file SHA-256-verified migration)
+- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_user_coding_rules_migrate_build_artifacts_and_locate.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-11-18T00:02:31+00:00, coding/debug preferences, SHA-256-verified migration, and training-record locations)
 
 ### keywords
 
@@ -425,7 +476,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_debug_stop_rule_and_migrate_codex_artifacts.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-11-03T00:55:13+00:00, 303 files SHA-256 verified)
+- rollout_summaries/2026-09-30T08-53-18-5kYf-persist_user_coding_rules_migrate_build_artifacts_and_locate.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl, updated_at=2026-11-18T00:02:31+00:00, 303 files SHA-256 verified)
 
 ### keywords
 
@@ -573,6 +624,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - when proving a constructive greedy before coding, the user asked “这样贪心能做到三元环数的上限” and only then “到这里就完成思考可以开始写了吗” -> establish the bound, final structure, invariant, and feasibility before implementation. [Task 31]
 - when checking a scan/continuity argument, the user supplied the endpoint reasoning `d_u-d_{u+1}=1` and why the leftmost increment is `<=0` -> prove the boundary explicitly, not merely assert continuity. [Task 31]
 - when combining layered combinatorial DP, the user proposed “那三层 dp 合起来可以考虑分步计算” -> prefer staged convolution of independently computed layers over an unnecessary three-dimensional joint state. [Task 30]
+- when the user says “教我这道题” and supplies a structural observation -> check that exact claim first, then give one counterexample or one advancing question and wait; do not disclose the full algorithm/code. [Task 32]
 - when the user asked “改成 1-indexed” then clarified “位掩码不用 1-indexed，下标要 1-indexed” -> keep ordinary bitmask mathematics 0-based (`0..(1<<m)-1`, `1 << (j-1)`), while making entity, array, queue, and DSU positions 1-based. [Task 23]
 - when teaching an OI problem from the user's own derivation, continue interactively: P9531 evidence favors preserving their invariants and asking one next question rather than jumping to a complete LCT/proof/code solution. [Task 25]
 - when the user provides complete C++ and says “常数过大，有没有推荐的常数优化” -> investigate actual hot paths, memory layout, and access counts before generic compiler advice; identify unverified proposals as such. [Task 24]
@@ -580,6 +632,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - when the user says “过了，原题是 P14347，你总结记录到原题题号” -> archive under the confirmed formal problem number as well as the training name; mark it “提示后 AC/提示后完成” rather than independent mastery. [Task 28]
 - when the user supplies a WA implementation or says “TLE 了，有什么卡常建议吗 给完整代码” -> first produce a smallest concrete counterexample and minimal boundary fix; for performance, retain the verified algorithm and give the complete replacement rather than generic tips. [Task 29]
 - when the user says "如果在调试代码时发现做法不正确，报告做法不正确，然后停止调试" -> once the algorithm/approach is confirmed wrong, state the specific reason or counterexample and stop: do not modify code, switch approaches, or provide a complete revision. This overrides the earlier complete-code debug rule. [Task 1]
+- when the user requests `[debug]时还要给出完整代码` and “编写代码时学习我的码风” -> if the approach is viable, explain each substantive error, make the minimal repair without changing the idea, and provide the complete modified code in the user's actual naming/layout/template style. [Task 1]
+- when code is said to be in Google Drive `云端硬盘/CKK` -> inspect representative code through the connected Drive search/list/read tools before claiming a style reference; it is not a local path. Git-tracked, non-ignored files need no extra backup by default. [Task 1]
 - for four-file `[debug]` work, the user required "中文回答、最小幅度修改、不改思路、指出每处实质错误并给出完整修正版" -> preserve the original algorithmic direction and coding style, but fix correctness, bounds, and asymptotic failures with concrete counterexamples. [Task 13]
 - when the user asks ".in 和 .exe 不要放到 Codex 文件夹里面，放到 文档/Output" -> create generated inputs and executables under `C:\Users\605\Documents\Output` (with task subdirectories), never under the Codex tree. [Task 12]
 - when the user says "过了，总结记录吧" -> update training record and single-problem review, preserving prompt-assisted AC versus independent mastery. [Task 2]
@@ -602,7 +656,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - P10441 `乒乓球`: directed-triangle count is `C(n,3)-Σ_i C(d_i,2)`, because the non-cycle triangle has a unique two-win vertex. With fixed total outdegree, minimizing the sum means balanced degrees: all `(n-1)/2` for odd `n`; `n/2` and `n/2-1` half each for even `n`. From the total-order orientation `i -> j (i<j)`, reversing `u -> v` changes the count by `t=d_u-d_v-1`. Scan `u=1..n`, `v=n..u+1`, and reverse when `0<t<=remaining`, updating `d_u--, d_v++`. [Task 31]
 - In that scan, completed rows uniformly add one to a suffix, so each step left lowers the candidate increment by at most one. At `v=u+1`, prior suffixes that increased `u` also increased `u+1`, while this row only decreases `d_u`, hence `d_u-d_{u+1}-1<=0`; if an increment exceeds `remaining`, keep scanning left until it equals `remaining`. The full greedy reverses exactly `v-u>floor(n/2)`, yielding the balanced degree sequence. Use `long long` for `m`/remaining; time and matrix space are `O(n^2)`. [Task 31]
-- For fixed endpoint-constrained tables `f_{n,r}` and `g_{r,k}`, first compute `x_k=Σ_{r=k}^n f_{n,r}g_{r,k}`, then multiply by the internal table: `ans_k=x_kH_k`. Fixed `S` can be reindexed as `1..k`, so `H_k` depends only on `k`; all three tables and the merge remain `O(n^2)`. `ans_1=0`, and `ans_0=2^{C(n,2)}-Σ_{k=2}^n ans_k (mod P)`. [Task 30]
+- P12445: retain the endpoint-constrained staged merge `pw[n-j] * f[n-1][j-1] % P * g[j-1][i-1]`; fixed `R`/`S` create disjoint edge classes and `ans_0` comes by complement. In the `h` inclusion-exclusion table, initialize `h[1][0]=1`, `h[1][1]=P-1`; carry the indispensable zero column with `h[i][0]=(pw[i-1]-1)*h[i-1][0]`, contributing to `t[i+1]`. Take `% P` after each multiplication. Exhaustively enumerate DAGs for small n before trusting the recurrence. [Task 30]
+- P10197 local transform: `max(x,y)=(x+y+|x-y|)/2`; for a fixed interval's endpoints and assigned elements, minimize the adjacent absolute-difference path length. A claim that every optimum is one/two-piece monotone is too strong; distinguish it from existence of an optimum with a useful ordering. [Task 32]
 - ZR2-7 originals: T1 = Codeforces 1156C Match Points; T2 = QOJ #2617 Browsing the Collection; T3 = QOJ #10170 Data Structures Master; T4 = QOJ #7976 最后的晚餐. T2's checked solution is `C:\Users\605\Downloads\1110\path\path.cpp`: per-terminal reverse multi-source BFS over `(item, mask)`, with successor DSU to skip visited interval states; default `path.in/path.out`, `LOCAL` for stdio. `sample0` through `sample5` matched after `-std=c++14 -O2 -static`. [Task 23]
 - P10787 splits a restricted path into doubling segments with states 0/1/at-least-2 unoriented edges; segment-state changes follow reverse references and decrement `s_i = Σ min(c_B, 2)`, with count 1 queued for direction resolution. The LCA sides determine orientation; a contracted-tree two-coloring proves the next greedy bit may remain 0 after forced propagation. [Task 27]
 - For the P10787 `N=5e5+5`, `M=20` code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. `build()` may compute the same-start parent `k+1` segment directly after `st[x][k]`, removing `add2(e[i].v, k-1, e[i].v)` while retaining upper-segment multi-parent references. [Task 24]
@@ -636,7 +691,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P17833《迁徙》: after fixing adjacent fork points `b,b+1`, keep the local splice constraints `L_b=a` and `R_{b+1}=c`; `(pre_a+1)(suf_c+1)` alone is insufficient. Compress the last/first-edge conditions into one-dimensional `pre/suf`, then aggregate independent left/right candidates with forward/reverse buckets for O(n) time and O(n) space; keep `a<b`, `c>b+1`, and zero-length extensions counted as 1. [Task 21]
 - Möbius construction: for `B=x0+L*y0`, compute each inclusion-exclusion term separately: if `m<B+y0` return 0; `U=(m-y0)/B`; if `U<u0` return 0; otherwise `(U-u0)/y0+1`. Do not move floor division outside `C(L)=sum mu(d) F_L((n+2)/d)`. Precompute the segment-invariant minimal positive `u0`; `y0=1` gives `u0=1`. [Task 20]
 - Lexicographic runs: for `0`, binary-search maximal `L` with `C0(L)>=k` and retain `k`; for `1`, set `r=T-k+1`, binary-search `C1(L)>=r`, then set `k=C1(L)-r+1`. Check initial `k<=phi(n+2)`, stop at `x+y=n+2`, use `long long`, and bound a zero run by `floor((n+2-x0-y0)/y0)` (swap coordinates for one). [Task 20]
-- The Zhengrui batch at `C:\Users\605\我的云端硬盘\CKK` delivered 20 problems/78 files in `ZR2-4`, `ZR2-6`, `ZR2-7`, `ZR2-8`, `ZR2-9`; 40 programs compiled, 36 ordinary file-IO checks and 4 local-interactor checks passed, and SHA-256 read-back passed. This was a task-specific historical destination, not a current default. [Task 18]
+- The Zhengrui batch delivered 20 problems/78 files in `ZR2-4`, `ZR2-6`, `ZR2-7`, `ZR2-8`, `ZR2-9`; 40 programs compiled, 36 ordinary file-IO checks and 4 local-interactor checks passed, and SHA-256 read-back passed. The retired local Drive-sync path is not a current default; use connected Drive tools instead. [Task 18] [ad-hoc note]
 - Interactive deliverables include `ZR2-4\check\spj.cpp` and `ZR2-9\period\spj.cpp` plus `judge.md`. `check` has a deterministic 9-round finite-state certificate; `period` has a n<=1e6 9-query upper-bound certificate and 16,587 local hidden-string tests. [Task 18]
 - ZR2-10 has `README.md`, `validation.json`, and four problem folders each containing `solution.md`, `std.cpp`, and `partial.cpp`. All eight programs compiled with TDM-GCC 10.3.0 C++17 `-O2`; samples, 623 independent small-data cases, file IO, stress, and SHA-256 read-back passed, but it was not online-submitted. [Task 22]
 
@@ -644,6 +699,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - P10441 multi-test symptom: `d` resets but `ans` retains an earlier reversed edge; input `2\n3 1\n3 0\n` leaves a triangle in the second case. Because every `i<j` is revisited, set `ans[j][i]=0` before calculating its increment, then set it to 1 only when reversing. Never stop on `t>remaining`; the one-step decrement bound is the reason a later `t==remaining` exists. [Task 31]
 - Symptom: reused `g` table undercounts or has an incorrectly restricted state space -> cause: forcing the ordinary prefix's last point into `S` -> only force the final point when extracting the size-`r` result; ordinary prefix endpoints may be either category. Keep both endpoint constraints: `1,n∈R` in `f`, and the first/last points in `S` in `g`. [Task 30]
+- P12445 symptom: `n=2` yields `2 0 0` rather than `1 0 1` -> the `h` zero column was neither propagated nor added to `t`; hand-check the smallest nontrivial case, and do not write `h[i][i]=-1` beyond the `h[1][1]` initialization. [Task 30]
+- Do not continue P10197 as solved: there was no answer to the next question, code, or judge result. On the next turn, resume with one minimal follow-up based on the user's response. [Task 32]
 - Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
 - Symptom: treating P10787 candidate speedups as a confirmed patch -> cause: neither the C++ change nor benchmarks were run, and `f1/f2` or parent-order updates may still matter -> preserve the original, differential-test `fl/f1/f2`, parent ordering, length-1/2 segments, and final-edge orientation, then compile and benchmark. User-reported AC does not confirm which optimization was used. [Task 24][Task 27]
 - P11994 symptom: empty binary-search range reads an uninitialized `res` -> cause: `lst=L` instead of `L-1` and no `res=R+1` default. Also never read `sum[lst[i]]`: balances are stored as `sum[i]`; compute old-prefix differences before overwriting `lst`. [Task 26]
@@ -665,7 +722,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - Symptom: embedded browser shows “This page crashed” / `render process gone exitCode=18 reason=launch-failed` -> inspect Codex browser logs and Windows SideBySide first. In this rollout the missing assembly was `156.0.8078.48`; adding `156.0.8078.48.manifest` declaring `chrome_elf.dll` restored statement access. [Task 22]
 - P17833's user-reported AC did not include final code or online judge evidence; do not present implementation or complexity as submission-verified. Before multiplying decomposed path counts, explicitly check the local three-point splice condition; otherwise the direct product misses valid constraints. [Task 21]
 - Möbius construction was not implemented or sample-tested; after coding, specifically test out-of-range `k`, terminal state, `1`-run reverse ranking, `U<u0`, `y0=1`, and multiplication/accumulator bounds. [Task 20]
-- For this historical delivery, `C:\Users\605\我的云端硬盘\CKK` was the user-specified destination; do not infer that it is a current cloud-storage default. [Task 18]
+- Do not infer a current cloud-storage default from retired local synchronization paths; use connected Google Drive search/list/read, or a destination supplied in the current request. [Task 18] [ad-hoc note]
 - Random `check` observations of at most 6 rounds do not prove an 8-round guarantee; distinguish them from the deterministic 9-round partial certificate. [Task 18]
 
 # Task Group: MuMu virtrite 2 Windows transparency utility
