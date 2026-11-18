@@ -12,14 +12,14 @@
         "serviceTier": "priority"
       },
       {
-        "model": "gpt-6.1-sol",
+        "model": "gpt-6.2-astra",
         "reasoningEffort": "high",
-        "serviceTier": null
+        "serviceTier": "priority"
       },
       {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
-        "serviceTier": "priority"
+        "serviceTier": null
       }
     ],
     "flat-project-sidebar-preferences-v1": {
@@ -1412,6 +1412,27 @@
     "01a1e8ec-e82c-7320-8902-02951d6268ad": {
       "is_pinned": false,
       "project_id": "01a1632e-dde8-7d70-a88b-cdcaa37e133c",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1ebf5-8390-7733-b770-750d48e2832e": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1ec60-3122-7a60-9363-b63e634625d4": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1ecd9-ee1d-7190-9b66-33f8a1b6f60c": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null

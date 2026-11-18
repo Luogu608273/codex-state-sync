@@ -1,7 +1,7 @@
 thread_id: 01a0f184-ab47-7b92-81fe-2d65c1d6977f
 updated_at: 2026-11-03T00:55:13+00:00
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\21\rollout-2026-10-21T12-18-53-01a0f184-ab47-7b92-81fe-2d65c1d6977f_01a15cae-f9b6-72a1-b647-fadb21eb1e7e.jsonl
-cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
+cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
 git_branch: main
 
 # 持久化用户规则并整理构建产物
