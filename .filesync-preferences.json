@@ -7,18 +7,18 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
-        "model": "gpt-6.2-astra",
-        "reasoningEffort": "xhigh",
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high",
+        "serviceTier": "priority"
+      },
+      {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high",
         "serviceTier": null
       },
       {
         "model": "gpt-6.2-astra",
         "reasoningEffort": "xhigh",
-        "serviceTier": "priority"
-      },
-      {
-        "model": "gpt-6.1-sol",
-        "reasoningEffort": "high",
         "serviceTier": null
       }
     ],
@@ -34,8 +34,8 @@
   },
   "config": {
     "approval_policy": "never",
-    "model": "gpt-6.2-astra",
-    "model_reasoning_effort": "xhigh",
+    "model": "gpt-6-astra",
+    "model_reasoning_effort": "high",
     "sandbox_mode": "danger-full-access",
     "service_tier": "default"
   },
@@ -1459,6 +1459,13 @@
       "thread_section_id": null
     },
     "01a1f15c-78f3-7b03-b404-be8c86c64fc9": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1f19d-9ccd-72e0-81b6-5a38acc75fb4": {
       "is_pinned": false,
       "project_id": null,
       "section_entered_at_ms": null,
