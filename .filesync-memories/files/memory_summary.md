@@ -2,46 +2,61 @@ v1
 
 ## User Profile
 
-- Primarily works in Chinese on OI/C++ training, contest materials, and occasional Windows, Minecraft/PCL, MAA Copilot, and game-research tasks.
-- Uses Codex checkouts under `C:\Users\605\Documents\Codex`; values concrete artifacts and calibrated claims. User-reported AC, compilation/local tests, and official AC are distinct evidence.
-- Often supplies a derivation or partial code and wants the response to continue at that exact point.
+- Primarily works in Chinese on OI/C++ training and contest materials, with recurring Windows, Minecraft/PCL, MAA Copilot, Arknights, and game-research requests.
+- Uses Codex checkouts under `C:\Users\605\Documents\Codex`; often supplies a derivation or partial code and wants help continued from that point.
+- Values concrete artifacts and calibrated claims: user-reported AC, compilation/local tests, static checks, and official AC are distinct evidence.
+- Maintains separate game-account contexts when supplying roster data.
 
 ## User preferences
 
-- For OI teaching, preserve the user's derivation and give one advancing hint/question in Chinese; verify an asserted structure with a concrete counterexample before accepting it, and do not disclose a full solution early.
+- For OI teaching, preserve the user's derivation and give one advancing hint/question in Chinese; test asserted structures with a concrete counterexample before accepting them, and do not disclose a full solution early.
 - For viable C++ `[debug]`, make minimal changes without changing the idea, explain substantive errors, imitate the user's real code style, and provide complete modified code. If the approach is wrong, explicitly say “做法不正确” with a reason/counterexample and stop.
 - “过了，总结记录吧” means update the original-problem training record/review and preserve “提示后 AC” versus independent mastery.
 - Generated `.in` and `.exe` go under `C:\Users\605\Documents\Output`, not a Codex checkout.
 - Use connected Google Drive to inspect code or deliver to Drive; do not infer a local sync path or make extra backups for Git-tracked, non-ignored files. [ad-hoc note]
+- For small-account Arknights roster questions, do not mix main-account data; first pin down unlock/transform state, recipient class/rank, “常态,” and whether training is allowed.
 - For current game/product research, separate platform/server/region, permanent versus limited content, source date, expiry, and unresolved price/availability details.
-- For rankings or exhaustive audits, name the official source, metric/formula, query time, uncertainty, and distinguish confirmed from ambiguous/non-equivalent matches.
 
 ## General Tips
 
 - Locate the actual `AGENTS.md` before editing: similarly named MAA OI/Arknights directories differ.
-- State validation boundaries exactly; static/local tests do not prove combat clears or online AC.
-- In layered combinatorial DP, hand-check the smallest nontrivial case, retain endpoint constraints and zero-state columns, and reduce after each modular multiplication.
-- For MAA Copilot, game data/assets and roster state are time-specific; recheck before reuse and never store secrets.
+- State validation boundaries exactly; static/local tests do not prove a combat clear or online AC.
+- In interval/subset DP, check capacity, empty-set, singleton, and empty-interval states alongside the recurrence; hand-check the smallest nontrivial case.
+- For MAA Copilot and roster tasks, game data, account state, assets, and unlocks are time-specific; recheck before reuse and never store secrets.
 - In multi-test constructive code, reset output-state structures as well as numeric state; a tiny two-case regression catches retained matrices/arrays.
 
 ## What's in Memory
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
+#### 2026-11-18
+
+- P10197 interval-DP recurrence and boundaries: `P10197`, `f_{l,r,S}`, `g_{l,r,T}`, `w(S)`, `+∞`, `len_i`
+  - desc: Corrected subset/interval-DP transition, fixed-point accounting, and feasibility states for Minimum Sum of Maximums.
+  - learnings: minimize `f` over eligible `i`; fixed-point terms are already represented by interval boundaries; empty, singleton, and capacity cases are essential.
+
 #### 2026-11-17
 
 - P12445 `数好图` DP repair and review: `P12445`, `f`, `g`, `h`, `h[i][0]`, `n=2`, `All graphs n=2..6 OK`
   - desc: Three-layer reachability/inclusion-exclusion DP debugging, AC record, and training-review locations.
   - learnings: preserve `h`'s zero column, initialize only `h[1][1]=P-1`, mod after each factor, and test `n=2` before trusting the recurrence.
-- P10197 interval-structure hint: `P10197`, `Minimum Sum of Maximums`, `max(x,y)`, `absolute differences`, `monotonic interval`
-  - desc: One-step tutoring for the user's monotonicity observation; partial and awaiting their response.
-  - learnings: distinguish “every optimum” from “there exists an optimum”; use the absolute-difference transform and one next question.
-
-#### 2026-11-16
-
 - P10441 and adjacent OI debugging: `P10441`, `三元环`, `翻边`, `ans矩阵`, `P11994`, `P14347`, `P17834`
   - desc: Constructive proof, multi-test reset shield, and boundary/optimization repairs.
   - learnings: formal endpoint arguments and minimal counterexamples matter; local validation is not online AC.
+
+### C:\Users\605\Documents\Codex\MAA Arknights Assistant
+
+#### 2026-11-18
+
+- Small-account six-star Guard constant-ATK screening: `小号`, `六星近卫`, `常态加攻`, `阿米娅升变`, `JT8-2`, `杜宾`, `波登可`
+  - desc: Account-specific roster screen under “未升变、不提升练度、常态” constraints; use before proposing a current candidate.
+  - learnings: no qualifying self-owned operator was found; filter by unlock, E-level, recipient class/rank before generic buff effects.
+
+#### 2026-11-17
+
+- BB-EX-6 Mon3tr rope-preserving Copilot: `prts://86659`, `Mon3tr`, `稳固锁链`, `BB-EX-6-Mon3tr-S1.json`
+  - desc: Static Copilot adaptation retaining the Babel Tower rope chain.
+  - learnings: preserve deployment order and distinguish static validation from a combat clear.
 
 ### C:\Users\605\Documents\Codex\CHAT with GPT
 
@@ -50,20 +65,6 @@ v1
 - Arcaea free songs and main-story packs: `Arcaea`, `World Mode`, `World Extend`, `Renegade`, `Memory Archive`, `Adverse Prelude`
   - desc: Mobile free-content categories, dated events, vouchers, and ambiguous “first four chapters” purchase question.
   - learnings: confirm platform/server; list actual packs and current target-store prices rather than treating historical event data as current.
-
-#### 2026-11-16
-
-- Minecraft PE historical mapping and BOF22 research: `MCPE 0.15.0`, `observer`, `sticky piston`, `BOF22`, `Ratio Point`, `Credits`
-  - desc: Feature-set version mapping, current-ranking methodology, full playlist audit, and genre comparisons.
-  - learnings: do not equate release timelines; current rankings need metric/time, and creator matching needs role evidence.
-
-### C:\Users\605\Documents\Codex\MAA Arknights Assistant
-
-#### 2026-11-17
-
-- BB-EX-6 Mon3tr rope-preserving Copilot: `prts://86659`, `Mon3tr`, `稳固锁链`, `BB-EX-6-Mon3tr-S1.json`
-  - desc: Static Copilot adaptation retaining the Babel Tower rope chain.
-  - learnings: preserve deployment order and distinguish static validation from a combat clear.
 
 ### Older Memory Topics
 
@@ -77,6 +78,11 @@ v1
   - desc: Strict upper-left-rectangle transition optimization; preserve zero boundaries and match symbols, not indices. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
 - Contest-package delivery: `std.cpp`, `partial.cpp`, `solution.md`, `SPJ`, `google-drive-verified-delivery`
   - desc: Compile/test/read-back workflow for requested contest materials. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant*`.
+
+#### C:\Users\605\Documents\Codex\2026-11-04\cong / C:\Users\605\Documents\FileSync
+
+- FileSync Codex chat recovery: `repair-chat-index.py`, `pending_thread_ids`, `state_5.sqlite`, `--check-engine`
+  - desc: Isolated recovery and safe handling; do not alter live Codex data without authorization.
 
 #### Windows desktop / C:\Users\605\Documents\Codex\2026-11-13\d-2
 
@@ -92,11 +98,6 @@ v1
 
 - Low-cost dupe-like emerald farming: `string duper`, `random_tick_speed`, `Paper`, `End portal sand duper`, `toolsmith`
   - desc: Version/server-sensitive research contrasting dupe-like methods with conventional emerald farms. cwd=`C:\Users\605\Documents\Codex\2026-11-05\xian`.
-
-#### C:\Users\605\Documents\Codex\2026-11-04\cong / C:\Users\605\Documents\FileSync
-
-- FileSync Codex chat recovery: `repair-chat-index.py`, `pending_thread_ids`, `state_5.sqlite`, `--check-engine`
-  - desc: Isolated recovery and safe handling; do not alter live Codex data without authorization.
 
 #### Windows desktop / CHAT with GPT
 

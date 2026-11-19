@@ -1,6 +1,6 @@
-model = "gpt-6-astra"
-model_reasoning_effort = "high"
-service_tier = "priority"
+model = "gpt-6.2-astra"
+model_reasoning_effort = "xhigh"
+service_tier = "default"
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
 
@@ -56,6 +56,9 @@ enabled = true
 enabled = true
 
 [plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
 enabled = true
 
 [mcp_servers.node_repl]

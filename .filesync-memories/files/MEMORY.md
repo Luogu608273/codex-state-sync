@@ -312,15 +312,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - P12445, 数好图, Promet, f, g, h, 容斥, DAG, modulo overflow, C++17, brute force
 
-## Task 32: Give one-step tutoring for P10197 interval ordering structure
+## Task 32: Verify P10197 interval-DP recurrence and boundary conditions
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-17T08-32-07-tojm-p10197_interval_monotonicity_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T20-05-01-01a1e8a2-8658-7e60-8798-73f1d2088208_01a1ee8b-cb75-7920-b78d-a92877b22133.jsonl, updated_at=2026-11-17T08:33:06+00:00, partial: one counterexample and next question; await user response)
+- rollout_summaries/2026-11-17T08-32-07-tojm-interval_dp_recurrence_boundaries.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T21-11-14-01a1e8a2-8658-7e60-8798-73f1d2088208_01a1eec8-6d1b-7af2-869d-6c3452db596b.jsonl, updated_at=2026-11-18T13:11:49+00:00, success: recurrence, capacity, and boundary cases corrected)
 
 ### keywords
 
-- P10197, USACO24FEB, Minimum Sum of Maximums, max identity, absolute differences, monotonic interval, counterexample, oi-training
+- P10197, USACO24FEB, Minimum Sum of Maximums, interval-dp, subset-dp, f_{l,r,S}, g_{l,r,T}, capacity, boundary-conditions, +infinity
 
 ## Task 31: Construct the maximum number of directed triangles for P10441 `乒乓球`
 
@@ -657,7 +657,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P10441 `乒乓球`: directed-triangle count is `C(n,3)-Σ_i C(d_i,2)`, because the non-cycle triangle has a unique two-win vertex. With fixed total outdegree, minimizing the sum means balanced degrees: all `(n-1)/2` for odd `n`; `n/2` and `n/2-1` half each for even `n`. From the total-order orientation `i -> j (i<j)`, reversing `u -> v` changes the count by `t=d_u-d_v-1`. Scan `u=1..n`, `v=n..u+1`, and reverse when `0<t<=remaining`, updating `d_u--, d_v++`. [Task 31]
 - In that scan, completed rows uniformly add one to a suffix, so each step left lowers the candidate increment by at most one. At `v=u+1`, prior suffixes that increased `u` also increased `u+1`, while this row only decreases `d_u`, hence `d_u-d_{u+1}-1<=0`; if an increment exceeds `remaining`, keep scanning left until it equals `remaining`. The full greedy reverses exactly `v-u>floor(n/2)`, yielding the balanced degree sequence. Use `long long` for `m`/remaining; time and matrix space are `O(n^2)`. [Task 31]
 - P12445: retain the endpoint-constrained staged merge `pw[n-j] * f[n-1][j-1] % P * g[j-1][i-1]`; fixed `R`/`S` create disjoint edge classes and `ans_0` comes by complement. In the `h` inclusion-exclusion table, initialize `h[1][0]=1`, `h[1][1]=P-1`; carry the indispensable zero column with `h[i][0]=(pw[i-1]-1)*h[i-1][0]`, contributing to `t[i+1]`. Take `% P` after each multiplication. Exhaustively enumerate DAGs for small n before trusting the recurrence. [Task 30]
-- P10197 local transform: `max(x,y)=(x+y+|x-y|)/2`; for a fixed interval's endpoints and assigned elements, minimize the adjacent absolute-difference path length. A claim that every optimum is one/two-piece monotone is too strong; distinguish it from existence of an optimum with a useful ordering. [Task 32]
+- P10197 interval DP: `f_{l,r,S}` must minimize over `i∈S` with `len_i≥2`: `g_{l+1,r-1,S\{i}} + L_i + max(c_r,R_i) - min(c_l,L_i)`, where `L_i<=R_i`; `g` splits only over nonempty proper subsets and consistently uses `w(S)`. `sum x` can be separately counted because each movable element appears once, but fixed-point contributions are already included by interval boundaries and must not be added again. Zero-length segments add the two endpoint maxima; padded endpoints `B>=max a_i` require subtracting `2B` at the end. [Task 32]
+- P10197 state boundaries: if `w(S)>r-l+1`, both `f` and `g` are `+∞`; `g_{l,r,∅}=0`, including an empty candidate interval; an empty interval with nonempty set is infeasible; at `l=r`, `f` is legal only for `S={i}` and `len_i=1`. [Task 32]
 - ZR2-7 originals: T1 = Codeforces 1156C Match Points; T2 = QOJ #2617 Browsing the Collection; T3 = QOJ #10170 Data Structures Master; T4 = QOJ #7976 最后的晚餐. T2's checked solution is `C:\Users\605\Downloads\1110\path\path.cpp`: per-terminal reverse multi-source BFS over `(item, mask)`, with successor DSU to skip visited interval states; default `path.in/path.out`, `LOCAL` for stdio. `sample0` through `sample5` matched after `-std=c++14 -O2 -static`. [Task 23]
 - P10787 splits a restricted path into doubling segments with states 0/1/at-least-2 unoriented edges; segment-state changes follow reverse references and decrement `s_i = Σ min(c_B, 2)`, with count 1 queued for direction resolution. The LCA sides determine orientation; a contracted-tree two-coloring proves the next greedy bit may remain 0 after forced propagation. [Task 27]
 - For the P10787 `N=5e5+5`, `M=20` code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. `build()` may compute the same-start parent `k+1` segment directly after `st[x][k]`, removing `add2(e[i].v, k-1, e[i].v)` while retaining upper-segment multi-parent references. [Task 24]
@@ -700,7 +701,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - P10441 multi-test symptom: `d` resets but `ans` retains an earlier reversed edge; input `2\n3 1\n3 0\n` leaves a triangle in the second case. Because every `i<j` is revisited, set `ans[j][i]=0` before calculating its increment, then set it to 1 only when reversing. Never stop on `t>remaining`; the one-step decrement bound is the reason a later `t==remaining` exists. [Task 31]
 - Symptom: reused `g` table undercounts or has an incorrectly restricted state space -> cause: forcing the ordinary prefix's last point into `S` -> only force the final point when extracting the size-`r` result; ordinary prefix endpoints may be either category. Keep both endpoint constraints: `1,n∈R` in `f`, and the first/last points in `S` in `g`. [Task 30]
 - P12445 symptom: `n=2` yields `2 0 0` rather than `1 0 1` -> the `h` zero column was neither propagated nor added to `t`; hand-check the smallest nontrivial case, and do not write `h[i][i]=-1` beyond the `h[1][1]` initialization. [Task 30]
-- Do not continue P10197 as solved: there was no answer to the next question, code, or judge result. On the next turn, resume with one minimal follow-up based on the user's response. [Task 32]
+- P10197 recurrence failures: the original form omitted the minimization over `i` and several feasibility boundaries. When reviewing similar interval/subset DP, check capacity, empty-set, singleton, and empty-interval states before accepting the transition. This validates the recurrence, not an implementation or judge result. [Task 32]
 - Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
 - Symptom: treating P10787 candidate speedups as a confirmed patch -> cause: neither the C++ change nor benchmarks were run, and `f1/f2` or parent-order updates may still matter -> preserve the original, differential-test `fl/f1/f2`, parent ordering, length-1/2 segments, and final-edge orientation, then compile and benchmark. User-reported AC does not confirm which optimization was used. [Task 24][Task 27]
 - P11994 symptom: empty binary-search range reads an uninitialized `res` -> cause: `lst=L` instead of `L-1` and no `res=R+1` default. Also never read `sum[lst[i]]`: balances are stored as `sum[i]`; compute old-prefix differences before overwriting `lst`. [Task 26]
@@ -967,6 +968,38 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only cha
 ## Failures and how to do differently
 
 - Do not infer a cross-artist/global Top 20 from a single artist's hot ordering. The formal NetEase ranking formula remains unverified. [Task 1]
+# Task Group: MAA Arknights Assistant small-account operator buff screening
+
+scope: Screen the user's small-account roster for always-on operator buffs under explicit unlock, training, target-class, and target-rarity constraints.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant; reuse_rule=Treat this roster and its progression state as account- and time-specific; re-read the current small-account roster and requested target before recommending candidates.
+
+## Task 1: Screen self-owned operators for a constant attack buff to six-star Guards
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-18T10-00-39-TVRm-small_account_six_star_guard_attack_buff_screening.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant, rollout_path=C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T18-00-39-01a1ee19-efd5-7602-99a1-13c2699a3788.jsonl, updated_at=2026-11-18T10:04:57+00:00, success: no qualifying self-owned operator under all constraints)
+
+### keywords
+
+- 明日方舟, 小号, roster, 六星近卫, 常态加攻, 杜宾, 波登可, 阿米娅升变, JT8-2, 精英化
+
+## User preferences
+
+- when the user said “这是我小号的干员数据，注意和大号区分” -> keep small-account roster data separate from the main account; do not carry candidates across accounts. [Task 1]
+- when the user clarified “没升变，有别的吗” and “要给六星近卫加攻” -> establish transformation/unlock state plus target class and rarity before broadening a buff search. [Task 1]
+- when the user required “不用提升练度”“常态” -> exclude effects that need elite promotion, module, skill activation, or transformation unless the user explicitly relaxes that constraint. [Task 1]
+
+## Reusable knowledge
+
+- This small account's E2 Lv.80 Amiya was not transformed; Guard Amiya and her all-allies +7% ATK talent require clearing JT8-2, so it is unavailable before transformation. [Task 1]
+- Dobermann was E0 Lv.1 full potential: `新人教官` needs E1 and only buffs three-star operators. Podenco was E0 Lv.1 potential 2: `园丁` needs E1 and only buffs Supporters. Neither can buff a six-star Guard. [Task 1]
+- With the joint constraints “not transformed, no training increase, self-owned small-account operators, constant buff, target six-star Guard,” there was no candidate providing at least 5% or 41 ATK. [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: recommending Guard Amiya before confirming transformation -> cause: treating an E2 base form as proof that the alternate form is unlocked -> verify the unlock condition (JT8-2) first. [Task 1]
+- Symptom: spending time on buffs for three-stars or Supporters -> cause: filtering only by generic “attack buff” -> filter early by the recipient's class and rarity. [Task 1]
+
 # Task Group: MAA Arknights Assistant BB-EX-6 Mon3tr rope-preserving Copilot adaptation
 
 scope: Add Mon3tr S1 to a Babel Tower MAA Copilot job without breaking its 稳固锁链 connections; static validation only.
