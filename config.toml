@@ -6,7 +6,7 @@ approval_policy = "never"
 
 notify = [ "C:\\Users\\605\\AppData\\Local\\Programs\\Codex\\app\\resources\\cua_node\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
 [desktop]
-followUpQueueMode = "steer"
+followUpQueueMode = "queue"
 conversationDetailMode = "STEPS_COMMANDS"
 sansFontSize = 14
 codeFontSize = 13

@@ -2,92 +2,107 @@ v1
 
 ## User Profile
 
-- Primarily works in Chinese on OI/C++ training and contest materials, with recurring Windows, Minecraft/PCL, MAA Copilot, Arknights, and game-research requests.
-- Uses Codex checkouts under `C:\Users\605\Documents\Codex`; often supplies a derivation or partial code and wants help continued from that point.
-- Values concrete artifacts and calibrated claims: user-reported AC, compilation/local tests, static checks, and official AC are distinct evidence.
-- Maintains separate game-account contexts when supplying roster data.
+- Primarily works in Chinese on OI/C++ training and contest materials, alongside Windows, Minecraft/PCL, MAA Copilot, Arknights, game research, and local tooling.
+- Uses Codex checkouts under `C:\Users\605\Documents\Codex`; commonly brings a derivation or partial/full code and expects work to continue from it.
+- Values concrete artifacts and calibrated status: compilation/local tests, static checks, user-reported AC, and official AC are distinct.
+- Keeps distinct game-account contexts and expects supplied roster data to remain account-specific.
 
 ## User preferences
 
-- For OI teaching, preserve the user's derivation and give one advancing hint/question in Chinese; test asserted structures with a concrete counterexample before accepting them, and do not disclose a full solution early.
-- For viable C++ `[debug]`, make minimal changes without changing the idea, explain substantive errors, imitate the user's real code style, and provide complete modified code. If the approach is wrong, explicitly say “做法不正确” with a reason/counterexample and stop.
-- “过了，总结记录吧” means update the original-problem training record/review and preserve “提示后 AC” versus independent mastery.
-- Generated `.in` and `.exe` go under `C:\Users\605\Documents\Output`, not a Codex checkout.
-- Use connected Google Drive to inspect code or deliver to Drive; do not infer a local sync path or make extra backups for Git-tracked, non-ignored files. [ad-hoc note]
-- For small-account Arknights roster questions, do not mix main-account data; first pin down unlock/transform state, recipient class/rank, “常态,” and whether training is allowed.
-- For current game/product research, separate platform/server/region, permanent versus limited content, source date, expiry, and unresolved price/availability details.
+- For OI teaching, preserve the user’s derivation and give one advancing hint/question in Chinese; challenge assertions with a concrete counterexample before accepting them, and do not disclose a full solution early.
+- When an OI representation becomes cumbersome, the user asks “有没有更简单的做法”; prefer a standard implementable technique, and after they say “下一题吧” confirm the conclusion and move on instead of expanding it into a full proof or implementation.
+- For viable C++ `[debug]`, retain the approach, make minimal changes, explain substantive defects, follow the user’s real code style, and give complete modified code. If the approach is wrong, explicitly say “做法不正确” with a reason/counterexample and stop.
+- “过了，总结记录吧” means update the single-problem review plus training record/archive, preserving “提示后 AC/完成” versus independent mastery.
+- Put generated `.in` and `.exe` under `C:\Users\605\Documents\Output`, not a Codex checkout.
+- For FlClash subscription customization, use “扩展 → 脚本” overrides; “除了这个新增配置以外其他的全部保留” means append only the new group and priority rules.
+- Use connected Google Drive to inspect code or deliver to Drive; do not infer a retired local sync path or make extra backups for Git-tracked, non-ignored files. [ad-hoc note]
+- For small-account Arknights roster questions, first pin down unlock/transform state, recipient class/rank, “常态,” and whether training is allowed; never mix main-account data.
+- For MAA Copilot edits, “合适的位置” means update deployment plus `opers`/requirements and validate legal tiles, skill semantics, deployment order, and stage mechanisms; report static checks separately from combat verification.
 
 ## General Tips
 
 - Locate the actual `AGENTS.md` before editing: similarly named MAA OI/Arknights directories differ.
-- State validation boundaries exactly; static/local tests do not prove a combat clear or online AC.
-- In interval/subset DP, check capacity, empty-set, singleton, and empty-interval states alongside the recurrence; hand-check the smallest nontrivial case.
-- For MAA Copilot and roster tasks, game data, account state, assets, and unlocks are time-specific; recheck before reuse and never store secrets.
+- State validation limits exactly; static/local tests do not prove a combat clear, deployment, or online AC.
+- For interval/subset DP, check right sentinels, state indices, capacity, empty-set, singleton, and empty-interval semantics alongside the recurrence.
+- For Windows service-handle diagnosis, collect elevated before/after memory/object/handle snapshots; high handles alone do not rank RAM impact.
+- For MAA Copilot and roster work, account state, game data, assets, and unlocks are time-specific; recheck before reuse and never store secrets.
 - In multi-test constructive code, reset output-state structures as well as numeric state; a tiny two-case regression catches retained matrices/arrays.
 
 ## What's in Memory
 
+### C:\Users\605\Documents\Codex\2026-11-19\z
+
+#### 2026-11-19
+
+- FlClash ChatGPT US subscription script: `FlClash`, `main(config)`, `proxy-groups`, `ChatGPT`, `OpenAI`, `REJECT`
+  - desc: Non-destructive JS override that adds a US ChatGPT group and places routes before original rules.
+  - learnings: import/create under “扩展 → 脚本”, then select/apply it for the subscription; local preservation checks do not prove US egress or UDP capture.
+
+### C:\Users\605\Documents\Codex\2026-11-04\cong / C:\Users\605\Documents\FileSync
+
+#### 2026-11-19
+
+- FileSync Codex online-sync scope: `sync.ps1`, `NonInteractive`, `codexRunning`, `Push`, `Sync`, `Export-MemorySnapshot`
+  - desc: Online mode uses the normal upload exclusions but converts active-Codex `Sync` into one-way Push; normal Pull/Sync is needed later for remote changes.
+  - learnings: no extra ordinary-file exclusion was found; it skips download/merge/restore and stops if snapshot export is unstable.
+
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
-#### 2026-11-18
+#### 2026-11-19
 
-- P10197 interval-DP recurrence and boundaries: `P10197`, `f_{l,r,S}`, `g_{l,r,T}`, `w(S)`, `+∞`, `len_i`
-  - desc: Corrected subset/interval-DP transition, fixed-point accounting, and feasibility states for Minimum Sum of Maximums.
-  - learnings: minimize `f` over eligible `i`; fixed-point terms are already represented by interval boundaries; empty, singleton, and capacity cases are essential.
+- Range-gcd grouping and next-question pacing: `gcd-grouping`, `fixed right endpoint`, `O(n log^2 V)`, `[2,4]`, `[4,4]`, `LIS`, `delete one element`
+  - desc: Standard fixed-right-endpoint gcd grouping for subarray counts, followed by an independent-deletion LIS prompt that remains unsolved. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant!`.
+  - learnings: merge equal `gcd(g,a[r+1])` groups; factor sets alone lose exponents. The user preferred the simpler standard structure and then moved to the next short question.
+
+- P10197 Minimum Sum of Maximums debug and review: `P10197`, `interval DP`, `subset DP`, `sentinel`, `lst`, `empty interval`, `O(m^2 3^q)`
+  - desc: Minimal repair of the user’s dual-array DP, differential validation, user-reported AC, and prompt-assisted training records.
+  - learnings: explicitly make nonempty empty-interval states infinity; audit right sentinel, `lst`, `m`/`n`, extrema, singleton formula, and submask minimum.
 
 #### 2026-11-17
 
-- P12445 `数好图` DP repair and review: `P12445`, `f`, `g`, `h`, `h[i][0]`, `n=2`, `All graphs n=2..6 OK`
-  - desc: Three-layer reachability/inclusion-exclusion DP debugging, AC record, and training-review locations.
-  - learnings: preserve `h`'s zero column, initialize only `h[1][1]=P-1`, mod after each factor, and test `n=2` before trusting the recurrence.
-- P10441 and adjacent OI debugging: `P10441`, `三元环`, `翻边`, `ans矩阵`, `P11994`, `P14347`, `P17834`
-  - desc: Constructive proof, multi-test reset shield, and boundary/optimization repairs.
-  - learnings: formal endpoint arguments and minimal counterexamples matter; local validation is not online AC.
+- P12445 `数好图` and adjacent OI debugging: `P12445`, `P10441`, `P11994`, `P14347`, `P17834`, `h[i][0]`, `ans矩阵`
+  - desc: DP repairs, constructive proof, multi-test reset shields, local validation, and training records.
+  - learnings: formal endpoint arguments and minimal counterexamples matter; local checks remain distinct from online AC.
+
+### Windows desktop / C:\Users\605\Documents\Codex\2026-11-13\d-2
+
+#### 2026-11-18
+
+- PcaSvc and WpnUserService handle accumulation: `PcaSvc`, `WpnUserService`, `process handles`, `Restart-Service`, `Start-Process -Verb RunAs`
+  - desc: Elevated before/after service measurements, PcaSvc disablement after approval, and notification-service restart guidance.
+  - learnings: PcaSvc restart recovered about 1.15 GiB; WpnUserService handles fell sharply but memory benefit was limited, so retain it.
 
 ### C:\Users\605\Documents\Codex\MAA Arknights Assistant
+
+#### 2026-11-19
+
+- MAA Copilot adaptation with Mon3tr and roster snapshots: `prts://51044`, `prts://86659`, `prts://77980`, `Mon3tr`, `重构体`, `稳固锁链`, `operators-2026-11-19.json`
+  - desc: GO-EX-7 Makoto Yuki, BB-EX-6 rope-preserving Mon3tr S1, EP-EX-8 S1/reconstruction, and one-picture-flow roster snapshot handling.
+  - learnings: decode PRTS `content` JSON twice; S1 AUTO has no `SkillUsage`; summons stay out of `opers`; static geometry does not prove combat.
 
 #### 2026-11-18
 
 - Small-account six-star Guard constant-ATK screening: `小号`, `六星近卫`, `常态加攻`, `阿米娅升变`, `JT8-2`, `杜宾`, `波登可`
-  - desc: Account-specific roster screen under “未升变、不提升练度、常态” constraints; use before proposing a current candidate.
-  - learnings: no qualifying self-owned operator was found; filter by unlock, E-level, recipient class/rank before generic buff effects.
-
-#### 2026-11-17
-
-- BB-EX-6 Mon3tr rope-preserving Copilot: `prts://86659`, `Mon3tr`, `稳固锁链`, `BB-EX-6-Mon3tr-S1.json`
-  - desc: Static Copilot adaptation retaining the Babel Tower rope chain.
-  - learnings: preserve deployment order and distinguish static validation from a combat clear.
+  - desc: Account-specific roster screen under “未升变、不提升练度、常态” constraints.
+  - learnings: no qualifying self-owned operator was found; filter unlock, E-level, recipient class, and rank first.
 
 ### C:\Users\605\Documents\Codex\CHAT with GPT
 
 #### 2026-11-17
 
-- Arcaea free songs and main-story packs: `Arcaea`, `World Mode`, `World Extend`, `Renegade`, `Memory Archive`, `Adverse Prelude`
-  - desc: Mobile free-content categories, dated events, vouchers, and ambiguous “first four chapters” purchase question.
-  - learnings: confirm platform/server; list actual packs and current target-store prices rather than treating historical event data as current.
+- Arcaea free songs and main-story packs: `Arcaea`, `World Mode`, `World Extend`, `Memory Archive`, `Adverse Prelude`
+  - desc: Platform/server-sensitive free-content categories, dated events, vouchers, and pack purchasing.
+  - learnings: confirm platform/server and current prices rather than reuse historical event data.
 
 ### Older Memory Topics
 
 #### C:\Users\605\Documents\Codex\MAA OI Assistant*
 
-- Contest collaboration, training records, and artifact layout: `AGENTS.md`, `[debug]`, `做法不正确`, `Documents/Output`, `outputs/训练记录.md`
-  - desc: Core OI interaction defaults, style/debug rules, record handling, actual rules path, and artifact migration. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant*`.
-- DP derivations and qualified complexity: `P11234`, `QOJ7895`, `divide-and-conquer`, `O(n log n)`, `P11994`
-  - desc: State semantics, proof/complexity caveats, and incomplete rerooting boundaries. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
+- Contest collaboration, training, debugging, and artifact layout: `AGENTS.md`, `[debug]`, `做法不正确`, `Documents/Output`, `outputs/训练记录.md`
+  - desc: Core OI interaction defaults, record handling, algorithms/proofs, contest-material delivery, and actual rules paths. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant*`.
+
 - Two-dimensional prefix-sum string DP: `f[i,j]`, `g[i,j]`, `S_i=S_j`, `O(n^2)`
   - desc: Strict upper-left-rectangle transition optimization; preserve zero boundaries and match symbols, not indices. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
-- Contest-package delivery: `std.cpp`, `partial.cpp`, `solution.md`, `SPJ`, `google-drive-verified-delivery`
-  - desc: Compile/test/read-back workflow for requested contest materials. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant*`.
-
-#### C:\Users\605\Documents\Codex\2026-11-04\cong / C:\Users\605\Documents\FileSync
-
-- FileSync Codex chat recovery: `repair-chat-index.py`, `pending_thread_ids`, `state_5.sqlite`, `--check-engine`
-  - desc: Isolated recovery and safe handling; do not alter live Codex data without authorization.
-
-#### Windows desktop / C:\Users\605\Documents\Codex\2026-11-13\d-2
-
-- High-memory PcaSvc diagnosis: `PcaSvc`, `process objects`, `nonpaged pool`, `Restart-Service`
-  - desc: Elevated before/after test for suspected retained process-object handles; causality remains unconfirmed.
 
 #### D:\PCL 正式版 2.12.7.3 / Minecraft
 
@@ -96,15 +111,18 @@ v1
 
 #### Minecraft Java research
 
-- Low-cost dupe-like emerald farming: `string duper`, `random_tick_speed`, `Paper`, `End portal sand duper`, `toolsmith`
-  - desc: Version/server-sensitive research contrasting dupe-like methods with conventional emerald farms. cwd=`C:\Users\605\Documents\Codex\2026-11-05\xian`.
+- Version history and emerald farming: `Pocket Edition 0.15.0`, `observer`, `string duper`, `random_tick_speed`, `Paper`, `toolsmith`
+  - desc: Historical PE/Java feature mapping and version/server-sensitive emerald-production research. cwd=`C:\Users\605\Documents\Codex\2026-11-05\xian`.
 
 #### Windows desktop / CHAT with GPT
 
 - Windows graphics, transparency, scheduling, and web research: `MuMuQtBridge.dll`, `RX550`, `UIPI`, `ScheduledTask`, `aha.wasm`
-  - desc: Reinspect live-program state and treat researched platform facts as time-sensitive.
+  - desc: MuMu virtrite opacity utility, RX550 recovery, scheduled sleep, Codex sync, and redirect research; reinspect live-program state and treat platform facts as time-sensitive.
+
+- BOF22 / NetEase / game research: `BOF22`, `Tripcode`, `Delete Key`, `8483155610`, `BMS genre`, `参数预设`
+  - desc: Rules/ranking and playlist cross-checks, genre explanations, NetEase limitations, and Arknights seed-setting research. cwd=`C:\Users\605\Documents\Codex\CHAT with GPT`.
 
 #### C:\Users\605\Documents\Codex\2026-11-05\b-n
 
 - CSP-S submission archive reporting: `CSP-S 2026`, `Markdown`, `submission archive`, `distinctive examples`
-  - desc: Evidence-checked Chinese reporting separating recurring mistakes from representative submissions.
+  - desc: Evidence-checked Chinese reporting that separates recurring mistakes from representative submissions.

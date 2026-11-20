@@ -1,3 +1,34 @@
+# Task Group: FlClash ChatGPT US subscription-script override
+
+scope: Add a dedicated US ChatGPT/OpenAI route to a FlClash subscription without rebuilding or modifying the subscribed configuration.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-19\z; reuse_rule=Reuse the non-destructive `main(config)` pattern for FlClash/mihomo subscriptions, but recheck current UI, node naming, rule set, and actual egress before treating it as deployed.
+
+## Task 1: Create a ChatGPT US extension script while retaining the original subscription
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-19T02-23-20-aQAY-flclash_chatgpt_us_script_override.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-19\z, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\19\rollout-2026-11-19T10-23-20-01a1f19d-9ccd-72e0-81b6-5a38acc75fb4.jsonl, updated_at=2026-11-19T02:31:15+00:00, partial: local non-destructive validation passed; client import/application and actual egress remain unverified)
+
+### keywords
+
+- FlClash, 扩展, 脚本, main(config), proxy-groups, rules, ChatGPT, OpenAI, 美国节点, mihomo, REJECT
+
+## User preferences
+
+- when the user said “我推荐你使用 FlClash 的覆写功能，而不是直接修改配置文件” -> use a persistent subscription override/extension script rather than altering the subscribed YAML. [Task 1]
+- when the user required “除了这个新增配置以外其他的全部保留” -> append only the target group and higher-priority rules; do not rebuild, delete, or reorder original nodes, groups, rules, or other fields. [Task 1]
+- when the user pointed out “扩展->脚本” -> use the current FlClash script entry and explain that creating/importing a script still requires selecting it for the current subscription and applying it. [Task 1]
+
+## Reusable knowledge
+
+- A FlClash extension script defines `main(config)` and returns the configuration. Use non-destructive merging such as `Object.assign({}, config, { "proxy-groups": ..., rules: ... })`; place ChatGPT/OpenAI rules before `config.rules` because mihomo matches rules top-to-bottom. [Task 1]
+- The generated `outputs/FlClash-ChatGPT-US.js` creates `🤖 ChatGPT 美国`, filters proxies whose names contain “美国”, and uses `REJECT` if none match so traffic cannot silently fall back to another region. Local checks preserved the original configuration and group/rule order, included two US-named nodes, and were repeat-stable. [Task 1]
+
+## Failures and how to do differently
+
+- Symptom: proposing a rewritten complete YAML for a subscribed config -> cause: overlooking subscription updates and the user's override preference -> pivot to FlClash “扩展 → 脚本”. [Task 1]
+- Node names and local script checks do not prove an actual US exit, nor that voice UDP is intercepted; after import, apply the script, test the real egress, and check TUN/VPN handling before claiming deployment. [Task 1]
+
 # Task Group: Arcaea mobile free songs and main-story pack purchasing
 
 scope: Answer time-sensitive Arcaea mobile acquisition and purchase questions by server/platform, separating permanent free content, World Mode/World Extend events, vouchers, and story packs.
@@ -71,20 +102,30 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Use for M
 - Symptom: “smooth lighting failed” is interpreted as a sealed room suddenly becoming dark -> cause: the visual observation was not restated first -> confirm whether the user means uniform face brightness, stepwise light levels, AO, or global darkness before dating it. [Task 1]
 - Symptom: “PE 0.14.0 corresponds to Java 1.8” is stated as a strict equivalence -> cause: redstone components arrived on different timelines -> list matched and unmatched features; observer presence rules out Java 1.8 as a single-feature-complete match. [Task 1]
 
-# Task Group: Windows high-memory diagnosis: PcaSvc process-object handles
+# Task Group: Windows high-memory diagnosis: PcaSvc and WpnUserService handle accumulation
 
-scope: Diagnose Windows 10 memory pressure that remains after logout, especially suspected system-service handle retention; requires administrator verification before assigning root cause.
+scope: Diagnose Windows 10 memory pressure that remains after logout, especially service-held process handles; use elevated before/after measurements before changing service startup behavior.
 applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-13\d-2; reuse_rule=Reuse the measurement and before/after procedure on Windows, but treat all counts, PIDs, and service state as transient.
 
-## Task 1: Diagnose high Windows memory usage; identify PcaSvc as a strong but unconfirmed lead
+## Task 1: Verify PcaSvc process-handle accumulation and disable it after approval
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-13T02-13-58-uXkE-windows_memory_pcasvc_process_handle_leak.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-13\d-2, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl, updated_at=2026-11-13T02:16:35+00:00, partial: administrator restart comparison not performed)
+- rollout_summaries/2026-11-13T02-13-58-uXkE-windows_memory_pcasvc_wpnuser_service_handle_leaks.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-13\d-2, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl, updated_at=2026-11-18T07:44:19+00:00, success: elevated restart released about 1.15 GiB; user approved disablement)
 
 ### keywords
 
-- Windows 10, PcaSvc, Program Compatibility Assistant, process objects, handle leak, nonpaged pool, RAMMap, Restart-Service, PowerShell
+- Windows 10, PcaSvc, Program Compatibility Assistant, process handles, process objects, memory pressure, Restart-Service, Start-Process -Verb RunAs, PowerShell
+
+## Task 2: Inspect and restart WpnUserService without disabling notifications
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-13T02-13-58-uXkE-windows_memory_pcasvc_wpnuser_service_handle_leaks.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-13\d-2, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T10-13-58-01a1d2ae-df3f-75e3-9eca-aa7f685deb5c.jsonl, updated_at=2026-11-18T07:44:19+00:00, success: handle accumulation cleared; memory impact was limited)
+
+### keywords
+
+- WpnUserService, WpnUserService_bede8, svchost, process handles, Key, Event, WaitCompletionPacket, notifications, Restart-Service
 
 ## User preferences
 
@@ -92,13 +133,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-13\d-2; reuse_rule=Reuse th
 
 ## Reusable knowledge
 
-- The observed machine had 16104 MiB physical memory with only 394–861 MiB available; process private resident memory was about 5.25 GiB, so Task Manager process totals did not explain the pressure. PcaSvc (PID 10224) held about 51,842 distinct process objects / 53,082 handles while only about 287 processes were running; nonpaged pool was about 1.56 GiB and `Proc` about 165 MiB. This is a strong handle-retention lead, not proof of the reclaimed-RAM amount. [Task 1]
-- In an elevated PowerShell, snapshot available memory, process-object count, and PcaSvc handles; run `Restart-Service PcaSvc -ErrorAction Stop`, wait 5 seconds, then take the same snapshot. Object count falling from about 52,000 to hundreds with clear available-memory recovery confirms material contribution; if objects fall but memory does not, continue via RAMMap Use Counts/Processes/Driver Locked and pool tags. [Task 1]
+- PcaSvc repeatedly held anomalous Process handles: initially 51,842 distinct Process objects, later 11,978 process handles while only about 287 processes were running. The elevated restart comparison reduced process objects 12,219 → 377 and PcaSvc handles 12,291 → 182, while available RAM rose 884 MiB → 2,064 MiB (about 1.15 GiB recovered). [Task 1]
+- If the session is not elevated, start an administrator PowerShell with `Start-Process powershell.exe -Verb RunAs`, save Before/After JSON, restart the service, wait briefly, and repeat the same memory/object/handle measurements. After the user approved the trade-off (loss of legacy compatibility detection/fix prompts), this machine was left `PcaSvc Stopped Disabled ProcessId 0`. [Task 1]
 - Logout does not necessarily release kernel objects held by a system service. [Task 1]
+- WpnUserService_bede8 had 13,259 handles but only 13.4 MiB private working set / 33.2 MiB commit. Restarting reduced handles 13,259 → 459 → 454 and private working set/commit to 7.4/9.2 MiB; retain the Auto service because it supports Windows notifications and tiles. Restart on obvious accumulation rather than disabling it. [Task 2]
 
 ## Failures and how to do differently
 
-- The diagnostic session lacked elevation, so `Restart-Service PcaSvc` and its before/after validation did not run. Do not present PcaSvc as the confirmed root cause or equate 51,842 objects with equal RAM consumption. [Task 1]
+- High handle count alone is not a memory-leak ranking: WpnUserService proved that large handle accumulation can have limited RAM benefit after restart. Measure private/commit memory and a before/after recovery before disabling a service. [Task 2]
+- Do not disable PcaSvc without explaining the compatibility-prompt trade-off and obtaining approval; unavailable elevation should be solved with an administrator script and saved measurements, not guessed around. [Task 1]
 
 # Task Group: PCL Minecraft 26.3 Fabric repair and modded gameplay questions
 
@@ -255,52 +298,55 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-05\xian; reuse_rule=Version
 - Symptom: third-party claims say a 26.3 duper works -> cause: unverified/version-conflicting reports -> check Mojang changes and target-server documentation, then install and test in the actual environment before calling it viable. [Task 1]
 - Symptom: exact machine instructions are requested before server type is known -> cause: pure vanilla, Fabric/Carpet, and Paper differ materially on duplication behavior -> establish the environment first; label third-party “26.3 verified” pages/plugins as external evidence, not Mojang validation. [Task 2]
 
-# Task Group: FileSync Codex chat recovery, preference restoration, and release merge
+# Task Group: FileSync Codex online-sync scope check
 
-scope: Repair the Windows FileSync tool's Codex CLI discovery, chat-index/preference recovery, and safe release packaging without modifying live Codex data during diagnosis.
-applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse tool workflow and failure shields for C:\Users\605\Documents\FileSync after rechecking current Codex paths/version; do not apply deletion steps to live chat data without explicit user authorization and backups.
+scope: Explain and verify the difference between ordinary FileSync synchronization and safe online backup while Codex is active.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse only after checking the current FileSync scripts and `.codex` ignore rules; runtime status and exported snapshot contents can change.
 
-## Task 1: Repair Codex engine discovery without closing Codex or moving `.codex`
-
-### rollout_summary_files
-
-- rollout_summaries/2026-11-04T01-02-35-TeLj-filesync_repair_merge_chat_index_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-04\cong, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\04\rollout-2026-11-04T09-02-35-01a1a414-4975-7c33-80ad-a44c9a087bd5.jsonl, updated_at=2026-11-04T10:45:09+00:00, 11 path tests and isolated app-server check passed)
-
-### keywords
-
-- FileSync, repair-chat-index.py, find_codex, --check-engine, codex-cli, app-server, C:\Users\605\AppData\Local\Programs\Codex\app\resources\codex.exe, CODEX_HOME
-
-## Task 2: Make menus 11/12 tolerate missing chats, clean two confirmed-invalid records, and merge release changes
+## Task 1: Verify whether Codex online mode omits extra files
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-04T01-02-35-TeLj-filesync_repair_merge_chat_index_preferences.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-04\cong, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\04\rollout-2026-11-04T09-02-35-01a1a414-4975-7c33-80ad-a44c9a087bd5.jsonl, updated_at=2026-11-04T10:45:09+00:00, real-data-copy 11 → 12 → 11 → export passed; release SHA-256 matched)
+- rollout_summaries/2026-11-04T01-02-35-TeLj-codex_online_sync_scope_check.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-11-04\cong, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\19\rollout-2026-11-19T22-06-40-01a1a414-4975-7c33-80ad-a44c9a087bd5_01a1f421-86a4-7263-a765-c0fa95224105.jsonl, updated_at=2026-11-19T14:11:29+00:00, success: script and ignore-rule behavior checked)
 
 ### keywords
 
-- codex-preferences.py, codex-state.ps1, menu-11, menu-12, pending_thread_ids, retain_pending, state_5.sqlite, sqlite/codex-dev.db, README.md, .filesync-tool, .in, .exe, FileSync.zip
-
-## User preferences
-
-- when repairing chat sync, the user asked “只修复工具不直接移动 .codex 文件” and “不要推出 codex 进程” -> modify the tool, use temporary copies/isolated checks, and leave the running Codex process and real `.codex` data untouched unless the user explicitly authorizes a live recovery. [Task 1]
+- FileSync, sync.ps1, codex-state.ps1, online-backup, NonInteractive, codexRunning, Push, Sync, gitignore, Export-MemorySnapshot, auth.json
 
 ## Reusable knowledge
 
-- The validated current CLI candidate was `C:\Users\605\AppData\Local\Programs\Codex\app\resources\codex.exe`; `find_codex()` should try this desktop path, the old `LOCALAPPDATA/OpenAI/Codex/bin` path, Program Files, and PATH, then accept only a `codex-cli` version response so it does not launch the GUI executable. `--check-engine` must remain read-only. [Task 1]
-- Run the recovery app-server in an isolated temporary directory and filter `CODEX_HOME` plus authentication environment variables. A real recovery still requires Codex to be exited; diagnosis/engine discovery does not. [Task 1]
-- Menu 11 should restore imported chats first and retain unimported references as `pending_thread_ids`; they must not block other preferences, and later `11 → 12 → 11 → export` must retain then clear them once available. The final read-only check is `python ...\codex-preferences.py --root C:\Users\605\.codex --restore --check-only`, expected here as `projects: 3, threads: 144, pending_threads: 0`. [Task 2]
-- For FileSync self-backup, `.filesync-tool/README.md` is optional/first-connection allowlisted, but eight runtime scripts remain required and strictly checked; unknown tool scripts stay rejected and `.in`/`.exe` are excluded case-insensitively. [Task 2]
+- In `sync.ps1`, Codex `Sync` becomes `Push` when `$NonInteractive` or `$codexRunning`: online mode exports and uploads local files but does not download, merge, or overwrite active local files. It still updates rules, checks configuration, and exports memory, preferences, and the FileSync tool before staging. [Task 1]
+- Online and ordinary upload use the same exclusions: `auth.json`, `cap_sid`, SQLite files/WAL/SHM, `skills/.system`, nested `.git`/`.system`, and case-insensitive `*.in`/`*.exe`. Memory and some settings travel as exported snapshots rather than live databases. [Task 1]
+- Normal `Sync` uses `fetch` / `merge --ff-only` / `push`; obtain remote changes later through normal Pull/Sync and the corresponding restore flow. If export files move, remain open for writing, or memory changes mid-export, wait for stability and retry rather than trusting that upload. [Task 1]
 
 ## Failures and how to do differently
 
-- Symptom: recovery says it cannot find the engine -> the old script only searched `OpenAI/Codex/bin`; add current desktop/Program Files/PATH candidates and validate the `codex-cli` response instead of assuming a binary named `Codex.exe` is the CLI. [Task 1]
-- Symptom: one missing snapshot chat makes menus 11 and 12 fail -> missing threads were treated as a global error; process per chat, retain pending metadata, and continue restoring valid entries. [Task 2]
-- After authorized deletion of an invalid chat, clean its preference snapshot reference, `state_5.sqlite` `threads` row, and `sqlite/codex-dev.db` sidebar cache while keeping a backup; otherwise menu 11 still fails. [Task 2]
+- Symptom: online mode is described as full two-way Sync -> cause: it is deliberately converted to one-way Push while Codex is running -> state the no-download/no-overwrite boundary and schedule a safe normal Pull/Sync for remote changes. [Task 1]
 
 # Task Group: MAA OI Assistant contest collaboration, training, debugging, and file layout
 
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
+
+## Task 34: Discuss range-gcd grouping without enumerating the whole value domain
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-37-48-j14v-gcd_grouping_to_lis_deletion.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\20\rollout-2026-11-20T16-32-48-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a1f816-3780-7fa0-8fc5-2ccd4464037c.jsonl, updated_at=2026-11-19T06:19:07+00:00, partial: grouping technique accepted; no implementation)
+
+### keywords
+
+- gcd, gcd-grouping, divisor-enumeration, fixed right endpoint, O(n log^2 V), [2,4], [4,4]
+
+## Task 35: Pose the independent-deletion LIS problem without claiming a solution
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-19T07-37-48-j14v-gcd_grouping_to_lis_deletion.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\20\rollout-2026-11-20T16-32-48-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a1f816-3780-7fa0-8fc5-2ccd4464037c.jsonl, updated_at=2026-11-19T06:19:07+00:00, uncertain: only the problem statement was introduced)
+
+### keywords
+
+- LIS, delete one element, strictly increasing, independent deletions, O(n log n), n<=2e5, empty array
 
 ## Task 30: Debug P12445 `数好图` three-layer DP and record user-reported AC
 
@@ -312,15 +358,25 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - P12445, 数好图, Promet, f, g, h, 容斥, DAG, modulo overflow, C++17, brute force
 
-## Task 32: Verify P10197 interval-DP recurrence and boundary conditions
+## Task 32: Debug and verify P10197 `Minimum Sum of Maximums` dual-array interval/subset DP
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-17T08-32-07-tojm-interval_dp_recurrence_boundaries.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T21-11-14-01a1e8a2-8658-7e60-8798-73f1d2088208_01a1eec8-6d1b-7af2-869d-6c3452db596b.jsonl, updated_at=2026-11-18T13:11:49+00:00, success: recurrence, capacity, and boundary cases corrected)
+- rollout_summaries/2026-11-17T08-32-07-tojm-p10197_minimum_sum_of_maximums_debug_and_review.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T21-11-14-01a1e8a2-8658-7e60-8798-73f1d2088208_01a1eec8-6d1b-7af2-869d-6c3452db596b.jsonl, updated_at=2026-11-19T02:57:24+00:00, success: minimal repair, 288 comparisons and n=300 checks passed; user-reported AC)
 
 ### keywords
 
-- P10197, USACO24FEB, Minimum Sum of Maximums, interval-dp, subset-dp, f_{l,r,S}, g_{l,r,T}, capacity, boundary-conditions, +infinity
+- P10197, USACO24FEB, Minimum Sum of Maximums, interval DP, subset DP, f, g, sentinel, lst, empty interval, brute force, O(m^2 3^q)
+
+## Task 33: Record P10197 prompt-assisted AC and single-problem review
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-17T08-32-07-tojm-p10197_minimum_sum_of_maximums_debug_and_review.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\18\rollout-2026-11-18T21-11-14-01a1e8a2-8658-7e60-8798-73f1d2088208_01a1eec8-6d1b-7af2-869d-6c3452db596b.jsonl, updated_at=2026-11-19T02:57:24+00:00, success: records written; user-reported prompt-assisted AC, no independent redo)
+
+### keywords
+
+- outputs/复盘/2026-11-19-P10197-Minimum-Sum-of-Maximums.md, outputs/训练记录.md, outputs/训练档案.md, 提示后完成, 用户反馈 AC, git diff --check
 
 ## Task 31: Construct the maximum number of directed triangles for P10441 `乒乓球`
 
@@ -621,10 +677,14 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## User preferences
 
+- when a factor/exponent-based route became cumbersome, the user asked “这个好像不好做，有没有更简单的做法” -> switch first to a standard, implementable technique rather than elaborating the complex representation. [Task 34]
+- when the user concluded “新的是旧的的因数，所以每次变化至少减半，那就可以 O(n log^2 V) 了，下一题吧” -> confirm the key conclusion and move to the next short question; do not force a full proof or implementation. [Task 34][Task 35]
 - when proving a constructive greedy before coding, the user asked “这样贪心能做到三元环数的上限” and only then “到这里就完成思考可以开始写了吗” -> establish the bound, final structure, invariant, and feasibility before implementation. [Task 31]
 - when checking a scan/continuity argument, the user supplied the endpoint reasoning `d_u-d_{u+1}=1` and why the leftmost increment is `<=0` -> prove the boundary explicitly, not merely assert continuity. [Task 31]
 - when combining layered combinatorial DP, the user proposed “那三层 dp 合起来可以考虑分步计算” -> prefer staged convolution of independently computed layers over an unnecessary three-dimensional joint state. [Task 30]
 - when the user says “教我这道题” and supplies a structural observation -> check that exact claim first, then give one counterexample or one advancing question and wait; do not disclose the full algorithm/code. [Task 32]
+- when the user provides complete code with `[debug]` for P10197 -> retain the dual-array interval/subset-DP idea, make the smallest justified repair, identify each concrete bug, and validate it before reporting; do not replace the algorithm merely because several boundary defects exist. [Task 32]
+- when the user reported “过了” and asked “总结记录吧” after P10197 -> write the single-problem review and training files, but record “提示后完成，含代码调试” and no independent redo. [Task 33]
 - when the user asked “改成 1-indexed” then clarified “位掩码不用 1-indexed，下标要 1-indexed” -> keep ordinary bitmask mathematics 0-based (`0..(1<<m)-1`, `1 << (j-1)`), while making entity, array, queue, and DSU positions 1-based. [Task 23]
 - when teaching an OI problem from the user's own derivation, continue interactively: P9531 evidence favors preserving their invariants and asking one next question rather than jumping to a complete LCT/proof/code solution. [Task 25]
 - when the user provides complete C++ and says “常数过大，有没有推荐的常数优化” -> investigate actual hot paths, memory layout, and access counts before generic compiler advice; identify unverified proposals as such. [Task 24]
@@ -654,11 +714,14 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Reusable knowledge
 
+- For subarray gcd aggregation, fix the right endpoint and keep groups `(g, count)` for all ending subarrays; on extension, replace each by `gcd(g, a[r+1])`, merge equal gcds, and add the resulting `g*count` contributions. A strict gcd change makes the new value a proper divisor and at least halves it, leaving `O(log V)` groups per endpoint and `O(n log^2 V)` with ordinary gcd operations. [Task 34]
+- The independent-deletion LIS prompt has only its constraints: delete each `a_i` from the original array independently, use strict increase, return 0 for an empty result, and target all answers in `O(n log n)`. No method, implementation, or validation exists yet. [Task 35]
 - P10441 `乒乓球`: directed-triangle count is `C(n,3)-Σ_i C(d_i,2)`, because the non-cycle triangle has a unique two-win vertex. With fixed total outdegree, minimizing the sum means balanced degrees: all `(n-1)/2` for odd `n`; `n/2` and `n/2-1` half each for even `n`. From the total-order orientation `i -> j (i<j)`, reversing `u -> v` changes the count by `t=d_u-d_v-1`. Scan `u=1..n`, `v=n..u+1`, and reverse when `0<t<=remaining`, updating `d_u--, d_v++`. [Task 31]
 - In that scan, completed rows uniformly add one to a suffix, so each step left lowers the candidate increment by at most one. At `v=u+1`, prior suffixes that increased `u` also increased `u+1`, while this row only decreases `d_u`, hence `d_u-d_{u+1}-1<=0`; if an increment exceeds `remaining`, keep scanning left until it equals `remaining`. The full greedy reverses exactly `v-u>floor(n/2)`, yielding the balanced degree sequence. Use `long long` for `m`/remaining; time and matrix space are `O(n^2)`. [Task 31]
 - P12445: retain the endpoint-constrained staged merge `pw[n-j] * f[n-1][j-1] % P * g[j-1][i-1]`; fixed `R`/`S` create disjoint edge classes and `ans_0` comes by complement. In the `h` inclusion-exclusion table, initialize `h[1][0]=1`, `h[1][1]=P-1`; carry the indispensable zero column with `h[i][0]=(pw[i-1]-1)*h[i-1][0]`, contributing to `t[i+1]`. Take `% P` after each multiplication. Exhaustively enumerate DAGs for small n before trusting the recurrence. [Task 30]
-- P10197 interval DP: `f_{l,r,S}` must minimize over `i∈S` with `len_i≥2`: `g_{l+1,r-1,S\{i}} + L_i + max(c_r,R_i) - min(c_l,L_i)`, where `L_i<=R_i`; `g` splits only over nonempty proper subsets and consistently uses `w(S)`. `sum x` can be separately counted because each movable element appears once, but fixed-point contributions are already included by interval boundaries and must not be added again. Zero-length segments add the two endpoint maxima; padded endpoints `B>=max a_i` require subtracting `2B` at the end. [Task 32]
-- P10197 state boundaries: if `w(S)>r-l+1`, both `f` and `g` are `+∞`; `g_{l,r,∅}=0`, including an empty candidate interval; an empty interval with nonempty set is infeasible; at `l=r`, `f` is legal only for `S={i}` and `len_i=1`. [Task 32]
+- P10197 repaired implementation is `C:/Users/605/Documents/Output/P10197-debug-20261119/main.cpp`, with `check.py` beside it. Preserve the `f/g` DP but traverse the right sentinel `n+1`, update `lst` after every fixed point, use `R[i]=max` of endpoint values, index candidate intervals by sorted-candidate count `m`, enumerate nonempty proper submasks, and minimize every candidate transition. [Task 32]
+- P10197 state boundaries: nonempty-set states, including an empty candidate interval, must initialize to infinity; only `g[l][r][0]=0`. At a singleton, use the correct final `min(c[l], L[i])`; set the padding sentinel to `1e6` and subtract `2000000` (rather than collide with `1e9` infinity). The checker reported `PASS: 288 sample and exhaustive-permutation comparisons; seed=1019720261119`, plus n=300 balanced/short-gap/upper-bound cases. Complexity is `O(m^2 3^q)` time, `O(m^2 2^q)` space, with dual arrays about 90.8 MiB. [Task 32]
+- P10197 records live in `outputs/复盘/2026-11-19-P10197-Minimum-Sum-of-Maximums.md`, `outputs/训练记录.md`, and `outputs/训练档案.md`; `git diff --check` passed. [Task 33]
 - ZR2-7 originals: T1 = Codeforces 1156C Match Points; T2 = QOJ #2617 Browsing the Collection; T3 = QOJ #10170 Data Structures Master; T4 = QOJ #7976 最后的晚餐. T2's checked solution is `C:\Users\605\Downloads\1110\path\path.cpp`: per-terminal reverse multi-source BFS over `(item, mask)`, with successor DSU to skip visited interval states; default `path.in/path.out`, `LOCAL` for stdio. `sample0` through `sample5` matched after `-std=c++14 -O2 -static`. [Task 23]
 - P10787 splits a restricted path into doubling segments with states 0/1/at-least-2 unoriented edges; segment-state changes follow reverse references and decrement `s_i = Σ min(c_B, 2)`, with count 1 queued for direction resolution. The LCA sides determine orientation; a contracted-tree two-coloring proves the next greedy bit may remain 0 after forced propagation. [Task 27]
 - For the P10787 `N=5e5+5`, `M=20` code, initialization can potentially split `query(..., i)` into `reg()`: all edges are initially unoriented, so a `k==0` segment contributes 1 and longer segments contribute 2. `build()` may compute the same-start parent `k+1` segment directly after `st[x][k]`, removing `add2(e[i].v, k-1, e[i].v)` while retaining upper-segment multi-parent references. [Task 24]
@@ -698,10 +761,12 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Failures and how to do differently
 
+- Symptom: tracking only prime-factor left endpoints seems sufficient -> cause: it loses exponents, so `[2,4]` and `[4,4]` both have factor set `{2}` but produce different gcd counts -> maintain the complete gcd value and its multiplicity; if revisiting, supply the group-update/merge and answer-accumulation details. [Task 34]
+- Do not treat the next LIS problem as solved: the rollout ended before a user derivation, proposed algorithm, implementation, or verification. [Task 35]
 - P10441 multi-test symptom: `d` resets but `ans` retains an earlier reversed edge; input `2\n3 1\n3 0\n` leaves a triangle in the second case. Because every `i<j` is revisited, set `ans[j][i]=0` before calculating its increment, then set it to 1 only when reversing. Never stop on `t>remaining`; the one-step decrement bound is the reason a later `t==remaining` exists. [Task 31]
 - Symptom: reused `g` table undercounts or has an incorrectly restricted state space -> cause: forcing the ordinary prefix's last point into `S` -> only force the final point when extracting the size-`r` result; ordinary prefix endpoints may be either category. Keep both endpoint constraints: `1,n∈R` in `f`, and the first/last points in `S` in `g`. [Task 30]
 - P12445 symptom: `n=2` yields `2 0 0` rather than `1 0 1` -> the `h` zero column was neither propagated nor added to `t`; hand-check the smallest nontrivial case, and do not write `h[i][i]=-1` beyond the `h[1][1]` initialization. [Task 30]
-- P10197 recurrence failures: the original form omitted the minimization over `i` and several feasibility boundaries. When reviewing similar interval/subset DP, check capacity, empty-set, singleton, and empty-interval states before accepting the transition. This validates the recurrence, not an implementation or judge result. [Task 32]
+- P10197 symptom: `g[l+1][l][S]` unexpectedly contributes zero -> cause: default-zero initialization of a nonempty-set empty interval -> explicitly initialize all nonempty states to infinity, then check right sentinel coverage, `lst`, `m` versus `n`, `L/R` extrema, singleton formula, and submask minimization before trusting the implementation. The current result has local differential evidence and user-reported AC; it is not an independent redo. [Task 32][Task 33]
 - Symptom: “1-indexed” caused mask states to start at 1 -> cause: applying an array-index preference to the mathematical mask encoding -> retain empty mask `0` and standard bit positions, then recompile and rerun all samples. [Task 23]
 - Symptom: treating P10787 candidate speedups as a confirmed patch -> cause: neither the C++ change nor benchmarks were run, and `f1/f2` or parent-order updates may still matter -> preserve the original, differential-test `fl/f1/f2`, parent ordering, length-1/2 segments, and final-edge orientation, then compile and benchmark. User-reported AC does not confirm which optimization was used. [Task 24][Task 27]
 - P11994 symptom: empty binary-search range reads an uninitialized `res` -> cause: `lst=L` instead of `L-1` and no `res=R+1` default. Also never read `sum[lst[i]]`: balances are stored as `sum[i]`; compute old-prefix differences before overwriting `lst`. [Task 26]
@@ -1000,35 +1065,66 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant; reuse_rule
 - Symptom: recommending Guard Amiya before confirming transformation -> cause: treating an E2 base form as proof that the alternate form is unlocked -> verify the unlock condition (JT8-2) first. [Task 1]
 - Symptom: spending time on buffs for three-stars or Supporters -> cause: filtering only by generic “attack buff” -> filter early by the recipient's class and rarity. [Task 1]
 
-# Task Group: MAA Arknights Assistant BB-EX-6 Mon3tr rope-preserving Copilot adaptation
+# Task Group: MAA Arknights Copilot adaptation with Mon3tr and roster snapshots
 
-scope: Add Mon3tr S1 to a Babel Tower MAA Copilot job without breaking its 稳固锁链 connections; static validation only.
-applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant; reuse_rule=Reinspect the current roster, game data, map/runes, and original job before adapting another stage; do not infer combat success from static checks.
+scope: Adapt PRTS MAA jobs to the user's roster while preserving map mechanisms, deployment semantics, and explicit static-versus-combat validation boundaries.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA Arknights Assistant; reuse_rule=Reinspect current roster, game data, map/runes, original job, and actual directory before adapting another stage; these outputs were not combat-tested.
 
-## Task 1: Add Mon3tr S1 to `prts://86659` BB-EX-6 while preserving rope links
+## Task 1: Add Makoto Yuki to `prts://51044` GO-EX-7
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-20T07-17-54-WET2-bb_ex6_mon3tr_s1_rope_preserving_adaptation.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-17T01:41:17+00:00, static validation; combat not tested)
+- rollout_summaries/2026-10-20T07-17-54-WET2-maa_arknights_mon3tr_copilot_adaptations.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-19T12:19:20+00:00, partial: static checks only)
 
 ### keywords
 
-- prts://86659, BB-EX-6, act33side_ex06, Mon3tr, 一技能, 稳固锁链, 铁索, 歌蕾蒂娅, 乌尔比安, 逻各斯, `BB-EX-6-Mon3tr-S1.json`, static-validation
+- prts://51044, GO-EX-7, act37side_ex07, 结城理, Makoto Yuki, `GO-EX-7-raid-makoto.json`, PRTS, requirements.module
+
+## Task 2: Add Mon3tr S1 to `prts://86659` BB-EX-6 while preserving rope links
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T07-17-54-WET2-maa_arknights_mon3tr_copilot_adaptations.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-19T12:19:20+00:00, partial: static checks only)
+
+### keywords
+
+- prts://86659, BB-EX-6, act33side_ex06, Mon3tr, 一技能, 稳固锁链, 铁索, 歌蕾蒂娅, 乌尔比安, 逻各斯, `BB-EX-6-Mon3tr-S1.json`
+
+## Task 3: Replace 遥 with Mon3tr S1 and deploy 重构体 in `prts://77980` EP-EX-8
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T07-17-54-WET2-maa_arknights_mon3tr_copilot_adaptations.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-19T12:19:20+00:00, partial: static checks only)
+
+### keywords
+
+- prts://77980, EP-EX-8, act39side_ex08, Mon3tr, 重构体, S1, AUTO, SkillUsage, chain healer, `EP-EX-8-Mon3tr-S1.json`
+
+## Task 4: Refresh 一图流 snapshot and retain secret boundary
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-20T07-17-54-WET2-maa_arknights_mon3tr_copilot_adaptations.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA Arknights Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-17-55-01a1582c-844c-7c13-b25b-67921b416404.jsonl, updated_at=2026-11-19T12:19:20+00:00, partial: 240-record local snapshot)
+
+### keywords
+
+- 一图流, operators-2026-11-19.json, operators-2026-11-19.raw.json, operators-2026-11-19.meta.json, .gitignore, secret, timezone
 
 ## User preferences
 
-- when the user asked “增加一个 Mon3tr 带一技能，部署在合适的位置” -> choose and validate the location from legal tiles, healing range, rope links, and deployment timing, not by merely appending an operator. [Task 1]
-- when the user emphasized “需要注意关卡机制的铁索” -> preserve original deployment order and verify rope endpoints, two-link capacity, and retreat risk before introducing another deployment. [Task 1]
+- when the user asked “修改作业在合适的位置部署结城理” and required “同时修改作业的干员适配等信息” -> update actions, `opers`, skill, module, support, and explanatory metadata together. [Task 1]
+- when the user emphasized “需要注意关卡机制的铁索” and asked to place Mon3tr “合适的位置” -> preserve original deployment order; validate legal tiles, healing range, rope endpoints, two-link capacity, and retreat risk before inserting an operator. [Task 2]
+- when the user said “优先覆盖地面干员”“直接忽略斩业星熊”, then “改成一技能” -> retain the excluded operator/position but optimize the requested targets; remove S2-only actions and conclusions when changing to S1. [Task 3]
 
 ## Reusable knowledge
 
-- `prts://86659` is BB-EX-6 `act33side_ex06`, a 12x8 map with deployment limit 8 and normal/challenge-compatible difficulty. The refreshed 2026-11-17 roster had 240 records: Mon3tr met E2-60, S1M3, X-module requirements; the current project checkout is `C:\Users\605\Documents\Codex\MAA Arknights Assistant`. Never export the ignored read-only key. [Task 1]
-- `data/copilot-86659/BB-EX-6-Mon3tr-S1.json` places Mon3tr at MAA `(10,5)` facing up, after the original three operators and a 2x-speed action. S1 is automatic and needs no manual-skill action. Its direct `y-2` range covers 歌蕾蒂娅 `(10,3)` and 乌尔比安 `(9,4)`; 逻各斯 `(10,2)` is only a possible healing-chain target, not a guaranteed one. [Task 1]
-- The retained rope edges are `歌蕾蒂娅 -> 乌尔比安` and `乌尔比安 -> 逻各斯`; Ulpianus is already at its two-link limit, so Mon3tr must be a final ordinary-high-ground deployment that neither creates nor retargets a rope. Connector tiles need the last-deployed in-range operator with capacity; losing a sustaining link can make the operator wobble/retreat. [Task 1]
-- Rebuild/inspect `data/copilot-86659/build_adapted.py`, `validation.json`, `adaptation.json`, and `README.md`. Static checks covered JSON, legal tiles, challenge locks, overlap, original order, healing geometry, rope support range/capacity, deployment limit, and secret leakage. [Task 1]
+- Fetch PRTS job detail from `https://prts.maa.plus/copilot/get/{id}` and decode its `content` JSON a second time. `requirements.module` verifies only module type, so manually state any needed module-level check. [Task 1]
+- BB-EX-6 `act33side_ex06`: place Mon3tr S1 at `(10,5)` facing up after the original three. Preserve `歌蕾蒂娅 -> 乌尔比安 -> 逻各斯`; Ulpianus already has two links, so Mon3tr remains an ordinary high-ground final deployment. S1 is game-auto and needs no MAA `Skill`/`SkillUsage`; direct range covers 歌蕾蒂娅 and 乌尔比安, not guaranteed chain healing for 逻各斯. [Task 2]
+- EP-EX-8 `act39side_ex08`: final `EP-EX-8-Mon3tr-S1.json` puts Mon3tr at `(9,5)` down with skill 1 and `skill_usage=0`, and 重构体 last at `(9,7)` up. A summon belongs only in `actions`, not `opers`. Chain-healer targeting depends on lowest HP percentage then later deployment under ties, so damage state changes the route. [Task 3]
+- Current local snapshot is `data/operators-2026-11-19.json` (240 records), with raw response/meta alongside it. Treat it as a snapshot, not proof of real-time account synchronization; keep the read-only credential in ignored local secret storage and never copy it into jobs, docs, exports, memories, or final output. [Task 4]
 
 ## Failures and how to do differently
 
-- Symptom: tile assertion fails for 歌蕾蒂娅 -> cause: treating her melee tile as high-ground -> validate each operator's actual ground/high-ground type; both 歌蕾蒂娅 and 乌尔比安 needed ground eligibility. [Task 1]
-- A Grade-7 Gladiia S1 does not meet the original M3 requirement. Preserve that roster shortfall and suggest training/borrowing; do not present the squad as fully compliant. [Task 1]
-- Static validation does not load MAA Core, connect a device, or fight. It cannot establish normal/challenge clear, rope survival, healing-chain target priority, or stability. [Task 1]
+- Symptom: a ground-tile assertion fails for 歌蕾蒂娅 -> cause: class/tile type was assumed incorrectly -> validate each operator's real ground/high-ground eligibility. [Task 2]
+- Do not carry the old S2 fixed route `重构体→初雪→Mon3tr→乌尔比安` into S1: S1 lacks S2's reconstruction-priority and delayed extra-chain behavior. [Task 3]
+- A static check can validate JSON, legal/blocked tiles, overlap, order, requirements, and geometry; it does not load MAA Core, connect a device, simulate targeting/damage/skill cycling, or prove a clear. Preserve known roster shortfalls (e.g. Gladiia S1 level 7 versus M3 requirement) rather than calling the job verified. [Task 1][Task 2][Task 3]
