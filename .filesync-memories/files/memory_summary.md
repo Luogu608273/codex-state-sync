@@ -10,7 +10,7 @@ v1
 ## User preferences
 
 - For OI teaching, preserve the user’s derivation and give one advancing hint/question in Chinese; challenge assertions with a concrete counterexample before accepting them, and do not disclose a full solution early.
-- When an OI representation becomes cumbersome, the user asks “有没有更简单的做法”; prefer a standard implementable technique, and after they say “下一题吧” confirm the conclusion and move on instead of expanding it into a full proof or implementation.
+- When discussing an LIS task, the user may supply the high-efficiency route directly (“二分求 LIS 的做法，正反各跑一遍”); start from the decisive criterion rather than a brute-force derivation.
 - For viable C++ `[debug]`, retain the approach, make minimal changes, explain substantive defects, follow the user’s real code style, and give complete modified code. If the approach is wrong, explicitly say “做法不正确” with a reason/counterexample and stop.
 - “过了，总结记录吧” means update the single-problem review plus training record/archive, preserving “提示后 AC/完成” versus independent mastery.
 - Put generated `.in` and `.exe` under `C:\Users\605\Documents\Output`, not a Codex checkout.
@@ -48,11 +48,13 @@ v1
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
-#### 2026-11-19
+#### 2026-11-20
 
-- Range-gcd grouping and next-question pacing: `gcd-grouping`, `fixed right endpoint`, `O(n log^2 V)`, `[2,4]`, `[4,4]`, `LIS`, `delete one element`
-  - desc: Standard fixed-right-endpoint gcd grouping for subarray counts, followed by an independent-deletion LIS prompt that remains unsolved. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant!`.
-  - learnings: merge equal `gcd(g,a[r+1])` groups; factor sets alone lose exponents. The user preferred the simpler standard structure and then moved to the next short question.
+- Delete-one-element LIS mandatory-level test: `LIS`, `f_i`, `g_i`, `f_i + g_i - 1 = L`, `mandatory element`, `unique level`
+  - desc: User-derived `O(n log n)` criterion for whether independently deleting an element lowers a strictly increasing LIS. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant!`.
+  - learnings: A point is on some LIS iff `f_i + g_i - 1 = L`; among such points, a unique `f_i` layer is mandatory, so its deletion gives `L-1`. Confirm strict-vs-nondecreasing bounds before implementation.
+
+#### 2026-11-19
 
 - P10197 Minimum Sum of Maximums debug and review: `P10197`, `interval DP`, `subset DP`, `sentinel`, `lst`, `empty interval`, `O(m^2 3^q)`
   - desc: Minimal repair of the user’s dual-array DP, differential validation, user-reported AC, and prompt-assisted training records.

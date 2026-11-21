@@ -7,12 +7,12 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
-        "model": "gpt-6.1-sol",
+        "model": "gpt-6-astra",
         "reasoningEffort": "high",
         "serviceTier": null
       },
       {
-        "model": "gpt-6-astra",
+        "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
         "serviceTier": null
       },
@@ -1529,6 +1529,13 @@
       "thread_section_id": null
     },
     "01a1f8ef-7e42-7400-b116-c637c7082e2f": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1fce1-4de0-7060-b2b1-4c8d3adc4fec": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,

@@ -328,25 +328,25 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse o
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
 
-## Task 34: Discuss range-gcd grouping without enumerating the whole value domain
+## Task 34: Determine whether deleting an element lowers the strictly increasing LIS
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-19T07-37-48-j14v-gcd_grouping_to_lis_deletion.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\20\rollout-2026-11-20T16-32-48-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a1f816-3780-7fa0-8fc5-2ccd4464037c.jsonl, updated_at=2026-11-19T06:19:07+00:00, partial: grouping technique accepted; no implementation)
+- rollout_summaries/2026-10-19T07-37-48-j14v-lis_all_occurrences_unique_level.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\20\rollout-2026-11-20T16-32-48-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a1f816-3780-7fa0-8fc5-2ccd4464037c.jsonl, updated_at=2026-11-20T08:33:14+00:00, success: user-derived O(n log n) mandatory-element criterion; no code/tests)
 
 ### keywords
 
-- gcd, gcd-grouping, divisor-enumeration, fixed right endpoint, O(n log^2 V), [2,4], [4,4]
+- LIS, delete one element, strictly increasing, independent deletions, O(n log n), f_i, g_i, f_i + g_i - 1 = L, mandatory element, unique level
 
-## Task 35: Pose the independent-deletion LIS problem without claiming a solution
+## Task 35: Pose the O(nm) all-1 subrectangle counting problem
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-19T07-37-48-j14v-gcd_grouping_to_lis_deletion.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\20\rollout-2026-11-20T16-32-48-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a1f816-3780-7fa0-8fc5-2ccd4464037c.jsonl, updated_at=2026-11-19T06:19:07+00:00, uncertain: only the problem statement was introduced)
+- rollout_summaries/2026-10-19T07-37-48-j14v-lis_all_occurrences_unique_level.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\20\rollout-2026-11-20T16-32-48-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a1f816-3780-7fa0-8fc5-2ccd4464037c.jsonl, updated_at=2026-11-20T08:33:14+00:00, uncertain: only the next problem statement was introduced)
 
 ### keywords
 
-- LIS, delete one element, strictly increasing, independent deletions, O(n log n), n<=2e5, empty array
+- 01 matrix, all-1 subrectangles, nonempty, row-column contiguous, O(nm), nm <= 10^6
 
 ## Task 30: Debug P12445 `数好图` three-layer DP and record user-reported AC
 
@@ -677,8 +677,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## User preferences
 
-- when a factor/exponent-based route became cumbersome, the user asked “这个好像不好做，有没有更简单的做法” -> switch first to a standard, implementable technique rather than elaborating the complex representation. [Task 34]
-- when the user concluded “新的是旧的的因数，所以每次变化至少减半，那就可以 O(n log^2 V) 了，下一题吧” -> confirm the key conclusion and move to the next short question; do not force a full proof or implementation. [Task 34][Task 35]
+- when discussing a similar LIS task, the user directly gave “二分求 LIS 的做法，正反各跑一遍” and the `f_i`/`g_i` criterion -> begin from the efficient `O(n log n)` construction and its decisive condition rather than expanding a brute-force approach. [Task 34]
 - when proving a constructive greedy before coding, the user asked “这样贪心能做到三元环数的上限” and only then “到这里就完成思考可以开始写了吗” -> establish the bound, final structure, invariant, and feasibility before implementation. [Task 31]
 - when checking a scan/continuity argument, the user supplied the endpoint reasoning `d_u-d_{u+1}=1` and why the leftmost increment is `<=0` -> prove the boundary explicitly, not merely assert continuity. [Task 31]
 - when combining layered combinatorial DP, the user proposed “那三层 dp 合起来可以考虑分步计算” -> prefer staged convolution of independently computed layers over an unnecessary three-dimensional joint state. [Task 30]
@@ -714,8 +713,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Reusable knowledge
 
-- For subarray gcd aggregation, fix the right endpoint and keep groups `(g, count)` for all ending subarrays; on extension, replace each by `gcd(g, a[r+1])`, merge equal gcds, and add the resulting `g*count` contributions. A strict gcd change makes the new value a proper divisor and at least halves it, leaving `O(log V)` groups per endpoint and `O(n log^2 V)` with ordinary gcd operations. [Task 34]
-- The independent-deletion LIS prompt has only its constraints: delete each `a_i` from the original array independently, use strict increase, return 0 for an empty result, and target all answers in `O(n log n)`. No method, implementation, or validation exists yet. [Task 35]
+- For each position, compute the strictly increasing LIS length ending there `f_i` and starting there `g_i` with forward/reverse patience sorting. With global length `L`, it lies on some LIS exactly when `f_i + g_i - 1 = L`. Group these candidates by `f_i`: a unique candidate at a level is in every LIS, so deleting it yields `L-1`; otherwise an LIS can avoid it and the result remains `L`. This is `O(n log n)` overall. [Task 34]
 - P10441 `乒乓球`: directed-triangle count is `C(n,3)-Σ_i C(d_i,2)`, because the non-cycle triangle has a unique two-win vertex. With fixed total outdegree, minimizing the sum means balanced degrees: all `(n-1)/2` for odd `n`; `n/2` and `n/2-1` half each for even `n`. From the total-order orientation `i -> j (i<j)`, reversing `u -> v` changes the count by `t=d_u-d_v-1`. Scan `u=1..n`, `v=n..u+1`, and reverse when `0<t<=remaining`, updating `d_u--, d_v++`. [Task 31]
 - In that scan, completed rows uniformly add one to a suffix, so each step left lowers the candidate increment by at most one. At `v=u+1`, prior suffixes that increased `u` also increased `u+1`, while this row only decreases `d_u`, hence `d_u-d_{u+1}-1<=0`; if an increment exceeds `remaining`, keep scanning left until it equals `remaining`. The full greedy reverses exactly `v-u>floor(n/2)`, yielding the balanced degree sequence. Use `long long` for `m`/remaining; time and matrix space are `O(n^2)`. [Task 31]
 - P12445: retain the endpoint-constrained staged merge `pw[n-j] * f[n-1][j-1] % P * g[j-1][i-1]`; fixed `R`/`S` create disjoint edge classes and `ans_0` comes by complement. In the `h` inclusion-exclusion table, initialize `h[1][0]=1`, `h[1][1]=P-1`; carry the indispensable zero column with `h[i][0]=(pw[i-1]-1)*h[i-1][0]`, contributing to `t[i+1]`. Take `% P` after each multiplication. Exhaustively enumerate DAGs for small n before trusting the recurrence. [Task 30]
@@ -761,8 +759,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Failures and how to do differently
 
-- Symptom: tracking only prime-factor left endpoints seems sufficient -> cause: it loses exponents, so `[2,4]` and `[4,4]` both have factor set `{2}` but produce different gcd counts -> maintain the complete gcd value and its multiplicity; if revisiting, supply the group-update/merge and answer-accumulation details. [Task 34]
-- Do not treat the next LIS problem as solved: the rollout ended before a user derivation, proposed algorithm, implementation, or verification. [Task 35]
+- The criterion was discussed but not implemented or independently tested. Before coding, confirm the sequence is strictly increasing rather than nondecreasing and choose the matching `lower_bound`/`upper_bound` convention, including the reverse pass. [Task 34]
 - P10441 multi-test symptom: `d` resets but `ans` retains an earlier reversed edge; input `2\n3 1\n3 0\n` leaves a triangle in the second case. Because every `i<j` is revisited, set `ans[j][i]=0` before calculating its increment, then set it to 1 only when reversing. Never stop on `t>remaining`; the one-step decrement bound is the reason a later `t==remaining` exists. [Task 31]
 - Symptom: reused `g` table undercounts or has an incorrectly restricted state space -> cause: forcing the ordinary prefix's last point into `S` -> only force the final point when extracting the size-`r` result; ordinary prefix endpoints may be either category. Keep both endpoint constraints: `1,n∈R` in `f`, and the first/last points in `S` in `g`. [Task 30]
 - P12445 symptom: `n=2` yields `2 0 0` rather than `1 0 1` -> the `h` zero column was neither propagated nor added to `t`; hand-check the smallest nontrivial case, and do not write `h[i][i]=-1` beyond the `h[1][1]` initialization. [Task 30]
