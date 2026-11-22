@@ -7,19 +7,19 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
+        "model": "gpt-6.2-astra",
+        "reasoningEffort": "high",
+        "serviceTier": "priority"
+      },
+      {
+        "model": "gpt-6.2-astra",
+        "reasoningEffort": "high",
+        "serviceTier": null
+      },
+      {
         "model": "gpt-6-astra",
         "reasoningEffort": "high",
-        "serviceTier": null
-      },
-      {
-        "model": "gpt-6.1-sol",
-        "reasoningEffort": "high",
-        "serviceTier": null
-      },
-      {
-        "model": "gpt-6.2-sol",
-        "reasoningEffort": "high",
-        "serviceTier": null
+        "serviceTier": "priority"
       }
     ],
     "flat-project-sidebar-preferences-v1": {
@@ -34,10 +34,10 @@
   },
   "config": {
     "approval_policy": "never",
-    "model": "gpt-6-astra",
+    "model": "gpt-6.2-astra",
     "model_reasoning_effort": "high",
     "sandbox_mode": "danger-full-access",
-    "service_tier": "default"
+    "service_tier": "priority"
   },
   "format": 1,
   "local_permission_selection": {
@@ -1538,6 +1538,34 @@
     "01a1fce1-4de0-7060-b2b1-4c8d3adc4fec": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1fcff-6b45-74d0-98ec-24411e18ce4e": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1fd10-b679-7cb2-bbab-c0b7b484e6d6": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1fd42-f483-71c3-b308-816e474dea0e": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a1fd68-1a40-7ec1-9b25-9857963014f0": {
+      "is_pinned": false,
+      "project_id": null,
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null

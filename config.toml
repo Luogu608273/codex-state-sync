@@ -1,6 +1,6 @@
-model = "gpt-6-astra"
+model = "gpt-6.2-astra"
 model_reasoning_effort = "high"
-service_tier = "default"
+service_tier = "priority"
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
 
