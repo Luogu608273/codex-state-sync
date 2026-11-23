@@ -10,6 +10,7 @@ v1
 ## User preferences
 
 - For OI teaching, preserve the user’s derivation and give one advancing hint/question in Chinese; challenge assertions with a concrete counterexample before accepting them, and do not disclose a full solution early.
+- When a problem page shows a live timed contest, first ask whether it is a contest/simulation or off-contest learning; provide no solution hint until that is resolved.
 - When discussing an LIS task, the user may supply the high-efficiency route directly (“二分求 LIS 的做法，正反各跑一遍”); start from the decisive criterion rather than a brute-force derivation.
 - For viable C++ `[debug]`, retain the approach, make minimal changes, explain substantive defects, follow the user’s real code style, and give complete modified code. If the approach is wrong, explicitly say “做法不正确” with a reason/counterexample and stop.
 - “过了，总结记录吧” means update the single-problem review plus training record/archive, preserving “提示后 AC/完成” versus independent mastery.
@@ -25,6 +26,7 @@ v1
 - State validation limits exactly; static/local tests do not prove a combat clear, deployment, or online AC.
 - For interval/subset DP, check right sentinels, state indices, capacity, empty-set, singleton, and empty-interval semantics alongside the recurrence.
 - For Windows service-handle diagnosis, collect elevated before/after memory/object/handle snapshots; high handles alone do not rank RAM impact.
+- For Windows memory pressure, compare RAMMap `Driver Locked` with MuMu `debugvm` allocation before calling it a leak; `Unused`/`Zeroed`/`Free` pages are ordinarily reclaimable.
 - For MAA Copilot and roster work, account state, game data, assets, and unlocks are time-specific; recheck before reuse and never store secrets.
 - In multi-test constructive code, reset output-state structures as well as numeric state; a tiny two-case regression catches retained matrices/arrays.
 
@@ -48,6 +50,16 @@ v1
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
+#### 2026-11-21
+
+- BST delete-minimum depth maintenance: `BST`, `删除最小值`, `fa[x]`, `x 原来的右子树`, `深度区间加`, `线段树`, `set`
+  - desc: Local rotation-pointer changes and an `O(m log m)` set/segment-tree design for maintaining depths after deletion. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
+  - learnings: Only the deleted minimum `x`'s original right subtree loses one depth; use its key interval for range add, not per-node updates.
+
+- QOJ 24893 “猜编号” teaching setup: `QOJ24893`, `猜编号`, `oi-training`, `Cloudflare`, `Chrome`, `先序序列`
+  - desc: Statement retrieval and safe stepwise-teaching setup for `B. 猜编号`; no solution discussion began pending contest-status confirmation. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
+  - learnings: Direct QOJ access hit Cloudflare; use the authenticated Chrome DOM session. Confirm contest/simulation versus off-contest learning, then give only one hint at a time.
+
 #### 2026-11-20
 
 - Delete-one-element LIS mandatory-level test: `LIS`, `f_i`, `g_i`, `f_i + g_i - 1 = L`, `mandatory element`, `unique level`
@@ -68,19 +80,19 @@ v1
 
 ### Windows desktop / C:\Users\605\Documents\Codex\2026-11-13\d-2
 
-#### 2026-11-18
+#### 2026-11-21
 
-- PcaSvc and WpnUserService handle accumulation: `PcaSvc`, `WpnUserService`, `process handles`, `Restart-Service`, `Start-Process -Verb RunAs`
-  - desc: Elevated before/after service measurements, PcaSvc disablement after approval, and notification-service restart guidance.
-  - learnings: PcaSvc restart recovered about 1.15 GiB; WpnUserService handles fell sharply but memory benefit was limited, so retain it.
+- PcaSvc, WpnUserService, and MuMu Driver Locked memory: `PcaSvc`, `NtQuerySystemInformation`, `RAMMap`, `Driver Locked`, `MuMuVMMManage.exe`, `/GMM/VM/Allocated/cBasePages`
+  - desc: Repeated service-handle diagnosis, approved PcaSvc disablement, and correlation of large locked memory to MuMu guest allocation. cwd=`C:\Users\605\Documents\Codex\2026-11-13\d-2`.
+  - learnings: High handles alone do not rank RAM impact; MuMu's ~3.72 GiB allocation closely matched RAMMap's ~3.84 GiB Driver Locked, but repeated equal snapshots do not prove a leak.
 
 ### C:\Users\605\Documents\Codex\MAA Arknights Assistant
 
-#### 2026-11-19
+#### 2026-11-21
 
-- MAA Copilot adaptation with Mon3tr and roster snapshots: `prts://51044`, `prts://86659`, `prts://77980`, `Mon3tr`, `重构体`, `稳固锁链`, `operators-2026-11-19.json`
-  - desc: GO-EX-7 Makoto Yuki, BB-EX-6 rope-preserving Mon3tr S1, EP-EX-8 S1/reconstruction, and one-picture-flow roster snapshot handling.
-  - learnings: decode PRTS `content` JSON twice; S1 AUTO has no `SkillUsage`; summons stay out of `opers`; static geometry does not prove combat.
+- MAA Copilot 96155 Mon3tr S1 adaptation: `prts://96155`, `SL-MO-1`, `Mon3tr`, `重构体`, `skill_usage=0`, `SL-MO-1-Mon3tr-S1.json`
+  - desc: Replace 遥 at its original tile, deploy 重构体 early, and reconcile roster/cost/chain-healing constraints; static validation only. cwd=`C:\Users\605\Documents\Codex\MAA Arknights Assistant`.
+  - learnings: Decode PRTS `content` JSON twice; S1 AUTO has no `SkillUsage`; summons stay out of `opers`; S1 target selection remains HP-dependent and static geometry does not prove combat.
 
 #### 2026-11-18
 
@@ -118,8 +130,8 @@ v1
 
 #### Windows desktop / CHAT with GPT
 
-- Windows graphics, transparency, scheduling, and web research: `MuMuQtBridge.dll`, `RX550`, `UIPI`, `ScheduledTask`, `aha.wasm`
-  - desc: MuMu virtrite opacity utility, RX550 recovery, scheduled sleep, Codex sync, and redirect research; reinspect live-program state and treat platform facts as time-sensitive.
+- Windows transparency and scheduling: `MuMuQtBridge.dll`, `UIPI`, `ScheduledTask`, `SetSuspendState`, `WS_EX_LAYERED`
+  - desc: MuMu virtrite opacity utility and one-time sleep scheduling; reinspect live-program and task state before reuse.
 
 - BOF22 / NetEase / game research: `BOF22`, `Tripcode`, `Delete Key`, `8483155610`, `BMS genre`, `参数预设`
   - desc: Rules/ranking and playlist cross-checks, genre explanations, NetEase limitations, and Arknights seed-setting research. cwd=`C:\Users\605\Documents\Codex\CHAT with GPT`.
