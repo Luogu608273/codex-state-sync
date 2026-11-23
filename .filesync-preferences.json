@@ -7,19 +7,19 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
-        "model": "gpt-6-astra",
-        "reasoningEffort": "high",
-        "serviceTier": null
-      },
-      {
-        "model": "gpt-6.1-sol",
-        "reasoningEffort": "high",
-        "serviceTier": null
+        "model": "gpt-6.2-astra",
+        "reasoningEffort": "ultra",
+        "serviceTier": "priority"
       },
       {
         "model": "gpt-6.2-astra",
-        "reasoningEffort": "max",
+        "reasoningEffort": "high",
         "serviceTier": "priority"
+      },
+      {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high",
+        "serviceTier": null
       }
     ],
     "flat-project-sidebar-preferences-v1": {
@@ -1634,6 +1634,34 @@
       "thread_section_id": null
     },
     "01a207c3-edd0-7911-9ce5-ef2ce9385a87": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a20858-dac0-7e80-a289-1501e484a87e": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a2085b-29a8-73a2-a858-20985af2243d": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a2085b-353e-70a1-b031-90db2ca146b7": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a2085d-2085-7981-b960-f4ecd5321c25": {
       "is_pinned": false,
       "project_id": null,
       "section_entered_at_ms": null,
