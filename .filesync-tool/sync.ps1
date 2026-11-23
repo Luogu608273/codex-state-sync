@@ -243,7 +243,7 @@ function Get-DocumentsExclusions {
                 if ($relative -match '(^|/)data/repairs/[^/]+/(previous-[^/]+-driver|runtime-[0-9][^/]*)$') { $relative; continue }
                 $queue.Enqueue($item.FullName)
             }
-            elseif ($item.Length -gt 100MB -and $item.Extension.ToLowerInvariant() -in $extensions) {
+            elseif ($item.Extension -ieq '.rmp' -or ($item.Length -gt 100MB -and $item.Extension.ToLowerInvariant() -in $extensions)) {
                 $item.FullName.Substring($script:Root.Length + 1).Replace('\', '/')
             }
         }
@@ -266,6 +266,9 @@ function Update-InstallerIgnore {
     if (Test-Path -LiteralPath $ignorePath) { $old = [IO.File]::ReadAllText($ignorePath) }
     $pattern = '(?ms)^# FileSync: large installers begin\r?\n.*?^# FileSync: large installers end(?:\r?\n|$)'
     $text = [regex]::Replace($old, $pattern, '')
+    # Rebuild managed blocks in a stable order; do not accumulate blank lines.
+    $text = [regex]::Replace($text, '(?ms)^# FileSync: excluded extensions begin\r?\n.*?^# FileSync: excluded extensions end(?:\r?\n|$)', '').TrimEnd([char]13, [char]10)
+    if ($text) { $text += "`n" }
     if ($Paths.Count) {
         if ($text.Length -and -not $text.EndsWith("`n")) { $text += "`n" }
         $lines = @('# FileSync: large installers begin', '# Large installers and repair driver/runtime backups; local files are retained')
@@ -297,7 +300,7 @@ function Save-Changes {
         Update-InstallerIgnore -Paths $installers
         Remove-ExcludedExtensionsFromIndex
         foreach ($path in $installers) {
-            Write-Host ("跳过安装包/驱动或运行库备份（保留本地文件）：" + $path) -ForegroundColor Yellow
+            Write-Host ("跳过内存快照/安装包/驱动或运行库备份（保留本地文件）：" + $path) -ForegroundColor Yellow
             Invoke-Git @('rm', '-r', '--cached', '--ignore-unmatch', '--', $path)
         }
         Save-EmptyDirs -Excluded $installers

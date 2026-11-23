@@ -7,6 +7,11 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high",
+        "serviceTier": null
+      },
+      {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
         "serviceTier": null
@@ -14,11 +19,6 @@
       {
         "model": "gpt-6.2-astra",
         "reasoningEffort": "max",
-        "serviceTier": "priority"
-      },
-      {
-        "model": "gpt-6.2-astra",
-        "reasoningEffort": "high",
         "serviceTier": "priority"
       }
     ],
