@@ -1,6 +1,6 @@
 thread_id: 01a15318-5f1b-7d21-8e05-6c60e54318c3
 updated_at: 2026-11-20T08:33:14+00:00
-rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\20\rollout-2026-11-20T16-32-48-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a1f816-3780-7fa0-8fc5-2ccd4464037c.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\24\rollout-2026-11-24T12-22-13-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a20bca-3f99-7a73-92e5-2f11cc1bdacc.jsonl
 cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
 git_branch: main
 

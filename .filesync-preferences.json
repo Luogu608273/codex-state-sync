@@ -7,8 +7,8 @@
     "composer-permission-mode-visibility": true,
     "composer-recent-model-configurations-v1": [
       {
-        "model": "gpt-6.2-astra",
-        "reasoningEffort": "ultra",
+        "model": "gpt-6.2-sol",
+        "reasoningEffort": "high",
         "serviceTier": "priority"
       },
       {
@@ -17,7 +17,7 @@
         "serviceTier": "priority"
       },
       {
-        "model": "gpt-6-astra",
+        "model": "gpt-6.2-sol",
         "reasoningEffort": "high",
         "serviceTier": null
       }
@@ -1664,6 +1664,41 @@
     "01a2085d-2085-7981-b960-f4ecd5321c25": {
       "is_pinned": false,
       "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a20b31-abb6-7b60-b066-ca3f638d2605": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a20b49-c013-77b3-86e1-a38fab3b143c": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a20c66-a47d-7bd3-b72d-59480b901c04": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a20caa-1dca-71a3-b8b5-468ece2b3608": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a20cc8-111b-7270-89e2-2bdde2017f89": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null

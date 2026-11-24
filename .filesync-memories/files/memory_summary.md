@@ -2,141 +2,100 @@ v1
 
 ## User Profile
 
-- Primarily works in Chinese on OI/C++ training and contest materials, alongside Windows, Minecraft/PCL, MAA Copilot, Arknights, game research, and local tooling.
-- Uses Codex checkouts under `C:\Users\605\Documents\Codex`; commonly brings a derivation or partial/full code and expects work to continue from it.
-- Values concrete artifacts and calibrated status: compilation/local tests, static checks, user-reported AC, and official AC are distinct.
-- Keeps distinct game-account contexts and expects supplied roster data to remain account-specific.
+- Works mainly in Chinese on advanced OI/C++ training, contest materials, proofs, and debugging; also uses Windows tooling, MAA/Arknights, Minecraft, and Codex desktop.
+- Uses Codex projects under `C:\Users\605\Documents\Codex`; distinguishes similarly named checkout paths and game accounts.
+- Expects concrete deliverables and honest status boundaries: local/static tests, user-reported AC, live deployment, and combat/online proof are different.
+- Values own derivations and competitive C++ conventions: global arrays, 1-based entity indices, short names, and `init/solve/main` where source style supports it.
 
 ## User preferences
 
-- For OI teaching, preserve the user’s derivation and give one advancing hint/question in Chinese; challenge assertions with a concrete counterexample before accepting them, and do not disclose a full solution early.
-- When a problem page shows a live timed contest, first ask whether it is a contest/simulation or off-contest learning; provide no solution hint until that is resolved.
-- When discussing an LIS task, the user may supply the high-efficiency route directly (“二分求 LIS 的做法，正反各跑一遍”); start from the decisive criterion rather than a brute-force derivation.
-- For viable C++ `[debug]`, retain the approach, make minimal changes, explain substantive defects, follow the user’s real code style, and give complete modified code. If the approach is wrong, explicitly say “做法不正确” with a reason/counterexample and stop.
-- “过了，总结记录吧” means update the single-problem review plus training record/archive, preserving “提示后 AC/完成” versus independent mastery.
-- Put generated `.in` and `.exe` under `C:\Users\605\Documents\Output`, not a Codex checkout.
-- For FlClash subscription customization, use “扩展 → 脚本” overrides; “除了这个新增配置以外其他的全部保留” means append only the new group and priority rules.
-- Use connected Google Drive to inspect code or deliver to Drive; do not infer a retired local sync path or make extra backups for Git-tracked, non-ignored files. [ad-hoc note]
-- For small-account Arknights roster questions, first pin down unlock/transform state, recipient class/rank, “常态,” and whether training is allowed; never mix main-account data.
-- For MAA Copilot edits, “合适的位置” means update deployment plus `opers`/requirements and validate legal tiles, skill semantics, deployment order, and stage mechanisms; report static checks separately from combat verification.
+- For OI teaching, first continue from the user's current derivation; give one advancing hint/question in Chinese and wait. Honor “是或否”, “只找原题”, and “不要给思路”.
+- If a timed contest is visible, first ask whether it is contest/simulation or off-contest learning; give no solution hint until resolved.
+- For viable `[debug]`, preserve the approach and style, make minimal changes, explain each substantive fault, and give complete modified code. If the approach is wrong, say “做法不正确” with a concrete reason/counterexample and stop.
+- “过了，总结记录吧” means update the review plus training record/archive, retaining “提示后 AC/完成” versus independent mastery.
+- Before recommending training, search `outputs/训练记录.md`; avoid already solved or merely nominally black problems. Meaningful property subtasks and downloadable Markdown are expected when requested.
+- Put generated `.in` and `.exe` in `C:\Users\605\Documents\Output`, not a Codex checkout.
+- For FlClash, use “扩展 → 脚本” and preserve all existing subscription configuration except the new group/rules.
+- For Windows/Codex feature questions, distinguish user-operable settings from product modes, remote gates, and unverified inference.
+- Use connected Google Drive to inspect/deliver cloud files; do not treat retired local cloud-drive mounts as active paths. [ad-hoc note]
+- When any local file path/name/type/content is unlike the user's description, stop after read-only verification and report the mismatch.
 
 ## General Tips
 
-- Locate the actual `AGENTS.md` before editing: similarly named MAA OI/Arknights directories differ.
-- State validation limits exactly; static/local tests do not prove a combat clear, deployment, or online AC.
-- For interval/subset DP, check right sentinels, state indices, capacity, empty-set, singleton, and empty-interval semantics alongside the recurrence.
-- For Windows service-handle diagnosis, collect elevated before/after memory/object/handle snapshots; high handles alone do not rank RAM impact.
-- For Windows memory pressure, compare RAMMap `Driver Locked` with MuMu `debugvm` allocation before calling it a leak; `Unused`/`Zeroed`/`Free` pages are ordinarily reclaimable.
-- For MAA Copilot and roster work, account state, game data, assets, and unlocks are time-specific; recheck before reuse and never store secrets.
-- In multi-test constructive code, reset output-state structures as well as numeric state; a tiny two-case regression catches retained matrices/arrays.
+- Locate the actual `AGENTS.md` before editing; project-scoped and global `C:\Users\605\.codex\AGENTS.md` instructions differ. Do not overwrite unread global personalization.
+- State validation limits exactly. Static/local tests do not prove online AC, real egress, device behavior, or combat clears.
+- Use authenticated browser DOM for sites blocked by direct access/Cloudflare.
+- For Windows memory pressure, compare RAMMap `Driver Locked` with MuMu `debugvm` allocation before calling it a leak; high handle counts alone do not rank RAM impact.
+- For MAA work, recheck account, roster, theme/resources, assets, and unlocks; never mix main- and small-account facts or store secrets.
+- For modular normalization, multiplying by `x^{-1}` needs `gcd(x,P)=1`; do not silently generalize to non-units.
 
 ## What's in Memory
 
-### C:\Users\605\Documents\Codex\2026-11-19\z
-
-#### 2026-11-19
-
-- FlClash ChatGPT US subscription script: `FlClash`, `main(config)`, `proxy-groups`, `ChatGPT`, `OpenAI`, `REJECT`
-  - desc: Non-destructive JS override that adds a US ChatGPT group and places routes before original rules.
-  - learnings: import/create under “扩展 → 脚本”, then select/apply it for the subscription; local preservation checks do not prove US egress or UDP capture.
-
-### C:\Users\605\Documents\Codex\2026-11-04\cong / C:\Users\605\Documents\FileSync
-
-#### 2026-11-19
-
-- FileSync Codex online-sync scope: `sync.ps1`, `NonInteractive`, `codexRunning`, `Push`, `Sync`, `Export-MemorySnapshot`
-  - desc: Online mode uses the normal upload exclusions but converts active-Codex `Sync` into one-way Push; normal Pull/Sync is needed later for remote changes.
-  - learnings: no extra ordinary-file exclusion was found; it skips download/merge/restore and stops if snapshot export is unstable.
-
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
-#### 2026-11-21
+#### 2026-11-23
 
-- BST delete-minimum depth maintenance: `BST`, `删除最小值`, `fa[x]`, `x 原来的右子树`, `深度区间加`, `线段树`, `set`
-  - desc: Local rotation-pointer changes and an `O(m log m)` set/segment-tree design for maintaining depths after deletion. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
-  - learnings: Only the deleted minimum `x`'s original right subtree loses one depth; use its key interval for range add, not per-node updates.
+- High-difficulty DP selection and P9171 sheet: `P9171`, `染色数组`, `NOI+/CTS`, `48+28+24`, `outputs/P9171-染色数组-训练题面.md`
+  - desc: Unsolved high-difficulty DP selection, 100-point Markdown training sheet, and verification boundary for self-designed subtasks.
+  - learnings: Check training records first; only `n=2m` had stated O(m^2) support, so do not present the property scores as official/proved.
 
-- QOJ 24893 “猜编号” teaching setup: `QOJ24893`, `猜编号`, `oi-training`, `Cloudflare`, `Chrome`, `先序序列`
-  - desc: Statement retrieval and safe stepwise-teaching setup for `B. 猜编号`; no solution discussion began pending contest-status confirmation. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
-  - learnings: Direct QOJ access hit Cloudflare; use the authenticated Chrome DOM session. Confirm contest/simulation versus off-contest learning, then give only one hint at a time.
+- Greedy majority modular proof: `众数`, `前缀和`, `模P`, `gcd`, `x^{-1}`
+  - desc: Incomplete proof of stuck greedy state and normalizing a modal value to one.
+  - learnings: The count-gap invariant proves unique mode; normalization needs an explicit unit/invertibility case split.
 
-#### 2026-11-20
-
-- Delete-one-element LIS mandatory-level test: `LIS`, `f_i`, `g_i`, `f_i + g_i - 1 = L`, `mandatory element`, `unique level`
-  - desc: User-derived `O(n log n)` criterion for whether independently deleting an element lowers a strictly increasing LIS. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant!`.
-  - learnings: A point is on some LIS iff `f_i + g_i - 1 = L`; among such points, a unique `f_i` layer is mandatory, so its deletion gives `L-1`. Confirm strict-vs-nondecreasing bounds before implementation.
-
-#### 2026-11-19
-
-- P10197 Minimum Sum of Maximums debug and review: `P10197`, `interval DP`, `subset DP`, `sentinel`, `lst`, `empty interval`, `O(m^2 3^q)`
-  - desc: Minimal repair of the user’s dual-array DP, differential validation, user-reported AC, and prompt-assisted training records.
-  - learnings: explicitly make nonempty empty-interval states infinity; audit right sentinel, `lst`, `m`/`n`, extrema, singleton formula, and submask minimum.
-
-#### 2026-11-17
-
-- P12445 `数好图` and adjacent OI debugging: `P12445`, `P10441`, `P11994`, `P14347`, `P17834`, `h[i][0]`, `ans矩阵`
-  - desc: DP repairs, constructive proof, multi-test reset shields, local validation, and training records.
-  - learnings: formal endpoint arguments and minimal counterexamples matter; local checks remain distinct from online AC.
+- P3721 and OI debugging/training: `P3721`, `单旋`, `P10197`, `P12445`, `训练记录`, `提示后 AC`
+  - desc: Minimal C++ repairs, differential validation, proof/debug shields, and archive conventions.
+  - learnings: Translate key intervals directly to difference endpoints; preserve status evidence and source-style boundaries.
 
 ### Windows desktop / C:\Users\605\Documents\Codex\2026-11-13\d-2
 
-#### 2026-11-21
+#### 2026-11-23
 
-- PcaSvc, WpnUserService, and MuMu Driver Locked memory: `PcaSvc`, `NtQuerySystemInformation`, `RAMMap`, `Driver Locked`, `MuMuVMMManage.exe`, `/GMM/VM/Allocated/cBasePages`
-  - desc: Repeated service-handle diagnosis, approved PcaSvc disablement, and correlation of large locked memory to MuMu guest allocation. cwd=`C:\Users\605\Documents\Codex\2026-11-13\d-2`.
-  - learnings: High handles alone do not rank RAM impact; MuMu's ~3.72 GiB allocation closely matched RAMMap's ~3.84 GiB Driver Locked, but repeated equal snapshots do not prove a leak.
+- PcaSvc, WpnUserService, and MuMu memory: `PcaSvc`, `RAMMap`, `Driver Locked`, `MuMuVMMManage.exe`, `Allocated/cBasePages`
+  - desc: Measured process-handle accumulation, approved PcaSvc disablement, and MuMu driver-locked allocation correlation.
+  - learnings: Restart snapshots showed PcaSvc recovery; MuMu's allocation matched locked memory but does not establish a leak.
+
+### Codex desktop / C:\Users\605\Documents\Codex\2026-10-15\w
+
+#### 2026-11-23
+
+- Side chat and “更多详情” gates: `canOpenTextSideChat`, `isEverydayWorkMode`, `Alt+3`, `Statsig`, `4290238484`
+  - desc: Product-mode restoration for selection-to-side-chat plus remote-gate investigation for “更多详情”.
+  - learnings: Side chat and selection follow-up are separate; no manual More Details switch was found and stale cache cannot prove gate state.
+
+### Codex instructions / C:\Users\605\Documents\Codex\2026-09-17\h
+
+#### 2026-11-23
+
+- Local memory, AGENTS.md, hint/teach: `[本地记忆]`, `AGENTS.md`, `hint`, `teach`, `reparse point`, `Google Drive`
+  - desc: Scope-safe instruction merging, file mismatch stop rule, and stepwise OI teaching defaults.
+  - learnings: Global instructions live under `.codex`; use Drive rather than the retired mounted cloud path. [ad-hoc note]
 
 ### C:\Users\605\Documents\Codex\MAA Arknights Assistant
 
-#### 2026-11-21
+#### 2026-11-23
 
-- MAA Copilot 96155 Mon3tr S1 adaptation: `prts://96155`, `SL-MO-1`, `Mon3tr`, `重构体`, `skill_usage=0`, `SL-MO-1-Mon3tr-S1.json`
-  - desc: Replace 遥 at its original tile, deploy 重构体 early, and reconcile roster/cost/chain-healing constraints; static validation only. cwd=`C:\Users\605\Documents\Codex\MAA Arknights Assistant`.
-  - learnings: Decode PRTS `content` JSON twice; S1 AUTO has no `SkillUsage`; summons stay out of `opers`; S1 target selection remains HP-dependent and static geometry does not prove combat.
+- Resume existing roguelike exploration: `Roguelike@Continue`, `Roguelike@Stages`, `ExitThenAbandon`
+  - desc: Source-chain analysis of taking over an existing exploration without abandonment.
+  - learnings: Manually continue to route/node selection first; map-recognition failure can abandon, so this remains untested inference.
 
-#### 2026-11-18
-
-- Small-account six-star Guard constant-ATK screening: `小号`, `六星近卫`, `常态加攻`, `阿米娅升变`, `JT8-2`, `杜宾`, `波登可`
-  - desc: Account-specific roster screen under “未升变、不提升练度、常态” constraints.
-  - learnings: no qualifying self-owned operator was found; filter unlock, E-level, recipient class, and rank first.
-
-### C:\Users\605\Documents\Codex\CHAT with GPT
-
-#### 2026-11-17
-
-- Arcaea free songs and main-story packs: `Arcaea`, `World Mode`, `World Extend`, `Memory Archive`, `Adverse Prelude`
-  - desc: Platform/server-sensitive free-content categories, dated events, vouchers, and pack purchasing.
-  - learnings: confirm platform/server and current prices rather than reuse historical event data.
+- Copilot and small-account roster constraints: `prts://96155`, `Mon3tr S1`, `重构体`, `小号`, `JT8-2`, `常态加攻`
+  - desc: Static Copilot adaptation and account-specific operator-buff screening.
+  - learnings: Keep summons out of `opers`; distinguish static tile/chain validation from combat, and filter roster candidates by unlock, recipient, and training state first.
 
 ### Older Memory Topics
 
 #### C:\Users\605\Documents\Codex\MAA OI Assistant*
 
-- Contest collaboration, training, debugging, and artifact layout: `AGENTS.md`, `[debug]`, `做法不正确`, `Documents/Output`, `outputs/训练记录.md`
-  - desc: Core OI interaction defaults, record handling, algorithms/proofs, contest-material delivery, and actual rules paths. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant*`.
+- Contest collaboration and artifacts: `AGENTS.md`, `[debug]`, `Documents/Output`, `std.cpp`, `solution.md`, `partial.cpp`
+  - desc: OI workflow, code-style, training-record, contest-material, and special-judge delivery defaults.
 
-- Two-dimensional prefix-sum string DP: `f[i,j]`, `g[i,j]`, `S_i=S_j`, `O(n^2)`
-  - desc: Strict upper-left-rectangle transition optimization; preserve zero boundaries and match symbols, not indices. cwd=`C:\Users\605\Documents\Codex\MAA OI Assistant`.
+#### Windows / CHAT with GPT
 
-#### D:\PCL 正式版 2.12.7.3 / Minecraft
+- Utilities and research: `Vitrite Fixed`, `UIPI`, `ScheduledTask`, `FlClash`, `main(config)`, `BOF22`, `NetEase`
+  - desc: Transparency diagnosis, one-time sleep, subscription script override, and time-sensitive music/game research; recheck live state first.
 
-- PCL Fabric repair and Minecraft 26.3: `26.3.json`, `InstallManifest`, `InstanceCache`, `KnotClient`, `trial vault`
-  - desc: Static profile repair, mod-side requirements, and version-specific gameplay research.
+#### Minecraft / PCL
 
-#### Minecraft Java research
-
-- Version history and emerald farming: `Pocket Edition 0.15.0`, `observer`, `string duper`, `random_tick_speed`, `Paper`, `toolsmith`
-  - desc: Historical PE/Java feature mapping and version/server-sensitive emerald-production research. cwd=`C:\Users\605\Documents\Codex\2026-11-05\xian`.
-
-#### Windows desktop / CHAT with GPT
-
-- Windows transparency and scheduling: `MuMuQtBridge.dll`, `UIPI`, `ScheduledTask`, `SetSuspendState`, `WS_EX_LAYERED`
-  - desc: MuMu virtrite opacity utility and one-time sleep scheduling; reinspect live-program and task state before reuse.
-
-- BOF22 / NetEase / game research: `BOF22`, `Tripcode`, `Delete Key`, `8483155610`, `BMS genre`, `参数预设`
-  - desc: Rules/ranking and playlist cross-checks, genre explanations, NetEase limitations, and Arknights seed-setting research. cwd=`C:\Users\605\Documents\Codex\CHAT with GPT`.
-
-#### C:\Users\605\Documents\Codex\2026-11-05\b-n
-
-- CSP-S submission archive reporting: `CSP-S 2026`, `Markdown`, `submission archive`, `distinctive examples`
-  - desc: Evidence-checked Chinese reporting that separates recurring mistakes from representative submissions.
+- Repair and gameplay research: `Fabric`, `26.3`, `Pocket Edition 0.15.0`, `emerald farms`
+  - desc: Version-sensitive launcher repair and gameplay research; use current sources and server/version context.
