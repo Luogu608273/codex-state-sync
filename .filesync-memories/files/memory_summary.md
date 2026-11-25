@@ -10,6 +10,7 @@ v1
 ## User preferences
 
 - For OI teaching, first continue from the user's current derivation; give one advancing hint/question in Chinese and wait. Honor “是或否”, “只找原题”, and “不要给思路”.
+- For later string-algorithm problems, honor “字符串只关心 AC 自动机和 KMP，其他的不考虑了”: default to AC automaton or KMP, not other string topics.
 - If a timed contest is visible, first ask whether it is contest/simulation or off-contest learning; give no solution hint until resolved.
 - For viable `[debug]`, preserve the approach and style, make minimal changes, explain each substantive fault, and give complete modified code. If the approach is wrong, say “做法不正确” with a concrete reason/counterexample and stop.
 - “过了，总结记录吧” means update the review plus training record/archive, retaining “提示后 AC/完成” versus independent mastery.
@@ -30,6 +31,14 @@ v1
 - For modular normalization, multiplying by `x^{-1}` needs `gcd(x,P)=1`; do not silently generalize to non-units.
 
 ## What's in Memory
+
+### C:\Users\605\Documents\Codex\MAA OI Assistant!
+
+#### 2026-11-24
+
+- AC automaton/KMP scope and prefix-suffix query: `AC自动机`, `KMP`, `前缀函数`, `border`, `失配树`, `前缀后缀查询`
+  - desc: String-topic boundary and an unresolved `n,q≤5×10^5` query for the longest proper prefix that is a suffix of two queried prefixes; search this before setting new string practice.
+  - learnings: The query has no established solution or validation; continue with KMP prefix-function/border-chain or failure-tree analysis.
 
 ### C:\Users\605\Documents\Codex\MAA OI Assistant
 
@@ -92,8 +101,8 @@ v1
 
 #### Windows / CHAT with GPT
 
-- Utilities and research: `Vitrite Fixed`, `UIPI`, `ScheduledTask`, `FlClash`, `main(config)`, `BOF22`, `NetEase`
-  - desc: Transparency diagnosis, one-time sleep, subscription script override, and time-sensitive music/game research; recheck live state first.
+- Utilities and research: `Vitrite Fixed`, `UIPI`, `WS_EX_LAYERED`, `FlClash`, `main(config)`, `BOF22`, `NetEase`
+  - desc: Transparency diagnosis, subscription script override, and time-sensitive music/game research; recheck live state first.
 
 #### Minecraft / PCL
 

@@ -452,25 +452,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-11-04\cong; reuse_rule=Reuse o
 scope: Chinese OI teaching, recommendations/training records, contest-C++ debugging, persistent project/global coding rules, and Codex build-artifact placement.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse interaction and coding defaults broadly across the similarly named OI checkouts; status, files, and write locations are checkout-specific.
 
-## Task 34: Determine whether deleting an element lowers the strictly increasing LIS
+## Task 38: Limit string problems to AC automaton and KMP; pose a prefix/suffix query
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-19T07-37-48-j14v-lis_all_occurrences_unique_level.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\24\rollout-2026-11-24T12-22-13-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a20bca-3f99-7a73-92e5-2f11cc1bdacc.jsonl, updated_at=2026-11-20T08:33:14+00:00, success: user-derived O(n log n) mandatory-element criterion; no code/tests)
+- rollout_summaries/2026-10-19T07-37-48-j14v-kmp_string_problem_scope.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\24\rollout-2026-11-24T19-41-02-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a20d5b-fe82-7a30-8eae-9fd4608e17f9.jsonl, updated_at=2026-11-24T11:41:15+00:00, uncertain: scope set and problem posed; no solution or validation)
 
 ### keywords
 
-- LIS, delete one element, strictly increasing, independent deletions, O(n log n), f_i, g_i, f_i + g_i - 1 = L, mandatory element, unique level
-
-## Task 35: Pose the O(nm) all-1 subrectangle counting problem
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-19T07-37-48-j14v-lis_all_occurrences_unique_level.md (cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\24\rollout-2026-11-24T12-22-13-01a15318-5f1b-7d21-8e05-6c60e54318c3_01a20bca-3f99-7a73-92e5-2f11cc1bdacc.jsonl, updated_at=2026-11-20T08:33:14+00:00, uncertain: only the next problem statement was introduced)
-
-### keywords
-
-- 01 matrix, all-1 subrectangles, nonempty, row-column contiguous, O(nm), nm <= 10^6
+- AC自动机, KMP, 字符串题范围, 前缀函数, border, 失配树, 前缀后缀查询, n,q<=5×10^5
 
 ## Task 30: Debug P12445 `数好图` three-layer DP and record user-reported AC
 
@@ -682,16 +672,15 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - .gitignore, *.[rR][mM][pP], scan.json, git rm --cached, git check-ignore, git add -f, 100MiB
 
-## Task 2: Record training, recommend problems, and debug P8820
+## Task 2: Record training and debug P8820
 
 ### rollout_summary_files
 
 - rollout_summaries/2026-10-21T08-24-33-uLcG-p8820_debug_matrix_k3_state_fix.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-10-21T16-24-38-01a15d8f-e2f3-7233-bdf5-7dd279191e6e.jsonl, updated_at=2026-10-22T09:20:51+00:00, random/brute-force validation, not official AC)
-- rollout_summaries/2026-10-20T07-50-36-FHoa-gcd_queue_tutoring_and_cf1548b_practice.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\20\rollout-2026-10-20T15-50-37-01a1584a-74ae-7f32-975c-19d77940e5ce.jsonl, updated_at=2026-10-22T09:20:51+00:00)
 
 ### keywords
 
-- oi-training, 过了，总结记录吧, [hint], fork_thread, CF1548B, P8820, k=3, num[w], ABC091D, upper_bound
+- oi-training, 过了，总结记录吧, [hint], fork_thread, P8820, k=3, num[w], ABC091D, upper_bound
 
 ## Task 5: Debug P9013 Find and Replace S mapping/DFS
 
@@ -767,7 +756,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## User preferences
 
-- when discussing a similar LIS task, the user directly gave “二分求 LIS 的做法，正反各跑一遍” and the `f_i`/`g_i` criterion -> begin from the efficient `O(n log n)` construction and its decisive condition rather than expanding a brute-force approach. [Task 34]
+- when the user said “字符串只关心 AC 自动机和 KMP，其他的不考虑了” -> for later string-algorithm problems, default to AC automaton or KMP and avoid other string-algorithm topics. [Task 38]
 - when proving a constructive greedy before coding, the user asked “这样贪心能做到三元环数的上限” and only then “到这里就完成思考可以开始写了吗” -> establish the bound, final structure, invariant, and feasibility before implementation. [Task 31]
 - when checking a scan/continuity argument, the user supplied the endpoint reasoning `d_u-d_{u+1}=1` and why the leftmost increment is `<=0` -> prove the boundary explicitly, not merely assert continuity. [Task 31]
 - when combining layered combinatorial DP, the user proposed “那三层 dp 合起来可以考虑分步计算” -> prefer staged convolution of independently computed layers over an unnecessary three-dimensional joint state. [Task 30]
@@ -804,7 +793,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Reusable knowledge
 
-- For each position, compute the strictly increasing LIS length ending there `f_i` and starting there `g_i` with forward/reverse patience sorting. With global length `L`, it lies on some LIS exactly when `f_i + g_i - 1 = L`. Group these candidates by `f_i`: a unique candidate at a level is in every LIS, so deleting it yields `L-1`; otherwise an LIS can avoid it and the result remains `L`. This is `O(n log n)` overall. [Task 34]
+- The posed KMP-scale query asks for the largest `k<min(x,y)` such that `s[1..k]` is a suffix of both `s[1..x]` and `s[1..y]`, for `n,q≤5×10^5`; treat it as a prefix-function/border-chain or failure-tree problem to be solved, not an established algorithm. [Task 38]
 - P10441 `乒乓球`: directed-triangle count is `C(n,3)-Σ_i C(d_i,2)`, because the non-cycle triangle has a unique two-win vertex. With fixed total outdegree, minimizing the sum means balanced degrees: all `(n-1)/2` for odd `n`; `n/2` and `n/2-1` half each for even `n`. From the total-order orientation `i -> j (i<j)`, reversing `u -> v` changes the count by `t=d_u-d_v-1`. Scan `u=1..n`, `v=n..u+1`, and reverse when `0<t<=remaining`, updating `d_u--, d_v++`. [Task 31]
 - In that scan, completed rows uniformly add one to a suffix, so each step left lowers the candidate increment by at most one. At `v=u+1`, prior suffixes that increased `u` also increased `u+1`, while this row only decreases `d_u`, hence `d_u-d_{u+1}-1<=0`; if an increment exceeds `remaining`, keep scanning left until it equals `remaining`. The full greedy reverses exactly `v-u>floor(n/2)`, yielding the balanced degree sequence. Use `long long` for `m`/remaining; time and matrix space are `O(n^2)`. [Task 31]
 - P12445: retain the endpoint-constrained staged merge `pw[n-j] * f[n-1][j-1] % P * g[j-1][i-1]`; fixed `R`/`S` create disjoint edge classes and `ans_0` comes by complement. In the `h` inclusion-exclusion table, initialize `h[1][0]=1`, `h[1][1]=P-1`; carry the indispensable zero column with `h[i][0]=(pw[i-1]-1)*h[i-1][0]`, contributing to `t[i+1]`. Take `% P` after each multiplication. Exhaustively enumerate DAGs for small n before trusting the recurrence. [Task 30]
@@ -847,7 +836,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ## Failures and how to do differently
 
-- The criterion was discussed but not implemented or independently tested. Before coding, confirm the sequence is strictly increasing rather than nondecreasing and choose the matching `lower_bound`/`upper_bound` convention, including the reverse pass. [Task 34]
+- Do not mark the prefix/suffix query as solved: this rollout provided neither an algorithm nor code/tests. Derive and verify a solution that meets `n,q≤5×10^5` before presenting it as established. [Task 38]
 - P10441 multi-test symptom: `d` resets but `ans` retains an earlier reversed edge; input `2\n3 1\n3 0\n` leaves a triangle in the second case. Because every `i<j` is revisited, set `ans[j][i]=0` before calculating its increment, then set it to 1 only when reversing. Never stop on `t>remaining`; the one-step decrement bound is the reason a later `t==remaining` exists. [Task 31]
 - Symptom: reused `g` table undercounts or has an incorrectly restricted state space -> cause: forcing the ordinary prefix's last point into `S` -> only force the final point when extracting the size-`r` result; ordinary prefix endpoints may be either category. Keep both endpoint constraints: `1,n∈R` in `f`, and the first/last points in `S` in `g`. [Task 30]
 - P12445 symptom: `n=2` yields `2 0 0` rather than `1 0 1` -> the `h` zero column was neither propagated nor added to `t`; hand-check the smallest nontrivial case, and do not write `h[i][i]=-1` beyond the `h[1][1]` initialization. [Task 30]
@@ -915,17 +904,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-29\mumu (rollout initiated 
 scope: Explain contest DP, competition-tree, and mathematical-model derivations with exact state semantics and qualified complexity claims.
 applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse mathematical shields for analogous derivations, not as a completed solution for an unspecified problem.
 
-## Task 2: Divide-and-conquer cross-midpoint subsequence preprocessing
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-15T01-53-18-i0fA-divide_conquer_midpoint_preprocessing.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\15\rollout-2026-10-15T14-21-28-01a13d43-893b-7dc1-8124-b32eb06745b6_01a13e39-0af9-75e3-b7db-95308a0e9dd2.jsonl, updated_at=2026-10-26T03:37:48+00:00, recurrence clarified; unconfirmed by code/user validation)
-
-### keywords
-
-- divide-and-conquer, midpoint, subsequence DP, B[p,v], C[u,p], incremental update, O(nk^2 log n)
-
-## Task 3: QOJ7895 merge-tree linear-complexity proof
+## Task 1: QOJ7895 merge-tree linear-complexity proof
 
 ### rollout_summary_files
 
@@ -937,51 +916,41 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 
 ## User preferences
 
-- when asked "这个怎么线性提前准备好", show state definitions, incremental scan updates, and per-level aggregation; distinguish linear positions from O(k^2) state updates. [Task 2]
-- when proving complexity, the user rejected "分叉点 O(n/k)、状态少" as sufficient -> charge state products and real container operations separately; check the original problem and primary editorial before adopting an old claim. [Task 3]
-- when explaining an abstract amortized proof, the user asked "何为合并树" and "这句话是什么意思" -> first use a tiny concrete merge example and say whether a size counts original-tree vertices or DP states. [Task 3]
-- when the user asks whether `x+y>k^2` means only `n/k^2` merges -> distinguish both-sides-large from threshold-crossing small-plus-large merges, and give the repeated-small-absorption counterexample before applying a count bound. [Task 3]
+- when proving complexity, the user rejected "分叉点 O(n/k)、状态少" as sufficient -> charge state products and real container operations separately; check the original problem and primary editorial before adopting an old claim. [Task 1]
+- when explaining an abstract amortized proof, the user asked "何为合并树" and "这句话是什么意思" -> first use a tiny concrete merge example and say whether a size counts original-tree vertices or DP states. [Task 1]
+- when the user asks whether `x+y>k^2` means only `n/k^2` merges -> distinguish both-sides-large from threshold-crossing small-plus-large merges, and give the repeated-small-absorption counterexample before applying a count bound. [Task 1]
 
 ## Reusable knowledge
 
-- At a midpoint, scan left with `B[p][v]` and right with `C[u][p]`: left insert `x` uses `w[v]=B_old[x][v]+[v=x]`, then updates `p<=x,v>=x`; right insert symmetrically uses `w[u]=C_old[u][x]+[u=x]`, then `u<=x,p>=x`. Each endpoint enters once but costs up to O(k^2), so preprocessing is O(nk^2) per level, O(nk^2 log n) overall; right suffix sums make a cross-midpoint query O(k). [Task 2]
-- QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. Model the actual merge order as a binary merge tree whose node sizes count original-tree vertices, not states. [Task 3]
-- QOJ7895 three-way charge: for `x,y>=k²`, the `O(n/k²)` large-large merge bound gives `O(n)`; for `x<k²<=x+y`, cost is `O(x)` and the small side cannot be charged again as small; for `x+y<k²`, charge `O(xy/k²)` to point pairs, with total `O(z²/k²)=O(z)` in each disjoint size-`z` fragment. [Task 3]
+- QOJ7895: absorb `sz<k` children into offset `s_u`; only a unique large-child chain can lazy-shift, while branch nodes merge. With merge-side sizes `x,y`, state-product cost is `O(min(k,x/k) * min(k,y/k))`. Model the actual merge order as a binary merge tree whose node sizes count original-tree vertices, not states. [Task 1]
+- QOJ7895 three-way charge: for `x,y>=k²`, the `O(n/k²)` large-large merge bound gives `O(n)`; for `x<k²<=x+y`, cost is `O(x)` and the small side cannot be charged again as small; for `x+y<k²`, charge `O(xy/k²)` to point pairs, with total `O(z²/k²)=O(z)` in each disjoint size-`z` fragment. [Task 1]
 
 ## Failures and how to do differently
 
-- Do not call midpoint preparation unqualified "linear": it is linear in positions, but every inserted value has an O(k^2) two-dimensional update. [Task 2]
-- QOJ7895: "any child can inherit for free" is false. Do not say every `x+y>=k²` merge occurs only `O(n/k²)` times: a large side can repeatedly absorb size-`Theta(k)` parts. Apply that count only when both sides are at least `k²`; charge threshold crossings to the smaller side and small-total merges to point pairs. [Task 3]
-- QOJ7895 proof remains partial: still account separately for initialization, moving, truncation, and actual container maintenance before claiming the entire implementation is linear. [Task 3]
+- QOJ7895: "any child can inherit for free" is false. Do not say every `x+y>=k²` merge occurs only `O(n/k²)` times: a large side can repeatedly absorb size-`Theta(k)` parts. Apply that count only when both sides are at least `k²`; charge threshold crossings to the smaller side and small-total merges to point pairs. [Task 1]
+- QOJ7895 proof remains partial: still account separately for initialization, moving, truncation, and actual container maintenance before claiming the entire implementation is linear. [Task 1]
 
-# Task Group: Windows transparency utility and one-time power scheduling
+# Task Group: Windows transparency utility
 
-scope: Diagnose Windows window-transparency faults and schedule explicit one-time system sleep.
-applies_to: cwd=Windows desktop and Codex desktop; reuse_rule=Hardware, feature gates, paths, and scheduled-task state are transient; recheck first.
+scope: Diagnose Windows window-transparency faults and repair opacity controls.
+applies_to: cwd=Windows desktop and Codex desktop; reuse_rule=Hardware, app integrity, paths, and feature gates are transient; recheck first.
 
-## Task 1: Vitrite/UIPI transparency and one-time Windows sleep
+## Task 1: Vitrite/UIPI transparency repair
 
 ### rollout_summary_files
 
 - rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_endfield_window_opacity_rewrite.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-11-23T12:41:20+00:00, partial: Milthm restore tool readback verified; elevated Endfield retry still pending)
-- rollout_summaries/2026-10-18T13-40-00-Yy29-windows_schedule_one_time_sleep_2200.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-18\d, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\18\rollout-2026-10-18T21-40-00-01a14f3d-9c2b-7962-be4f-914b977763dd.jsonl, updated_at=2026-10-25T23:42:30+00:00, registration/permission verified; actual sleep unobserved)
 
 ### keywords
 
-- Vitrite Fixed, UIPI, ScheduledTask, SetSuspendState, SeShutdownPrivilege, WS_EX_LAYERED, Ctrl+Shift+0, Endfield
-
-## User preferences
-
-- when the request says "睡眠", the user distinguished "电脑自动睡眠" from "提醒我睡觉" -> clarify whether to perform the system action or send a reminder before acting. [Task 1]
+- Vitrite Fixed, UIPI, WS_EX_LAYERED, Ctrl+Shift+0, Endfield, SetWindowLongPtrW
 
 ## Reusable knowledge
 
-- One-time sleep: confirm the target time/timezone and S3 support, enable SeShutdownPrivilege, call SetSuspendState(false,false,false), register New-ScheduledTaskTrigger -Once with Register-ScheduledTask, then check Get-ScheduledTaskInfo for State and NextRunTime. [Task 1]
 - Vitrite: `Ctrl+Shift+1~9` set layered alpha but `Ctrl+Shift+0` removes `WS_EX_LAYERED`, so zero can fail separately. Setting layered alpha to 255 restored Milthm (`ReadBackSuccess=True`, `Alpha=255`); Vitrite Fixed instead sets alpha 255 and provides `Ctrl+Alt+0` fallback. Endfield `SetWindowLongPtrW` error 5 from medium integrity indicates UIPI/elevation mismatch; run the rewrite elevated, then test windowed/borderless mode. [Task 1]
 
 ## Failures and how to do differently
 
-- The 2026-10-18 task proved compilation, privilege, and registration, not that the machine actually slept at 22:00; inspect task history/LastRunResult and observed power state for execution confirmation. [Task 1]
 - Clearing the input-language `Ctrl+Shift+0` conflict did not fix Milthm when 1–9 worked; inspect the application’s layered style/zero-key path. Synthetic self-tests do not prove game-renderer compatibility; try equal/elevated integrity for Endfield before blaming fullscreen. [Task 1]
 
 # Task Group: BOF22 rules, rankings, NetEase playlist audit, and BMS genre guide
