@@ -12,13 +12,13 @@
         "serviceTier": "priority"
       },
       {
-        "model": "gpt-6.2-astra",
-        "reasoningEffort": "low",
-        "serviceTier": "priority"
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "serviceTier": null
       },
       {
-        "model": "gpt-6.2-sol",
-        "reasoningEffort": "high",
+        "model": "gpt-6.2-astra",
+        "reasoningEffort": "low",
         "serviceTier": "priority"
       }
     ],
@@ -1739,15 +1739,36 @@
       "thread_section_id": null
     },
     "01a211c6-0e34-7ce3-8e5d-7953c8d3b5e4": {
+      "is_pinned": true,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": 1795662282043,
+      "section_position": 3000000,
+      "thread_section_id": "01984de2-8f74-7c91-a3b2-5c5e937cf318"
+    },
+    "01a21230-a45c-7843-b895-b607428aa18c": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a215bb-1eeb-7101-b961-40570bbe0cd7": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a21608-a6c7-7db1-87c9-52fd168d22c0": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null
     },
-    "01a21230-a45c-7843-b895-b607428aa18c": {
+    "01a2172a-0f17-7190-8b6e-2d1fe9ae7818": {
       "is_pinned": false,
-      "project_id": null,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
       "section_position": null,
       "thread_section_id": null

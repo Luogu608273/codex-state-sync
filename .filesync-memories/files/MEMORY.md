@@ -1,3 +1,44 @@
+# Task Group: Zhengrui 2246 “股票” linearization and original-problem lookup
+
+scope: Replace the stock solution's sparse-table/discretization bottlenecks with a validated O(n) preprocessing path, and report source lookup only at the level evidence supports.
+applies_to: cwd=C:\Users\605\Documents\Output\stock-3758-debug-1795586054248; reuse_rule=Reuse the `lim`/prefix-shift/bucket transformation only after rechecking the same prefix-step and range-constraint invariants; source-search non-results are time-sensitive and not proof of originality.
+
+## Task 1: Linearize the “股票” algorithm
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-25T05-53-07-FCuZ-linearize_stock_and_search_original_problems.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\25\rollout-2026-11-25T13-58-18-01a21143-d44d-7a33-b4ed-99946884b331_01a21148-932c-72e1-bc9a-7c4c3fa4b491.jsonl, updated_at=2026-11-25T06:55:46+00:00, success: 63,972 brute-force checks, sample, and n=10^6 stress test)
+
+### keywords
+
+- stock.cpp, linear/stock.cpp, monotonic queue, lim[l], prefix shift, bucket, calc(t,i), 63972, O(n), zhengruioi 3758
+
+## Task 2: Find original sources for Zhengrui 2246 A–D
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-25T05-53-07-FCuZ-linearize_stock_and_search_original_problems.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\25\rollout-2026-11-25T13-58-18-01a21143-d44d-7a33-b4ed-99946884b331_01a21148-932c-72e1-bc9a-7c4c3fa4b491.jsonl, updated_at=2026-11-25T06:55:46+00:00, uncertain: titles/IDs verified but no external source match)
+
+### keywords
+
+- zhengruioi, contest-2246, 3757, 3758, 3759, 3760, 幸运数, 股票, 优秀数, 图腾, original problem source
+
+## User preferences
+
+- when optimizing, the user asked “改成线性的” and specified precomputing each left endpoint's reachable maximum right endpoint plus shifting the minimum prefix to 1 -> retain the existing main-loop/bucket structure and replace the named bottlenecks rather than broadly rewriting it. [Task 1]
+
+## Reusable knowledge
+
+- In `linear/stock.cpp`, two monotonic queues precompute `lim[l]`, the maximum right endpoint whose range width is at most `k`; replace the main-loop range query with `lim[t] < i`. [Task 1]
+- Shift prefix-change values by `x[i] += 1 - mn`. Because adjacent prefix values differ by at most one, bucket indices lie in `[1,n]`, so direct `x[i]±r` buckets remove sorting, `unique`, and `lower_bound`; retaining `j`, `p`, and `vec` gives O(n) time and O(n) space. [Task 1]
+- Validation: exhaustive checker passed 63,972 cases; the official sample produced `5 1`; strictly decreasing `n=10^6` took about 0.25 seconds and produced `500001 1`. Compile with `C:/TDM-GCC-64/bin/g++.exe stock.cpp -std=c++14 -O2 -fno-asm`. [Task 1]
+- Zhengrui contest 2246 identifies A–D as 3757《幸运数》, 3758《股票》, 3759《优秀数》, and 3760《图腾》. Search did not yield a match that simultaneously fits statement, samples, and constraints; report “暂无可核实出处”, not an originality claim. [Task 2]
+
+## Failures and how to do differently
+
+- Symptom: brute-force checker gives inconsistent results across cases -> reused global `vec/p/x/m/ans/res` state was not reset; clear all such state in the checker before every case. [Task 1]
+- Symptom: search finds a similarly themed problem -> title/algorithm resemblance is insufficient. Compare full samples and constraints before claiming a source; this rollout found no verified external original. [Task 2]
+
 # Task Group: MAA OI Assistant P3721《单旋》debug and review
 
 scope: Debug the user's rotation/deletion implementation while preserving the derived BST model; record prompt-assisted AC with evidence boundaries.
@@ -536,7 +577,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-13T08-31-15-Zf8U-p17834_debug_wa_and_optimize_tle.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T16-50-58-01a1d408-4abc-71e1-bee6-47382f8c93cc_01a1d41a-5832-78d1-b5f8-9129ca0e8421.jsonl, updated_at=2026-11-13T09:19:23+00:00, compiled/differential/performance tested; not online-submitted)
+- rollout_summaries/2026-11-13T08-31-15-Zf8U-p17834_debug_wa_and_optimize_tle.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-11-13T16-50-58-01a1d408-4abc-71e1-bee6-47382f8c93cc_01a1d41a-5832-78d1-b5f8-9129ca0e8421.jsonl, updated_at=2026-11-13T09:19:23+00:00, compiled/differential/performance tested; not online-submitted)
 
 ### keywords
 
@@ -566,7 +607,7 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-11-07T07-38-30-w1fG-p9531_lct_guided_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=C:\Users\605\.codex\sessions\2026\11\07\rollout-2026-11-07T15-38-30-01a1b4f1-d68e-7d73-8129-43ad56c467f0.jsonl, updated_at=2026-11-07T07:39:08+00:00, partial: one next-step hint only)
+- rollout_summaries/2026-11-07T07-38-30-w1fG-p9531_lct_guided_hint.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\11\07\rollout-2026-11-07T15-38-30-01a1b4f1-d68e-7d73-8129-43ad56c467f0.jsonl, updated_at=2026-11-07T07:39:08+00:00, partial: one next-step hint only)
 
 ### keywords
 
@@ -681,16 +722,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 ### keywords
 
 - oi-training, 过了，总结记录吧, [hint], fork_thread, P8820, k=3, num[w], ABC091D, upper_bound
-
-## Task 5: Debug P9013 Find and Replace S mapping/DFS
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-26T11-51-25-BNGX-p9013_debug_mapping_dfs_cycle_count.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-10-26T19-51-26-01a1780d-15fe-7c62-a177-9e72c24ca5c3.jsonl, updated_at=2026-10-26T11:57:54+00:00, compiled and locally brute-force validated; no official submission)
-
-### keywords
-
-- P9013, Find and Replace S, mapping, DFS, indegree-zero, in[target], free character, abc -> baa, p9013_debug.cpp, PASS: 450 cases
 
 ## Task 6: Record CF455D prompt-assisted AC and review
 
@@ -814,7 +845,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - `memory.rmp` migration to Output was not completed: file symlink creation returned `Administrator privilege required for this operation` and a directory junction was `blocked by policy`; preserve the original path and do not claim migration without checking link type and hashes. The root `.gitignore` excludes `*.[rR][mM][pP]` and `/2026-11-05/b-n/work/scan.json`; `git add -f` bypasses this. [Task 36][Task 37]
 - Training truth is in outputs/训练记录.md, outputs/训练档案.md, and outputs/复盘/; user report, compile/static/random testing, and official AC are distinct. P8820 k=3 also needs LCA-neighbor handling: min(l1.a[0],l1.a[1])+num[w]+min(l2.a[0],l2.a[1]). [Task 2]
 - CF379F: dynamic leaf additions update diameter endpoints by comparing distances to both old endpoints via LCA/binary lifting; prove the diameter-endpoint property before relying on it. [Task 3]
-- P9013 functional mapping graph: count `in[v]` on target vertices so free-character availability is target-side; visit indegree-zero roots before residual cycles, otherwise a cycle with an external predecessor is overcharged one temporary operation. `abc -> baa` should be 3. Local checker: `PASS: 450 cases; BFS alphabet=5; seed=9013`. [Task 5]
 - CF455D's record is `AC（2026-10-27 用户反馈）`, completion mode "提示后". The historical block-list idea remains contextual only: right-shift `[l,r]` is delete rank `r`, insert rank `l`; split `2B+1` into `B` and `B+1`, then another split needs about `B` insertions. Only splitting means the block count also depends on `q`; include splitting moves, frequency-table initialization/clearing, and allocation in complexity discussion. [Task 6]
 - CF453E must distinguish never-cleared `min(m_i,s_i+r_i t)` from last-cleared-at-`t_0` `min(m_i,r_i(t-t_0))`; `r_i=0` precludes division. A same-timestamp persistent-segment-tree query does not replace outer ODT/set timestamp segments. [Task 7]
 - G123913: first give every index a single meaning (layer, class index, distance coordinate, or class size). Clear `ans`/`vec` per test, skip empty layers, guard `j=0`, `lower_bound==end()`, and empty suffixes; `suf[lst+1]` is required for a queried empty interval. Local checker covered samples, all 23,940 permitted 2–5-node self-loop graphs, large cases, and 50,000 tests. [Task 9]
@@ -851,7 +881,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
 - For a migration that must leave an old path usable, first confirm symlink/junction permissions and policy; on `Administrator privilege required for this operation` or `blocked by policy`, restore/preserve the source and pivot to an ignore rule rather than reporting a moved file. [Task 36]
 - Random/brute-force checks do not establish official AC; P8820 must also remove or conditionalize freopen("transmit2.in",...). [Task 2]
-- P9013: arbitrary DFS numeric order can falsely charge a cycle that is reachable from an external predecessor; do root-first traversal, then residual cycles. Local randomized/BFS validation is not official AC. [Task 5]
 - CF455D: previous "not passed" status must be revised, not retained beside the newer AC feedback. Do not elevate the user report into inspected implementation, actual pass date, running time, or verified complexity. [Task 6]
 - CF453E: do not reuse `Σ min(m_i,r_iΔ)` for never-cleared items; historical "complete solution" omitted `s_i>0` initial state and `r_i=0`. [Task 7]
 - CF438D: "each position changes only O(log V) times" is false across the whole run because point assignment resets a value; partition at assignments or use the replenished-potential argument. User-reported prompt-assisted AC is not independent mastery. [Task 10]
@@ -881,11 +910,23 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-29\mumu (rollout initiated 
 
 - MuMuPlayer, virtrite 2, Qt 5.15.6, MuMuQtBridge.dll, QWidget::setWindowOpacity, WS_EX_LAYERED, Alpha=255, boss key, flicker, Ctrl+Shift+0
 
+## Task 2: Repair MuMu bridge crash and unreliable post-wake/global hotkeys
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_mumu_opacity_hotkey_and_wake_repair.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-11-25T06:16:27+00:00, success: 2.0.4 bridge/hotkey repair with user-confirmed shortcut recovery)
+
+### keywords
+
+- virtrite 2.0.4, MuMuQtBridge.dll+0x96EC, 0xC0000005, TlsAlloc, RegisterHotKey, WM_HOTKEY, MOD_NOREPEAT, WH_KEYBOARD_LL, sleep-wake, Windows global hotkeys registered: 22/22
+
 ## User preferences
 
 - when building a Windows window utility, the user asked “尽量不要呼出窗口，需要时让我手动确认窗口状态” -> work in the background and do not activate/switch the target window unless confirmation is needed. [Task 1]
 - when naming the deliverable, the user required the title and tray text to be exactly “virtrite 2” -> preserve specified product text across UI and documentation; do not embellish it. [Task 1]
 - when restoring opacity, the user clarified Ctrl+Shift+0 means “透明化设为 100%” -> explicitly set Alpha=255 rather than removing the layered style. [Task 1]
+- when the user reported “在无透明化的时候进行一次透明化然后就爆了” -> inspect the newest MuMu dump and correlate its timestamp with the opacity action rather than guessing from symptoms. [Task 2]
+- when the tool stayed running but MuMu and ordinary windows stopped responding, the user wanted a real fix rather than another restart workaround -> validate the shared shortcut path across both target classes. [Task 2]
 
 ## Reusable knowledge
 
@@ -893,11 +934,14 @@ applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-29\mumu (rollout initiated 
 - For MuMu’s boss-key hide/restore, retain and restore Qt opacity during `WM_STYLECHANGING`, `WM_SHOWWINDOW`, drawing, and position-change phases. The user confirmed restored windows appear directly semi-transparent without flicker. [Task 1]
 - Keep `virtrite 2.exe` and `MuMuQtBridge.dll` together in `C:\Users\605\Documents\Output\virtrite 2`; do not modify the game process, virtual-machine process, or MuMu installation. The verified deliverable ZIP is `C:\Users\605\Documents\Codex\2026-10-29\mumu\outputs\virtrite 2.zip`. [Task 1]
 - Hotkeys: Ctrl+Shift+1–9 set 10%–90%; Ctrl+Shift+0 and Ctrl+Alt+0 set Alpha=255; Ctrl+Shift+plus toggles topmost; Ctrl+Alt+Shift+1–9/0 adjusts/restores all MuMu windows. [Task 1]
+- The two MuMu dumps both faulted at `MuMuQtBridge.dll+0x96EC` with `0xC0000005`: TDM/GCC emulated TLS initialization for `thread_local bool applying` crashed before the Qt call. Replacing it with Windows `TlsAlloc`/`TlsGetValue`/`TlsSetValue`/`TlsFree` avoids that runtime path. `状态 0` was downstream of this bridge failure, not proof that MuMu lacks Qt support. [Task 2]
+- Version 2.0.4 replaced the `WH_KEYBOARD_LL` listener/custom modifier tracking with 22 `RegisterHotKey` bindings using `MOD_NOREPEAT` and `WM_HOTKEY`. The installed log recorded `Windows global hotkeys registered: 22/22`; self-tests covered delivery before/after simulated resume, and the user confirmed `Ctrl+Shift+5` worked. [Task 2]
 
 ## Failures and how to do differently
 
 - Symptom: layered alpha reads back but MuMu remains visually opaque, or polling it causes flicker -> Qt/MuMu is resetting the style; do not poll `SetWindowLongPtr`/`SetLayeredWindowAttributes`. Use the Qt bridge and repair only at lifecycle/state-drift messages. [Task 1]
 - Symptom: a non-visible-window self-test fails a topmost assertion -> Z-order is not reliable there; test hotkey decoding, background command delivery, Alpha=255 read-back, layered-style preservation, and color-key behavior instead. [Task 1]
+- Symptom: the process/tray stays live but both ordinary and MuMu shortcuts fail -> rebuilding the low-level hook after `WM_POWERBROADCAST` is insufficient; use fixed `RegisterHotKey` bindings and log missing registrations. [Task 2]
 
 # Task Group: MAA OI Assistant algorithm derivations and complexity qualification
 
@@ -935,23 +979,24 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant!; reuse_rule=Reuse
 scope: Diagnose Windows window-transparency faults and repair opacity controls.
 applies_to: cwd=Windows desktop and Codex desktop; reuse_rule=Hardware, app integrity, paths, and feature gates are transient; recheck first.
 
-## Task 1: Vitrite/UIPI transparency repair
+## Task 1: Vitrite/UIPI transparency repair and global-hotkey diagnosis
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_endfield_window_opacity_rewrite.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-11-23T12:41:20+00:00, partial: Milthm restore tool readback verified; elevated Endfield retry still pending)
+- rollout_summaries/2026-10-14T12-25-55-46xn-vitrite_mumu_opacity_hotkey_and_wake_repair.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-14\w, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl, updated_at=2026-11-25T06:16:27+00:00, partial for Endfield: Milthm restore readback verified; 2.0.4 global-hotkey repair user-confirmed)
 
 ### keywords
 
-- Vitrite Fixed, UIPI, WS_EX_LAYERED, Ctrl+Shift+0, Endfield, SetWindowLongPtrW
+- Vitrite, Vitrite Fixed, UIPI, WS_EX_LAYERED, Ctrl+Shift+0, Endfield, SetWindowLongPtrW, RegisterHotKey, WH_KEYBOARD_LL, WM_HOTKEY
 
 ## Reusable knowledge
 
 - Vitrite: `Ctrl+Shift+1~9` set layered alpha but `Ctrl+Shift+0` removes `WS_EX_LAYERED`, so zero can fail separately. Setting layered alpha to 255 restored Milthm (`ReadBackSuccess=True`, `Alpha=255`); Vitrite Fixed instead sets alpha 255 and provides `Ctrl+Alt+0` fallback. Endfield `SetWindowLongPtrW` error 5 from medium integrity indicates UIPI/elevation mismatch; run the rewrite elevated, then test windowed/borderless mode. [Task 1]
+- The 2.0.4 rewrite uses 22 `RegisterHotKey`/`WM_HOTKEY` bindings with `MOD_NOREPEAT`, not `WH_KEYBOARD_LL`; installed log showed `22/22` registrations and user confirmed recovery with `Ctrl+Shift+5`. Keep Endfield's privilege/window-composition limitation separate from this repaired global-hotkey defect. [Task 1]
 
 ## Failures and how to do differently
 
-- Clearing the input-language `Ctrl+Shift+0` conflict did not fix Milthm when 1–9 worked; inspect the application’s layered style/zero-key path. Synthetic self-tests do not prove game-renderer compatibility; try equal/elevated integrity for Endfield before blaming fullscreen. [Task 1]
+- Clearing the input-language `Ctrl+Shift+0` conflict did not fix Milthm when 1–9 worked; inspect the application’s layered style/zero-key path. Synthetic self-tests do not prove game-renderer compatibility; try equal/elevated integrity for Endfield before blaming fullscreen. Rebuilding a low-level hook on resume also failed in later use; expose `RegisterHotKey` registration diagnostics. [Task 1]
 
 # Task Group: BOF22 rules, rankings, NetEase playlist audit, and BMS genre guide
 

@@ -259,77 +259,90 @@ References:
 - Bilibili test video: `https://www.bilibili.com/video/BV1pocxzPEqW/`
 
 ## Thread `01a13a60-5be3-7973-8397-81dbf07ff71d`
-updated_at: 2026-11-23T12:41:20+00:00
+updated_at: 2026-11-25T06:16:27+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\2026-10-14\w
 rollout_path: \\?\C:\Users\605\.codex\sessions\2026\10\14\rollout-2026-10-14T20-25-56-01a13a60-5be3-7973-8397-81dbf07ff71d.jsonl
-rollout_summary_file: 2026-10-14T12-25-55-46xn-vitrite_endfield_window_opacity_rewrite.md
+rollout_summary_file: 2026-10-14T12-25-55-46xn-vitrite_mumu_opacity_hotkey_and_wake_repair.md
 
 ---
-description: 调查 Vitrite 的 Ctrl+Shift+0 失效，创建了可验证的恢复工具和 Vitrite Fixed 重写版；普通窗口可用，但 Endfield 因权限/UIPI 拒绝修改窗口样式，最终仍未验证解决。
-task: Vitrite window opacity troubleshooting and rewrite
-task_group: windows-desktop-utilities
- task_outcome: partial
+description: Repaired virtrite 2’s unreliable post-wake/global shortcut behavior and MuMu bridge crash; final 2.0.4 uses RegisterHotKey and a Windows TLS guard, with user-confirmed recovery.
+task: diagnose_and_repair_virtrite_mumu_opacity_hotkeys
+ task_group: Windows transparency utility / MuMu Qt bridge
+ task_outcome: success
 cwd: C:\Users\605\Documents\Codex\2026-10-14\w
-keywords: Vitrite, Vitrite Fixed, Ctrl+Shift+0, SetLayeredWindowAttributes, SetWindowLongPtrW, WS_EX_LAYERED, UIPI, Access denied, Endfield, Milthm
+keywords: virtrite 2, Vitrite, MuMuQtBridge.dll, RegisterHotKey, WM_HOTKEY, WH_KEYBOARD_LL, WH_KEYBOARD, sleep-wake, 0xC0000005, UIPI, WS_EX_LAYERED, Qt setWindowOpacity
 ---
 
-### Task 1: Vitrite快捷键和游戏窗口排查
+### Task 1: MuMu bridge crash and opacity handling
 
-task: Diagnose Ctrl+Shift+0 failure in Milthm and Endfield
-task_group: Windows window transparency
+task: diagnose_and_fix_mumu_bridge_crash
+task_group: MuMu Qt opacity bridge
+task_outcome: success
+
+Preference signals:
+- When the user reported “在无透明化的时候进行一次透明化然后就爆了”, they wanted the crash reproduced from actual logs/dumps rather than guessed from symptoms -> future debugging should inspect the newest MuMu crash dump and correlate its timestamp with the opacity action.
+
+Reusable knowledge:
+- Two MuMu dumps, `982189fe-137e-427f-aa03-2459e82ee67d.dmp` and `65c80d60-8b22-4548-b83e-407f6159440c.dmp`, both showed `0xC0000005` at exactly `MuMuQtBridge.dll+0x96EC`.
+- The bridge’s `thread_local bool applying` was implemented through TDM/GCC emulated TLS and crashed during TLS initialization. Replacing it with Windows TLS APIs (`TlsAlloc`, `TlsGetValue`, `TlsSetValue`, `TlsFree`) removes the emulated TLS runtime path.
+- MuMu Qt windows should be changed through `QWidget::find(WId)` plus `QWidget::setWindowOpacity(double)` on the MuMu GUI thread. Direct external `WS_EX_LAYERED` polling/repair can be overwritten by Qt and cause flicker.
+
+Failures and how to do differently:
+- The original bridge crashed before the Qt opacity operation completed; the log message `当前 MuMu 窗口不支持此 Qt 适配接口（状态 0）` was a downstream failure signal, not evidence that MuMu lacked Qt support.
+
+References:
+- Crash evidence: `MuMuQtBridge.dll+0x96EC`, exception `0xC0000005`.
+- Source: `C:\Users\605\Documents\Codex\2026-10-29\mumu\outputs\MuMuQtBridge.cpp`.
+- Installed bridge: `C:\Users\605\Documents\Output\virtrite 2\MuMuQtBridge.dll`.
+
+### Task 2: Global hotkey reliability after sleep/wake
+
+task: replace_unreliable_keyboard_hook_with_registerhotkey
+task_group: Windows global shortcut handling
+task_outcome: success
+
+Preference signals:
+- The user repeatedly reported that the tool could remain running while both MuMu and ordinary windows stopped responding, and asked for a real fix rather than another restart workaround -> future changes should validate the shared shortcut path across both ordinary and MuMu windows.
+
+Reusable knowledge:
+- Original Vitrite uses a normal `WH_KEYBOARD` hook and reads modifier state with `GetKeyState`; the rewrite initially used `WH_KEYBOARD_LL` plus custom key-state tracking.
+- Microsoft documents that a low-level keyboard hook can be silently removed after timeout. This explains a live tray process with dead shortcuts, although the exact timeout was not directly proven.
+- Version 2.0.4 replaced the low-level hook with 22 Windows `RegisterHotKey` bindings using `MOD_NOREPEAT`, delivered through `WM_HOTKEY`. It logs registration success and missing bindings.
+- Version 2.0.4 was installed at `C:\Users\605\Documents\Output\virtrite 2`; startup log confirmed `Windows global hotkeys registered: 22/22`.
+- Self-tests verified registered hotkey delivery before and after simulated resume notifications. The user then confirmed the previously failing window responded to `Ctrl+Shift+5`.
+
+Failures and how to do differently:
+- Rebuilding the low-level hook after `WM_POWERBROADCAST` was insufficient: the user later reported both MuMu and ordinary windows were unresponsive even without another sleep event.
+- Prefer `RegisterHotKey` for these fixed global combinations; expose missing-registration diagnostics instead of silently assuming the listener works.
+
+References:
+- Source: `C:\Users\605\Documents\Codex\2026-10-29\mumu\outputs\virtrite 2.cs`.
+- Installed executable version: `2.0.4.0`.
+- Log: `%LOCALAPPDATA%\virtrite 2\virtrite 2.log`.
+- User validation: “已经有反应” after testing `Ctrl + Shift + 5`.
+
+### Task 3: Original Vitrite and Milthm/Endfield behavior
+
+task: compare_original_vitrite_and_diagnose_window_specific_failures
+task_group: Generic Win32 opacity and game windows
 task_outcome: partial
 
 Preference signals:
-- 用户反馈“1~9 全部可用……Milthm.exe 不可用”，希望定位特定窗口原因，而不是重复通用快捷键设置。
-- 用户询问是否可以“改写 virtrite”，表明在原软件不兼容时愿意使用独立替代实现，但需要实际可运行、可验证的产物。
+- The user emphasized “原生 virtrite 是怎么做的，我之前用原生的没有问题” -> when a rewrite regresses, compare its implementation directly against the known-good original before adding more workarounds.
 
 Reusable knowledge:
-- Windows 多键盘布局可能拦截 Ctrl+Shift+0；应检查“高级键盘设置 → 输入语言热键”，将相关切换快捷键设为“未分配”。
-- 原版 Vitrite 的 `src/VitriDLL/VitriDLL.c` 中，1~9 设置 `WS_EX_LAYERED` 和 Alpha；0 清除 `WS_EX_LAYERED` 并重绘，不是简单设置 Alpha=255。
-- Milthm 窗口可通过 `SetLayeredWindowAttributes(window, 0, 255, LWA_ALPHA)` 恢复，读回 Alpha=255 成功。
-- 普通窗口可用新版工具，但 Endfield 失败：Endfield 为 `UnityWndClass`，对其 `SetWindowLongPtrW(GWL_EXSTYLE, ...)` 返回错误码 5（Access denied）。这表明应优先检查 UIPI/管理员权限，而不是继续修改快捷键逻辑。
+- Original Vitrite sets alpha for 1–9, while key 0 removes `WS_EX_LAYERED` and calls `RedrawWindow`; this explains why `Ctrl+Shift+0` can differ from 1–9.
+- A direct alpha=255 restore successfully fixed Milthm and was verified by native readback.
+- Endfield rejected `SetWindowLongPtrW` with error 5, indicating a UIPI/integrity mismatch; ordinary windows worked. Elevated helper execution and windowed/borderless testing are required for that class of target.
 
 Failures and how to do differently:
-- Endfield 的管理员权限运行尚未验证，不能把“以管理员身份运行”当作已证实修复。
-- 对游戏/Unity 窗口，应先确认窗口模式、进程完整性和 `SetWindowLongPtrW` 错误码；普通窗口成功不代表游戏窗口支持 layered style。
+- Do not infer game compatibility from synthetic hidden-window self-tests.
+- Do not treat Endfield’s failure as the same bug as the global hotkey failure; it was a separate privilege/window-composition problem.
 
 References:
-- Vitrite 源码：`https://github.com/ryanvm/vitrite/blob/master/src/VitriDLL/VitriDLL.c`
-- Endfield 错误证据：`Class=UnityWndClass ExStyle=0x100 SameStyleWriteError=5`
-- Microsoft：`https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlongptrw`
-
-### Task 2: Milthm恢复工具
-
-task: Create one-shot Milthm opacity restore utility
-task_group: Windows desktop utility
-task_outcome: success
-
-Reusable knowledge:
-- 已生成 `C:\Users\605\Documents\Codex\2026-10-14\w\outputs\恢复 Milthm 不透明.exe`。
-- 工具要求唯一运行中的 Milthm，设置 Alpha=255 并读回验证；实测退出码 0。
-
-References:
-- 输出文件：`outputs/恢复 Milthm 不透明.exe`
-- 验证结果：`ReadBackSuccess: True`, `Alpha: 255`
-
-### Task 3: Vitrite Fixed独立重写
-
-task: Rewrite Vitrite with direct opaque restore and fallback hotkey
-task_group: Windows desktop utility
- task_outcome: partial
-
-Reusable knowledge:
-- 已生成 `outputs/Vitrite Fixed.exe`、`outputs/Vitrite Fixed.cs` 和 `outputs/Vitrite Fixed 使用说明.md`。
-- 快捷键：Ctrl+Shift+1~9 调节；Ctrl+Shift+0 直接 Alpha=255；Ctrl+Alt+0 备用恢复；Ctrl+Shift+加号切换置顶。
-- 自测退出码 0，覆盖快捷键解析、重复按键过滤、透明度读回和置顶切换。
-- 使用新版前需退出原版 Vitrite；新版自测通过不等于在所有游戏中有效。
-
-Failures and how to do differently:
-- Endfield 的失败不是已证明的快捷键解析问题，而是修改窗口扩展样式时被 Windows 权限隔离拒绝；应制作/测试管理员启动方案后再判断。
-
-References:
-- 自测命令语义：`Vitrite Fixed.exe --self-test <report-file>`
-- 自测报告：`PASS: shortcut decoding, fallback, repeat filtering, opacity 1-9 -> 0 with native readback, layered style preserved, topmost toggle.`
+- Milthm restore tool: `C:\Users\605\Documents\Codex\2026-10-14\w\outputs\恢复 Milthm 不透明.exe`.
+- Endfield diagnostic: `SetWindowLongPtrW` error 5; window class `UnityWndClass`.
+- Original source behavior: `VitriDLL.c`, key 0 removes `WS_EX_LAYERED` and redraws.
 
 ## Thread `01a13a76-3840-7ff1-9bb2-e275f75b1894`
 updated_at: 2026-11-16T08:54:50+00:00
@@ -828,46 +841,6 @@ References:
 - `C:/Users/605/Documents/Codex/MAA OI Assistant/outputs/复盘/2026-10-26-历史补录-CF453E.md`
 - `C:/Users/605/Documents/Codex/MAA OI Assistant/outputs/训练记录.md`
 - `C:/Users/605/Documents/Codex/MAA OI Assistant/outputs/训练档案.md`
-
-## Thread `01a1780d-15fe-7c62-a177-9e72c24ca5c3`
-updated_at: 2026-10-26T11:57:54+00:00
-cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant!
-rollout_path: C:\Users\605\.codex\archived_sessions\rollout-2026-10-26T19-51-26-01a1780d-15fe-7c62-a177-9e72c24ca5c3.jsonl
-rollout_summary_file: 2026-10-26T11-51-25-BNGX-p9013_debug_mapping_dfs_cycle_count.md
-
----
-description: Debugged P9013 C++ functional-graph solution; fixed target-image free-character counting and DFS cycle traversal, preserving the user's original approach; local validation passed 450 sample/targeted/BFS cases.
-task: debug P9013 Find and Replace functional graph C++ solution
-task_group: MAA OI Assistant contest C++ debugging
- task_outcome: success
-cwd: C:\Users\605\Documents\Codex\MAA OI Assistant!
-keywords: P9013, Find and Replace, functional graph, DFS, cycle, indegree, nn, BFS brute force, complete code, minimal edits
----
-
-### Task 1: Fix mapping count and cycle handling
-
-task: Diagnose and minimally repair the user's P9013 C++ graph/DFS implementation.
-task_group: contest C++ debugging
-task_outcome: success
-
-Preference signals:
-- The user used `[debug]` and supplied full code; project memory says this means explain the faults, make minimal changes without changing the idea, and provide complete corrected code. Future debugging responses should follow that format.
-- The solution retained the user's `to[]`, `in[]`, `vis[]`, `dfs()` functional-graph structure instead of replacing it wholesale.
-
-Reusable knowledge:
-- `nn` must represent available target characters, so when adding `source -> target`, update `in[target]`; decrement `nn` only when that target has no previous incoming edge. Counting `in[source]` is incorrect.
-- Arbitrary numeric-order DFS can overcount a cycle with an external incoming path. First traverse all unvisited indegree-zero vertices, then traverse remaining unvisited vertices as independent cycles; only the latter need the extra temporary-character operation.
-- The corrected implementation was compiled locally and checked against 450 cases, including the official sample, targeted counterexamples, and BFS shortest-path answers over a reduced alphabet.
-
-Failures and how to do differently:
-- PowerShell `Invoke-WebRequest` could not fetch Luogu due to `PartialChain`; `curl.exe -k -L` worked. No official online judge submission was made, so only local validation is confirmed.
-
-References:
-- Corrected file: `work/p9013_debug.cpp`
-- Checker: `work/p9013_check.py`
-- Exact validation: `PASS: 450 cases; BFS alphabet=5; seed=9013`
-- Counterexample: `abc -> baa` should be `3`, exposing arbitrary-order cycle overcount.
-- Problem URL: `https://www.luogu.com.cn/problem/P9013`
 
 ## Thread `01a17c82-6c98-79d1-aa99-aa6f1dc64103`
 updated_at: 2026-10-28T06:19:40+00:00
@@ -1572,7 +1545,7 @@ References:
 ## Thread `01a1b4f1-d68e-7d73-8129-43ad56c467f0`
 updated_at: 2026-11-07T07:39:08+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
-rollout_path: C:\Users\605\.codex\sessions\2026\11\07\rollout-2026-11-07T15-38-30-01a1b4f1-d68e-7d73-8129-43ad56c467f0.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\07\rollout-2026-11-07T15-38-30-01a1b4f1-d68e-7d73-8129-43ad56c467f0.jsonl
 rollout_summary_file: 2026-11-07T07-38-30-w1fG-p9531_lct_guided_hint.md
 
 ---
@@ -2042,7 +2015,7 @@ References:
 ## Thread `01a1d408-4abc-71e1-bee6-47382f8c93cc`
 updated_at: 2026-11-13T09:19:23+00:00
 cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
-rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\13\rollout-2026-11-13T16-50-58-01a1d408-4abc-71e1-bee6-47382f8c93cc_01a1d41a-5832-78d1-b5f8-9129ca0e8421.jsonl
+rollout_path: C:\Users\605\.codex\archived_sessions\rollout-2026-11-13T16-50-58-01a1d408-4abc-71e1-bee6-47382f8c93cc_01a1d41a-5832-78d1-b5f8-9129ca0e8421.jsonl
 rollout_summary_file: 2026-11-13T08-31-15-Zf8U-p17834_debug_wa_and_optimize_tle.md
 
 description: 调试并优化洛谷 P17834 的树上最小通勤半径解法；定位链段起点边界 WA，并将重复剥叶、并查集和递归链扫描优化为一次预处理加静态数组线性判定
@@ -2619,4 +2592,61 @@ References:
 - 文件：`C:\Users\605\Documents\Codex\MAA OI Assistant\outputs\P9171-染色数组-训练题面.md`
 - 题目链接：`https://www.luogu.com.cn/problem/P9171`
 - 验证结果：分档检查输出 `25 点，共 100 分`。
+
+## Thread `01a21143-d44d-7a33-b4ed-99946884b331`
+updated_at: 2026-11-25T06:55:46+00:00
+cwd: \\?\C:\Users\605\Documents\Codex\MAA OI Assistant
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\25\rollout-2026-11-25T13-58-18-01a21143-d44d-7a33-b4ed-99946884b331_01a21148-932c-72e1-bc9a-7c4c3fa4b491.jsonl
+rollout_summary_file: 2026-11-25T05-53-07-FCuZ-linearize_stock_and_search_original_problems.md
+
+---
+description: 将“股票”题从稀疏表加排序二分改为线性预处理，并验证；同时核查正睿 2246 四题出处但未找到可证实来源
+task: linearize-stock-algorithm-and-identify-problem-sources
+task_group: competitive-programming
+task_outcome: partial
+cwd: C:\Users\605\Documents\Output\stock-3758-debug-1795586054248
+keywords: stock.cpp, monotonic queue, lim, prefix shift, bucket, brute-force checker, 63972, zhengruioi, contest-2246
+---
+
+### Task 1: 线性化股票算法
+
+task: replace sparse-table range checks and coordinate compression with O(n) preprocessing and offset buckets
+task_group: competitive-programming/algorithm-optimization
+task_outcome: success
+
+Preference signals:
+- 用户要求“改成线性的”，具体指定先扫出每个左端点能到的最大右端点，并用偏移量把最小前缀值修正到 1 -> 同类任务优先按用户指定的结构改造，避免无关重写。
+
+Reusable knowledge:
+- `linear/stock.cpp` 用两个单调队列维护窗口最大值/最小值，得到 `lim[l]`，使极差约束在主循环中变成 `lim[t] < i`。
+- 前缀变化值先求最小值 `mn`，再执行 `x[i] += 1 - mn`；因相邻前缀值差最多为 1，平移后桶号可直接限制在 `[1,n]`，无需排序、去重和二分。
+- 保留原 `j`、`p`、`vec` 分桶逻辑后，整体为 O(n) 时间、O(n) 空间。
+- 穷举对拍通过 63,972 组；官方样例输出 `5 1`；`n=10^6` 严格递减测试约 0.25 秒，输出 `500001 1`。
+
+Failures and how to do differently:
+- 对拍需清理全局 `vec/p/x/m/ans/res` 状态；该 rollout 的 checker 已加入清理逻辑。类似复用全局数组的测试程序必须显式重置状态。
+
+References:
+- `C:\Users\605\Documents\Output\stock-3758-debug-1795586054248\linear\stock.cpp`
+- 编译：`C:/TDM-GCC-64/bin/g++.exe stock.cpp -std=c++14 -O2 -fno-asm`
+- 对拍结果：`63972`
+
+### Task 2: 查找四道题原题
+
+task: identify original sources for ZROI contest 2246 problems A-D
+task_group: competitive-programming/problem-sourcing
+task_outcome: uncertain
+
+Reusable knowledge:
+- 正睿比赛 `2246` 的四题为：A《幸运数》题号 3757，B《股票》3758，C《优秀数》3759，D《图腾》3760。
+- 比赛页：`https://www.zhengruioi.com/contest/2246`。
+- 本地代码目录：`C:\Users\605\Downloads\陈可堃\lucky`、`stock`、`excellent`、`totem`。
+- 多轮公开搜索未找到能同时匹配题意、样例和约束的外部题面；只能报告“暂无可核实出处”，不能据此断言原创。
+
+Failures and how to do differently:
+- 关键词搜索返回了大量主题相似题（数字和、相邻数字差、股票区间、圆弧异或），但没有可靠同题匹配；后续检索应优先比对完整样例和约束，而不是仅凭标题或算法主题。
+
+References:
+- 题面 URL 范围：`https://www.zhengruioi.com/problem/3757?cid=2246` 到 `https://www.zhengruioi.com/problem/3760?cid=2246`
+- 最终检索结论：四题均未查到可核实的原题出处。
 
