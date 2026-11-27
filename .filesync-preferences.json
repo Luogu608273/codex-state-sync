@@ -12,14 +12,14 @@
         "serviceTier": "priority"
       },
       {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "high",
+        "serviceTier": "priority"
+      },
+      {
         "model": "gpt-6.1-sol",
         "reasoningEffort": "high",
         "serviceTier": null
-      },
-      {
-        "model": "gpt-6.2-astra",
-        "reasoningEffort": "low",
-        "serviceTier": "priority"
       }
     ],
     "flat-project-sidebar-preferences-v1": {
@@ -34,7 +34,7 @@
   },
   "config": {
     "approval_policy": "never",
-    "model": "gpt-6.2-astra",
+    "model": "gpt-6.1-terra",
     "model_reasoning_effort": "high",
     "sandbox_mode": "danger-full-access",
     "service_tier": "priority"
@@ -1788,6 +1788,27 @@
       "thread_section_id": null
     },
     "01a21c29-041e-7060-91a3-ea1514e01ff3": {
+      "is_pinned": false,
+      "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a21c44-74f4-7be2-a4ed-dc24306019e4": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a21c4f-752b-7440-b084-3869536277f0": {
+      "is_pinned": false,
+      "project_id": null,
+      "section_entered_at_ms": null,
+      "section_position": null,
+      "thread_section_id": null
+    },
+    "01a21c60-a5f6-7242-9beb-842df0541c4b": {
       "is_pinned": false,
       "project_id": "01a1632f-1740-7682-9fd1-c72c516dbb71",
       "section_entered_at_ms": null,
