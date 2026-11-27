@@ -19,6 +19,7 @@ v1
 - In live Windows debugging, inspect logs/dumps and test the shared affected path rather than accepting a restart workaround or a synthetic test as proof.
 - Use connected Google Drive; do not treat retired local cloud-drive mounts as active paths. [ad-hoc note]
 - When any local file path/name/type/content is unlike the user's description, stop after read-only verification and report the mismatch.
+- For a platform’s tied public score, reproduce its returned/displayed ordering or state that the tie-break is undocumented; do not swap in a convenient proxy such as comment count.
 
 ## General Tips
 
@@ -29,8 +30,25 @@ v1
 - For fixed global Windows shortcuts, prefer `RegisterHotKey`/`WM_HOTKEY` with diagnostics over `WH_KEYBOARD_LL`; check ordinary and MuMu windows.
 - For MAA work, recheck account, roster, theme/resources, assets, and unlocks; never mix main- and small-account facts or store secrets.
 - For modular normalization, multiplying by `x^{-1}` needs `gcd(x,P)=1`; do not silently generalize to non-units.
+- For an unverified original-problem search, keep “similar problem” separate from “original,” and request sample/operation wording before another search pass.
 
 ## What's in Memory
+
+### C:\Users\605\Documents\Codex\MAA OI Assistant
+
+#### 2026-11-26
+
+- Two sequences range chmax and good-subarray search: `c_i=max(2a_i+1,2b_i)`, `range-chmax`, `parity-encoding`, `P9631`, `CF1567E`, `Luogu-NDJSON`
+  - desc: Original/similar-problem search and difficulty estimate for queries counting contiguous ranges with `a_i>=b_i` after independent range chmax operations.
+  - learnings: One-sequence odd/even encoding is the key reduction; no exact original was found. P9631/CF1567E are deliberately bounded similarities; estimate is 蓝紫交界偏紫 / CF ~2700, not official.
+
+### C:\Users\605\Documents\Codex\2026-10-22\new-chat
+
+#### 2026-11-26
+
+- NetEase tie order and Arknights Garrison/Matrix: `popularity=100`, `order=hot`, `精准`, `奥术`, `不屈`, `回顾焦点`
+  - desc: Server ordering for capped NetEase heat; current 卫戍协议 build roles; whether 全息作战矩阵 can replay a historical settlement.
+  - learnings: Preserve `order=hot`, not comment-count sorting. 霍尔海雅 drives 精准奥术 and 森蚺大丑+砾 drives 不屈; Matrix historical-replay UI is unconfirmed without an in-game check.
 
 ### C:\Users\605\Documents\Output\stock-3758-debug-1795586054248
 
@@ -81,7 +99,7 @@ v1
 #### C:\Users\605\Documents\Codex\MAA OI Assistant*
 
 - Contest collaboration and artifacts: `AGENTS.md`, `[debug]`, `Documents/Output`, `std.cpp`, `solution.md`, `partial.cpp`
-  - desc: OI workflow, code style, training records, contest-material delivery, and special-judge defaults; includes verified Drive-delivery skill.
+  - desc: OI workflow, code style, training records, contest-material delivery, and special-judge defaults.
 
 - Guided teaching, DP, and proof qualification: `QOJ24893`, `P11994`, `2D prefix sum`, `QOJ7895`, `P9531`, `P17834`
   - desc: One-step teaching boundaries, DP/complexity derivations, and debugging/optimization shields in the MAA OI Assistant checkouts.
@@ -97,7 +115,7 @@ v1
   - desc: Transparency diagnosis, subscription-script override, and time-sensitive music/game research; recheck live state first.
 
 - Mobile games and music research: `Arcaea`, `World Extend`, `Memory Archive`, `BOF22`, `NetEase`, `Arknights terrain`
-  - desc: Date/server-sensitive acquisition, ranking, and game-mechanics answers; verify current events, prices, and source conditions.
+  - desc: Date/server-sensitive acquisition, ranking, terrain, Garrison Protocol, and Matrix-history answers; verify current events, game sequence, and source conditions.
 
 #### Codex desktop / FileSync
 

@@ -39,6 +39,42 @@ applies_to: cwd=C:\Users\605\Documents\Output\stock-3758-debug-1795586054248; re
 - Symptom: brute-force checker gives inconsistent results across cases -> reused global `vec/p/x/m/ans/res` state was not reset; clear all such state in the checker before every case. [Task 1]
 - Symptom: search finds a similarly themed problem -> title/algorithm resemblance is insufficient. Compare full samples and constraints before claiming a source; this rollout found no verified external original. [Task 2]
 
+# Task Group: MAA OI Assistant range-chmax two-sequence original-problem search
+
+scope: Locate a source/similar problems and classify the transformation/difficulty for two sequences with range chmax and good-subarray queries.
+applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant; reuse_rule=Reuse the encoding and search leads for this operation/query pattern; do not present P9631 or CF1567E as the original problem without matching statement evidence.
+
+## Task 1: Search original problem and similar transformations
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-26T09-22-42-k7JC-search_range_chmax_two_sequences_subarray_count_difficulty.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-11-26T17-23-27-01a2172a-0f17-7190-8b6e-2d1fe9ae7818_01a2172a-beec-7101-be8f-af5a1ccdecde.jsonl, updated_at=2026-11-26T09:26:27+00:00, partial: no exact original located)
+
+### keywords
+
+- range-chmax, segment-tree-beats, subarray-count, parity-encoding, c_i=max(2a_i+1,2b_i), P9631, CF1567E, Luogu-NDJSON
+
+## Task 2: Estimate problem difficulty
+
+### rollout_summary_files
+
+- rollout_summaries/2026-11-26T09-22-42-k7JC-search_range_chmax_two_sequences_subarray_count_difficulty.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-11-26T17-23-27-01a2172a-0f17-7190-8b6e-2d1fe9ae7818_01a2172a-beec-7101-be8f-af5a1ccdecde.jsonl, updated_at=2026-11-26T09:26:27+00:00, estimate only, not official rating)
+
+### keywords
+
+- n,q<=10^6, O((n+q)log n), 蓝紫交界, 省选/NOI-, CF 2700, 2600-2800
+
+## Reusable knowledge
+
+- Encode `c_i=max(2a_i+1,2b_i)`: a range chmax on either `a` or `b` becomes range chmax on one `c`; `c_i` is odd iff `a_i>=b_i`. The query then counts all-1 consecutive subarrays of the odd-position marker. [Task 1]
+- P9631《Just Another Game of Stones》 is relevant only for range chmax plus digit/bit information; CF1567E is relevant only for range continuous-subarray counting under point updates. The saved Luogu corpus route is `https://cdn.luogu.com.cn/problemset-open/latest.ndjson.gz`. [Task 1]
+- With `n,q<=10^6` and roughly one-log total complexity, the estimate was Luogu new-system 蓝紫交界、偏紫 (省选/NOI-偏下), CF about 2700 (2600–2800); this is an independent estimate. [Task 2]
+
+## Failures and how to do differently
+
+- Without a sample, full constraints, and original wording, report “暂未查到原题”; do not mistake either similar problem for the source. For another search pass, collect those exact handles first and search by short phrases/sample behavior. [Task 1]
+- Luogu help-center difficulty pages timed out in this rollout; do not overstate the temporary difficulty-definition source as official current documentation. [Task 2]
+
 # Task Group: MAA OI Assistant P3721《单旋》debug and review
 
 scope: Debug the user's rotation/deletion implementation while preserving the derived BST model; record prompt-assisted AC with evidence boundaries.
@@ -713,16 +749,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - .gitignore, *.[rR][mM][pP], scan.json, git rm --cached, git check-ignore, git add -f, 100MiB
 
-## Task 2: Record training and debug P8820
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-21T08-24-33-uLcG-p8820_debug_matrix_k3_state_fix.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=C:\Users\605\.codex\archived_sessions\rollout-2026-10-21T16-24-38-01a15d8f-e2f3-7233-bdf5-7dd279191e6e.jsonl, updated_at=2026-10-22T09:20:51+00:00, random/brute-force validation, not official AC)
-
-### keywords
-
-- oi-training, 过了，总结记录吧, [hint], fork_thread, P8820, k=3, num[w], ABC091D, upper_bound
-
 ## Task 6: Record CF455D prompt-assisted AC and review
 
 ### rollout_summary_files
@@ -743,16 +769,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 
 - G123913, Minimizing Edges, 分层 DP, 奇偶最短路, 前后缀最小值, lower_bound, 多测清空, work/debug-connected-20261027/check.py
 
-## Task 10: Prove CF438D point-assignment amortization and record AC
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-27T08-38-04-NZ6j-cf438d_single_point_update_amortized_proof.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T16-44-15-01a17c82-6c98-79d1-aa99-aa6f1dc64103_01a17c88-14a3-7dd1-8ad0-d082a2410a1a.jsonl, updated_at=2026-10-28T06:19:40+00:00, user-reported prompt-assisted AC; final code/judge record not read)
-
-### keywords
-
-- CF438D, The Child and Sequence, segment tree, range modulo, point assignment, amortized analysis, potential method, max pruning
-
 ## Task 7: Continue CF453E initialization-state tutoring
 
 ### rollout_summary_files
@@ -762,18 +778,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 ### keywords
 
 - CF453E, Little Pony and Lord Tirek, initial state, s_i, r_i=0, ODT, timestamp segments, persistent segment tree, min(m_i,s_i+r_i t)
-
-## Task 8: Write, validate, and upload ZR2-6 four-problem materials
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-27T12-05-28-ks0o-write_zr2_6_four_oi_solutions_and_upload_drive.md (cwd=\\?\C:\Users\605\Documents\Codex\MAA OI Assistant!, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\27\rollout-2026-10-27T20-05-29-01a17d40-4eb7-7dc0-afc3-1933f4414938.jsonl, updated_at=2026-10-27T13:01:52+00:00, local validation and Drive read-back verified; no online submission)
-
-### keywords
-
-- ZR2-6, zhengruioi, contest-2225, utopia, road, moment, passerby, std.cpp, partial.cpp, solution.md, Google Drive, file IO, Dijkstra, tree DP, scanline
-
-- Related skill: skills/google-drive-verified-delivery/SKILL.md
 
 ## Task 11: Record P13270 minimal-representation prompt-assisted AC
 
@@ -814,7 +818,6 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - when the user says "这题也不用讲了，已经过了，总结记录吧" -> stop explanation immediately; revise the existing CF455D record to user-reported "提示后" AC rather than adding a duplicate or asserting implementation details. [Task 6]
 - for OI training, the user requested “每次只给一个提示，不直接发完整代码或整题解” -> use one small advancing prompt and wait, even when discussing an already identified approach. [Task 6]
 - when the user has the framework and says "问题在于单点修改怎么证明" -> address that exact proof gap rather than restating the full algorithm. [Task 10]
-- when the user clarified "编写 std、题解和部分分程序" -> distinguish self-authored deliverables from downloading existing contest files; ask once only if the requested artifact type is genuinely ambiguous. [Task 8]
 - when teaching CSP-S 2026 T4, the user said “教我今年 ST4，我场上会了 n^4” and supplied `f_{u,s,d,k,1/2}` -> continue from the user's state and symbols; give exactly one next observation, then wait rather than re-teaching or disclosing a full solution. [Task 19]
 - when delivering Zhengrui materials, the user required `ZR2-场次`, `std.cpp`/`solution.md`/`partial.cpp`, and “额外留一下 SPJ” -> use the requested competition directory names; for interactive problems leave a local judge and running notes. [Task 18]
 - when the user said “留 cpp SPJ。顺便在本地 agents 里面写一下，编写 SPJ 时优先考虑 cpp” -> prefer C++ for special/interactive judges and retain compilable `.cpp` source. [Task 18]
@@ -843,14 +846,10 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - The actual project rule file for this task was `C:\Users\605\Documents\Codex\MAA OI Assistant\AGENTS.md`, not the similarly named rollout cwd with `!`; verify the real path before editing. [Task 1]
 - `.in` and `.exe` belong in `C:/Users/605/Documents/Output`, not `C:/Users/605/Documents/Codex`; the completed 2026-10-29 migration placed 303 files at `Documents/Output/Codex`, retained relative paths, and recorded SHA-256 results in `文件迁移清单-2026-10-29-399d3501.csv`. [Task 12]
 - `memory.rmp` migration to Output was not completed: file symlink creation returned `Administrator privilege required for this operation` and a directory junction was `blocked by policy`; preserve the original path and do not claim migration without checking link type and hashes. The root `.gitignore` excludes `*.[rR][mM][pP]` and `/2026-11-05/b-n/work/scan.json`; `git add -f` bypasses this. [Task 36][Task 37]
-- Training truth is in outputs/训练记录.md, outputs/训练档案.md, and outputs/复盘/; user report, compile/static/random testing, and official AC are distinct. P8820 k=3 also needs LCA-neighbor handling: min(l1.a[0],l1.a[1])+num[w]+min(l2.a[0],l2.a[1]). [Task 2]
 - CF379F: dynamic leaf additions update diameter endpoints by comparing distances to both old endpoints via LCA/binary lifting; prove the diameter-endpoint property before relying on it. [Task 3]
 - CF455D's record is `AC（2026-10-27 用户反馈）`, completion mode "提示后". The historical block-list idea remains contextual only: right-shift `[l,r]` is delete rank `r`, insert rank `l`; split `2B+1` into `B` and `B+1`, then another split needs about `B` insertions. Only splitting means the block count also depends on `q`; include splitting moves, frequency-table initialization/clearing, and allocation in complexity discussion. [Task 6]
 - CF453E must distinguish never-cleared `min(m_i,s_i+r_i t)` from last-cleared-at-`t_0` `min(m_i,r_i(t-t_0))`; `r_i=0` precludes division. A same-timestamp persistent-segment-tree query does not replace outer ODT/set timestamp segments. [Task 7]
 - G123913: first give every index a single meaning (layer, class index, distance coordinate, or class size). Clear `ans`/`vec` per test, skip empty layers, guard `j=0`, `lower_bound==end()`, and empty suffixes; `suf[lst+1]` is required for a queried empty interval. Local checker covered samples, all 23,940 permitted 2–5-node self-loop graphs, large cases, and 50,000 tests. [Task 9]
-- CF438D: segment tree stores sum and maximum; skip a modulo node when `max<x`. Charge each position separately between point assignments: every assignment gives one position a fresh `O(log V)` budget, and each effective modulo halves its value, so total effective updates are `O((n+q)log V)` and total time `O((n+q)log n log V)`. [Task 10]
-- ZR2-6 delivery workflow: each problem used `std.cpp`, `partial.cpp`, and `solution.md`, with Chinese explanation, proof, complexity, and partial-coverage bounds; compile all variants, run samples plus randomized/brute-force/stress and file-IO checks, then Drive-read-back every uploaded file. `work/ZR2-6/test/validation.json` recorded `ALL PASS`, `FILE IO PASS 8`, and `STRESS PASS`; the 13 uploaded files matched local content. [Task 8]
-- Related skill: skills/google-drive-verified-delivery/SKILL.md. [Task 8]
 - P13270 minimal representation: candidates `i,j` match for `l` characters; on the next mismatch, eliminate the worse candidate through `起点+l` and jump it to `起点+l+1`. Use the old pointer value when swapping roles, skip collisions, stop after `n` matches, and return `min(i,j)` when rotations are identical. Charge a round's `l` equal comparisons plus one mismatch to the `l+1` increase in `i+j` for `O(n)` comparisons; input storage is `O(n)`, auxiliary space `O(1)`. [Task 11]
 - P4503: deleting one position from every string can be counted with precomputed whole-string double hashes and powers in expected `O(nL)`; rescanning every string after every deletion is `O(nL^2)`, and a single modular hash is not a correctness proof. The tested collision pair is `aygI5JfL87` / `aEBPICi06Z`. [Task 13]
 - P4802 subset DP for a simple path from `0` to `n-1` must return `max_j f[n-1][j]`, not only the all-cities mask; guard both unreachable DP states and missing edges before adding. [Task 13]
@@ -880,11 +879,8 @@ applies_to: cwd=C:\Users\605\Documents\Codex\MAA OI Assistant*; reuse_rule=Reuse
 - Similar directory names can point to the wrong target: reading `MAA OI Assistant!\AGENTS.md` failed because the actual file was under `MAA OI Assistant`; use `Get-ChildItem` or `rg --files -g AGENTS.md` before writing. [Task 1]
 - During recursive artifact migration, a directory can disappear after enumeration (`Cannot find path ... because it does not exist.`); skip/check vanished directories, avoid destination overwrite, and verify source disappearance plus matching SHA-256 per file. [Task 12]
 - For a migration that must leave an old path usable, first confirm symlink/junction permissions and policy; on `Administrator privilege required for this operation` or `blocked by policy`, restore/preserve the source and pivot to an ignore rule rather than reporting a moved file. [Task 36]
-- Random/brute-force checks do not establish official AC; P8820 must also remove or conditionalize freopen("transmit2.in",...). [Task 2]
 - CF455D: previous "not passed" status must be revised, not retained beside the newer AC feedback. Do not elevate the user report into inspected implementation, actual pass date, running time, or verified complexity. [Task 6]
 - CF453E: do not reuse `Σ min(m_i,r_iΔ)` for never-cleared items; historical "complete solution" omitted `s_i>0` initial state and `r_i=0`. [Task 7]
-- CF438D: "each position changes only O(log V) times" is false across the whole run because point assignment resets a value; partition at assignments or use the replenished-potential argument. User-reported prompt-assisted AC is not independent mastery. [Task 10]
-- Zhengrui contest pages/API may return an unknown error/401 before the user logs into the embedded browser; obtain login before reading statements or attachments. A timed-out browser download event can still leave the attachment in `C:\Users\605\Downloads`; inspect the directory. Report local validation and analyzed partial scores, never official AC/score without submission evidence. [Task 8]
 - P13270's AC is user feedback; `git diff --check` only verified no whitespace errors in record changes. When revisiting, check global candidate coverage, the final out-of-range jump, all-equal strings, and using the old value during pointer exchange. [Task 11]
 - Do not call local compilation, fixed counterexamples, randomized checks, or maximum-scale stress tests an online AC. For Task 13, all four C++17 builds and 557 targeted checks passed, but no online submission occurred. [Task 13]
 - Debug shields: test the actual semantic endpoint condition (P4802), a collision adversary rather than trusting one hash (P4503), partial-period boundaries (P11267), and root/leaf plus backspace paths before dereferencing Trie transitions (P10526). [Task 13]
@@ -1064,44 +1060,59 @@ applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT; reuse_rule=Requery v
 - Symptom: a snapshot is presented as BOF's final individual ranking -> cause: sorting raw average rather than the official category -> name the metric and date, and mark scores volatile. [Task 2]
 - Symptom: UTF-8 output fails with `UnicodeEncodeError: 'gbk' codec can't encode character` -> set `PYTHONIOENCODING=utf-8` or `sys.stdout.reconfigure(encoding='utf-8')`. Naive substring matches such as xi/Yi Xi or uma/JURUMA are candidates only; require conservative boundaries and official Credits/team-role verification. [Task 3]
 
-# Task Group: Chat research on NetEase rankings and Arknights help
+# Task Group: Chat research on NetEase rankings and Arknights current modes
 
-scope: Evidence-led public-web research for NetEase music ordering and Arknights integrated-strategy help.
-applies_to: cwd=C:\Users\605\Documents\Codex\CHAT with GPT and research-only chats; reuse_rule=Recheck platform data and sources; do not promote incomplete or secondary-source claims as verified.
+scope: Evidence-led research on NetEase server ordering and current Arknights Garrison Protocol/Matrix behavior.
+applies_to: cwd=C:\Users\605\Documents\Codex\2026-10-22\new-chat; reuse_rule=Recheck current game season and platform responses; treat the Matrix UI conclusion as unconfirmed until tested in game.
 
-## Task 1: NetEase equal-popularity ordering
-
-### rollout_summary_files
-
-- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_ranking_and_arknights_terrain_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-29T03:14:46+00:00, API order confirmed; formula remains undisclosed)
-
-### keywords
-
-- 网易云, popularity=100, api/artist/top/song, api/v1/artist/songs, order=hot, 评论数, 塞壬唱片-MSR, Speed of Light, 铁花飞
-
-## Task 2: 明日方舟肉鸽种子/参数预设入口
+## Task 1: NetEase equal-heat ordering
 
 ### rollout_summary_files
 
-- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_ranking_and_arknights_terrain_mechanics.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-10-29T03:14:46+00:00, historical feature; unavailable after 2026-03-03)
+- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_tie_order_and_arknights_garrison_strategies.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-11-26T11:10:24+00:00, partial: returned order verified; internal tie-break undocumented)
 
 ### keywords
 
-- 明日方舟, 集成战略, 界园, 参数预设, 预设模式, 启用参数, 常规行动, 种子, 机械师园圃
+- 网易云, popularity=100, score=100, /api/v1/artist/songs, order=hot, 塞壬唱片-MSR, 铁花飞, Speed of Light, 评论数
+
+## Task 2: Garrison Protocol 精准奥术 / 不屈 strategy
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_tie_order_and_arknights_garrison_strategies.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-11-26T11:10:24+00:00, current pact/build guidance)
+
+### keywords
+
+- 卫戍协议, 精准, 奥术, 不屈, 霍尔海雅, 圣聆初雪, 森蚺, 大丑, 砾, PRTS盟约记录
+
+## Task 3: Holographic Combat Matrix historical settlement replay
+
+### rollout_summary_files
+
+- rollout_summaries/2026-10-12T11-21-15-0NtU-netease_tie_order_and_arknights_garrison_strategies.md (cwd=\\?\C:\Users\605\Documents\Codex\2026-10-22\new-chat, rollout_path=\\?\C:\Users\605\.codex\sessions\2026\10\12\rollout-2026-10-12T19-59-03-01a12fd8-6c2e-79d0-ad7d-1a99f236e032_01a12ffb-0abe-75f2-9fed-e757aa81a3d5.jsonl, updated_at=2026-11-26T11:10:24+00:00, uncertain: no in-game UI verification)
+
+### keywords
+
+- 全息作战矩阵, 回顾焦点, 危机合约, 历史结算, completed indicators, Terminal, Cycle Challenges
 
 ## User preferences
 
-- when platform scores tie, the user corrected: "不对不对，你研究一下网易云相同热度是怎么排的" -> reproduce displayed/API order or state the formula is undisclosed; do not substitute comments as ranking. [Task 1]
-- when asking "肉鸽如何使用种子开局，我没找到相关界面" -> give the feature's official name, exact route, unlock condition, and whether it is currently available. [Task 2]
+- when platform scores tie, the user corrected: "不对不对，你研究一下网易云相同热度是怎么排的" -> reproduce the displayed/server order rather than substitute comment counts. [Task 1]
+- when asking game-build follow-ups, the user asked for exact substitutions and strategy details -> give operator roles, activation thresholds, layer caps, and fallback cards rather than generic archetype advice. [Task 2]
+- when clarifying “就是大合约里面那个‘回顾焦点’” -> distinguish replaying a historical highest-score settlement from viewing medals/completed indicators. [Task 3]
 
 ## Reusable knowledge
 
-- NetEase popularity/pop=100 does not resolve rank. /api/artist/{id} or /api/v1/artist/songs?id={id}&order=hot gives a single artist's hot-work order; comment total is a separate metric and cannot reconstruct it. [Task 1]
-- 界园的种子功能正式名为“参数预设/预设模式”：历史路径是主题大厅 → “常规行动”上方 → “启用参数”；需先完成一局常规行动，且限时开放已于 2026-03-03 结束，所以当前找不到入口正常。不要与黑流树海机械师园圃的自然物“种子”混淆。 [Task 2]
+- `popularity=100` and `score=100` are exposed/rounded fields, not a tie-break. `/api/v1/artist/songs?id=32540734&order=hot` reproduced artist-page order; its first six were 铁花飞, Speed of Light, 酸橙色信笺, 直到大地变成一颗酸橙, Little Wish, 浸春芜. Comment totals cannot reconstruct that order. [Task 1]
+- 精准 and 奥术 both activate at two units; pursue three distinct units of each only when the board supports it. 霍尔海雅 is the core tier-IV layer engine; 圣聆初雪 is a viable later 奥术 carry and can replace 卡达 without forcing three 谢拉格. [Task 2]
+- 不屈 beginner route: 森蚺 strategy's 大丑 can repeatedly defeat 砾 with friendly fire to stack 不屈 and reach reliable ground-unit redeployment; 百炼嘉维尔“意志鼓舞” and 大帝“加急调派” are alternatives. [Task 2]
+- Crisis Contract documents “回顾焦点” as replaying a historical highest-score settlement without a new record. Matrix sources document permanent batches, scores, medals, and completed indicators, but no equivalent replay control. [Task 3]
 
 ## Failures and how to do differently
 
-- Do not infer a cross-artist/global Top 20 from a single artist's hot ordering. The formal NetEase ranking formula remains unverified. [Task 1]
+- Do not sort capped popularity by comments or infer a cross-artist/global Top 20 from separate artist hot lists; preserve `order=hot` and label its internal rule undocumented. [Task 1]
+- Verify exact season/sequence, operator skill assignments, and deployment-direction wording before a fixed Protocol build; terminology/effects may change. [Task 2]
+- Documentation silence does not establish Matrix lacks the feature: inspect a completed Matrix result UI before a definitive answer. [Task 3]
 # Task Group: MAA Arknights Assistant roguelike resume-existing-exploration analysis
 
 scope: Determine whether MAA can take over an already-running Integrated Strategies exploration without abandoning it; distinguish source-chain inference from device-tested behavior.

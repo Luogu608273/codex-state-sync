@@ -1,6 +1,6 @@
 thread_id: 01a1aae8-a323-7be2-8cec-4c49ec7b99a9
 updated_at: 2026-11-05T09:17:47+00:00
-rollout_path: C:\Users\605\.codex\sessions\2026\11\05\rollout-2026-11-05T16-52-20-01a1aae8-a323-7be2-8cec-4c49ec7b99a9.jsonl
+rollout_path: \\?\C:\Users\605\.codex\sessions\2026\11\05\rollout-2026-11-05T16-52-20-01a1aae8-a323-7be2-8cec-4c49ec7b99a9.jsonl
 cwd: \\?\C:\Users\605\Documents\Codex\2026-11-05\b-n
 git_branch: main
 
